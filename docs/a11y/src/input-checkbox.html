@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>input[type="checkbox"] | a11y-test</title>
+  <link rel="stylesheet" href="./assets/style.css">
+</head>
+<body>
+	<h1>***</h1>
+	<h2>トグルボタン</h2>
+	<style>
+		@supports(-webkit-appearance: none) or (-moz-appearance: none) {
+			.bl_toggleArea {
+				--tb_text: #000000;
+				--tb_bg: #f8f8fb;
+				--tb_accent: #0031d8;
+				
+				display: flex;
+				flex-flow: row nowrap;
+				gap: 8px;
+				padding: 0;
+				margin: 0;
+			}
+
+			.bl_toggleArea_chkbox{
+				position: relative;
+				flex: none;
+				width: 50px;
+				height: 26px;
+				-webkit-appearance: none;
+				-moz-appearance: none;
+				appearance: none;
+				background-color: #f1f1f4;
+				border: 1px solid #949497;
+				border-radius: 99px;
+
+				&::after {
+					position: absolute;
+					top: 0;
+					right: auto;
+					left: 0;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					width: 24px;
+					height: 24px;
+					content: "";
+					background-color: #ffffff;
+					border: 1px solid #414143;
+					border-radius: 50%;
+					transition: all .3s ease;
+				}
+
+				&:checked {
+					background-color: var(--tb_accent);
+
+					&::after {
+						top: 0;
+						right: 0;
+						left: auto;
+					}
+				}
+			}
+
+			.bl_toggleArea_label {
+				flex: none;
+			}
+		}
+	</style>
+	<div class="bl_toggleArea">
+		<label class="bl_toggleArea_label" for="chk1">Toggle</label>
+		<input class="bl_toggleArea_chkbox" type="checkbox" name="chk1" id="chk1" value="">
+	</div>
+
+	<hr>
+	<h2></h2>
+	<input type="checkbox" name="" id="">
+
+	<article class="ly_result">
+		<section>
+			<h2>概要と目的</h2>
+			<p>ここでは、チェックボックスについての検証を行う</p>
+			<ul>
+				<li>トグルボタン化</li>
+			</ul>
+		</section>
+		<section>
+			<h2>各種検証</h2>
+			<section>
+				<h3>スクリーンリーダー</h3>
+
+				<h4>VoiceOver(MacOS+Chrome)</h4>
+				<h5>デフォルト</h5>
+				<p>きちんと読まれていることがわかる。</p>
+				<ul class="bl_screenReader">
+					<li>デフォルト、下位項目が折りたたまれました、三角形の展開ボタン、グループ</li>
+					<li>デフォルト、字間広く、三角形の展開ボタン、グループ</li>
+				</ul>
+
+				<h4>VoiceOver(MacOS+Safari)</h4>
+				<p></p>
+				<h4>ChromeVox</h4>
+				<p></p>
+			</section>
+			<section>
+				<h3>キー操作</h3>
+				<p>
+					キー操作自体には問題はない。
+					<kbd>Tab</kbd>キーを押すと、summary要素、a要素のそれぞれにフォーカスを移せる。
+				</p>
+			</section>
+		</section>
+		<section>
+			<h2>結論</h2>
+			<p>
+				***
+			</p>
+		</section>
+	</article>
+	<nav>
+		<a href="../index.html">まとめページに戻る</a>
+	</nav>
+  <script src="./assets/main.js"></script>
+</body>
+</html>

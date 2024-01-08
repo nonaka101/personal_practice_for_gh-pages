@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ul ARIA | a11y-test</title>
+  <link rel="stylesheet" href="./assets/style.css">
+	<style>
+		.ul01 {
+			list-style: none;
+		}
+	</style>
+</head>
+<body>
+	<h1>ulタグ ARIA</h1>
+
+	<h2>サンプル１：list-styleにnoneを指定</h2>
+	<ul class="ul01">
+		<li>リスト要素１</li>
+		<li>リスト要素２</li>
+	</ul>
+
+	<hr>
+	<h2>サンプル２：list-styleにnoneを指定し、role指定</h2>
+	<ul class="ul01" role="list">
+		<li>リスト要素１</li>
+		<li>リスト要素２</li>
+	</ul>
+
+	<hr>
+	<h2>サンプル３：list-styleにnoneを指定し、aria-labeledby使用</h2>
+	<span id="ul_label" hidden>ARIA検証リスト</span>
+	<ul class="ul01" aria-labelledby="ul_label">
+		<li>リスト要素１</li>
+		<li>リスト要素２</li>
+	</ul>
+
+	<hr>
+	<h2>サンプル４：list-styleにnoneを指定し、role, aria-labeledby使用</h2>
+	<span id="ul_label2" hidden>ARIA検証リスト</span>
+	<ul class="ul01" role="list" aria-labelledby="ul_label2">
+		<li>リスト要素１</li>
+		<li>リスト要素２</li>
+	</ul>
+
+	<hr>
+	<h2>採用案：リストのタイトルとアイテム</h2>
+	<style>
+		.bl_tagMenu_title {
+			display: block;
+			margin-bottom: 0.2rem;
+			font-size: 0.7rem;
+			color: darkgray;
+		}
+
+		.bl_tagMenu_list {
+			padding: 0;
+			margin: 0;
+			list-style-type: none;
+		}
+
+		.bl_tagMenu_item {
+			margin-bottom: 0.75em;
+			font-size: 0.9rem;
+			font-weight: 700;
+			color: black;
+			text-decoration: none;
+		}
+	</style>
+	<span id="ul_label3" class="bl_tagMenu_title" aria-hidden="true">タイトル欄</span>
+	<ul class="ul01 bl_tagMenu_list" role="list" aria-labelledby="ul_label3">
+		<li class="bl_tagMenu_item">リスト要素１</li>
+		<li class="bl_tagMenu_item">リスト要素２</li>
+	</ul>
+
+	<article class="ly_result">
+		<section>
+			<h2>概要と目的</h2>
+			<p>
+				ここでは、リスト要素に対する ARIAを使用した場合の検証を行う。<br>
+				（特にSafariにおいては、list-style によってリスト認識しなくなる問題がどう影響するのか）
+			</p>
+			<p>
+				また、リスト要素にラベルをつけた場合にどう影響するのかについても調べる。
+			</p>
+			<ul>
+				<li>role 指定による違い</li>
+				<li>上記について更に、aria-labeledby を使用した場合</li>
+			</ul>
+		</section>
+		<section>
+			<h2>各種検証</h2>
+			<section>
+				<h3>スクリーンリーダー</h3>
+				<h4>VoiceOver(MacOS+Chrome)</h4>
+
+				<h5>サンプル１</h5>
+				<p>問題なく動作</p>
+				<ul class="bl_screenReader">
+					<li>リスト２項目</li>
+					<li>リスト要素１、２の１</li>
+					<li>リスト要素２、２の２</li>
+					<li>リストの終わり</li>
+				</ul>
+
+				<h5>サンプル２</h5>
+				<p>問題なく動作（デフォルトのroleと指定が同じため）</p>
+				<ul class="bl_screenReader">
+					<li>リスト２項目</li>
+					<li>リスト要素１、２の１</li>
+					<li>リスト要素２、２の２</li>
+					<li>リストの終わり</li>
+				</ul>
+
+				<h5>サンプル３</h5>
+				<p>問題なく動作、labelledbyのテキストがリスト要素で読まれている</p>
+				<ul class="bl_screenReader">
+					<li>リスト ARIA検証リスト２項目</li>
+					<li>リスト要素１、２の１</li>
+					<li>リスト要素２、２の２</li>
+					<li>リストの終わり</li>
+				</ul>
+
+				<h5>サンプル４</h5>
+				<p>問題なく動作</p>
+				<ul class="bl_screenReader">
+					<li>リスト ARIA検証リスト２項目</li>
+					<li>リスト要素１、２の１</li>
+					<li>リスト要素２、２の２</li>
+					<li>リストの終わり</li>
+				</ul>
+
+				<h5>採用案</h5>
+				<p>タイトル欄を表示しつつ、スクリーンリーダーでは繰り返しを避けられている</p>
+				<ul class="bl_screenReader">
+					<li>リスト タイトル欄 ２項目</li>
+					<li>リスト要素１、２の１</li>
+					<li>リスト要素２、２の２</li>
+					<li>リストの終わり</li>
+				</ul>
+
+				<h4>VoiceOver(MacOS+Safari)</h4>
+
+				<h5>サンプル１</h5>
+				<p>リストとして認識していない</p>
+				<ul class="bl_screenReader">
+					<li>リスト要素１</li>
+					<li>リスト要素２</li>
+				</ul>
+
+				<h5>サンプル２</h5>
+				<p>roleを明示的に指定すると、他のブラウザと同じように読まれる</p>
+				<ul class="bl_screenReader">
+					<li>リスト２項目</li>
+					<li>リスト要素１、２の１</li>
+					<li>リスト要素２、２の２</li>
+					<li>リストの終わり</li>
+				</ul>
+
+				<h5>サンプル３</h5>
+				<p>aria-labelledby の要素は読まれるが、roleはグループと認識している</p>
+				<ul class="bl_screenReader">
+					<li>ARIA検証リスト、グループ</li>
+					<li>リスト要素１、２の１</li>
+					<li>リスト要素２、２の２</li>
+					<li>終わり、ARIA検証リスト、グループ</li>
+				</ul>
+
+				<h5>サンプル４</h5>
+				<p>Chrome と同じ出力が為された</p>
+				<ul class="bl_screenReader">
+					<li>リスト ARIA検証リスト２項目</li>
+					<li>リスト要素１、２の１</li>
+					<li>リスト要素２、２の２</li>
+					<li>リストの終わり</li>
+				</ul>
+
+				<h5>採用案</h5>
+				<p>タイトル欄を表示しつつ、スクリーンリーダーでは繰り返しを避けられている</p>
+				<ul class="bl_screenReader">
+					<li>リスト タイトル欄 ２項目</li>
+					<li>リスト要素１、２の１</li>
+					<li>リスト要素２、２の２</li>
+					<li>リストの終わり</li>
+				</ul>
+
+				<h4>ChromeVox</h4>
+				<p></p>
+			</section>
+			<section>
+				<h3>キー操作</h3>
+				<p>
+					キー操作自体には問題はない。
+					<kbd>Tab</kbd>キーを押すと、summary要素、a要素のそれぞれにフォーカスを移せる。
+				</p>
+			</section>
+		</section>
+		<section>
+			<h2>結論</h2>
+			<p>
+				ブラウザ間で同じ動作を保つためには、Safari用にリスト要素に role="list" 指定が必要となる。<br>
+				（※ただし、それがリストであるとユーザーに認識させる必要がない場合は、そこまで神経質になる必要はないだろう）
+			</p>
+			<p>
+				リストに名前をつける場合には、aria-labelledby による指定で可能。
+				これはhidden属性や aria-hiddenを使用しても読み上げが可能。
+			</p>
+			<p>
+				採用案では、リストタイトルを表示し、そのリストが何であるかをわかりやすくした。
+				一方でスクリーンリーダーでは、同じ内容が繰り返しにならないよう、aria-hiddenを使って調整を施している。
+			</p>
+		</section>
+	</article>
+	<nav>
+		<a href="../index.html">まとめページに戻る</a>
+	</nav>
+  <script src="./assets/main.js"></script>
+</body>
+</html>

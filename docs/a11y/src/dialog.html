@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>dialog | a11y-test</title>
+  <link rel="stylesheet" href="./assets/style.css">
+	<style></style>
+</head>
+<body>
+	<h1>dialogタグ</h1>
+
+	<h2>最小構成</h2>
+	<button
+		id="btn_a"
+		type="button"
+		>ダイアログを開く
+	</button>
+	<dialog id="menu">
+		<h2>Menu</h2>
+		<p>ダイアログの要素です</p>
+		<ul>
+			<li>最小構成</li>
+		</ul>
+		<button type="button" id="btn_b">閉じる</button>
+	</dialog>
+	<script>
+		const menu = document.getElementById('menu');
+		const btn_a = document.getElementById("btn_a");
+		btn_a.addEventListener('click', () => {
+			menu.showModal();
+		});
+		const btn_b = document.getElementById('btn_b');
+		btn_b.addEventListener('click', () => {
+			menu.close();
+		});
+	</script>
+
+	<hr>
+	<h2>サンプル１：aria-control</h2>
+	<button
+		id="btn_1a"
+		type="button"
+		aria-controls="menu1"
+		>ダイアログを開く
+	</button>
+	<dialog id="menu1">
+		<h2>Menu1</h2>
+		<p>ダイアログの要素です</p>
+		<ul>
+			<li>aria-controls指定</li>
+		</ul>
+		<button type="button" id="btn_1b">閉じる</button>
+	</dialog>
+	<script>
+		const menu1 = document.getElementById('menu1');
+		const btn_1a = document.getElementById("btn_1a");
+		btn_1a.addEventListener('click', () => {
+			menu1.showModal();
+		});
+		const btn_1b = document.getElementById('btn_1b');
+		btn_1b.addEventListener('click', () => {
+			menu1.close();
+		});
+	</script>
+
+	<hr>
+	<h2>サンプル２：popovertarget</h2>
+	<button
+		id="btn_2a"
+		type="button"
+		popovertarget="menu2"
+		popovertargetaction="show"
+		>ダイアログを開く
+	</button>
+	<dialog id="menu2" aria-labelledby="menu2_desc">
+		<h2>Menu2</h2>
+		<p id="menu2_desc">ダイアログの要素です</p>
+		<ul>
+			<li>popovertarget指定</li>
+			<li>popovertargetaction指定</li>
+			<li>dialogにaria-labeledby指定</li>
+			<li>閉じるボタンにautofocus付与</li>
+		</ul>
+		<button type="button" id="btn_2b" autofocus>閉じる</button>
+	</dialog>
+	<script>
+		const menu2 = document.getElementById('menu2');
+		const btn_2a = document.getElementById("btn_2a");
+		btn_2a.addEventListener('click', () => {
+			menu2.showModal();
+		});
+		const btn_2b = document.getElementById('btn_2b');
+		btn_2b.addEventListener('click', () => {
+			menu2.close();
+		});
+	</script>
+
+	<hr>
+	<h2>サンプル３：aria-haspopup</h2>
+	<button
+		id="btn_3a"
+		type="button"
+		aria-haspopup="true"
+	>
+		ダイアログを開く
+	</button>
+	<dialog id="menu3" aria-labelledby="menu3_desc">
+		<h2>Menu2</h2>
+		<p id="menu3_desc">ダイアログの要素です</p>
+		<ul>
+			<li>aria-haspopup を使用</li>
+			<li>dialogにaria-labeledby指定</li>
+			<li>閉じるボタンにautofocus付与</li>
+		</ul>
+		<button type="button" id="btn_3b" autofocus>閉じる</button>
+	</dialog>
+	<script>
+		const menu3 = document.getElementById('menu3');
+		const btn_3a = document.getElementById("btn_3a");
+		btn_3a.addEventListener('click', () => {
+			menu3.showModal();
+		});
+		const btn_3b = document.getElementById('btn_3b');
+		btn_3b.addEventListener('click', () => {
+			menu3.close();
+		});
+	</script>
+
+
+	<article class="ly_result">
+		<section>
+			<h2>概要と目的</h2>
+			<p>ここでは、dialogについての検証を行う</p>
+			<ul>
+				<li>`aria-controls` の影響</li>
+				<li>`popovertarget(popovertargetaction) の影響`</li>
+				<li>ダイアログ展開時のフォーカスや読み上げ範囲</li>
+			</ul>
+		</section>
+		<section>
+			<h2>各種検証</h2>
+			<section>
+				<h3>スクリーンリーダー</h3>
+				<h4>VoiceOver(MacOS+Chrome)</h4>
+				<h5>最小構成</h5>
+				<p>きちんと読まれていることがわかる。</p>
+				<ul class="bl_screenReader">
+					<li>デフォルト、下位項目が折りたたまれました、三角形の展開ボタン、グループ</li>
+					<li>デフォルト、字間広く、三角形の展開ボタン、グループ</li>
+				</ul>
+
+				<h4>VoiceOver(MacOS+Safari)</h4>
+				<p></p>
+				<h4>ChromeVox</h4>
+				<p></p>
+			</section>
+			<section>
+				<h3>キー操作</h3>
+				<p>
+					キー操作自体には問題はない。
+					<kbd>Tab</kbd>キーを押すと、summary要素、a要素のそれぞれにフォーカスを移せる。
+				</p>
+			</section>
+		</section>
+		<section>
+			<h2>結論</h2>
+			<p>
+				***
+			</p>
+			<p>
+				note: トークン指定は `menu` か `dialog` になるか？<br>
+				使うべきでないと判断、これはラベルが既にある場合は「メニューボタン　メニューポップアップ」と読み上げられてしまう。<br>
+				`true` のみだといいのかも？
+			</p>
+		</section>
+	</article>
+	<nav>
+		<a href="../index.html">まとめページに戻る</a>
+	</nav>
+  <script src="./assets/main.js"></script>
+</body>
+</html>

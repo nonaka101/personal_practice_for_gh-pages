@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document | a11y-test</title>
+  <link rel="stylesheet" href="./assets/style.css">
+</head>
+<body>
+	<h1>***</h1>
+	<h2></h2>
+
+	<hr>
+	<h2></h2>
+
+	<article class="ly_result">
+		<section>
+			<h2>概要と目的</h2>
+			<p>ここでは、***についての検証を行う</p>
+			<ul>
+				<li>＊＊＊</li>
+			</ul>
+		</section>
+		<section>
+			<h2>各種検証</h2>
+			<section>
+				<h3>スクリーンリーダー</h3>
+
+				<h4>VoiceOver(MacOS+Chrome)</h4>
+				<h5>デフォルト</h5>
+				<p>きちんと読まれていることがわかる。</p>
+				<ul class="bl_screenReader">
+					<li>デフォルト、下位項目が折りたたまれました、三角形の展開ボタン、グループ</li>
+					<li>デフォルト、字間広く、三角形の展開ボタン、グループ</li>
+				</ul>
+
+				<h4>VoiceOver(MacOS+Safari)</h4>
+				<p></p>
+				<h4>ChromeVox</h4>
+				<p></p>
+			</section>
+			<section>
+				<h3>キー操作</h3>
+				<p>
+					キー操作自体には問題はない。
+					<kbd>Tab</kbd>キーを押すと、summary要素、a要素のそれぞれにフォーカスを移せる。
+				</p>
+			</section>
+		</section>
+		<section>
+			<h2>結論</h2>
+			<p>
+				***
+			</p>
+		</section>
+	</article>
+	<nav>
+		<a href="../index.html">まとめページに戻る</a>
+	</nav>
+  <script src="./assets/main.js"></script>
+</body>
+</html>

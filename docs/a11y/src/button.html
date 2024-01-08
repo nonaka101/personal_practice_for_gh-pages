@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document | a11y-test</title>
+  <link rel="stylesheet" href="./style.css">
+	<style>
+		button {
+			padding: 0;
+			font: inherit;
+			color: inherit;
+			background: none;
+			border: none;
+			outline: none;
+			cursor: pointer;
+		}
+
+		.btn {
+			display: flex;
+			flex-direction: column;
+			gap: 2px;
+			align-items: center;
+			justify-content: center;
+			width: 48px;
+			height: 48px;
+			font-size: 10px;
+			color: #000;
+			text-decoration: none;
+		}
+	</style>
+</head>
+<body>
+	<h1>button + SVG</h1>
+	<h2>サンプル1: SVGのみ、ARIA関係なし</h2>
+	<button type="button" class="btn">
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+		<path fill-rule="evenodd" clip-rule="evenodd"
+			d="M21 5.5H3V7H21V5.5ZM21 11.2998H3V12.7998H21V11.2998ZM3 17H21V18.5H3V17Z"></path>
+		</svg>
+	</button>
+
+	<hr>
+	<h2>サンプル2: SVGに aria-label 付与</h2>
+	<button type="button" class="btn">
+		<svg aria-label="メニュー" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+		<path fill-rule="evenodd" clip-rule="evenodd"
+			d="M21 5.5H3V7H21V5.5ZM21 11.2998H3V12.7998H21V11.2998ZM3 17H21V18.5H3V17Z"></path>
+		</svg>
+	</button>
+
+	<hr>
+	<h2>サンプル3: SVGに aria-labelledby を付与し、span要素を追加</h2>
+	<button type="button" class="btn">
+		<svg aria-labelledby="btn-sample3"
+			xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"
+		>
+			<path fill-rule="evenodd" clip-rule="evenodd"
+				d="M21 5.5H3V7H21V5.5ZM21 11.2998H3V12.7998H21V11.2998ZM3 17H21V18.5H3V17Z"></path>
+		</svg>
+		<span id="btn-sample3">メニュー</span>
+	</button>
+
+	<hr>
+	<h2>SVGに aria-label 付与</h2>
+	<button type="button" class="btn">
+		<svg role="graphics-symbol img" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+		height="24">
+		<path fill-rule="evenodd" clip-rule="evenodd"
+			d="M21 5.5H3V7H21V5.5ZM21 11.2998H3V12.7998H21V11.2998ZM3 17H21V18.5H3V17Z"></path>
+		</svg>
+		メニュー
+	</button>
+
+	<hr>
+	<h2>SVGに aria-label 付与</h2>
+	<button type="button" class="btn">
+		<svg role="graphics-symbol img" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+		height="24">
+		<path fill-rule="evenodd" clip-rule="evenodd"
+			d="M21 5.5H3V7H21V5.5ZM21 11.2998H3V12.7998H21V11.2998ZM3 17H21V18.5H3V17Z"></path>
+		</svg>
+		メニュー
+	</button>
+
+	<hr>
+	<h2>完成形</h2>
+	<button type="button" class="btn">
+		<svg role="graphics-symbol img" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+		height="24">
+		<path fill-rule="evenodd" clip-rule="evenodd"
+			d="M21 5.5H3V7H21V5.5ZM21 11.2998H3V12.7998H21V11.2998ZM3 17H21V18.5H3V17Z"></path>
+		</svg>
+		メニュー
+	</button>
+
+	<article class="ly_result">
+		<section>
+			<h2>概要と目的</h2>
+			<p>ここでは、インラインSVGを用いたbuttonタグについての検証を行う（表示するラベルはなし）</p>
+			<ul>
+				<li>aria-label と titleタグの違い</li>
+				<li>aria-label をbuttonタグ、svgタグどちらに使うべきか</li>
+				<li>SVGをAOM上でどう取り扱うべきか</li>
+			</ul>
+		</section>
+		<section>
+			<h2>各種検証</h2>
+			<section>
+				<h3>スクリーンリーダー</h3>
+
+				<h4>VoiceOver(MacOS+Chrome)</h4>
+				<h5>デフォルト</h5>
+				<p>きちんと読まれていることがわかる。</p>
+				<ul class="bl_screenReader">
+					<li>デフォルト、下位項目が折りたたまれました、三角形の展開ボタン、グループ</li>
+					<li>デフォルト、字間広く、三角形の展開ボタン、グループ</li>
+				</ul>
+
+				<h4>VoiceOver(MacOS+Safari)</h4>
+				<p></p>
+				<h4>ChromeVox</h4>
+				<p></p>
+			</section>
+			<section>
+				<h3>キー操作</h3>
+				<p>
+					キー操作自体には問題はない。
+					<kbd>Tab</kbd>キーを押すと、summary要素、a要素のそれぞれにフォーカスを移せる。
+				</p>
+			</section>
+		</section>
+		<section>
+			<h2>結論</h2>
+			<p>
+				***
+			</p>
+		</section>
+	</article>
+	<nav>
+		<a href="../index.html">まとめページに戻る</a>
+	</nav>
+  <script src="./main.js"></script>
+</body>
+</html>

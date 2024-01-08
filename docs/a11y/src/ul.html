@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ul list-style | a11y-test</title>
+  <link rel="stylesheet" href="./assets/style.css">
+</head>
+<body>
+	<h1>ulタグ list-style</h1>
+
+	<h2>デフォルト</h2>
+	<ul>
+		<li>リスト要素１</li>
+		<li>リスト要素２</li>
+	</ul>
+
+	<hr>
+	<h2>サンプル１：<code>list-style: none;</code></h2>
+	<style>
+		.ul01 {
+			list-style: none;
+		}
+	</style>
+	<ul class="ul01">
+		<li>リスト要素１</li>
+		<li>リスト要素２</li>
+	</ul>
+
+	<hr>
+	<h2>サンプル２：<code>list-style-type: none;</code></h2>
+	<style>
+		.ul02 {
+			list-style-type: none;
+		}
+	</style>
+	<ul class="ul02">
+		<li>リスト要素１</li>
+		<li>リスト要素２</li>
+	</ul>
+
+	<article class="ly_result">
+		<section>
+			<h2>概要と目的</h2>
+			<p>ここでは、***についての検証を行う</p>
+			<ul>
+				<li>summaryタグにインタラクティブ要素（例: aタグ）を用いることの問題</li>
+				<li>インライン要素を用いてもダメかの確認</li>
+				<li>アコーディオンとしての表現方法を探す</li>
+			</ul>
+		</section>
+		<section>
+			<h2>各種検証</h2>
+			<section>
+				<h3>スクリーンリーダー</h3>
+				<h4>VoiceOver(MacOS+Chrome)</h4>
+
+				<h5>デフォルト</h5>
+				<p>「・」（行等記号）の読みが入る</p>
+				<ul class="bl_screenReader">
+					<li>リスト２項目</li>
+					<li>・　リスト要素１、２の１</li>
+					<li>・　リスト要素２、２の２</li>
+					<li>リストの終わり</li>
+				</ul>
+
+				<h5>サンプル１</h5>
+				<p>「・」（行等記号）の読みが入らない</p>
+				<ul class="bl_screenReader">
+					<li>リスト２項目</li>
+					<li>リスト要素１、２の１</li>
+					<li>リスト要素２、２の２</li>
+					<li>リストの終わり</li>
+				</ul>
+
+				<h5>サンプル２</h5>
+				<p>「・」（行等記号）の読みが入らない</p>
+				<ul class="bl_screenReader">
+					<li>リスト２項目</li>
+					<li>リスト要素１、２の１</li>
+					<li>リスト要素２、２の２</li>
+					<li>リストの終わり</li>
+				</ul>
+
+				<h4>VoiceOver(MacOS+Safari)</h4>
+
+				<h5>デフォルト</h5>
+				<p>「・」（行等記号）の読みが入る</p>
+				<ul class="bl_screenReader">
+					<li>リスト２項目</li>
+					<li>・　リスト要素１、２の１</li>
+					<li>・　リスト要素２、２の２</li>
+					<li>リストの終わり</li>
+				</ul>
+
+				<h5>サンプル１</h5>
+				<p>リストとして認識されていない</p>
+				<ul class="bl_screenReader">
+					<li>リスト要素１</li>
+					<li>リスト要素２</li>
+				</ul>
+
+				<h5>サンプル２</h5>
+				<p>リストとして認識されていない</p>
+				<ul class="bl_screenReader">
+					<li>リスト要素１</li>
+					<li>リスト要素２</li>
+				</ul>
+
+				<h4>ChromeVox</h4>
+				<p></p>
+			</section>
+			<section>
+				<h3>キー操作</h3>
+				<p>
+					キー操作自体には問題はない。
+					<kbd>Tab</kbd>キーを押すと、summary要素、a要素のそれぞれにフォーカスを移せる。
+				</p>
+			</section>
+		</section>
+		<section>
+			<h2>結論</h2>
+			<p>
+				<a
+					href="https://developer.mozilla.org/ja/docs/Web/CSS/list-style#%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B7%E3%83%93%E3%83%AA%E3%83%86%E3%82%A3%E3%81%AE%E8%80%83%E6%85%AE"
+				>MDNの記事
+				</a>にあるように、<code>list-style, list-style-type</code> によりリスト要素として認識されなくなる。
+			</p>
+			<p>
+				ただこれは調べる限りだと意図的にそうしているらしく、「わざわざリストであることを伝える必要があるのか？」と
+				言うことを考える必要がある。
+			</p>
+			<p>
+				リストであることを意図して伝えたい場合は、<code>ARIA-role</code>を使えば問題ないようである。
+			</p>
+		</section>
+	</article>
+	<nav>
+		<a href="../index.html">まとめページに戻る</a>
+	</nav>
+  <script src="./assets/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card Component | a11y-test</title>
+  <link rel="stylesheet" href="./assets/style.css">
+</head>
+<body>
+	<h1>カード</h1>
+	<h2>サンプル１：サムネイル→タイトル→要旨→日付→カテゴリ</h2>
+
+	<hr>
+	<h2>サンプル２：タイトル→要旨→日付→サムネイル→カテゴリ</h2>
+
+	<article class="ly_result">
+		<section>
+			<h2>概要と目的</h2>
+			<p>ここでは、カード（コンポーネント）についての検証を行う</p>
+			<ul>
+				<li>aタグで囲った場合のスクリーンリーダーでの読み</li>
+				<li>適切な要素の並びについて</li>
+				<li>メインとメタ情報の切り分け</li>
+			</ul>
+		</section>
+		<section>
+			<h2>各種検証</h2>
+			<section>
+				<h3>スクリーンリーダー</h3>
+
+				<h4>VoiceOver(MacOS+Chrome)</h4>
+				<h5>デフォルト</h5>
+				<p>きちんと読まれていることがわかる。</p>
+				<ul class="bl_screenReader">
+					<li>デフォルト、下位項目が折りたたまれました、三角形の展開ボタン、グループ</li>
+					<li>デフォルト、字間広く、三角形の展開ボタン、グループ</li>
+				</ul>
+
+				<h4>VoiceOver(MacOS+Safari)</h4>
+				<p></p>
+				<h4>ChromeVox</h4>
+				<p></p>
+			</section>
+			<section>
+				<h3>キー操作</h3>
+				<p>
+					キー操作自体には問題はない。
+					<kbd>Tab</kbd>キーを押すと、summary要素、a要素のそれぞれにフォーカスを移せる。
+				</p>
+			</section>
+		</section>
+		<section>
+			<h2>結論</h2>
+			<p>
+				***
+			</p>
+		</section>
+	</article>
+	<nav>
+		<a href="../index.html">まとめページに戻る</a>
+	</nav>
+  <script src="./assets/main.js"></script>
+</body>
+</html>

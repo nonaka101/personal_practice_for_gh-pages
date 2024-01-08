@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Details and Summary | a11y-test</title>
+  <link rel="stylesheet" href="./assets/style.css">
+</head>
+<body>
+	<h1>detailsタグとsummaryタグ</h1>
+	<h2>デフォルト</h2>
+	<details>
+		<summary>デフォルト</summary>
+		<p>デフォルト状態の要素です。</p>
+	</details>
+
+  <hr>
+	<h2>サンプル１</h2>
+  <details>
+    <summary><a href="#">サンプル１ : summary全体がaタグ</a></summary>
+    <p>summary内にインタラクティブ要素（aタグ）を使用したケースです</p>
+  </details>
+
+  <hr>
+	<h2>サンプル２</h2>
+  <details>
+    <summary>サンプル２ : summaryの一部にリンク挿入<a href="#">[link]</a></summary>
+    <p>
+      summary内にインタラクティブ要素（aタグ）を使用したケースです。
+      ここではsummary要素は、テキストノードとインライン要素を持ちます。
+    </p>
+  </details>
+
+	<article class="ly_result">
+		<section>
+			<h2>概要と目的</h2>
+			<p>ここでは、detailsタグ（及び summaryタグ）についての検証を行う</p>
+			<ul>
+				<li>summaryタグにインタラクティブ要素（例: aタグ）を用いることの問題</li>
+				<li>インライン要素を用いてもダメかの確認</li>
+				<li>アコーディオンとしての表現方法を探す</li>
+			</ul>
+		</section>
+		<section>
+			<h2>各種検証</h2>
+			<section>
+				<h3>スクリーンリーダー</h3>
+
+				<h4>VoiceOver(MacOS+Chrome)</h4>
+				<h5>デフォルト</h5>
+				<p>きちんと読まれていることがわかる。</p>
+				<ul class="bl_screenReader">
+					<li>デフォルト、下位項目が折りたたまれました、三角形の展開ボタン、グループ</li>
+					<li>デフォルト、字間広く、三角形の展開ボタン、グループ</li>
+				</ul>
+
+				<h5>サンプル１</h5>
+				<p>
+					サマリー要素として読まれる。
+					操作者はリンクがあることを認識できないし、リンクを操作することもできない。
+				</p>
+				<ul class="bl_screenReader">
+					<li>サンプル１ : summary全体がaタグ、下位項目が折りたたまれました、三角形の展開ボタン、グループ</li>
+					<li>サンプル１ : summary全体がaタグ、字間広く、三角形の展開ボタン、グループ</li>
+				</ul>
+
+				<h5>サンプル２</h5>
+				<p>
+					サマリー要素として読まれる。
+					操作者はリンクがあることを認識できないし、リンクを操作することもできない。
+				</p>
+				<ul class="bl_screenReader">
+					<li>サンプル２ : summaryの一部にリンク挿入[link]、下位項目が折りたたまれました、三角形の展開ボタン、グループ</li>
+					<li>サンプル２ : summaryの一部にリンク挿入[link]、字間広く、三角形の展開ボタン、グループ</li>
+				</ul>
+
+				<h4>ChromeVox</h4>
+				<p></p>
+			</section>
+			<section>
+				<h3>キー操作</h3>
+				<p>
+					キー操作自体には問題はない。
+					<kbd>Tab</kbd>キーを押すと、summary要素、a要素のそれぞれにフォーカスを移せる。
+				</p>
+			</section>
+		</section>
+		<section>
+			<h2>結論</h2>
+			<p>
+				`summary`タグは `role="button"` であるため、中にインタラクティブ要素を入れても無視されることになる。<br>
+				`summary` 内は、純粋なテキストのみにしておくべきだろう。
+			</p>
+			<p>
+				親子関係があるカテゴリ一覧を details, summary を使ってアコーディオンにする場合は、
+				親となる要素を summary にリンク付きで入れるのではなく、親要素のテキストは summary に入れ、
+				リンク要素は格納要素内に別に作るべきだろう。
+			</p>
+
+			<!-- summaryのテキストとリンクを切り離して表現 -->
+			<details>
+				<summary>親カテゴリ</summary>
+				<ul>
+					<li><a href="#">親カテゴリ</a></li>
+					<li><a href="#">子カテゴリ１</a></li>
+					<li><a href="#">子カテゴリ２</a></li>
+				</ul>
+			</details>
+
+			<p>これなら親子関係を維持しつつ、親カテゴリにもリンクを付与することができる。</p>
+		</section>
+	</article>
+	<nav>
+		<a href="../index.html">まとめページに戻る</a>
+	</nav>
+  <script src="./assets/main.js"></script>
+</body>
+</html>
