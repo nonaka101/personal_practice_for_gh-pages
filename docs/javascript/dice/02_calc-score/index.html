@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>02 - Calc score | dice</title>
+	<link rel="stylesheet" href="./score.css">
+</head>
+<body>
+	<form action="#">
+		<label>
+			<span>5桁の数値（各桁1〜6内でソートすること）</span>
+			<input type="text" name="n" id="num" inputmode="numeric" pattern="[1-6]{5}">
+		</label>
+		<button type="button" id="btn">Calc</button>
+	</form>
+	<output id="ans"></output>
+	<nav>
+		<a href="../index.html">まとめページに戻る</a>
+	</nav>
+	<script src="./calc-score.js"></script>
+	<script>
+		const btn = document.getElementById('btn');
+		const inputNum = document.getElementById('num');
+		const result = document.getElementById('ans');
+
+		const scoreName = [
+			'chance',
+			'aces', 'twos', 'threes', 'fours', 'fives', 'sixes',
+			'full house', 'three of a kind', 'four of a kind', 'yahtzee',
+			'short straight', 'large straight'
+		];
+
+		btn.addEventListener('click',()=>{
+			result.textContent = '';
+			let n = parseInt(inputNum.value);
+			let s = calcScore(n);
+			let matchName = [];
+			for(let i = 0; i < scoreName.length; i++){
+				if(s[i] === true){
+					matchName.push(scoreName[i]);
+				}
+			}
+			result.textContent = matchName;
+		})
+	</script>
+</body>
+</html>
