@@ -86,8 +86,69 @@ function calcScore (num) {
 		})
 	}
 
+	// この段階で、判定済みの `categories[]` が完成
+
 	/**
-	 *
+	 * 点数計算
+	 * + 全ダイスの合計値: chance, three of a kind, four of a kind
+	 * + 特定のダイスの合計値: (全ての Upper section)
+	 * + 25: Full House
+	 * + 30: Short straight
+	 * + 40: Large straight
+	 * + 50: Yahtzee
 	 */
-	return categories;
+
+	const scoreName = [
+		'chance',						//  0
+		'aces',							//  1
+		'twos',							//  2
+		'threes',						//  3
+		'fours',						//  4
+		'fives',						//  5
+		'sixes',						//  6
+		'full house',				//  7
+		'three of a kind',	//  8
+		'four of a kind',		//  9
+		'yahtzee',					// 10
+		'short straight',		// 11
+		'large straight'		// 12
+	];
+
+	let resultArray = [];
+	const allSum = [0, 8, 9];
+	const targetSum = [1, 2, 3, 4, 5, 6];
+	const fixedPoint = [[7, 25], [10, 50], [11, 30], [12, 40]];
+
+	let total = 0;
+	for(const d of dices){
+		total += d;
+	}
+
+	allSum.forEach((i) => {
+		if(categories[i]){
+			resultArray.push([scoreName[i], total]);
+		} else {
+			resultArray.push([scoreName[i], 0]);
+		}
+	})
+
+	targetSum.forEach((i) => {
+		if(categories[i]){
+			const filteredArray = dices.filter((item) => item !== i);
+			const targetDices = dices.length - filteredArray.length;
+			resultArray.push([scoreName[i], i * targetDices]);
+		} else {
+			resultArray.push([scoreName[i], 0]);
+		}
+	})
+
+	for(let arr of fixedPoint){
+		if(categories[arr[0]]){
+			resultArray.push([scoreName[arr[0]], arr[1]]);
+		} else {
+			resultArray.push([scoreName[arr[0]], 0]);
+		}
+	}
+
+	return resultArray;
 }
