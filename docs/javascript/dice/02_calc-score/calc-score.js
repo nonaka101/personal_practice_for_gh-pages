@@ -15,10 +15,11 @@ function calcScore (num) {
 	/**
 	 * 役の判定
 	 * 1. 全役の判定を管理する配列を用意
-	 * 2. アッパー側は単純なループ処理
-	 * 3. ロウワー側は種類数に応じて処理を分岐
-	 * 		- 種類数が 3 以下の場合は、kind系（+ yahtzee）、FullHouse
-	 * 		- 種類数が 4 以上の場合は、straight系
+	 * 2. （chance 除く）各役の条件を満たすか判定し、フラグ立てしていく
+	 * 		+ アッパー側は単純なループ処理
+	 * 		+ ロウワー側は種類数に応じて処理を分岐
+	 * 			- 種類数が 3 以下の場合は、kind系（+ yahtzee）、FullHouse
+	 * 			- 種類数が 4 以上の場合は、straight系
 	 */
 	let categories = [
 		true,		// 00:chance
@@ -62,7 +63,7 @@ function calcScore (num) {
 			}
 		}
 		switch(maxCount){
-			// 注：`break` なしは意図的、`count=5` の場合 4,3 の内容も満たすため
+			// 注：`break` なしは意図的、`maxCount=4` の場合 3,2 の内容も満たすため
 			case 4:
 				categories[10] = true;
 			case 3:
