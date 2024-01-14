@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>04 - Assy 02-03 | dice</title>
-	<link rel="stylesheet" href="./dice.css">
-	<link rel="stylesheet" href="./score.css">
+	<link rel="stylesheet" href="./yahtzee.css">
 </head>
 <body>
 	<form action="#">
@@ -13,47 +12,12 @@
 		</div>
 		<!-- /.js_dice_wrapper -->
 		<button type="button" id="btn-roll" class="js_btnRoll">Roll</button>
-
-		<!-- score -->
-		<label>
-			<span>5桁の数値（各桁1〜6内でソートすること）</span>
-			<input type="text" name="n" id="num" inputmode="numeric" pattern="[1-6]{5}">
-		</label>
-		<button type="button" id="btn">Calc</button>
 	</form>
-	<ul id="ans"></ul>
+	<ul id="scores"></ul>
 
 	<nav>
 		<a href="../index.html">まとめページに戻る</a>
 	</nav>
-	<script src="./roll-dice-2.js"></script>
-	<script src="./calc-score.js"></script>
-	<script>
-		const btn = document.getElementById('btn');
-		const inputNum = document.getElementById('num');
-		const result = document.getElementById('ans');
-
-		btn.addEventListener('click',()=>{
-			// 前の結果の消去
-			while (result.firstChild) {
-				result.removeChild(result.firstChild);
-			}
-
-			// 計算結果の取得
-			let n = parseInt(inputNum.value);
-			let score = calcScore(n);
-			score = score.sort(function(a,b){
-				return(b[1] - a[1]);
-			});
-
-			console.log(score);
-			// 結果を反映
-			for(let item of score){
-				let ele = document.createElement('li');
-				ele.textContent = item;
-				result.appendChild(ele);
-			}
-		})
-	</script>
+	<script src="./yahtzee.js"></script>
 </body>
 </html>
