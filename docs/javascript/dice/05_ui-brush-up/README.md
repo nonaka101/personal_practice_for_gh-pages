@@ -24,3 +24,36 @@
     - 右に「CPUのスコア」
     - 中央に「現在のターン数 / 全ターン数」
 - 横長の画面
+
+### ダイス面の表示
+
+方法の１つとして、テキストではなく `svg` タグで画像として扱うことを考えた。
+
+```html
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+  <text x="50%" y="50%" font-size="32" style="dominant-baseline:central;text-anchor:middle;">
+  ⚀
+  </text>
+</svg>
+<style>svg {/* スタイル */}</style>
+```
+
+このメリットとしては、`font-size` を考慮する必要がなくなることである。これは「40*40(px) の枠で中央に 32(px) のテキストを入れた画像」というベースの上でサイズが拡縮するためである。
+
+ただ検証してみたところ、必要とする内容（`line^height` 等の無駄な余白を無くしたい）にはあまり恩恵がなさそうである。`display: flex;` にして中央揃えするだけで同じような結果になったためである。
+
+```html
+<span>⚀</span>
+<style>
+  span {
+  --size: 32px;
+  display: flex;
+  width: var(--size);
+  height: var(--size);
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--size);
+  }
+</style>
+```
