@@ -1,0 +1,154 @@
+@charset "utf-8";
+
+:root {
+	--height_header: 48px;
+	--height_footer: 128px;
+}
+
+*,::before,::after {
+	box-sizing: border-box;
+}
+
+/* フォーカス時のスタイル */
+*:focus-visible{
+	outline: 2px solid #cd820a;
+	outline-offset: 2px;
+	animation-name: focusEffect;
+	animation-duration: 0.3s;
+}
+
+@keyframes focusEffect {
+	from {
+		outline-width: 1px;
+		outline-offset: 8px;
+	}
+
+	to {
+		outline-width: 2px;
+		outline-offset: 2px;
+	}
+}
+
+.ly_display {
+	position: relative;
+	width: 95dvw;
+	height: 100dvh;
+}
+
+.ly_display_header {
+	position: fixed;
+	width: 100%;
+	top: 0;
+	left: 0;
+	padding: 8px;
+	background-color: aquamarine;
+}
+
+.ly_display_main {
+	width: 100%;
+	margin-top: var(--height_header);
+	margin-bottom: var(--height_footer);
+}
+
+.ly_display_footer {
+	position: fixed;
+	width: 100%;
+	bottom: 0;
+	left: 0;
+	padding: 4px;
+	background-color: azure;
+	display: flex;
+	flex-flow: column nowrap;
+	gap: 8px;
+}
+
+.ly_footer_dice {
+	display: flex;
+	flex-flow: column nowrap;
+	border: 1px solid black;
+	padding: 4px;
+}
+
+.ly_footer_score {
+	display: flex;
+	flex-flow: row nowrap;
+	gap: 4px;
+	border: 1px solid black;
+	padding: 4px;
+	font-size: 24px;
+}
+
+.el_selectBox {
+	flex: auto;
+	font-size: 1em;
+}
+
+
+.bl_dice_wrapper {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: center;
+}
+
+.bl_dice {
+	flex: auto;
+	display: flex;
+	justify-content: center;
+	padding: 0;
+	color: black;
+	font-size: 16dvw;
+}
+
+.bl_dice:has(:checked) {
+	color: gray;
+}
+
+.bl_dice:focus-within {
+	outline: 2px solid #cd820a;
+	outline-offset: 2px;
+	animation-name: focusEffect;
+	animation-duration: 0.3s;
+	background-color: #efdbb1;
+}
+
+.el_btn {
+	margin: 0;
+	padding: 0;
+	font: inherit;
+	color: inherit;
+	background: none;
+	border: none;
+}
+
+.el_btn_roll {
+	display: block;
+	padding: 4px;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: 1.5;
+	text-align: center;
+	letter-spacing: 0.04em;
+	cursor: pointer;
+	background-color: #111111;
+	border: 2px solid transparent;
+	color: #ffffff;
+	border-radius: max(
+		min(4px, calc(40px - 100%) * 9999),
+		min(8px, calc(100% - 40px) * 9999, calc(120px - 100%) * 9999),
+		min(12px, calc(100% - 120px) * 9999)
+	);
+}
+
+.el_btn_submit {
+	flex: 0 0 50px;
+	font-size: 1em;
+}
+
+.bl_dice_chkbox {
+	appearance: none;
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	clip-path: inset(100%);
+}
