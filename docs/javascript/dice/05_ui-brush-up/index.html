@@ -4,17 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>04 - Assy 02-03 | dice</title>
-	<link rel="stylesheet" href="./yahtzee.css">
+	<link rel="stylesheet" href="./yahtzee.css" title="Default">
+	
+	<!-- Alternative stylesheet (FireFox) -->
+	<link rel="alternate stylesheet" href="./yahtzee-portrait.css" title="Portrait">
+	<link rel="alternate stylesheet" href="./yahtzee-landscape.css" title="Landscape">
 </head>
 <body class="ly_display">
-	<header class="ly_display_header">
-		<nav>
-			<a href="../index.html">戻る</a>
-		</nav>
-	</header>
-	<main class="ly_display_main">
-		<ul id="scores"></ul>
-	</main>
+	<div class="ly_display_mainArea">
+		<header class="ly_display_header">
+			<nav>
+				<a href="../index.html">戻る</a>
+			</nav>
+		</header>
+		<main class="ly_display_main">
+			<ul id="scores"></ul>
+		</main>
+	</div>
+	<!-- /.ly_display_mainArea -->
+
 	<footer class="ly_display_footer">
 		<form action="#" class="ly_footer_dice">
 			<div id="js_dice" class="bl_dice_wrapper">
