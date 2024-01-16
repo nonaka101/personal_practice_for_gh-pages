@@ -1,20 +1,48 @@
+// ≡≡ 汎用的な関数 ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+
+/**
+ * 各桁の数値を格納した配列に変換する
+ *
+ * @param {number} num - 分割する数値（十進数）
+ * @returns {number[]} 各桁の数値を格納した配列
+ */
+function splitDigits(num) {
+	if(typeof(num) !== 'number') throw new Error('引数は数値でなければなりません');
+  return Array.from(String(num), (x) => parseInt(x));
+}
+
+/**
+ * 数値が指定した桁数のものかを判定する
+ *
+ * @param {number} num - 数値
+ * @param {number} digitNum - 調べる桁数
+ * @returns {boolean} 数値が指定桁数の場合は true、違えば false を返す
+ */
+function isDigitCountMatch(num, digitNum){
+	if((typeof(num) !== 'number') || (typeof(digitNum) !== 'number')){
+		throw new Error('引数は数値でなければなりません');
+	}
+	return (String(num).length === digitNum);
+}
+
+
+
+
+
+// ≡≡ ゲーム用 ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+
 /**
  * 5つのダイスから役を判定する。
  * @param {number} num - ソート済みダイス値 5桁
  * @returns {[string, number]} [`役名`, `ポイント`] を格納した二次元配列
  */
 function calcScore (num) {
-	/**
-	 * 前処理
-	 * 1. 各桁の数値を分解し、配列に変換する
-	 * 2. 種類に関する計算ように、set型を用意
-	 */
-	numTxt = num.toString();
+	// 検証
+	if(isDigitCountMatch(num, 5) === false) throw new Error(`不正な数値のためスコア計算できません`);
 
-	let dices = [];
-	for(let i = 0; i < numTxt.length; i++){
-		dices.push(parseInt(numTxt[i]));
-	}
+	// 前処理（文字列、配列、セット）
+	let numTxt = num.toString();
+	let dices = splitDigits(num);
 	let uniqDices = new Set(dices);
 
 	/*
