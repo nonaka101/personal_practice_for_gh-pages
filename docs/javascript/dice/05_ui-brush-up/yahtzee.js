@@ -25,8 +25,20 @@ function isDigitCountMatch(num, digitNum){
 	return (String(num).length === digitNum);
 }
 
-
-
+/**
+ * 配列内に、検証パターンの要素を全て含んでいるかを判定
+ *
+ * @param {number[]} arr - 検査対象となる配列
+ * @param {number[]} arrChk - 検証パターンとなる配列
+ * @returns {boolean} - 検証パターンを全て含んでいれば true、そうでなければ false
+ */
+function checkArrayContainsAllElements(arr, arrChk) {
+	if((Array.isArray(arr)) && (Array.isArray(arrChk))) {
+		return arrChk.every(ele => arr.includes(ele));
+	} else {
+		throw new Error('引数は配列でなければなりません');
+	}
+}
 
 
 // ≡≡ ゲーム用 ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
@@ -109,27 +121,24 @@ function calcScore (num) {
 	} else {
 		// (Short/Long) Straight
 
-		// L-straight（２パターンのみなので文字列一致で判定）
-		let lStraightPattern = ['12345', '23456'];
-		lStraightPattern.forEach((s)=>{
-			if(numTxt.includes(s)){
+		// L-straight（満たす場合は S-straight も必ず含まれている）
+		let lStraightPattern = [ [1, 2, 3, 4, 5], [2, 3, 4, 5, 6] ];
+		for(let chkPattern of lStraightPattern){
+			if(checkArrayContainsAllElements(dices, chkPattern)){
 				categories[12] = true;
-			}
-		});
-
-		// S-straight（`12234` のため文字列一致でなく、パターンの積集合で判定）
-		let sStraightPattern = [
-			[1, 2, 3, 4],
-			[2, 3, 4, 5],
-			[3, 4, 5, 6]
-		];
-
-		for(let ptn of sStraightPattern){
-			ptn = ptn.filter((ele) => dices.includes(ele));
-			console.log(ptn);
-			if(ptn.length === 4){
 				categories[11] = true;
 				break;
+			}
+		}
+
+		if(categories[12] === false){
+			// S-straight
+			let sStraightPattern = [ [1, 2, 3, 4], [2, 3, 4, 5], [3, 4, 5, 6] ];
+			for(let chkPattern of sStraightPattern){
+				if(checkArrayContainsAllElements(dices, chkPattern)){
+					categories[11] = true;
+					break;
+				}
 			}
 		}
 	}
