@@ -16,7 +16,7 @@
 @media (orientation: portrait) {
 	:root {
 		--header_w: 100%;
-		--header_h: auto;
+		--header_h: 10dvh;
 		--main_margin_left: 0;
 		--main_margin_top: var(--header_h);
 		--footer_h: auto;
@@ -30,7 +30,7 @@
 		--header_h: calc(var(--body_h) - var(--footer_h));
 		--main_margin_left: var(--header_w);
 		--main_margin_top: 0;
-		--footer_h: 20dvh;
+		--footer_h: 30dvh;
 		--dice_flex-flow: row nowrap;
 	}
 }
