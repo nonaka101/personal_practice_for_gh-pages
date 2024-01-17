@@ -1,16 +1,15 @@
 @charset "utf-8";
 
-/* 縦長 */
-@media (orientation: portrait) {
-}
-/* 横長 */
-@media (orientation: landscape) {
-}
-
-
 :root {
 	--height_header: 48px;
 	--height_footer: 128px;
+	--space_left: 20dvw;
+
+	--body_h: 100dvh;
+	--body_w: 95dvw;
+	--footer_h: 20dvh;
+	--header_w: 20dvw;
+	--header_h: calc(var(--body_h) - var(--footer_h));
 }
 
 *,::before,::after {
@@ -39,17 +38,15 @@
 
 .ly_display {
 	position: relative;
-	width: 95dvw;
-	height: 100dvh;
+	width: var(--body_w);
+	height: var(--body_h);
 }
 
-.ly_display_mainArea {
-
-}
 
 .ly_display_header {
 	position: fixed;
-	width: 100%;
+	width: var(--header_w);
+	height: var(--header_h);
 	top: 0;
 	left: 0;
 	padding: 8px;
@@ -57,14 +54,15 @@
 }
 
 .ly_display_main {
-	width: 100%;
-	margin-top: var(--height_header);
-	margin-bottom: var(--height_footer);
+	margin-bottom: var(--footer_h);
+	margin-left: var(--header_w);
 }
+
 
 .ly_display_footer {
 	position: fixed;
 	width: 100%;
+	height: var(--footer_h);
 	bottom: 0;
 	left: 0;
 	padding: 4px;
@@ -76,35 +74,22 @@
 
 .ly_footer_dice {
 	display: flex;
-	flex-flow: column nowrap;
-	border: 1px solid black;
-	padding: 4px;
-}
-
-.ly_footer_score {
-	display: flex;
 	flex-flow: row nowrap;
-	gap: 4px;
 	border: 1px solid black;
 	padding: 4px;
-	font-size: 24px;
+	justify-content: space-between;
 }
-
-.el_selectBox {
-	flex: auto;
-	font-size: 1em;
-}
-
 
 .bl_dice_wrapper {
 	display: flex;
+	flex: auto;
 	flex-flow: row nowrap;
 	justify-content: center;
 	gap: clamp(4px, 4px + 0.5dvw, 16px);
 }
 
 .bl_dice {
-	--size: min(64px, 16dvw);
+	--size: 8dvh;
 
 	flex: none;
 	display: flex;
@@ -129,22 +114,22 @@
 	background-color: #efdbb1;
 }
 
-.el_btn {
-	margin: 0;
-	padding: 0;
-	font: inherit;
-	color: inherit;
-	background: none;
-	border: none;
+.bl_dice_chkbox {
+	appearance: none;
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	clip-path: inset(100%);
 }
 
-.el_btn_roll {
+.el_btn.el_btn_roll {
 	display: block;
-	padding: 4px;
-	font-size: 20px;
+	flex: auto;
+	padding: 2px;
+	font-size: 4dvh;
 	font-style: normal;
 	font-weight: 700;
-	line-height: 1.5;
+	line-height: 1;
 	text-align: center;
 	letter-spacing: 0.04em;
 	cursor: pointer;
@@ -158,15 +143,38 @@
 	);
 }
 
-.el_btn_submit {
-	flex: 0 0 50px;
+
+
+
+
+.ly_footer_score {
+	display: flex;
+	flex-flow: row nowrap;
+	gap: 4px;
+	border: 1px solid black;
+	padding: 2px;
+	font-size: 4dvh;
+}
+
+.el_selectBox {
+	flex: auto;
 	font-size: 1em;
 }
 
-.bl_dice_chkbox {
-	appearance: none;
-	position: absolute;
-	width: 1px;
-	height: 1px;
-	clip-path: inset(100%);
+
+
+
+
+.el_btn {
+	margin: 0;
+	padding: 0;
+	font: inherit;
+	color: inherit;
+	background: none;
+	border: none;
+}
+
+.el_btn_submit {
+	flex: 0 0 50px;
+	font-size: 1em;
 }
