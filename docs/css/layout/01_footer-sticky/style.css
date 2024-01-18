@@ -1,4 +1,35 @@
 @charset "utf-8";
+/**
+* Available vars:
+* @var --viewport-from: <number> - Number in pixels without the unit. Required if `--font-size` is not exist.
+* @var --viewport-to: <number> - Number in pixels without the unit. Required if `--font-size` is not exist.
+* @var --font-size-from: <number> - Number in pixels without the unit. Required if `--font-size` and `--min-font-size` is not exist.
+* @var --font-size-to: <number> - Number in pixels without the unit. Required if `--font-size` and `--max-font-size` is not exist.
+* @var --max-font-size: <number> - Number in pixels without the unit. Optional.
+* @var --min-font-size: <number> - Number in pixels without the unit. Optional.
+* @var --viewport-unit-converter: 1vw | 1vh | 1vmin | 1vmax - Optional. Default: 1vw.
+* @var --font-size: <length> | <percentage> | <absolute-size> | <relative-size> | Global values - Optional.
+*/
+*,
+*::before,
+*::after {
+  --viewport-unit-converter: 1vw;
+  --fz-from: var(--font-size-from, var(--min-font-size));
+  --fz-to: var(--font-size-to, var(--max-font-size));
+  --fz-slope: (var(--fz-to) - var(--fz-from)) / (var(--viewport-to) - var(--viewport-from)) * 100;
+  --fz-intercept: (var(--viewport-to) * var(--fz-from) - var(--viewport-from) * var(--fz-to)) / (var(--viewport-to) - var(--viewport-from));
+  --font-size: calc(var(--fz-slope) * var(--viewport-unit-converter) + var(--fz-intercept) * 1px);
+
+  --min-fz-px: calc(var(--min-font-size) * 1px);
+  --max-fz-px: calc(var(--max-font-size) * 1px);
+  --clamp: clamp(var(--min-fz-px), var(--font-size), var(--max-fz-px));
+  --max: var(--has-max, var(--min));
+  --min: var(--has-min, var(--font-size));
+  --has-max: min(var(--max-fz-px), var(--font-size));
+  --has-min: max(var(--min-fz-px), var(--font-size));
+
+  font-size: var(--clamp, var(--max));
+}
 
 :root {
 	--body_h: 100dvh;
@@ -63,33 +94,38 @@
 
 
 .ly_display {
-	position: relative;
-	width: var(--body_w);
-	height: var(--body_h);
+	width: 95dvw;
+	height: 95dvh;
+	display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  gap: 2px 2px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "Header List List List List"
+    "Header List List List List"
+    "Header List List List List"
+    "Dice Dice Dice Dice Dice"
+    "Dice Dice Dice Dice Dice";
 }
+
 
 .ly_display_header {
 	position: sticky;
-	width: var(--header_w);
-	height: var(--header_h);
-	top: 0;
-	left: 0;
+	grid-area: Header;
 	padding: 8px;
 	background-color: aquamarine;
 }
 
 .ly_display_main {
-	margin-top: var(--main_margin_top);
-	margin-left: var(--main_margin_left);
+	grid-area: List;
+	overflow-y: auto;
 }
 
 
 .ly_display_footer {
 	position: sticky;
-	width: 100%;
-	height: var(--footer_h);
-	bottom: 0;
-	left: 0;
+	grid-area: Dice;
 	padding: 4px;
 	background-color: azure;
 	display: flex;
