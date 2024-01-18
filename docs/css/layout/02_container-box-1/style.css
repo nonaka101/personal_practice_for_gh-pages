@@ -1,0 +1,48 @@
+@charset "UTF-8";
+
+:root {
+
+}
+
+body {
+	width: 95dvw;
+	height: 95dvh;
+}
+
+*, ::before, ::after {
+	box-sizing: border-box;
+}
+
+.ly_box {
+	border: 1px solid black;
+	container: layout / size;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: center;
+	align-items: center;
+}
+
+.ly_box > span,
+.ly_box > svg {
+	--size: calc(min(100cqh, 20cqw)*0.95);
+	display: inline-block;
+	line-height: 1;
+	letter-spacing: 0;
+	width: var(--size);
+	height: var(--size);
+	font-size: calc(var(--size)*0.95);
+	text-align: center;
+}
+
+.ly_box.ly_box_resizable{
+	min-height: 30px;
+	min-width: 30px;
+	resize: both;
+	overflow-y: hidden;
+	overflow-x: hidden;
+}
+
+.ly_box.ly_box_sample1 {
+	height: 100px;
+	width: 100px;
+}
