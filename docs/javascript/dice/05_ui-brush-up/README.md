@@ -57,3 +57,7 @@
   }
 </style>
 ```
+
+## `reset.css` の採用
+
+[The New CSS Reset (MIT License)](https://elad2412.github.io/the-new-css-reset/)

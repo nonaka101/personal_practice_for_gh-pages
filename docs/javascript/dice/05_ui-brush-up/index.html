@@ -3,12 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>04 - Assy 02-03 | dice</title>
-	<link rel="stylesheet" href="./yahtzee.css" title="Default">
-
-	<!-- Alternative stylesheet (FireFox) -->
-	<link rel="alternate stylesheet" href="./yahtzee-portrait.css" title="Portrait">
-	<link rel="alternate stylesheet" href="./yahtzee-landscape.css" title="Landscape">
+  <title>05 - UI brush-up | dice</title>
+	<link rel="stylesheet" href="reset.css">
+	<link rel="stylesheet" href="./yahtzee.css">
 </head>
 <body class="ly_display">
 	<header class="ly_display_header">
@@ -21,21 +18,33 @@
 	</main>
 
 	<footer class="ly_display_footer">
-		<form action="#" class="ly_footer_dice">
+		<form action="#" class="ly_footer">
 			<div id="js_dice" class="bl_dice_wrapper">
 			</div>
 			<!-- /.js_dice_wrapper -->
 			<button type="button" id="btn-roll" class=" el_btn el_btn_roll">Roll</button>
+			<div class="bl_select">
+				<select name="" id="">
+					<option value="a">a</option>
+				</select>
+			</div>
+			<button type="button" id="btn-submit" class="el_btn el_btn_submit">✓</button>
 		</form>
-		<!-- /.bl_footer_dice -->
+
+		<!--
+		<form action="#" class="ly_footer_dice">
+			<div id="js_dice" class="bl_dice_wrapper">
+			</div>
+			<button type="button" id="btn-roll" class=" el_btn el_btn_roll">Roll</button>
+		</form>
 
 		<form action="#" class="ly_footer_score">
 			<select name="" id="" class="el_selectBox">
 				<option value="a">a</option>
 			</select>
 			<button type="button" id="btn-submit" class="el_btn el_btn_submit">✓</button>
-		</div>
-		<!-- /.bl_footer_score -->
+		</form>
+		-->
 	</footer>
 	<script src="./yahtzee.js"></script>
 </body>
