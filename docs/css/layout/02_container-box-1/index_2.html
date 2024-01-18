@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>02 container-box-1(Ver. SVG) | CSS-Layout</title>
+	<link rel="stylesheet" href="./reset.css">
+	<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+	<p>
+		このページでは、下記のSVGを使用している。<br>
+		viewbox が 縦横 40(px) に対し、text font-size="50" に指定しているのは、意図的である。
+		本来 文字列の上下に余白が入ってしまうが、 svg によってそれが切り取られる。
+		これにより、ボタンとして使用するとき、フォントの上下余白がタッチ範囲に影響を及ぼすことがなくなる。
+	</p>
+	<pre><code>
+	&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+		&lt;text x="50%" y="50%" font-size="50" style="dominant-baseline:central;text-anchor:middle;">
+			⚀
+		&lt;/text>
+	&lt;/svg>
+	</code></pre>
+	<div class="ly_box ly_box_resizable">
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+			<text x="50%" y="50%" font-size="50" style="dominant-baseline:central;text-anchor:middle;">
+				⚀
+			</text>
+		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+			<text x="50%" y="50%" font-size="50" style="dominant-baseline:central;text-anchor:middle;">
+				⚁
+			</text>
+		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+			<text x="50%" y="50%" font-size="50" style="dominant-baseline:central;text-anchor:middle;">
+				⚂
+			</text>
+		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+			<text x="50%" y="50%" font-size="50" style="dominant-baseline:central;text-anchor:middle;">
+				⚃
+			</text>
+		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+			<text x="50%" y="50%" font-size="50" style="dominant-baseline:central;text-anchor:middle;">
+				⚄
+			</text>
+		</svg>
+	</div>
+	<!-- /.ly_box ly_box_resize -->
+	<div class="ly_box" style="width: 600px; height: 50px;">
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+			<text x="50%" y="50%" font-size="50" style="dominant-baseline:central;text-anchor:middle;">
+				⚀
+			</text>
+		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+			<text x="50%" y="50%" font-size="50" style="dominant-baseline:central;text-anchor:middle;">
+				⚁
+			</text>
+		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+			<text x="50%" y="50%" font-size="50" style="dominant-baseline:central;text-anchor:middle;">
+				⚂
+			</text>
+		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+			<text x="50%" y="50%" font-size="50" style="dominant-baseline:central;text-anchor:middle;">
+				⚃
+			</text>
+		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+			<text x="50%" y="50%" font-size="50" style="dominant-baseline:central;text-anchor:middle;">
+				⚄
+			</text>
+		</svg>
+	</div>
+	<div class="ly_box" style="width: 500px; height: 100px;">
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+			<text x="50%" y="50%" font-size="50" style="dominant-baseline:central;text-anchor:middle;">
+				⚀
+			</text>
+		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+			<text x="50%" y="50%" font-size="50" style="dominant-baseline:central;text-anchor:middle;">
+				⚁
+			</text>
+		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+			<text x="50%" y="50%" font-size="50" style="dominant-baseline:central;text-anchor:middle;">
+				⚂
+			</text>
+		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+			<text x="50%" y="50%" font-size="50" style="dominant-baseline:central;text-anchor:middle;">
+				⚃
+			</text>
+		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+			<text x="50%" y="50%" font-size="50" style="dominant-baseline:central;text-anchor:middle;">
+				⚄
+			</text>
+		</svg>
+	</div>
+	<div class="ly_box" style="width: 400px; height: 200px;">
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+			<text x="50%" y="50%" font-size="50" style="dominant-baseline:central;text-anchor:middle;">
+				⚀
+			</text>
+		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+			<text x="50%" y="50%" font-size="50" style="dominant-baseline:central;text-anchor:middle;">
+				⚁
+			</text>
+		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+			<text x="50%" y="50%" font-size="50" style="dominant-baseline:central;text-anchor:middle;">
+				⚂
+			</text>
+		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+			<text x="50%" y="50%" font-size="50" style="dominant-baseline:central;text-anchor:middle;">
+				⚃
+			</text>
+		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+			<text x="50%" y="50%" font-size="50" style="dominant-baseline:central;text-anchor:middle;">
+				⚄
+			</text>
+		</svg>
+	</div>
+	<div class="ly_box" style="width: 300px; height: 300px;">
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+			<text x="50%" y="50%" font-size="50" style="dominant-baseline:central;text-anchor:middle;">
+				⚀
+			</text>
+		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+			<text x="50%" y="50%" font-size="50" style="dominant-baseline:central;text-anchor:middle;">
+				⚁
+			</text>
+		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+			<text x="50%" y="50%" font-size="50" style="dominant-baseline:central;text-anchor:middle;">
+				⚂
+			</text>
+		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+			<text x="50%" y="50%" font-size="50" style="dominant-baseline:central;text-anchor:middle;">
+				⚃
+			</text>
+		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+			<text x="50%" y="50%" font-size="50" style="dominant-baseline:central;text-anchor:middle;">
+				⚄
+			</text>
+		</svg>
+	</div>
+	<div class="ly_box" style="width: 200px; height: 300px;">
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+			<text x="50%" y="50%" font-size="50" style="dominant-baseline:central;text-anchor:middle;">
+				⚀
+			</text>
+		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+			<text x="50%" y="50%" font-size="50" style="dominant-baseline:central;text-anchor:middle;">
+				⚁
+			</text>
+		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+			<text x="50%" y="50%" font-size="50" style="dominant-baseline:central;text-anchor:middle;">
+				⚂
+			</text>
+		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+			<text x="50%" y="50%" font-size="50" style="dominant-baseline:central;text-anchor:middle;">
+				⚃
+			</text>
+		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+			<text x="50%" y="50%" font-size="50" style="dominant-baseline:central;text-anchor:middle;">
+				⚄
+			</text>
+		</svg>
+	</div>
+	<nav>
+		<a href="./index.html">Ver 1</a>
+		<a href="../index.html">戻る</a>
+	</nav>
+</body>
+</html>
