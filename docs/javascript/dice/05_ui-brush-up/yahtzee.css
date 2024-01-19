@@ -151,14 +151,7 @@
 						"f f f f f f f f f f"
 						"f f f f f f f f f f"
 						"f f f f f f f f f f";
-/*
-		--gr_f: "d d d d d d d d d d"
-						"d d d d d d d d d d"
-						"r r r r r r r r r r"
-						"r r r r r r r r r r"
-						"s s s s s s s c c c"
-						"s s s s s s s c c c";
-*/
+						
 		--gr_f: "d d d d d d d d d d"
 						"d d d d d d d d d d"
 						"d d d d d d d d d d"
@@ -181,14 +174,7 @@
 						"f f f f f f f f f f"
 						"f f f f f f f f f f"
 						"f f f f f f f f f f";
-/*
-		--gr_f: "d d d d d d d r r r"
-						"d d d d d d d r r r"
-						"d d d d d d d r r r"
-						"s s s s s s s c c c"
-						"s s s s s s s c c c"
-						"s s s s s s s c c c";
-*/
+
 		--gr_f: "d d d d d d d r r r"
 						"d d d d d d d r r r"
 						"d d d d d d d r r r"
@@ -320,16 +306,9 @@ small {
 	font-size: 2em;
 }
 */
+
 .bl_dice_wrapper {
-	/*
 	grid-area: d;
-	display: flex;
-	flex-flow: row nowrap;
-	justify-content: center;
-	align-items: center;
-	*/
-	grid-area: d;
-	container: layout / size;
 	display: flex;
 	flex-flow: row nowrap;
 	justify-content: center;
@@ -337,29 +316,41 @@ small {
 }
 
 .bl_dice {
-	/*
 	cursor: pointer;
-
+	line-height: 1;
+	letter-spacing: 0;
 	flex: none;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	width: var(--size);
+	height: var(--size);
 	padding: 0;
-	--size: clamp(32px, 2rem + 1vmin, 15vmin);
-	font-size: var(--size);
-	height: var(--size);
-	width: var(--size);
-	*/
-	--size: calc(min(100cqh, 20cqw)*0.95);
-	cursor: pointer;
-	display: inline-block;
-	line-height: 1;
-	letter-spacing: 0;
-	width: var(--size);
-	height: var(--size);
-	font-size: calc(var(--size)*0.95);
 	text-align: center;
 }
+
+
+/* Support for "Container Query" */
+@supports (container-type: size) {
+	.bl_dice_wrapper {
+		container: layout / size;
+	}
+
+	.bl_dice {
+		--size: calc(min(100cqh, 20cqw)*0.95);
+		font-size: calc(var(--size)*0.95);
+
+	}
+}
+
+@supports not (container-type: size) {
+	.bl_dice {
+		--size: clamp(32px, 2rem + 1vmin, 15vmin);
+		font-size: var(--size);
+	}
+}
+
+
 
 .bl_dice > span {
 	color: var(--sc_txt_body);
