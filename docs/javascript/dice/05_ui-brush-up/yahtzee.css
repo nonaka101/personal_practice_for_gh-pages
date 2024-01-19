@@ -1,7 +1,9 @@
 @charset "utf-8";
 
 :root {
+	--space_ctrls: 0.25vmin;
 	font-size: clamp(32px, 2rem + 1vmin, 8vmin);
+
 	/* プリミティブカラー */
 	--white: #ffffff;
 	--sea-1200: #00004F;
@@ -149,8 +151,16 @@
 						"f f f f f f f f f f"
 						"f f f f f f f f f f"
 						"f f f f f f f f f f";
-
+/*
 		--gr_f: "d d d d d d d d d d"
+						"d d d d d d d d d d"
+						"r r r r r r r r r r"
+						"r r r r r r r r r r"
+						"s s s s s s s c c c"
+						"s s s s s s s c c c";
+*/
+		--gr_f: "d d d d d d d d d d"
+						"d d d d d d d d d d"
 						"d d d d d d d d d d"
 						"r r r r r r r r r r"
 						"r r r r r r r r r r"
@@ -171,8 +181,16 @@
 						"f f f f f f f f f f"
 						"f f f f f f f f f f"
 						"f f f f f f f f f f";
-
+/*
 		--gr_f: "d d d d d d d r r r"
+						"d d d d d d d r r r"
+						"d d d d d d d r r r"
+						"s s s s s s s c c c"
+						"s s s s s s s c c c"
+						"s s s s s s s c c c";
+*/
+		--gr_f: "d d d d d d d r r r"
+						"d d d d d d d r r r"
 						"d d d d d d d r r r"
 						"d d d d d d d r r r"
 						"s s s s s s s c c c"
@@ -246,6 +264,7 @@ small {
 		min(12px, calc(100% - 120px) * 9999)
 	);
 	transition: .25s;
+	margin: var(--space_ctrls);
 }
 
 .el_btn:disabled {
@@ -289,7 +308,7 @@ small {
 	display: grid;
 	height: 100%;
 	grid-template-columns: repeat(10, 1fr);
-	grid-template-rows: repeat(6, 1fr);
+	grid-template-rows: repeat(7, 1fr);
   grid-auto-flow: row;
 	grid-template-areas: var(--gr_f);
 	gap: 0 0;
@@ -302,7 +321,15 @@ small {
 }
 */
 .bl_dice_wrapper {
+	/*
 	grid-area: d;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: center;
+	align-items: center;
+	*/
+	grid-area: d;
+	container: layout / size;
 	display: flex;
 	flex-flow: row nowrap;
 	justify-content: center;
@@ -310,6 +337,7 @@ small {
 }
 
 .bl_dice {
+	/*
 	cursor: pointer;
 
 	flex: none;
@@ -321,6 +349,16 @@ small {
 	font-size: var(--size);
 	height: var(--size);
 	width: var(--size);
+	*/
+	--size: calc(min(100cqh, 20cqw)*0.95);
+	cursor: pointer;
+	display: inline-block;
+	line-height: 1;
+	letter-spacing: 0;
+	width: var(--size);
+	height: var(--size);
+	font-size: calc(var(--size)*0.95);
+	text-align: center;
 }
 
 .bl_dice > span {
@@ -390,6 +428,7 @@ small {
 	display: flex;
 	flex-flow: row nowrap;
 	cursor: pointer;
+	padding: var(--space_ctrls);
 }
 
 .bl_select > select {
