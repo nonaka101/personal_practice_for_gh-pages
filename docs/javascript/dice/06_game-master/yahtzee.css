@@ -249,7 +249,6 @@ small {
 		min(8px, calc(100% - 40px) * 9999, calc(120px - 100%) * 9999),
 		min(12px, calc(100% - 120px) * 9999)
 	);
-	transition: .25s;
 	margin: var(--space_ctrls);
 }
 
@@ -454,5 +453,28 @@ small {
 @media (max-width: 200px) {
 	.bl_select::after {
 		display: none;
+	}
+}
+
+.js_anime_roll {
+	animation-duration: 0.5s;
+	animation-name: rollEffect;
+}
+
+@keyframes rollEffect {
+	from {
+		transform: translateY(0);
+		opacity: 1;
+	}
+	20% {
+		transform: translateY(-3dvh);
+		opacity: 0;
+	}
+	21% {
+		transform: translateY(5dvh);
+	}
+	to {
+		transform: translateY(0);
+		opacity: 1;
 	}
 }

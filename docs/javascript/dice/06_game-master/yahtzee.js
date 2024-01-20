@@ -1,5 +1,5 @@
 // ≡≡ 汎用的な関数 ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
-
+const wait = async (ms) => new Promise(resolve => setTimeout(resolve, ms));
 /**
  * 各桁の数値を格納した配列に変換する
  *
@@ -52,8 +52,7 @@ function calcScore (num) {
 	// 検証
 	if(isDigitCountMatch(num, 5) === false) throw new Error(`不正な数値のためスコア計算できません`);
 
-	// 前処理（文字列、配列、セット）
-	let numTxt = num.toString();
+	// 前処理（配列、セット）
 	let dices = splitDigits(num);
 	let uniqDices = new Set(dices);
 
@@ -285,6 +284,13 @@ class Dices {
 	}
 
 	roll(){
+
+		// CSS によるロールエフェクト処理
+		for(let htmlCtrl of this.htmlCtrls){
+			htmlCtrl.label.classList.add('js_anime_roll');
+		}
+		this.deleteClass(500);
+
 		const states = this.values;
 		let newStates = [];
 		for (let state of states){
@@ -301,8 +307,16 @@ class Dices {
 		});
 
 		this.values = newStates;
-	}
 
+	}
+	async deleteClass(ms){
+		await wait(ms);
+
+		// CSS によるロールエフェクト処理
+		for(let htmlCtrl of this.htmlCtrls){
+			htmlCtrl.label.classList.remove('js_anime_roll');
+		}
+	}
 }
 
 let diceBox = new Dices(5);
