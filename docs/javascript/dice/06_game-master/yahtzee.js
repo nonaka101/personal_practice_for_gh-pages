@@ -319,11 +319,13 @@ class Dices {
 	}
 }
 
+let soundEffect = new Audio("../00_asset/sound/roll_1.mp3");
 let diceBox = new Dices(5);
 
 const btnRoll = document.getElementById('btn-roll');
 const result = document.getElementById('scores');
 btnRoll.addEventListener('click',() => {
+	soundEffect.cloneNode().play();
 	diceBox.roll();
 
 	// 前の結果の消去
