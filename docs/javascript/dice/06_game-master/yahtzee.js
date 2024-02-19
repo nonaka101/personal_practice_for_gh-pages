@@ -319,13 +319,18 @@ class Dices {
 	}
 }
 
-let soundEffect = new Audio("../00_asset/sound/roll_1.mp3");
+let soundEffects = [];
+soundEffects[0] = new Audio("../00_asset/sound/roll_1.mp3");
+soundEffects[1] = new Audio("../00_asset/sound/roll_2.mp3");
+soundEffects[2] = new Audio("../00_asset/sound/roll_3.mp3");
+
 let diceBox = new Dices(5);
 
 const btnRoll = document.getElementById('btn-roll');
 const result = document.getElementById('scores');
 btnRoll.addEventListener('click',() => {
-	soundEffect.cloneNode().play();
+	let n = Math.floor(Math.random() * 3);
+	soundEffects[n].cloneNode().play();
 	diceBox.roll();
 
 	// 前の結果の消去
