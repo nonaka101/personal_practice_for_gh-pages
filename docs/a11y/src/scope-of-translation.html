@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+	<meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scope of translation | a11y-test</title>
+  <link rel="stylesheet" href="./assets/style.css">
+	<style>
+		button {
+			padding: 0;
+			font: inherit;
+			color: inherit;
+			background: none;
+			border: none;
+			outline: none;
+			cursor: pointer;
+		}
+
+		.btn {
+			display: flex;
+			flex-direction: column;
+			gap: 2px;
+			align-items: center;
+			justify-content: center;
+			width: 48px;
+			height: 48px;
+			font-size: 10px;
+			color: #000;
+			text-decoration: none;
+		}
+	</style>
+</head>
+<body>
+	<h1>Translation</h1>
+	<h2>Sample-1 : Icon with label</h2>
+	<button type="button" class="btn">
+    <svg role="graphics-symbol img" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24">
+      <path
+        d="M21 20.5L15 14.5C16.2 13.2 16.9 11.4 16.9 9.5C17 5.4 13.6 2 9.5 2C5.4 2 2 5.4 2 9.5C2 13.6 5.3 17 9.5 17C11.2 17 12.7 16.4 14 15.5L20 21.5L21 20.5ZM3.5 9.5C3.5 6.2 6.2 3.5 9.5 3.5C12.8 3.5 15.5 6.2 15.5 9.5C15.5 12.8 12.8 15.5 9.5 15.5C6.2 15.5 3.5 12.8 3.5 9.5Z">
+      </path>
+    </svg>
+		Search
+	</button>
+
+	<hr>
+	<h2>Sample-2 : Using ARIA</h2>
+	<button type="button" class="btn" aria-label="Search">
+    <svg role="graphics-symbol img" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24">
+      <path
+        d="M21 20.5L15 14.5C16.2 13.2 16.9 11.4 16.9 9.5C17 5.4 13.6 2 9.5 2C5.4 2 2 5.4 2 9.5C2 13.6 5.3 17 9.5 17C11.2 17 12.7 16.4 14 15.5L20 21.5L21 20.5ZM3.5 9.5C3.5 6.2 6.2 3.5 9.5 3.5C12.8 3.5 15.5 6.2 15.5 9.5C15.5 12.8 12.8 15.5 9.5 15.5C6.2 15.5 3.5 12.8 3.5 9.5Z">
+      </path>
+    </svg>
+	</button>
+
+	<hr>
+	<h2>Sample-3 : Using title attribute</h2>
+	<button type="button" class="btn" title="Search">
+    <svg role="graphics-symbol img" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24">
+      <path
+        d="M21 20.5L15 14.5C16.2 13.2 16.9 11.4 16.9 9.5C17 5.4 13.6 2 9.5 2C5.4 2 2 5.4 2 9.5C2 13.6 5.3 17 9.5 17C11.2 17 12.7 16.4 14 15.5L20 21.5L21 20.5ZM3.5 9.5C3.5 6.2 6.2 3.5 9.5 3.5C12.8 3.5 15.5 6.2 15.5 9.5C15.5 12.8 12.8 15.5 9.5 15.5C6.2 15.5 3.5 12.8 3.5 9.5Z">
+      </path>
+    </svg>
+	</button>
+
+	<article class="ly_result" lang="ja">
+		<section>
+			<h2>概要と目的</h2>
+			<p>ここでは、翻訳機能の対象を調べている</p>
+			<ul>
+				<li>通常のテキスト（ノード）</li>
+				<li>ARIA</li>
+				<li>title属性</li>
+			</ul>
+		</section>
+		<section>
+			<h2>各種検証</h2>
+			<section>
+				<h3>スクリーンリーダー</h3>
+
+				<h4>VoiceOver(MacOS+Chrome)</h4>
+				<h5>デフォルト</h5>
+				<p>きちんと読まれていることがわかる。</p>
+				<ul class="bl_screenReader">
+					<li>デフォルト、下位項目が折りたたまれました、三角形の展開ボタン、グループ</li>
+					<li>デフォルト、字間広く、三角形の展開ボタン、グループ</li>
+				</ul>
+
+				<h4>VoiceOver(MacOS+Safari)</h4>
+				<p></p>
+				<h4>ChromeVox</h4>
+				<p></p>
+			</section>
+			<section>
+				<h3>キー操作</h3>
+				<p>
+					キー操作自体には問題はない。
+					<kbd>Tab</kbd>キーを押すと、summary要素、a要素のそれぞれにフォーカスを移せる。
+				</p>
+			</section>
+		</section>
+		<section>
+			<h2>結論</h2>
+			<p>
+				Chromeではきちんと翻訳されている。
+			</p>
+		</section>
+	</article>
+	<nav>
+		<a href="../index.html">まとめページに戻る</a>
+	</nav>
+  <script src="./assets/main.js"></script>
+</body>
+</html>
