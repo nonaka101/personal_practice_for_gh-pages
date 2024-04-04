@@ -1,0 +1,123 @@
+@charset "utf-8"
+
+button {
+  appearance: none;
+}
+
+.el_menuBtn {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+  height: 3rem;
+  gap: 0.02rem;
+  font-size: 0.75rem;
+  line-height: 1;
+  background-color: var(--sc_bg_btn__primary);
+  color: var(--sc_txt_btn__primary);
+  border: var(--sc_border_field);
+  border-radius: 4px;
+  margin: 0.1rem;
+  & > svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
+
+
+/* ≡≡≡ ❒ ly_dialog ❒ ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+	■ 概要
+		dialogタグを使ったモーダルダイアログ（モーダル機能に関しては、`common.js` を参照）
+		モバイル画面の時にヘッダーに表示される「メニュー」ボタンから呼び出される
+		画面全体をモーダルダイアログで覆い、デスクトップ画面でのサイドバーの内容を表示
+	■ 構成
+		ly_dialog_wrapper : ラッパー
+			ly_dialog : ダイアログ本体
+				bl_menuHeader : メニューヘッダー
+					bl_menuHeader_title : メニュー名
+					bl_menuHeader_btnIcon : 「閉じる」ボタン
+----------------------------------------------------------------------------- */
+
+/* ダイアログ表示中は、裏側にあるページをスクロールさせない */
+html:has(dialog[open]) {
+	overflow: hidden;
+}
+
+/* `max-*` は、デフォルトのスタイル（例：`dialog:-internal-dialog-in-top-layer`）を上書きするため */
+.ly_dialog_wrapper {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100dvw;
+	max-width: 100dvw;
+	height: 100dvh;
+	max-height: 100dvh;
+	padding: 0;
+	border: none;
+}
+
+.ly_dialog_wrapper::backdrop {
+	backdrop-filter: blur(4px);
+}
+
+.ly_dialog_wrapper:not([open]) {
+	display: none;
+}
+
+.ly_dialog {
+	padding: 16px;
+	overflow-y: auto;
+	background-color: var(--sc_bg_body__primary);
+	border: var(--sc_border_field);
+}
+
+.ly_dialog > * {
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+
+.ly_dialog > *:first-child {
+	margin-top: 0;
+}
+
+.ly_dialog > *:last-child {
+	margin-bottom: 0;
+}
+
+.bl_menuHeader {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.bl_menuHeader_title {
+	padding: 0;
+	margin: 0;
+	font-size: 1.75rem;
+	line-height: 1.5;
+}
+
+.bl_menuHeader_btnIcon {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-evenly;
+	width: 2.625rem; /* bl_header と違い画面占有率を気にしない為 rem */
+	height: 2.625rem;
+	padding: 0;
+	margin: 0;
+	font-size: 0.7rem;
+	color: var(--sc_txt_body);
+	text-decoration: none;
+	cursor: pointer;
+	background: none;
+	border: none;
+}
+
+.bl_menuHeader_btnIcon > svg {
+	width: 1.625rem;
+	height: 1.625rem;
+}
+
