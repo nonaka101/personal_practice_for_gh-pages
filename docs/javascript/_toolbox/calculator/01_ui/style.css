@@ -26,18 +26,7 @@ button {
 }
 
 
-/* ≡≡≡ ❒ ly_dialog ❒ ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
-	■ 概要
-		dialogタグを使ったモーダルダイアログ（モーダル機能に関しては、`common.js` を参照）
-		モバイル画面の時にヘッダーに表示される「メニュー」ボタンから呼び出される
-		画面全体をモーダルダイアログで覆い、デスクトップ画面でのサイドバーの内容を表示
-	■ 構成
-		ly_dialog_wrapper : ラッパー
-			ly_dialog : ダイアログ本体
-				bl_menuHeader : メニューヘッダー
-					bl_menuHeader_title : メニュー名
-					bl_menuHeader_btnIcon : 「閉じる」ボタン
------------------------------------------------------------------------------ */
+
 
 /* ダイアログ表示中は、裏側にあるページをスクロールさせない */
 html:has(dialog[open]) {
@@ -45,7 +34,7 @@ html:has(dialog[open]) {
 }
 
 /* `max-*` は、デフォルトのスタイル（例：`dialog:-internal-dialog-in-top-layer`）を上書きするため */
-.ly_dialog_wrapper {
+.ly_dialog {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -55,48 +44,8 @@ html:has(dialog[open]) {
 	max-height: 100dvh;
 	padding: 0;
 	border: none;
-}
-
-.ly_dialog_wrapper::backdrop {
-	backdrop-filter: blur(4px);
-}
-
-.ly_dialog_wrapper:not([open]) {
-	display: none;
-}
-
-.ly_dialog {
-	padding: 16px;
-	overflow-y: auto;
 	background-color: var(--sc_bg_body__primary);
 	border: var(--sc_border_field);
-}
-
-.ly_dialog > * {
-	margin-top: 1rem;
-	margin-bottom: 1rem;
-}
-
-.ly_dialog > *:first-child {
-	margin-top: 0;
-}
-
-.ly_dialog > *:last-child {
-	margin-bottom: 0;
-}
-
-.bl_menuHeader {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-between;
-}
-
-.bl_menuHeader_title {
-	padding: 0;
-	margin: 0;
-	font-size: 1.75rem;
-	line-height: 1.5;
 }
 
 .bl_menuHeader_btnIcon {

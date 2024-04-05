@@ -12,14 +12,23 @@
 </head>
 <body>
 	<header>
-		<!-- 設定 -->
+		<form action="#" class="bl_header">
+			<label>
+				<input type="checkbox" name="direction" id="js_direction">
+				左利き
+			</label>
+			<label>
+				<input type="checkbox" name="colormode" id="js_colorMode">
+				ダークモード
+			</label>
+		</form>
 	</header>
 	<main>
 		<button type="button" class="el_menuBtn" id="js_btn_calc">
 			<svg
-				xmlns="http://www.w3.org/2000/svg" 
-				height="24" 
-				viewBox="0 -960 960 960" 
+				xmlns="http://www.w3.org/2000/svg"
+				height="24"
+				viewBox="0 -960 960 960"
 				width="24"
 			>
 				<path d="M320-240h60v-80h80v-60h-80v-80h-60v80h-80v60h80v80Zm200-30h200v-60H520v60Zm0-100h200v-60H520v60Zm44-152 56-56 56 56 42-42-56-58 56-56-42-42-56 56-56-56-42 42 56 56-56 58 42 42Zm-314-70h200v-60H250v60Zm-50 472q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/>
@@ -27,25 +36,51 @@
 			Calc
 		</button>
 	</main>
-	
-	<dialog class="ly_dialog_wrapper" id="menu">
-		<div class="ly_dialog">
-			<div class="bl_menuHeader">
-				<h2 class="bl_menuHeader_title">メニュー</h2>
-				<button class="bl_menuHeader_btnIcon" type="button" onclick="closeDialog()">
+
+	<dialog class="ly_dialog" id="js_dialog_calculator">
+		<div class="ly_calc">
+			<header><!-- Display -->
+				<input type="text" name="" id="">
+			</header>
+			<nav><!-- 4 buttons([AC,%,BackSpace,Copy]) -->
+				<button type="button" aria-label="リセット">AC</button>
+				<button type="button" aria-label="パーセント">％</button>
+				<button type="button" aria-label="バックスペース">BS</button>
+				<button type="button">Copy</button>
+			</nav>
+			<main><!-- 12 buttons([0 - 9],[.] ,[=]) -->
+				<button type="button">9</button>
+				<button type="button">8</button>
+				<button type="button">7</button>
+				<button type="button">6</button>
+				<button type="button">5</button>
+				<button type="button">4</button>
+				<button type="button">3</button>
+				<button type="button">2</button>
+				<button type="button">1</button>
+				<button type="button">0</button>
+				<button type="button" aria-label="小数点">.</button>
+				<button type="button" aria-label="計算実行">=</button>
+			</main>
+			<aside><!-- 4 buttons([+,-,*,/]) -->
+				<button type="button" aria-label="足す">＋</button>
+				<button type="button" aria-label="引く">−</button>
+				<button type="button" aria-label="掛ける">×</button>
+				<button type="button" aria-label="割る">÷</button>
+			</aside>
+			<footer>
+				<button class="bl_menuHeader_btnIcon" type="button" onclick="closeDialogCalculator()">
 					<svg role="graphics-symbol img" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
 						viewBox="0 0 24 24" width="24" height="24">
 						<path stroke-width="1.4286" d="M 22,4.0142857 19.985715,2 12,9.9857149 4.0142857,2 2,4.0142857 9.9857149,12 2,19.985715 4.0142857,22 12,14.014286 19.985715,22 22,19.985715 14.014286,12 Z"/>
 					</svg>
 					閉じる
 				</button>
-			</div>
-			<!-- /.bl_menuHeader -->
-			<button class="el_btn el_btn__primary" type="button" onclick="closeDialog()">メニューを閉じる</button>
+			</footer>
 		</div>
-		<!-- /.ly_dialog -->
+		<!-- /.ly_calc -->
 	</dialog>
-	<!-- /.ly_dialog_wrapper -->
+	<!-- /.ly_dialog -->
 
 	<footer><a href="../index.html">まとめページに戻る</a></footer>
 	<script src="./main.js"></script>
