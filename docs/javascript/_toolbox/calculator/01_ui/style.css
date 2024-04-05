@@ -44,7 +44,7 @@ html:has(dialog[open]) {
 	max-height: 100dvh;
 	padding: 0;
 	border: none;
-	background-color: var(--sc_bg_body__secondary);
+	background-color: var(--sc_bg_body__tertiary);
 	border: var(--sc_border_field);
 	display: flex;
 	align-items: center;
@@ -103,6 +103,7 @@ html:has(dialog[open]) {
 	flex-flow: row wrap;
 	align-items: center;
 	justify-content: center;
+	background-color: var(--sc_bg_body__primary);
 }
 
 .is_leftHand .ly_calc {

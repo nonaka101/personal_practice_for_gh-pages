@@ -158,10 +158,6 @@
 		+ セマンティックカラーの設定（基本となる要素に施し、最低限の見栄えを確保）
 		+ 不要なデフォルトのスタイルを剥ぐ
 ---------------------------------------------------------------------------- */
-* {
-	color: var(--sc_txt_body);
-	background-color: var(--sc_bg_body__primary);
-}
 
 *,::after,::before {
 	box-sizing: border-box
@@ -180,11 +176,30 @@ caption,
 time,
 address,
 small,
+button,
+label,
 p {
 	color: var(--sc_txt_body);
 }
 
-body {
+a {
+	color: var(--sc_txt_link);
+}
+
+a:active {
+	color: var(--sc_txt_link__active);
+}
+
+a:hover {
+	color: var(--sc_txt_link__hover);
+}
+
+a:visited {
+	color: var(--sc_txt_link__visited);
+}
+
+body,
+button {
 	background-color: var(--sc_bg_body__primary);
 }
 
