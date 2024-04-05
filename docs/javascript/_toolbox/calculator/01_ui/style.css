@@ -70,3 +70,81 @@ html:has(dialog[open]) {
 	height: 1.625rem;
 }
 
+/* スマホの横画面想定（横5に対して縦6以下）
+ * この場合、ボタン配列は5列4行の構成とする
+ *
+ *
+ *
+ *
+ */
+.ly_calc {
+	--size_btn: min(100dvw / 5, 100dvh / 6);
+	--flexFlow_nav: column nowrap;
+	display: flex;
+	flex-flow: row wrap;
+}
+
+@media (max-aspect-ratio: 5/6) {
+	/* スマホの縦画面想定（横5に対して縦6以上）
+	 * この場合、ボタン配列は4列5行の構成とする
+	 *
+	 *
+	 *
+	 *
+	 */
+  .ly_calc {
+		--size_btn: min(100dvw / 4, 100dvh / 7);
+		--flexFlow_nav: row nowrap;
+	}
+}
+
+.ly_calc_header {
+	width: 100dvw;
+}
+
+.ly_calc_nav {
+	display: flex;
+	flex-flow: var(--flexFlow_nav);
+}
+
+.ly_calc_main {
+
+}
+
+.ly_calc_aside {
+	display: flex;
+	flex-flow: column nowrap;
+}
+
+.el_calcBtn {
+	margin: 0;
+	font-size: 1rem;
+	font-style: normal;
+	font-weight: 700;
+	line-height: 1;
+	text-align: center;
+	cursor: pointer;
+	background: none;
+	height: var(--size_btn);
+	width: var(--size_btn);
+	appearance: none;
+	border-radius: 25%;
+	border: 2px solid transparent;
+}
+
+.el_calcBtn.el_calcBtn__primary {
+	color: var(--sc_txt_btn__primary);
+	background-color: var(--sc_bg_btn__primary);
+}
+
+.el_calcBtn.el_calcBtn__secondary {
+	color: var(--sc_txt_btn__secondary);
+	background-color: var(--sc_bg_btn__secondary);
+	border-color: currentcolor;
+}
+
+.el_calcBtn.el_calcBtn.el_calcBtn__tertiary {
+	color: var(--sc_txt_body);
+	background-color: transparent;
+	border: var(--sc_border_field);
+}
