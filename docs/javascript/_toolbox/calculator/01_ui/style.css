@@ -44,8 +44,14 @@ html:has(dialog[open]) {
 	max-height: 100dvh;
 	padding: 0;
 	border: none;
-	background-color: var(--sc_bg_body__primary);
+	background-color: var(--sc_bg_body__secondary);
 	border: var(--sc_border_field);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.ly_dialog:not([open]){
+	display: none;
 }
 
 .bl_menuHeader_btnIcon {
@@ -78,10 +84,38 @@ html:has(dialog[open]) {
  *
  */
 .ly_calc {
-	--size_btn: min(100dvw / 5, 100dvh / 6);
+	--ly_btnArray:
+		"nav main main main aside"
+		"nav main main main aside"
+		"nav main main main aside"
+		"nav main main main aside";
+	--ly_numArray:
+		"b7 b8 b9"
+		"b4 b5 b6"
+		"b1 b2 b3"
+		"b0 bd be";
+	--num_hBox: 4;
+	--num_wBox: 5;
+	--size_btn: min(100dvw / var(--num_wBox), 100dvh / (var(--num_hBox) + 2));
 	--flexFlow_nav: column nowrap;
+	/*--width_nav: var(--size_btn);*/
 	display: flex;
 	flex-flow: row wrap;
+	align-items: center;
+	justify-content: center;
+}
+
+.is_leftHand .ly_calc {
+	--ly_btnArray:
+		"aside main main main nav"
+		"aside main main main nav"
+		"aside main main main nav"
+		"aside main main main nav";
+	--ly_numArray:
+		"b7 b8 b9"
+		"b4 b5 b6"
+		"b1 b2 b3"
+		"be bd b0";
 }
 
 @media (max-aspect-ratio: 5/6) {
@@ -93,25 +127,70 @@ html:has(dialog[open]) {
 	 *
 	 */
   .ly_calc {
-		--size_btn: min(100dvw / 4, 100dvh / 7);
+		--ly_btnArray:
+			"nav  nav  nav  nav  "
+			"main main main aside"
+			"main main main aside"
+			"main main main aside"
+			"main main main aside";
+		--num_hBox: 5;
+		--num_wBox: 4;
 		--flexFlow_nav: row nowrap;
+		--width_nav: 100dvw;
+	}
+	.is_leftHand .ly_calc {
+		--ly_btnArray:
+		"nav  nav  nav  nav  "
+		"aside main main main"
+		"aside main main main"
+		"aside main main main"
+		"aside main main main";
 	}
 }
 
 .ly_calc_header {
 	width: 100dvw;
+	min-height: calc(var(--size_btn) * 2);
+}
+
+#js_calc_expression {
+	width: calc(var(--size_btn) * var(--num_wBox));
+	calc(var(--size_btn) * 1.5)
+}
+
+.ly_calc_btnArray {
+	display: grid;
+	grid-template-areas:var(--ly_btnArray);
 }
 
 .ly_calc_nav {
+	grid-area: nav;
 	display: flex;
 	flex-flow: var(--flexFlow_nav);
+	/*width: var(--width_nav);*/
 }
 
 .ly_calc_main {
-
+	grid-area: main;
+	display: grid;
+	grid-template-areas: var(--ly_numArray);
 }
 
+.ly_calc_b1 {grid-area: b1;}
+.ly_calc_b2 {grid-area: b2;}
+.ly_calc_b3 {grid-area: b3;}
+.ly_calc_b4 {grid-area: b4;}
+.ly_calc_b5 {grid-area: b5;}
+.ly_calc_b6 {grid-area: b6;}
+.ly_calc_b7 {grid-area: b7;}
+.ly_calc_b8 {grid-area: b8;}
+.ly_calc_b9 {grid-area: b9;}
+.ly_calc_b0 {grid-area: b0;}
+.ly_calc_bd {grid-area: bd;}
+.ly_calc_be {grid-area: be;}
+
 .ly_calc_aside {
+	grid-area: aside;
 	display: flex;
 	flex-flow: column nowrap;
 }
@@ -125,8 +204,8 @@ html:has(dialog[open]) {
 	text-align: center;
 	cursor: pointer;
 	background: none;
-	height: var(--size_btn);
-	width: var(--size_btn);
+	height: calc(var(--size_btn) * 0.9);
+	width: calc(var(--size_btn) * 0.9);
 	appearance: none;
 	border-radius: 25%;
 	border: 2px solid transparent;
