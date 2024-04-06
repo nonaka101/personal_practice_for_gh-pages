@@ -65,8 +65,8 @@
 	<dialog class="ly_dialog" id="js_dialog_calculator">
 		<div class="ly_calc">
 			<header class="ly_calc_header"><!-- Display -->
-				<label id="js_calc_label" for="js_calc_input">aaa</label>
-				<input type="text" name="calc-expression" id="js_calc_input">
+				<label id="js_calc_label" for="js_calc_Output"></label>
+				<output id="js_calc_output"></output>
 			</header>
 			<div class="ly_calc_btnArray">
 				<nav class="ly_calc_nav"><!-- 4 buttons([AC,%,BackSpace,Copy]) -->
@@ -76,24 +76,24 @@
 					<button type="button" class="el_calcBtn el_calcBtn__secondary" id="js_calcBtn_Copy" aria-label="コピー">CP</button>
 				</nav>
 				<main class="ly_calc_main"><!-- 12 buttons([0 - 9],[.] ,[=]) -->
-					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_9" data-num="9">9</button>
-					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_8" data-num="8">8</button>
-					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_7" data-num="7">7</button>
-					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_6" data-num="6">6</button>
-					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_5" data-num="5">5</button>
-					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_4" data-num="4">4</button>
-					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_3" data-num="3">3</button>
-					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_2" data-num="2">2</button>
-					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_1" data-num="1">1</button>
-					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_0" data-num="0">0</button>
-					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_DecimalPoint" aria-label="小数点">.</button>
+					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_9" data-calc="9">9</button>
+					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_8" data-calc="8">8</button>
+					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_7" data-calc="7">7</button>
+					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_6" data-calc="6">6</button>
+					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_5" data-calc="5">5</button>
+					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_4" data-calc="4">4</button>
+					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_3" data-calc="3">3</button>
+					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_2" data-calc="2">2</button>
+					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_1" data-calc="1">1</button>
+					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_0" data-calc="0">0</button>
+					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_DecimalPoint" data-calc="." aria-label="小数点">.</button>
 					<button type="button" class="el_calcBtn el_calcBtn__primary" id="js_calcBtn_Equal" aria-label="計算実行">=</button>
 				</main>
 				<aside class="ly_calc_aside"><!-- 4 buttons([+,-,*,/]) -->
-					<button type="button" class="el_calcBtn el_calcBtn__primary" id="js_calcBtn_Add" aria-label="足す">＋</button>
-					<button type="button" class="el_calcBtn el_calcBtn__primary" id="js_calcBtn_Subtract" aria-label="引く">−</button>
-					<button type="button" class="el_calcBtn el_calcBtn__primary" id="js_calcBtn_Multiply" aria-label="掛ける">×</button>
-					<button type="button" class="el_calcBtn el_calcBtn__primary" id="js_calcBtn_Divide" aria-label="割る">÷</button>
+					<button type="button" class="el_calcBtn el_calcBtn__primary" id="js_calcBtn_Add" data-calc="+" aria-label="足す">＋</button>
+					<button type="button" class="el_calcBtn el_calcBtn__primary" id="js_calcBtn_Subtract" data-calc="-" aria-label="引く">−</button>
+					<button type="button" class="el_calcBtn el_calcBtn__primary" id="js_calcBtn_Multiply" data-calc="*" aria-label="掛ける">×</button>
+					<button type="button" class="el_calcBtn el_calcBtn__primary" id="js_calcBtn_Divide" data-calc="/" aria-label="割る">÷</button>
 				</aside>
 			</div>
 			<!-- /.ly_calc_btnArray -->

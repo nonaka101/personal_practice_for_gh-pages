@@ -167,17 +167,27 @@ html:has(dialog[open]) {
 
 #js_calc_label {
 	width: 100%;
-	display: block;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	height: calc(var(--base_h) * 0.5);
 	font-size: clamp(1rem, 5dvw, calc(var(--base_h) * 0.4));
 	text-align: center;
+	border: var(--sc_border_field);
+	border-bottom: dotted;
 }
 
-#js_calc_input {
+#js_calc_output {
 	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	height: var(--base_h);
 	font-size: clamp(1rem, 5dvw, calc(var(--base_h) * 0.8));
 	text-align: center;
+	border: var(--sc_border_field);
+	border-top: none;
+	text-wrap: nowrap;
 }
 
 .ly_calc_btnArray {
