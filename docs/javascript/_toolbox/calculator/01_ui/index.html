@@ -10,10 +10,11 @@
 	<link rel="stylesheet" href="../../asset/css/dev-utils.css">
 	<link rel="stylesheet" href="./style.css">
 </head>
-<body class="">
-	<header>
-		<form action="#" class="bl_header">
-			<label>
+<body>
+	<header class="bl_header">
+		<h2 class="bl_header_title">設定</h2>
+		<form action="#" class="bl_header_settings">
+			<label class="el_setting el_setting__select">
 				カラーモード
 				<select name="colorMode" id="js_setting_colorMode">
 					<option value=0>デフォルト</option>
@@ -21,7 +22,7 @@
 					<option value=2>ダーク</option>
 				</select>
 			</label>
-			<label>
+			<label class="el_setting el_setting__select">
 				フォントサイズ
 				<select name="fontSize" id="js_setting_fontSize">
 					<option value="0">デフォルト</option>
@@ -31,18 +32,20 @@
 					<option value="32">32px</option>
 				</select>
 			</label>
-			<label>
-				<input type="checkbox" name="direction" id="js_setting_isLeft">
-				左利き
-			</label>
-			<label>
-				<input type="checkbox" name="sound" id="js_setting_enableSound">
-				音
-			</label>
-			<label>
-				<input type="checkbox" name="vibration" id="js_setting_enableVibration">
-				振動
-			</label>
+			<div>
+				<label class="el_setting el_setting__chk">
+					<input type="checkbox" name="direction" id="js_setting_isLeft">
+					左利き
+				</label>
+				<label class="el_setting el_setting__chk">
+					<input type="checkbox" name="sound" id="js_setting_enableSound">
+					音
+				</label>
+				<label class="el_setting el_setting__chk">
+					<input type="checkbox" name="vibration" id="js_setting_enableVibration">
+					振動
+				</label>
+			</div>
 		</form>
 	</header>
 	<main>
@@ -73,16 +76,16 @@
 					<button type="button" class="el_calcBtn el_calcBtn__secondary" id="js_calcBtn_Copy" aria-label="コピー">CP</button>
 				</nav>
 				<main class="ly_calc_main"><!-- 12 buttons([0 - 9],[.] ,[=]) -->
-					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_9">9</button>
-					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_8">8</button>
-					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_7">7</button>
-					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_6">6</button>
-					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_5">5</button>
-					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_4">4</button>
-					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_3">3</button>
-					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_2">2</button>
-					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_1">1</button>
-					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_0">0</button>
+					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_9" data-num="9">9</button>
+					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_8" data-num="8">8</button>
+					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_7" data-num="7">7</button>
+					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_6" data-num="6">6</button>
+					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_5" data-num="5">5</button>
+					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_4" data-num="4">4</button>
+					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_3" data-num="3">3</button>
+					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_2" data-num="2">2</button>
+					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_1" data-num="1">1</button>
+					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_0" data-num="0">0</button>
 					<button type="button" class="el_calcBtn el_calcBtn__tertiary" id="js_calcBtn_DecimalPoint" aria-label="小数点">.</button>
 					<button type="button" class="el_calcBtn el_calcBtn__primary" id="js_calcBtn_Equal" aria-label="計算実行">=</button>
 				</main>

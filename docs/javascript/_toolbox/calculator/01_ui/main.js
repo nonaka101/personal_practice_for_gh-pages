@@ -41,10 +41,10 @@ if (sessionStorage.getItem('settingState')){
  *
  * bodyへのクラス付与とCSSによって、カラーモードを手動操作
  *
- * @param {int} colorMode - [0:defalut, 1:light, 2:dark]
+ * @param {string} colorMode - [0:defalut, 1:light, 2:dark]
  */
 function changeColorMode(colorMode) {
-	switch (colorMode) {
+	switch (parseInt(colorMode)) {
 		case 0:
 			document.documentElement.classList.remove("is_darkMode");
 			document.documentElement.classList.remove("is_lightMode");
@@ -64,7 +64,7 @@ function changeColorMode(colorMode) {
 
 const selColorMode = document.querySelector('#js_setting_colorMode');
 selColorMode.addEventListener("change", (e) => {
-	const val = parseInt(e.target.value);
+	const val = e.target.value;
 	changeColorMode(val);
 	settingState.colorMode = val;
 	sessionStorage.setItem('settingState', JSON.stringify(settingState));
@@ -83,14 +83,15 @@ changeColorMode(settingState.colorMode);
  *
  * bodyへのスタイル付与によって、フォントサイズを手動操作
  *
- * @param {int} fontSize - 0でdefalut、それ以外の数値は対応するpx値とする
+ * @param {string} fontSize - 0でdefalut、それ以外の数値は対応するpx値とする
  */
 function changeFontSize(fontSize) {
-	if (fontSize === 0) {
+	let size = parseInt(fontSize);
+	if (size === 0) {
 		document.documentElement.style.fontSize = null;
 	} else {
-		if (typeof fontSize === "number"){
-			document.documentElement.style.fontSize = fontSize + 'px';
+		if (typeof size === "number"){
+			document.documentElement.style.fontSize = size + 'px';
 		} else {
 			console.log(`不明な設定値が検出されました [fontSize : ${fontSize}]`);
 		}
@@ -99,7 +100,7 @@ function changeFontSize(fontSize) {
 
 const selFontSize = document.querySelector('#js_setting_fontSize');
 selFontSize.addEventListener("change", (e) => {
-	const val = parseInt(e.target.value);
+	const val = e.target.value;
 	changeFontSize(val);
 	settingState.fontSize = val;
 	sessionStorage.setItem('settingState', JSON.stringify(settingState));
@@ -217,8 +218,8 @@ changeSoundMode(settingState.enableSound);
 
 
 // 各種要素の取得
-const btnCalculator = document.getElementById('js_btn_calc');
-const dialogCalculator = document.getElementById('js_dialog_calculator');
+const btnCalculator = document.querySelector('#js_btn_calc');
+const dialogCalculator = document.querySelector('#js_dialog_calculator');
 
 // ボタン押下時、ダイアログをモーダル状態で表示
 btnCalculator.addEventListener('click', () => {
@@ -240,26 +241,47 @@ dialogCalculator.addEventListener('click', (e) => {
 
 
 
-/*
-Escは要素自体に機能を付与
 
-#js_calcBtn_AllClear
-#js_calcBtn_BackSpace
-#js_calcBtn_Copy
-#js_calcBtn_1
-#js_calcBtn_2
-#js_calcBtn_3
-#js_calcBtn_4
-#js_calcBtn_5
-#js_calcBtn_6
-#js_calcBtn_7
-#js_calcBtn_8
-#js_calcBtn_9
-#js_calcBtn_0
-#js_calcBtn_DecimalPoint
-#js_calcBtn_Equal
-#js_calcBtn_Add
-#js_calcBtn_Subtract
-#js_calcBtn_Multiply
-#js_calcBtn_Devide
-*/
+
+
+
+
+
+
+const calcInput = document.querySelector('#js_calc_input');
+
+function pushExpression(t){
+	let expr = calcInput.value;
+	if ((t !== '0')||((expr.length !== 0)&&(expr !== "0"))){
+		expr += t;
+		calcInput.value = expr;
+	}
+}
+
+const calcBtnAllClear = document.querySelector('#js_calcBtn_AllClear');
+const calcBtnBackSpace = document.querySelector('#js_calcBtn_BackSpace');
+const calcBtnCopy = document.querySelector('#js_calcBtn_Copy');
+
+const calcBtn1 = document.querySelector('#js_calcBtn_1');
+const calcBtn2 = document.querySelector('#js_calcBtn_2');
+const calcBtn3 = document.querySelector('#js_calcBtn_3');
+const calcBtn4 = document.querySelector('#js_calcBtn_4');
+const calcBtn5 = document.querySelector('#js_calcBtn_5');
+const calcBtn6 = document.querySelector('#js_calcBtn_6');
+const calcBtn7 = document.querySelector('#js_calcBtn_7');
+const calcBtn8 = document.querySelector('#js_calcBtn_8');
+const calcBtn9 = document.querySelector('#js_calcBtn_9');
+const calcBtn0 = document.querySelector('#js_calcBtn_0');
+const execArr = [calcBtn1, calcBtn2, calcBtn3, calcBtn4, calcBtn5, calcBtn6, calcBtn7, calcBtn8, calcBtn9, calcBtn0];
+for (const ele of execArr){
+	ele.addEventListener("click", (e) => {
+		pushExpression(e.target.getAttribute('data-num'));
+	})
+}
+
+const calcBtnDecimalPoint = document.querySelector('#js_calcBtn_DecimalPoint');
+const calcBtnEqual = document.querySelector('#js_calcBtn_Equal');
+const calcBtnAdd = document.querySelector('#js_calcBtn_Add');
+const calcBtnSubtract = document.querySelector('#js_calcBtn_Subtract');
+const calcBtnMultiply = document.querySelector('#js_calcBtn_Multiply');
+const calcBtnDevide = document.querySelector('#js_calcBtn_Devide');
