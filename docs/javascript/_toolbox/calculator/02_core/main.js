@@ -101,7 +101,7 @@ class Calculator {
   push(input) {
     const validInputs = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "+", "-", "*", "/", "="];
 		// 許容されているデータのみ処理に進める（入力としてありえるもの、かつ現ステートで無効な値）
-    if ((!validInputs.includes(input)) && (INVALID_INPUTS[this._state].includes(input))) {
+    if ((!validInputs.includes(input)) || (INVALID_INPUTS[this._state].includes(input))) {
       return false;
     }
 		switch (this._state){
