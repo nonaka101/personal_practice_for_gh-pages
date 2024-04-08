@@ -19,7 +19,7 @@
 | NegativeNum1         | OperandZero1 | OperandInteger1 | OperandDecimal1 | - | - | - |
 | OperandZero1         | - | OperandInteger1 | OperandDecimal1 | Operator | Operator | - |
 | OperandInteger1      | OperandInteger1 | OperandInteger1 | OperandDecimal1 | Operator | Operator | - |
-| OperandDecimal1      | OperandDecimal1 | OperandDecimal1 | OperandDecimal1 | Operator | Operator | Result |
+| OperandDecimal1      | OperandDecimal1 | OperandDecimal1 | OperandDecimal1 | Operator | Operator | - |
 | Operator             | OperandZero2 | OperandInteger2 | OperandDecimal2 | NegativeNum2 | - | - |
 | NegativeNum2         | OperandZero2 | OperandInteger2 | OperandDecimal2 | - | - | - |
 | OperandZero2         | - | OperandInteger2 | OperandDecimal2 | Operator | Operator | Result |
