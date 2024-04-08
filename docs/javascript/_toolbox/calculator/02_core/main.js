@@ -21,6 +21,16 @@ dialogCalculator.addEventListener('click', (e) => {
 
 
 
+/* ≡≡≡ ▀▄ Calculator ▀▄ ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+	■ 概要
+		電卓としての機能を持たせている。
+		1. 状態遷移による入力管理
+		2. コントロールからある程度独立したコア機能
+---------------------------------------------------------------------------- */
+
+/**
+ * 数値のステージを enum 風に管理
+ */
 const CALC_STATE = Object.freeze({
 	Start: 0,            // 初期状態
 	NegativeNum1: 1,     // 左辺：マイナス符号を入力
@@ -36,15 +46,23 @@ const CALC_STATE = Object.freeze({
 });
 
 /**
+ * Calculator が受け取れる文字列一覧
+ */
+const VALID_INPUTS = [
+	"0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+	".", "+", "-", "*", "/", "="
+];
+
+/**
  * 各STATEに対応する、無効とされる入力集
  */
-const INVALID_INPUTS = Object.freeze({
+const INVALID_INPUTS_BY_STATE = Object.freeze({
 	0:  ["+", "*", "/", "="],       // Start
 	1:  ["+", "-", "*", "/", "="],  // NegativeNum1
 	2:  ["0", "="],  // OperandZero1
 	3:  ["="],       // OperandInteger1
 	4:  [".", "="],  // OperandDecimal1
-	5:  ["="],       // Operator
+	5:  ["+", "*", "/", "="],       // Operator
 	6:  ["+", "-", "*", "/", "="],  // NegativeNum2
 	7:  ["0"],  // OperandZero2
 	8:  [],     // OperandInteger2
@@ -52,65 +70,26 @@ const INVALID_INPUTS = Object.freeze({
 	10: ["="],     // Result
 })
 
-/* 有効側で作る場合（現在は使わないと判断）
-const VALID_INPUTS = Object.freeze({
-	0: [ // Start
-		[["1","2","3","4","5","6","7","8","9"], CALC_STATE.OperandInteger1],
-		[["0"], CALC_STATE.OperandZero1],
-		[["-"], CALC_STATE.NegativeNum1],
-	],
-	1: [ // NegativeNum1
-		[["1","2","3","4","5","6","7","8","9"], CALC_STATE.OperandInteger1],
-		[["0"], CALC_STATE.OperandZero1],
-	],
-	2: [ // OperandZero1
-		[["1","2","3","4","5","6","7","8","9"], CALC_STATE.OperandInteger1],
-	],
-	3: [ // OperandInteger1
-	],
-	4: [ // OperandDecimal1
-	],
-	5: [ // Operator
-	],
-	6: [ // NegativeNum2
-	],
-	7: [ // OperandZero2
-	],
-	8: [ // OperandInteger2
-	],
-	9: [ // OperandDecimal2
-	],
-	10: [ // Result
-	],
-})
-*/
-
-// "0"
-// "1","2","3","4","5","6","7","8","9"
-// "+", "-"
-// "*", "/"
-// "="
-
 class Calculator {
-  constructor(output) {
+  constructor() {
+    this._expression = '';
+		this._label = '';
 		this._state = CALC_STATE.Start; // -> 0
-    this._expression = [];
-		this.output = output;
   }
 
   push(input) {
-    const validInputs = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "+", "-", "*", "/", "="];
 		// 許容されているデータのみ処理に進める（入力としてありえるもの、かつ現ステートで無効な値）
-    if ((!validInputs.includes(input)) || (INVALID_INPUTS[this._state].includes(input))) {
+    if ((!VALID_INPUTS.includes(input)) || (INVALID_INPUTS_BY_STATE[this._state].includes(input))) {
       return false;
     }
 		switch (this._state){
 			case CALC_STATE.Start:
-				/* 
-				 * 0   : OperandZero1 に移行
-				 * -   : NegativeNum1 に移行
-				 * .   : "0" を先に追加し、OperandDecimal1 に移行
-				 * 1-9 : OperandIntger1 に移行
+				/* [    ] : 何も入力されていない状態
+				 * ------------------------------------------------ 
+				 *   0    : OperandZero1 に移行
+				 *   -    : NegativeNum1 に移行
+				 *   .    : "0" を先に追加し、OperandDecimal1 に移行
+				 *  1-9   : OperandIntger1 に移行
 				 */
 				switch (input){
 					case "0":
@@ -132,10 +111,11 @@ class Calculator {
 				}
 				break;
 			case CALC_STATE.NegativeNum1:
-				/* 
-				 * 0   : OperandZero1 に移行
-				 * .   : "0" を先に追加し、OperandDecimal1 に移行
-				 * 1-9 : OperandIntger1 に移行
+				/* [-   ] : 第一オペラントにマイナス入力
+				 * ------------------------------------------------ 
+				 *   0    : OperandZero1 に移行
+				 *   .    : "0" を先に追加し、OperandDecimal1 に移行
+				 *  1-9   : OperandIntger1 に移行
 				 */
 				switch (input){
 					case "0":
@@ -153,10 +133,11 @@ class Calculator {
 				}
 				break;
 			case CALC_STATE.OperandZero1:
-				/*
-				 * .     : OperandDecimal1 に移行
-				 * 演算子 : Operator に移行 
-				 * 1-9   : 式にある "0" を消し、OperandIntger1 に移行
+				/* [0   ] : ゼロ入力モード
+				 * -------------------------------------------------
+				 *   .    : OperandDecimal1 に移行
+				 * 演算子  : Operator に移行
+				 *  1-9   : 式にある "0" を消し、OperandIntger1 に移行
 				 */
 				switch (input){
 					case ".":
@@ -177,10 +158,11 @@ class Calculator {
 				}
 				break;
 			case CALC_STATE.OperandInteger1:
-				/*
-				 * .     : OperandDecimal1 に移行
-				 * 演算子 : Operator に移行 
-				 * 0-9   : 変化なし
+				/* [3   ] : 整数入力モード
+				 * -------------------------------------------------
+				 *   .    : OperandDecimal1 に移行
+				 * 演算子  : Operator に移行
+				 *  0-9   : 変化なし
 				 */
 				switch (input){
 					case ".":
@@ -199,9 +181,10 @@ class Calculator {
 				}
 				break;
 			case CALC_STATE.OperandDecimal1:
-				/*
-				 * 演算子 : Operator に移行 
-				 * 0-9   : 変化なし
+				/* [3.  ] : 少数入力モード
+				 * -------------------------------------------------
+				 * 演算子  : Operator に移行
+				 *  0-9   : 変化なし
 				 */
 				switch (input){
 					case "+":
@@ -216,12 +199,13 @@ class Calculator {
 				}
 				break;
 			case CALC_STATE.Operator:
-				/* 
-				 * 0     : OperandZero2 に移行
-				 * .     : "0" を先に追加し、OperandDecimal2 に移行
-				 * -     : NegativeNum2 に移行
-				 * 演算子 : （マイナス以外は）式にある演算子を消す、ステート移行はなし
-				 * 1-9   : OperandIntger2 に移行
+				/* [2+  ] : オペレータが入力された状態
+				 * ------------------------------------------------ 
+				 *   0    : OperandZero2 に移行
+				 *   .    : "0" を先に追加し、OperandDecimal2 に移行
+				 *   -    : NegativeNum2 に移行
+				 * 演算子  :（マイナス以外は）式にある演算子を消す、ステート移行はなし
+				 *  1-9   : OperandIntger2 に移行
 				 */
 				switch (input){
 					case "0":
@@ -249,10 +233,11 @@ class Calculator {
 				}
 				break;
 			case CALC_STATE.NegativeNum2:
-				/*
-				 * 0   : OperandZero2 に移行
-				 * .   : "0" を先に追加し、OperandDecimal2 に移行
-				 * 1-9 : OperandIntger2 に移行
+				/* [2*- ] : 第二オペラントにマイナス入力
+				 * ------------------------------------------------ 
+				 *   0    : OperandZero2 に移行
+				 *   .    : "0" を先に追加し、OperandDecimal2 に移行
+				 *  1-9   : OperandIntger2 に移行
 				 */
 				switch (input){
 					case "0":
@@ -270,11 +255,12 @@ class Calculator {
 				}
 				break;
 			case CALC_STATE.OperandZero2:
-				/*
-				 * .     : OperandDecimal2 に移行
-				 * =     : 計算処理し、Result に移行
-				 * 演算子 : 計算処理し、演算子を引き継ぎ Operator に移行
-				 * 1-9   : 式にある "0" を消し、OperandIntger2 に移行
+				/* [2+0 ] : ゼロ入力モード
+				 * -------------------------------------------------
+				 *   .    : OperandDecimal2 に移行
+				 *   =    : 計算処理し、Result に移行
+				 * 演算子  : 計算処理し、演算子を引き継ぎ Operator に移行
+				 *  1-9   : 式にある "0" を消し、OperandIntger2 に移行
 				 */
 				switch (input){
 					case ".":
@@ -282,7 +268,7 @@ class Calculator {
 						this._state = CALC_STATE.OperandDecimal2;
 						break;
 					case "=":
-						// TODO: ここまでの式をラベル側に移行させる？
+						this._label = this._expression;
 						this._expression = this.calculate();
 						this._state = CALC_STATE.Result; 
 						break;
@@ -290,7 +276,7 @@ class Calculator {
 					case "-":
 					case "*":
 					case "/":
-						// TODO: ここまでの式をラベル側に移行させる？
+						this._label = this._expression;
 						this._expression = this.calculate();
 						this._expression += input;
 						this._state = CALC_STATE.Operator;
@@ -302,11 +288,12 @@ class Calculator {
 				}
 				break;
 			case CALC_STATE.OperandInteger2:
-				/*
-				 * .     : OperandDecimal2 に移行
-				 * =     : 計算処理し、Result に移行
-				 * 演算子 : 計算処理し、演算子を引き継ぎ Operator に移行
-				 * 0-9   : 変化なし
+				/* [3+2 ] : 整数入力モード
+				 * -------------------------------------------------
+				 *   .    : OperandDecimal2 に移行
+				 *   =    : 計算処理し、Result に移行
+				 * 演算子  : 計算処理し、演算子を引き継ぎ Operator に移行
+				 *  0-9   : 変化なし
 				 */
 				switch (input){
 					case ".":
@@ -314,7 +301,7 @@ class Calculator {
 						this._state = CALC_STATE.OperandDecimal2;
 						break;
 					case "=":
-						// TODO: ここまでの式をラベル側に移行させる？
+						this._label = this._expression;
 						this._expression = this.calculate();
 						this._state = CALC_STATE.Result; 
 						break;
@@ -322,7 +309,7 @@ class Calculator {
 					case "-":
 					case "*":
 					case "/":
-						// TODO: ここまでの式をラベル側に移行させる？
+						this._label = this._expression;
 						this._expression = this.calculate();
 						this._expression += input;
 						this._state = CALC_STATE.Operator;
@@ -332,14 +319,15 @@ class Calculator {
 				}
 				break;
 			case CALC_STATE.OperandDecimal2:
-				/*
-				 * =     : 計算処理し、Result に移行
-				 * 演算子 : 計算処理し、演算子を引き継ぎ Operator に移行
-				 * 0-9   : 変化なし
+				/* [3+2.] : 少数入力モード
+				 * -------------------------------------------------
+				 *   =    : 計算処理し、Result に移行
+				 * 演算子  : 計算処理し、演算子を引き継ぎ Operator に移行
+				 *  0-9   : 変化なし
 				 */
 				switch (input){
 					case "=":
-						// TODO: ここまでの式をラベル側に移行させる？
+						this._label = this._expression;
 						this._expression = this.calculate();
 						this._state = CALC_STATE.Result; 
 						break;
@@ -347,7 +335,7 @@ class Calculator {
 					case "-":
 					case "*":
 					case "/":
-						// TODO: ここまでの式をラベル側に移行させる？
+						this._label = this._expression;
 						this._expression = this.calculate();
 						this._expression += input;
 						this._state = CALC_STATE.Operator;
@@ -357,11 +345,12 @@ class Calculator {
 				}
 				break;
 			case CALC_STATE.Result:
-				/*
-				 * 演算子 : Operator に移行
-				 * .     : 計算結果を消し、"0" を先に追加し、OperandDecimal1 に移行
-				 * 0     : 計算結果を消し、OperandZero1 に移行
-				 * 1-9   : 計算結果を消し、OperandIntger1 に移行
+				/* [5   ] : 計算結果の表示
+				 * -------------------------------------------------
+				 * 演算子  : Operator に移行
+				 *   .    : 計算結果を消し、"0" を先に追加し、OperandDecimal1 に移行
+				 *   0    : 計算結果を消し、OperandZero1 に移行
+				 *  1-9   : 計算結果を消し、OperandIntger1 に移行
 				 */
 				switch (input){
 					case "+":
@@ -372,15 +361,18 @@ class Calculator {
 						this._state = CALC_STATE.Operator;
 						break;
 					case ".":
+						this._label = '';
 						this._expression = "0";
 						this._expression += input;
 						this._state = CALC_STATE.OperandDecimal1;
 						break;
 					case "0":
+						this._label = '';
 						this._expression = input;
 						this._state = CALC_STATE.OperandZero1;
 						break;
 					default: // -> case [1-9]
+						this._label = '';
 						this._expression = input;
 						this._state = CALC_STATE.OperandInteger1; 
 				}
@@ -388,7 +380,6 @@ class Calculator {
 			default:
 				console.log(`無効なステートが検出されました ${this._state}`);
 		}
-		this.output.textContent = this._expression;
     return true;
   }
 
@@ -396,26 +387,35 @@ class Calculator {
     try {
       return eval(this._expression); // eslint-disable-line no-eval
     } catch (error) {
-      console.error("計算エラー:", error.message);
+      this._label = `Error: ${error.message}`;
       return NaN;
     }
   }
 
 	reset(){
 		this._state = CALC_STATE.Start;
-    this._expression = [];
-		this.output.textContent = this._expression;
+    this._expression = '';
+		this._label = '';
+	}
+	get expression(){
+		return this._expression;
+	}
+	get label(){
+		return this._label
 	}
 }
 
+const calculator = new Calculator();
+
+
+
+
+
+
+
+
+const calcLabel = document.querySelector('#js_calc_label');
 const calcOutput = document.querySelector('#js_calc_output');
-const calculator = new Calculator(calcOutput);
-
-
-
-
-
-
 
 
 // 計算ボタン郡（0〜9, 小数点, 四則演算子）
@@ -444,10 +444,11 @@ const execArr = [ calcBtn1, calcBtn2, calcBtn3, calcBtn4, calcBtn5, calcBtn6, ca
 for (const ele of execArr){
 	ele.addEventListener("click", (e) => {
 		if(calculator.push(e.target.getAttribute('data-calc')) === true) {
-			// 入力失敗時の処理
-			console.log(`success: ${e.target.getAttribute('data-calc')}`);
+			calcOutput.textContent = calculator.expression;
+			calcLabel.textContent = calculator.label;
 		} else {
-			console.log(`failure: ${e.target.getAttribute('data-calc')}`);
+			calcOutput.textContent = calculator.expression;
+			calcLabel.textContent = '不正な入力です';
 		}
 	})
 }
@@ -456,6 +457,8 @@ for (const ele of execArr){
 const calcBtnAllClear = document.querySelector('#js_calcBtn_AllClear');
 calcBtnAllClear.addEventListener("click", () => {
 	calculator.reset();
+	calcOutput.textContent = calculator.expression;
+	calcLabel.textContent = calculator.label;
 })
 
 const calcBtnBackSpace = document.querySelector('#js_calcBtn_BackSpace');
