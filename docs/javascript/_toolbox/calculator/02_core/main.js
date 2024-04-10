@@ -69,6 +69,58 @@ function isOperator(char) {
 }
 
 
+const multiplication = (x, y) => {
+	const n = 10 ** (getDecimalPosition(x) + getDecimalPosition(y));
+	x = +(x + '').replace('.', '');
+	y = +(y + '').replace('.', '');
+	return (x * y) / n;
+};
+
+
+const addition = (x, y) => {
+	const z = 10 ** Math.max(getDecimalPosition(x), getDecimalPosition(y));
+	return (multiplication(x, z) + multiplication(y, z)) / z;
+};
+
+const subtract = (x, y) => {
+	const z = 10 ** Math.max(getDecimalPosition(x), getDecimalPosition(y));
+	return (multiplication(x, z) - multiplication(y, z)) / z;
+};
+
+/*
+const division = (x, y) => {
+	const decimalLengthX = getDecimalPosition(y);
+	const decimalLengthY = getDecimalPosition(x);
+	let n = 0;
+
+	if(decimalLengthX == decimalLengthY){
+		n = 1;
+	} else {
+		n = Math.pow(10, decimalLengthY - decimalLengthX);
+	}
+
+	x = +(x + '').replace('.', '');
+	y = +(y + '').replace('.', '');
+
+	if(x > y){
+		return x / y / n;
+	} else {
+		return (x / y) * n
+	}
+}
+*/
+
+const division = (x, y) => {
+	const decimalLengthX = getDecimalPosition(x);
+	const decimalLengthY = getDecimalPosition(y);
+	const n = 10 ** (decimalLengthY - decimalLengthX); // Fix: Calculate the scale factor
+
+	x = +(x + '').replace('.', '');
+	y = +(y + '').replace('.', '');
+
+	return (x / y) * n; // Fix: Always multiply by the scale factor
+}
+
 
 /* ≡≡≡ ▀▄ Calculator ▀▄ ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
 	■ 概要
@@ -124,8 +176,14 @@ class Calculator {
     this._expression = '';
 		this._label = '';
 		this._state = CALC_STATE.Start; // -> 0
-
   }
+
+	get expression(){
+		return this._expression;
+	}
+	get label(){
+		return this._label
+	}
 
   push(input) {
 		// 許容されているデータのみ処理に進める（入力としてありえるもの、かつ現ステートで無効な値）
@@ -435,14 +493,7 @@ class Calculator {
 
   calculate() {
 		let [strOpeLeft, operator, strOpeRight] = splitExpression(this._expression);
-		let powDecimal2Int = 10 ** Math.max(getDecimalPosition(strOpeLeft), getDecimalPosition(strOpeRight));
-		let opeLeft = 0;
-		let opeRight = 0;
 		let calcResult = 0;
-
-		/*
-			0.02 * 1 [100] -> 2*100= 200/10000 =0.02
-		*/
 		switch(operator){
 			case '+':
 				try {
@@ -454,8 +505,7 @@ class Calculator {
 				break;
 			case '-':
 				try {
-					calcResult = opeLeft - opeRight;
-					calcResult /= powDecimal2Int;
+					calcResult = subtract(strOpeLeft, strOpeRight);
 				} catch (error) {
 					this._label = `Error: ${error.message}`;
 					calcResult = NaN;
@@ -481,14 +531,6 @@ class Calculator {
 				console.log(`不明な演算子が検出されました。 operator: ${operator}`);
 		}
 		return calcResult;
-		/*
-    try {
-      return eval(this._expression); // eslint-disable-line no-eval
-    } catch (error) {
-      this._label = `Error: ${error.message}`;
-      return NaN;
-    }
-		*/
   }
 
 	reset(){
@@ -496,57 +538,36 @@ class Calculator {
     this._expression = '';
 		this._label = '';
 	}
-	get expression(){
-		return this._expression;
+
+	back(){
+		//リザルト状態でない、かつ 1文字以上の入力がある場合
+		if((this._state !== CALC_STATE.Result) && (this._expression.length >= 1)){
+			const expr = this._expression.slice(0, -1);
+			this._label = '';
+			this._expression = '';
+			this._state = CALC_STATE.Start;
+			if(expr.length >= 1){
+				for (var i = 0; i < expr.length; i++) {
+					this.push(expr[i]);
+				}
+			}
+		}
 	}
-	get label(){
-		return this._label
+	copy(){
+		navigator.clipboard.writeText(this._expression).then(
+			() => {
+				/* clipboard successfully set */
+			},
+			() => {
+				/* clipboard write failed */
+			},
+		);
 	}
 }
 
 const calculator = new Calculator();
 
 
-
-function multiplication(x, y){
-	const n = 10 ** (getDecimalPosition(x) + getDecimalPosition(y));
-	x = +(x + '').replace('.', '');
-	y = +(y + '').replace('.', '');
-	return (x * y) / n;
-};
-
-
-const addition = (x, y) => {
-	const z = 10 ** Math.max(getDecimalPosition(x), getDecimalPosition(y));
-	return (multiplication(x, z) + multiplication(y, z)) / z;
-};
-
-const subtract = (x, y) => {
-	const z = 10 ** Math.max(getDecimalPosition(x), getDecimalPosition(y));
-	return (multiplication(x, z) - multiplication(y, z)) / z;
-};
-
-
-const division = (x, y) => {
-	const decimalLengthX = getDecimalPosition(y);
-	const decimalLengthY = getDecimalPosition(x);
-	let n = 0;
-
-	if(decimalLengthX == decimalLengthY){
-		n = 1;
-	} else {
-		n = Math.pow(10, decimalLengthY - decimalLengthX);
-	}
-
-	x = +(x + '').replace('.', '');
-	y = +(y + '').replace('.', '');
-
-	if(x > y){
-		return x / y / n;
-	} else {
-		return (x / y) * n
-	}
-}
 
 const calcLabel = document.querySelector('#js_calc_label');
 const calcOutput = document.querySelector('#js_calc_output');
@@ -596,4 +617,14 @@ calcBtnAllClear.addEventListener("click", () => {
 })
 
 const calcBtnBackSpace = document.querySelector('#js_calcBtn_BackSpace');
+calcBtnBackSpace.addEventListener("click", () => {
+	calculator.back();
+	calcOutput.textContent = calculator.expression;
+	calcLabel.textContent = calculator.label;
+});
+
 const calcBtnCopy = document.querySelector('#js_calcBtn_Copy');
+calcBtnCopy.addEventListener("click", () => {
+	// TODO: コピー後に、ユーザーに伝える処理（ラベル？）
+	calculator.copy();
+});
