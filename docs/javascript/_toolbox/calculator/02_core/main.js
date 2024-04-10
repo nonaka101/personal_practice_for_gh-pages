@@ -21,6 +21,55 @@ dialogCalculator.addEventListener('click', (e) => {
 
 
 
+/**
+ * 入力された数値の小数点位置を返す関数。
+ * @param {string} value - 入力文字列。例: "1.01"
+ * @returns {int} - 少数位置。例： 2
+ */
+function getDecimalPosition(value){
+	const strVal = String(value);
+  if(strVal.indexOf('.') !== -1){
+    return ((strVal.length - 1) - strVal.indexOf('.'));
+	}
+	return 0;
+}
+
+
+/**
+ * 入力文字列をOperandLeft、Operator、OperandRightに分割する関数。
+ * @param {string} input - 入力文字列。例: "1+1"
+ * @returns {Array} - [OperandLeft, Operator, OperandRight]の配列。
+ */
+function splitExpression(expression) {
+	let operatorIndex = 1; // デフォルトでは2文字目からOperatorを探す
+
+	// Operatorが2文字目以降にあるかチェック
+	// Memo: indexOf() で検索をかける方法は、右辺が負の数であるパターンで複雑になるだけなので不採用
+	for (let i = 1; i < expression.length; i++) {
+			if (isOperator(expression[i])) {
+					operatorIndex = i;
+					break;
+			}
+	}
+
+	const operandLeft = expression.substring(0, operatorIndex);
+	const operator = expression[operatorIndex];
+	const operandRight = expression.substring(operatorIndex + 1);
+
+	return [operandLeft, operator, operandRight];
+}
+
+/**
+* 文字が演算子かどうかを判定するヘルパー関数。
+* @param {string} char - 判定する文字。
+* @returns {boolean} - 文字が演算子であればtrue、それ以外はfalse。
+*/
+function isOperator(char) {
+	return ['+', '-', '*', '/'].includes(char);
+}
+
+
+
 /* ≡≡≡ ▀▄ Calculator ▀▄ ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
 	■ 概要
 		電卓としての機能を持たせている。
@@ -75,6 +124,7 @@ class Calculator {
     this._expression = '';
 		this._label = '';
 		this._state = CALC_STATE.Start; // -> 0
+
   }
 
   push(input) {
@@ -85,7 +135,7 @@ class Calculator {
 		switch (this._state){
 			case CALC_STATE.Start:
 				/* [    ] : 何も入力されていない状態
-				 * ------------------------------------------------ 
+				 * ------------------------------------------------
 				 *   0    : OperandZero1 に移行
 				 *   -    : NegativeNum1 に移行
 				 *   .    : "0" を先に追加し、OperandDecimal1 に移行
@@ -107,12 +157,12 @@ class Calculator {
 						break;
 					default: // -> case [1-9]
 						this._expression += input;
-						this._state = CALC_STATE.OperandInteger1; 
+						this._state = CALC_STATE.OperandInteger1;
 				}
 				break;
 			case CALC_STATE.NegativeNum1:
 				/* [-   ] : 第一オペラントにマイナス入力
-				 * ------------------------------------------------ 
+				 * ------------------------------------------------
 				 *   0    : OperandZero1 に移行
 				 *   .    : "0" を先に追加し、OperandDecimal1 に移行
 				 *  1-9   : OperandIntger1 に移行
@@ -129,7 +179,7 @@ class Calculator {
 						break;
 					default: // -> case [1-9]
 						this._expression += input;
-						this._state = CALC_STATE.OperandInteger1; 
+						this._state = CALC_STATE.OperandInteger1;
 				}
 				break;
 			case CALC_STATE.OperandZero1:
@@ -154,7 +204,7 @@ class Calculator {
 					default: // -> case [1-9]
 						this._expression = this._expression.slice(0, -1);
 						this._expression += input;
-						this._state = CALC_STATE.OperandInteger1; 
+						this._state = CALC_STATE.OperandInteger1;
 				}
 				break;
 			case CALC_STATE.OperandInteger1:
@@ -200,7 +250,7 @@ class Calculator {
 				break;
 			case CALC_STATE.Operator:
 				/* [2+  ] : オペレータが入力された状態
-				 * ------------------------------------------------ 
+				 * ------------------------------------------------
 				 *   0    : OperandZero2 に移行
 				 *   .    : "0" を先に追加し、OperandDecimal2 に移行
 				 *   -    : NegativeNum2 に移行
@@ -229,12 +279,12 @@ class Calculator {
 						break;
 					default: // -> case [1-9]
 						this._expression += input;
-						this._state = CALC_STATE.OperandInteger2; 
+						this._state = CALC_STATE.OperandInteger2;
 				}
 				break;
 			case CALC_STATE.NegativeNum2:
 				/* [2*- ] : 第二オペラントにマイナス入力
-				 * ------------------------------------------------ 
+				 * ------------------------------------------------
 				 *   0    : OperandZero2 に移行
 				 *   .    : "0" を先に追加し、OperandDecimal2 に移行
 				 *  1-9   : OperandIntger2 に移行
@@ -251,7 +301,7 @@ class Calculator {
 						break;
 					default: // -> case [1-9]
 						this._expression += input;
-						this._state = CALC_STATE.OperandInteger2; 
+						this._state = CALC_STATE.OperandInteger2;
 				}
 				break;
 			case CALC_STATE.OperandZero2:
@@ -270,7 +320,7 @@ class Calculator {
 					case "=":
 						this._label = this._expression;
 						this._expression = this.calculate();
-						this._state = CALC_STATE.Result; 
+						this._state = CALC_STATE.Result;
 						break;
 					case "+":
 					case "-":
@@ -284,7 +334,7 @@ class Calculator {
 					default: // -> case [1-9]
 						this._expression = this._expression.slice(0, -1);
 						this._expression += input;
-						this._state = CALC_STATE.OperandInteger2; 
+						this._state = CALC_STATE.OperandInteger2;
 				}
 				break;
 			case CALC_STATE.OperandInteger2:
@@ -303,7 +353,7 @@ class Calculator {
 					case "=":
 						this._label = this._expression;
 						this._expression = this.calculate();
-						this._state = CALC_STATE.Result; 
+						this._state = CALC_STATE.Result;
 						break;
 					case "+":
 					case "-":
@@ -329,7 +379,7 @@ class Calculator {
 					case "=":
 						this._label = this._expression;
 						this._expression = this.calculate();
-						this._state = CALC_STATE.Result; 
+						this._state = CALC_STATE.Result;
 						break;
 					case "+":
 					case "-":
@@ -374,7 +424,7 @@ class Calculator {
 					default: // -> case [1-9]
 						this._label = '';
 						this._expression = input;
-						this._state = CALC_STATE.OperandInteger1; 
+						this._state = CALC_STATE.OperandInteger1;
 				}
 				break;
 			default:
@@ -384,12 +434,61 @@ class Calculator {
   }
 
   calculate() {
+		let [strOpeLeft, operator, strOpeRight] = splitExpression(this._expression);
+		let powDecimal2Int = 10 ** Math.max(getDecimalPosition(strOpeLeft), getDecimalPosition(strOpeRight));
+		let opeLeft = 0;
+		let opeRight = 0;
+		let calcResult = 0;
+
+		/*
+			0.02 * 1 [100] -> 2*100= 200/10000 =0.02
+		*/
+		switch(operator){
+			case '+':
+				try {
+					calcResult = addition(strOpeLeft, strOpeRight)
+				} catch (error) {
+					this._label = `Error: ${error.message}`;
+					calcResult = NaN;
+				}
+				break;
+			case '-':
+				try {
+					calcResult = opeLeft - opeRight;
+					calcResult /= powDecimal2Int;
+				} catch (error) {
+					this._label = `Error: ${error.message}`;
+					calcResult = NaN;
+				}
+				break;
+			case '*':
+				try {
+					calcResult = multiplication(strOpeLeft, strOpeRight);
+				} catch (error) {
+					this._label = `Error: ${error.message}`;
+					calcResult = NaN;
+				}
+				break;
+			case '/':
+				try {
+					calcResult = division(strOpeLeft, strOpeRight);
+				} catch (error) {
+					this._label = `Error: ${error.message}`;
+					calcResult = NaN;
+				}
+				break;
+			default:
+				console.log(`不明な演算子が検出されました。 operator: ${operator}`);
+		}
+		return calcResult;
+		/*
     try {
       return eval(this._expression); // eslint-disable-line no-eval
     } catch (error) {
       this._label = `Error: ${error.message}`;
       return NaN;
     }
+		*/
   }
 
 	reset(){
@@ -409,10 +508,45 @@ const calculator = new Calculator();
 
 
 
+function multiplication(x, y){
+	const n = 10 ** (getDecimalPosition(x) + getDecimalPosition(y));
+	x = +(x + '').replace('.', '');
+	y = +(y + '').replace('.', '');
+	return (x * y) / n;
+};
 
 
+const addition = (x, y) => {
+	const z = 10 ** Math.max(getDecimalPosition(x), getDecimalPosition(y));
+	return (multiplication(x, z) + multiplication(y, z)) / z;
+};
+
+const subtract = (x, y) => {
+	const z = 10 ** Math.max(getDecimalPosition(x), getDecimalPosition(y));
+	return (multiplication(x, z) - multiplication(y, z)) / z;
+};
 
 
+const division = (x, y) => {
+	const decimalLengthX = getDecimalPosition(y);
+	const decimalLengthY = getDecimalPosition(x);
+	let n = 0;
+
+	if(decimalLengthX == decimalLengthY){
+		n = 1;
+	} else {
+		n = Math.pow(10, decimalLengthY - decimalLengthX);
+	}
+
+	x = +(x + '').replace('.', '');
+	y = +(y + '').replace('.', '');
+
+	if(x > y){
+		return x / y / n;
+	} else {
+		return (x / y) * n
+	}
+}
 
 const calcLabel = document.querySelector('#js_calc_label');
 const calcOutput = document.querySelector('#js_calc_output');
@@ -440,7 +574,7 @@ const execArr = [ calcBtn1, calcBtn2, calcBtn3, calcBtn4, calcBtn5, calcBtn6, ca
 									calcBtn8, calcBtn9, calcBtn0, calcBtnDecimalPoint, calcBtnAdd,
 									calcBtnSubtract, calcBtnMultiply, calcBtnDevide, calcBtnEqual,
 								];
-								
+
 for (const ele of execArr){
 	ele.addEventListener("click", (e) => {
 		if(calculator.push(e.target.getAttribute('data-calc')) === true) {
