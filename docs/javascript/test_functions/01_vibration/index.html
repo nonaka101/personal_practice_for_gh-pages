@@ -6,27 +6,63 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>01 - Vibration | Test</title>
 	<link rel="stylesheet" href="./style.css">
+	<style>
+		button {
+			display: block;
+		}
+	</style>
 </head>
 <body>
 	<main>
-		<button type="button" onclick="startVibrate(50)">
-			Dulation 50
-		</button>
-		<button type="button" onclick="startVibrate(100)">
-			Dulation 100
-		</button>
-		<button type="button" onclick="startVibrate(200)">
-			Dulation 200
-		</button>
-		<button type="button" onclick="startVibrate([50, 50, 50])">
-			Dulation Pattern[50, 50, 50]
-		</button>
-		<button type="button" onclick="startVibrate([100, 100, 100])">
-			Dulation Pattern[100, 100, 100]
-		</button>
-		<button type="button" onclick="startVibrate([200, 100, 200])">
-			Dulation Pattern[200, 100, 200]
-		</button>
+		<h1>振動機能のテスト</h1>
+		<div>
+			<h2>テスト１</h2>
+			<button type="button" onclick="startVibrate(50)">
+				Dulation 50
+			</button>
+			<button type="button" onclick="startVibrate(100)">
+				Dulation 100
+			</button>
+			<button type="button" onclick="startVibrate(200)">
+				Dulation 200
+			</button>
+			<button type="button" onclick="startVibrate([50, 50, 50])">
+				Dulation Pattern[50, 50, 50]
+			</button>
+			<button type="button" onclick="startVibrate([100, 100, 100])">
+				Dulation Pattern[100, 100, 100]
+			</button>
+			<button type="button" onclick="startVibrate([200, 100, 200])">
+				Dulation Pattern[200, 100, 200]
+			</button>
+		</div>
+		<div>
+			<h2>テスト２</h2>
+			<button type="button"
+				onclick="window.navigator.vibrate(50)">
+				Dulation 50
+			</button>
+			<button type="button"
+				onclick="window.navigator.vibrate(100)">
+				Dulation 100
+			</button>
+			<button type="button"
+				onclick="window.navigator.vibrate(200)">
+				Dulation 200
+			</button>
+			<button type="button"
+				onclick="window.navigator.vibrate([50, 50, 50])">
+				Dulation Pattern[50, 50, 50]
+			</button>
+			<button type="button"
+				onclick="window.navigator.vibrate([100, 100, 100])">
+				Dulation Pattern[100, 100, 100]
+			</button>
+			<button type="button"
+				onclick="window.navigator.vibrate([200, 100, 200])">
+				Dulation Pattern[200, 100, 200]
+			</button>
+		</div>
 	</main>
 	<nav>
 		<a href="../index.html">まとめページに戻る</a>

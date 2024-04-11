@@ -3,14 +3,14 @@ let vibrateInterval;
 
 // Starts vibration at passed in level
 function startVibrate(duration) {
-  navigator.vibrate(duration);
+  window.navigator.vibrate(duration);
 }
 
 // Stops vibration
 function stopVibrate() {
   // Clear interval and stop persistent vibrating
   if (vibrateInterval) clearInterval(vibrateInterval);
-  navigator.vibrate(0);
+  window.navigator.vibrate(0);
 }
 
 // Start persistent vibration at given duration and interval
