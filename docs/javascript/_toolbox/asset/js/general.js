@@ -203,3 +203,27 @@ chkEnableVibration.addEventListener("change", (e) => {
 // 初期状態の反映
 chkEnableVibration.checked = settingState.enableVibration;
 changeVibrationMode(settingState.enableVibration);
+
+const TYPE_VIBRATE = Object.freeze({
+	NONE: 0,
+	NORMAL: 1,
+	MOZ: 2,
+	WEBKIT: 3,
+});
+
+function typeVibrate(){
+	if(window.navigator.vibrate !== undefined){
+		return TYPE_VIBRATE.NORMAL;
+	} else if(window.navigator.mozVibrate !== undefined){
+		return TYPE_VIBRATE.MOZ;
+	} else if(window.navigator.webkitVibrate !== undefined){
+		return TYPE_VIBRATE.WEBKIT;
+	} else {
+		return TYPE_VIBRATE.NONE;
+	}
+}
+
+if(typeVibrate() === TYPE_VIBRATE.NONE){
+	chkEnableVibration.parentElement.lastChild.textContent = 'この機器は振動モード未対応です'
+	chkEnableVibration.disabled = true;
+}
