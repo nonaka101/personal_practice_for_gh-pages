@@ -1,6 +1,7 @@
-
 const AudioContext = window.AudioContext || window.webkitAudioContext;
-if (AudioContext !== undefined){
+if (AudioContext === undefined){
+	// AudioContext 未対応
+} else {
 	const audioContext = new AudioContext();
 
 	function beep(inputType='sine', inputFrequency = 400, inputDuration = 50){
@@ -15,7 +16,7 @@ if (AudioContext !== undefined){
 
 		oscillator.type = inputType;
 		oscillator.frequency.setValueAtTime(inputFrequency, audioContext.currentTime);
-		gain.gain.setValueAtTime(0.5, audioContext.currentTime);
+		gain.gain.setValueAtTime(1, audioContext.currentTime);
 
 		// ビープ音の開始
 		oscillator.start(audioContext.currentTime);
@@ -25,6 +26,4 @@ if (AudioContext !== undefined){
 			oscillator.stop(audioContext.currentTime);
 		}, inputDuration);
 	}
-} else {
-	// AudioContext 未対応
 }

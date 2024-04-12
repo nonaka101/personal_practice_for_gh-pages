@@ -7,39 +7,52 @@
   <title>02 - Beep | Test</title>
 	<link rel="stylesheet" href="./style.css">
 	<style>
+		div {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			grid-template-rows: repeat(8, minmax(auto, 10dvh));
+			gap: 0;
+		}
 		button {
-			display: block;
+			appearance: none;
+			border: 1px solid gray;
+			background: none;
+			color: black;
 		}
 	</style>
 </head>
 <body>
 	<main>
 		<h1>Beep sound by 'Audio API'</h1>
-		<button type="button" onclick="beep()">Beep</button>
-		<form action="#">
-			<div>
-				<label>
-					波形
-					<select name="wave" id="wave">
-						<option value="sine" default>Sine</option>
-						<option value="square">Square</option>
-						<option value="sawtooth">Saw-tooth</option>
-						<option value="triangle">Triangle</option>
-					</select>
-				</label>
-				<label>
-					周波数（Hz）
-					<input type="number" name="frequency" id="frequency">
-				</label>
-				<label>
-					長さ（ms）
-					<input type="number" name="duration" id="frequency">
-				</label>
-				<button type="button">Play</button>
-			</div>
-		</form>
+		<div>
+			<button type="button" onclick="beep('sine', 400, 50)">Type:sine, Freq:400, Duration:50</button>
+			<button type="button" onclick="beep('sine',400,200)">Type:sine, Freq:400, Duration:200</button>
+			<button type="button" onclick="beep('sine',400,400)">Type:sine, Freq:400, Duration:400</button>
+			<button type="button" onclick="beep('sine',800,50)">Type:sine, Freq:800, Duration:50</button>
+			<button type="button" onclick="beep('sine',800,200)">Type:sine, Freq:800, Duration:200</button>
+			<button type="button" onclick="beep('sine',800,400)">Type:sine, Freq:800, Duration:400</button>
+			<button type="button" onclick="beep('square', 400, 50)">Type:square, Freq:400, Duration:50</button>
+			<button type="button" onclick="beep('square',400,200)">Type:square, Freq:400, Duration:200</button>
+			<button type="button" onclick="beep('square',400,400)">Type:square, Freq:400, Duration:400</button>
+			<button type="button" onclick="beep('square',800,50)">Type:square, Freq:800, Duration:50</button>
+			<button type="button" onclick="beep('square',800,200)">Type:square, Freq:800, Duration:200</button>
+			<button type="button" onclick="beep('square',800,400)">Type:square, Freq:800, Duration:400</button>
+			<button type="button" onclick="beep('sawtooth', 400, 50)">Type:sawtooth, Freq:400, Duration:50</button>
+			<button type="button" onclick="beep('sawtooth',400,200)">Type:sawtooth, Freq:400, Duration:200</button>
+			<button type="button" onclick="beep('sawtooth',400,400)">Type:sawtooth, Freq:400, Duration:400</button>
+			<button type="button" onclick="beep('sawtooth',800,50)">Type:sawtooth, Freq:800, Duration:50</button>
+			<button type="button" onclick="beep('sawtooth',800,200)">Type:sawtooth, Freq:800, Duration:200</button>
+			<button type="button" onclick="beep('sawtooth',800,400)">Type:sawtooth, Freq:800, Duration:400</button>
+			<button type="button" onclick="beep('triangle', 400, 50)">Type:triangle, Freq:400, Duration:50</button>
+			<button type="button" onclick="beep('triangle',400,200)">Type:triangle, Freq:400, Duration:200</button>
+			<button type="button" onclick="beep('triangle',400,400)">Type:triangle, Freq:400, Duration:400</button>
+			<button type="button" onclick="beep('triangle',800,50)">Type:triangle, Freq:800, Duration:50</button>
+			<button type="button" onclick="beep('triangle',800,200)">Type:triangle, Freq:800, Duration:200</button>
+			<button type="button" onclick="beep('triangle',800,400)">Type:triangle, Freq:800, Duration:400</button>
+		</div>
 	</main>
 	<nav>
+		<a href="./index2.html">Beep その２</a>
 		<a href="../index.html">まとめページに戻る</a>
 	</nav>
 	<script src="./main.js"></script>

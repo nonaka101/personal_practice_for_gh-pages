@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+	<meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>02 - Beep | Test</title>
+	<link rel="stylesheet" href="./style.css">
+	<style>
+		button {
+			display: block;
+		}
+	</style>
+</head>
+<body>
+	<main>
+		<h1>Beep sound by 'Audio API'</h1>
+		<form action="#">
+			<div>
+				<h2>全体の設定</h2>
+				<label>
+					波形
+					<select name="wave" id="wave">
+						<option value="sine" default>Sine</option>
+						<option value="square">Square</option>
+						<option value="sawtooth">Saw-tooth</option>
+						<option value="triangle">Triangle</option>
+					</select>
+				</label>
+				<label>
+					全体（A + B + 無音）の長さ（ms）
+					<input type="number" name="length" id="length" min="0" step="100">
+				</label>
+				<label>
+					無音長さ（％）
+					<select name="space" id="space">
+						<option value="0" default>0%（None）</option>
+						<option value="10">10%</option>
+						<option value="20">20%</option>
+						<option value="30">30%</option>
+						<option value="40">40%</option>
+						<option value="50">50%</option>
+						<option value="60">60%</option>
+						<option value="70">70%</option>
+						<option value="80">80%</option>
+						<option value="90">90%</option>
+					</select>
+				</label>
+				<label>
+					A↔B 配分（%）
+					<select name="pattern-rate" id="pattern-rate">
+						<option value="100" default>100 : 0（None）</option>
+						<option value="90">90 : 10</option>
+						<option value="80">80 : 20</option>
+						<option value="70">70 : 30</option>
+						<option value="60">60 : 40</option>
+						<option value="50">50 : 50</option>
+						<option value="40">40 : 60</option>
+						<option value="30">30 : 70</option>
+						<option value="20">20 : 80</option>
+						<option value="10">10 : 90</option>
+					</select>
+				</label>
+			</div>
+			<hr>
+			<div>
+				<h2>Pattern A</h2>
+				<label>
+					周波数（Hz）
+					<input type="number" name="frequency-a" id="frequency-a" min="0" step="10">
+				</label>
+			</div>
+			<hr>
+			<div>
+				<h2>Pattern B</h2>
+				<label>
+					周波数（Hz）
+					<input type="number" name="frequency-b" id="frequency-b" min="0" step="10">
+				</label>
+			</div>
+			<hr>
+			<button type="button" id="btnPlayOnce">Play once</button>
+			<button type="button" id="btnPlayLoop">Play loop</button>
+		</form>
+	</main>
+	<nav>
+		<a href="./index.html">Beep その１</a>
+		<a href="../index.html">まとめページに戻る</a>
+	</nav>
+	<script src="./main2.js"></script>
+</body>
+</html>
