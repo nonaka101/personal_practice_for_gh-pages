@@ -601,9 +601,11 @@ for (const ele of execArr){
 		if(calculator.push(e.target.getAttribute('data-calc')) === true) {
 			calcOutput.textContent = calculator.expression;
 			calcLabel.textContent = calculator.label;
+			beepOK();
 		} else {
 			calcOutput.textContent = calculator.expression;
 			calcLabel.textContent = '不正な入力です';
+			beepNG();
 		}
 	})
 }
@@ -614,6 +616,7 @@ calcBtnAllClear.addEventListener("click", () => {
 	calculator.reset();
 	calcOutput.textContent = calculator.expression;
 	calcLabel.textContent = calculator.label;
+	beepOK();
 })
 
 const calcBtnBackSpace = document.querySelector('#js_calcBtn_BackSpace');
@@ -621,10 +624,13 @@ calcBtnBackSpace.addEventListener("click", () => {
 	calculator.back();
 	calcOutput.textContent = calculator.expression;
 	calcLabel.textContent = calculator.label;
+	// TODO: CALC_STATE.Start や Result 時はバック不可なので、beepNGが正しい
+	beepOK();
 });
 
 const calcBtnCopy = document.querySelector('#js_calcBtn_Copy');
 calcBtnCopy.addEventListener("click", () => {
 	// TODO: コピー後に、ユーザーに伝える処理（ラベル？）
 	calculator.copy();
+	beepOK();
 });

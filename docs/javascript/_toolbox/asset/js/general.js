@@ -171,6 +171,63 @@ chkEnableSound.addEventListener("change", (e) => {
 chkEnableSound.checked = settingState.enableSound;
 changeSoundMode(settingState.enableSound);
 
+const AudioContext = window.AudioContext || window.webkitAudioContext;
+if (AudioContext === undefined){
+	chkEnableSound.parentElement.lastChild.textContent = 'この機器は未対応です'
+	chkEnableSound.disabled = true;
+} else {
+	const audioContext = new AudioContext();
+
+	function beepNG(){
+		if (chkEnableSound.checked === false) return;	// フラグ立ってなければ鳴らさない
+		const oscillator = audioContext.createOscillator();
+		const gain = audioContext.createGain();
+
+		// oscillatorをgainに接続する
+		oscillator.connect(gain);
+
+		// gainをaudioContextの出力に接続する
+		gain.connect(audioContext.destination);
+
+		oscillator.type = 'square';
+		oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+		oscillator.frequency.setValueAtTime(400, audioContext.currentTime + 0.1);
+		gain.gain.setValueAtTime(1, audioContext.currentTime);
+
+		// ビープ音の開始
+		oscillator.start(audioContext.currentTime);
+
+		// ビープ音の停止
+		setTimeout(() => {
+			oscillator.stop(audioContext.currentTime);
+		}, 200);
+	}
+
+	function beepOK(){
+		if (chkEnableSound.checked === false) return;	// フラグ立ってなければ鳴らさない
+		const oscillator = audioContext.createOscillator();
+		const gain = audioContext.createGain();
+
+		// oscillatorをgainに接続する
+		oscillator.connect(gain);
+
+		// gainをaudioContextの出力に接続する
+		gain.connect(audioContext.destination);
+
+		oscillator.type = 'square';
+		oscillator.frequency.setValueAtTime(400, audioContext.currentTime);
+		gain.gain.setValueAtTime(1, audioContext.currentTime);
+
+		// ビープ音の開始
+		oscillator.start(audioContext.currentTime);
+
+		// ビープ音の停止
+		setTimeout(() => {
+			oscillator.stop(audioContext.currentTime);
+		}, 50);
+	}
+
+}
 
 
 
