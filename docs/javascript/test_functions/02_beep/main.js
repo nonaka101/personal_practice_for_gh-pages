@@ -1,28 +1,30 @@
 
 const AudioContext = window.AudioContext || window.webkitAudioContext;
-const audioContext = new AudioContext();
+if (AudioContext !== undefined){
+	const audioContext = new AudioContext();
 
-function beep(){
-	const oscillator = audioContext.createOscillator();
-	const gain = audioContext.createGain();
+	function beep(inputType='sine', inputFrequency = 400, inputDuration = 50){
+		const oscillator = audioContext.createOscillator();
+		const gain = audioContext.createGain();
 
-	// oscillatorをgainに接続する
-	oscillator.connect(gain);
+		// oscillatorをgainに接続する
+		oscillator.connect(gain);
 
-	// gainをaudioContextの出力に接続する
-	gain.connect(audioContext.destination);
+		// gainをaudioContextの出力に接続する
+		gain.connect(audioContext.destination);
 
-	// サイン波440Hz、音量50%
-	oscillator.type = 'sine';
-	oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
-	gain.gain.setValueAtTime(0.5, audioContext.currentTime);
+		oscillator.type = inputType;
+		oscillator.frequency.setValueAtTime(inputFrequency, audioContext.currentTime);
+		gain.gain.setValueAtTime(0.5, audioContext.currentTime);
 
-	// ビープ音の開始
-	oscillator.start(audioContext.currentTime);
+		// ビープ音の開始
+		oscillator.start(audioContext.currentTime);
 
-	// ビープ音の停止
-	setTimeout(() => {
-		oscillator.stop(audioContext.currentTime);
-	}, 100);
-
+		// ビープ音の停止
+		setTimeout(() => {
+			oscillator.stop(audioContext.currentTime);
+		}, inputDuration);
+	}
+} else {
+	// AudioContext 未対応
 }
