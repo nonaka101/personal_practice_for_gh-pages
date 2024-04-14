@@ -21,6 +21,7 @@ html:has(dialog[open]) {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+  overscroll-behavior-x: none;
 }
 .ly_dialog:not([open]){
 	display: none;
