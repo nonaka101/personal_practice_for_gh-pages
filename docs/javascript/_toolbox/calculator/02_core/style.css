@@ -55,6 +55,7 @@ html:has(dialog[open]) {
 	align-items: center;
 	justify-content: center;
 	background-color: var(--sc_bg_body__primary);
+  overscroll-behavior-x: none;
 }
 
 .is_leftMode .ly_calc {
