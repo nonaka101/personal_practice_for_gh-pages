@@ -9,7 +9,44 @@
 </head>
 <body>
 	<main>
-		UI
+		<div>
+			<h2>テキスト → モールス情報</h2>
+			<form action="#">
+				<label>
+					モールス（半角英数字＋一部記号のみ使用可能）
+					<input type="text" name="morse" id="js_morse_input" value="Hello there!">
+				</label>
+				<button type="button" id="js_morse_submit">変換</button>
+			</form>
+			<div>
+				<span>MorseNum : </span><output id="js_morse_output__num"></output>
+			</div>
+			<div>
+				<span>MorseCode : </span><pre><output id="js_morse_output__code"></output></pre>
+			</div>
+		</div>
+		<div>
+			<h2>モールス(Num) → テキスト</h2>
+			<form action="#">
+				<label>
+					モールス（1と0の組み合わせ）
+					<input type="text" name="morse-num" id="js_morse_input__num" value="1010101000100010111010100010111010100011101110111000000011100010101010001000101110100010001110101110101110111">
+				</label>
+				<button type="button" id="js_morse_submit__num">変換</button>
+			</form>
+			<output id="js_morse_output__text1"></output>
+		</div>
+		<div>
+			<h2>モールス(Code) → テキスト</h2>
+			<form action="#">
+				<label>
+					モールス（ - . の組み合わせ）
+					<input type="text" name="morse-code" id="js_morse_input__code" value=".... . .-.. .-.. ---   - .... . .-. . -.-.--">
+				</label>
+				<button type="button" id="js_morse_submit__code">変換</button>
+			</form>
+			<output id="js_morse_output__text2"></output>
+		</div>
 	</main>
 	<nav>
 		<a href="../index.html">まとめページに戻る</a>
