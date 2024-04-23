@@ -238,7 +238,9 @@ if (AudioContext === undefined){
     for (let i = 0; i < code.length; i++) {
       timelines.push([parseInt(code[i]), parseFloat((i * secDuration).toFixed(3))]);
     }
-    console.log(timelines);
+		// クリックノイズ除去のため、最後は無音に
+		timelines.push([0, parseFloat((timelines[timelines.length - 1][1] + secDuration).toFixed(3))]);
+
     for (const [signal, time] of timelines) {
       gain.gain.setValueAtTime(signal, audioContext.currentTime + time);
     }
@@ -246,7 +248,8 @@ if (AudioContext === undefined){
 		// 音の開始
 		oscillator.start(audioContext.currentTime);
 
-    const msLengthAll = inputDuration * code.length;
+		// 再生時間（余白を持たせてクリックノイズを防ぐ）
+    const msLengthAll = inputDuration * (code.length + 1);
 
 		// 音の停止
 		setTimeout(() => {
