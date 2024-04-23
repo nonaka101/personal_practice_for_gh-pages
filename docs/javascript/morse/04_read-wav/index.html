@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+	<meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>04 - Read wav file | Morse</title>
+	<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+	<main>
+		<h1>Wavファイルの読み取り</h1>
+		<hr>
+		<div>
+			<span style="display: block;">Sine, 400freq, 44100Hz, 16bit, 2ch</span>
+			<audio controls id="js_wav_sine" src="../00_assets/sound/hallo_there__sine400freq44100hz16bit2ch.wav"></audio>
+		</div>
+		<hr>
+		<div>
+			<span style="display: block;">Square, 400freq, 44100Hz, 16bit, 2ch</span>
+			<audio controls id="js_wav_square" src="../00_assets/sound/hallo_there__square400freq44100hz16bit2ch.wav"></audio>
+		</div>
+		<hr>
+		<div>
+			<span style="display: block;">Saw-tooth, 400freq, 44100Hz, 16bit, 2ch</span>
+			<audio controls id="js_wav_sawTooth" src="../00_assets/sound/hallo_there__sawtooth400freq44100hz16bit2ch.wav"></audio>
+		</div>
+		<hr>
+		<div>
+			<span style="display: block;">Triangle, 400freq, 44100Hz, 16bit, 2ch</span>
+			<audio controls id="js_wav_triangle" src="../00_assets/sound/hallo_there__triangle400freq44100hz16bit2ch.wav"></audio>
+		</div>
+		<hr>
+		<div>
+			<canvas id="oscilloscope"></canvas>
+		</div>
+	</main>
+	<nav>
+		<a href="../index.html">まとめページに戻る</a>
+	</nav>
+	<script src="./main.js"></script>
+</body>
+</html>
