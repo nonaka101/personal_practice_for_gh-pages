@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+	<meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>03 - Refine code | Morse</title>
+	<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+	<main>
+		<h1>音源化</h1>
+		<div>
+			<form action="#">
+				<label>
+					モールス（半角英数字＋一部記号のみ使用可能）
+					<input type="text" name="morse" id="js_morse_input" value="Hello there!">
+				</label>
+				<label>
+					波形
+					<select name="wave" id="js_wave">
+						<option value="sine" default>Sine</option>
+						<option value="square">Square</option>
+						<option value="sawtooth">Saw-tooth</option>
+						<option value="triangle">Triangle</option>
+					</select>
+				</label>
+				<label>
+					周波数（Hz）
+					<input type="number" name="duration" id="js_duration" min="10" step="10" value="50">
+				</label>
+				<button type="button" id="js_morse_submit">変換</button>
+			</form>
+			<div>
+				<span>MorseNum : </span><output id="js_morse_output__num"></output>
+			</div>
+			<div>
+				<span>MorseCode : </span><pre><output id="js_morse_output__code"></output></pre>
+			</div>
+		</div>
+	</main>
+	<nav>
+		<a href="../index.html">まとめページに戻る</a>
+	</nav>
+	<script src="./main.js"></script>
+</body>
+</html>
