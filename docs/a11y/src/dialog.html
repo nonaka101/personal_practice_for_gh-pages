@@ -145,22 +145,49 @@
 				<h3>スクリーンリーダー</h3>
 				<h4>VoiceOver(MacOS+Chrome)</h4>
 				<h5>最小構成</h5>
-				<p>きちんと読まれていることがわかる。</p>
+				<p></p>
 				<ul class="bl_screenReader">
-					<li>デフォルト、下位項目が折りたたまれました、三角形の展開ボタン、グループ</li>
-					<li>デフォルト、字間広く、三角形の展開ボタン、グループ</li>
+					<li></li>
+					<li></li>
 				</ul>
 
 				<h4>VoiceOver(MacOS+Safari)</h4>
 				<p></p>
 				<h4>ChromeVox</h4>
-				<p></p>
+				<h5>最小構成</h5>
+				<p>ダイアログが展開すると、フォーカス可能なボタン要素に自動的に移動</p>
+				<ul class="bl_screenReader">
+					<li>ダイアログを開く ボタン</li>
+					<li>ダイアログ 閉じる ボタン</li>
+				</ul>
+				<h5>サンプル１：aria-control</h5>
+				<p>上記と変化なし</p>
+				<ul class="bl_screenReader">
+					<li>ダイアログを開く ボタン</li>
+					<li>ダイアログ 閉じる ボタン</li>
+				</ul>
+				<h5>サンプル２：popovertarget</h5>
+				<p>中にある labeled-by 属性にした要素を、ダイアログ展開時に読み上げた</p>
+				<ul class="bl_screenReader">
+					<li>ダイアログを開く ボタン</li>
+					<li>ダイアログの要素です ダイアログ 閉じる ボタン</li>
+				</ul>
+				<h5>サンプル３：aria-haspopup</h5>
+				<p>展開前にボタンが「ポップアップあり」であることを伝えている</p>
+				<ul class="bl_screenReader">
+					<li>ダイアログを開く ボタン ポップアップあり</li>
+					<li>ダイアログの要素です ダイアログ 閉じる ボタン</li>
+				</ul>
+				<p>
+					全てに言えることだが、閉じるボタンにフォーカスを当ててしまうと、
+					`labeled-by` で指定した要素の読み上げはされるが、その他の情報は伝わらない。<br>
+					スクリーンリーダー利用者は結局前に戻ってダイアログの中身を確認する必要が生じている。
+				</p>
 			</section>
 			<section>
 				<h3>キー操作</h3>
 				<p>
 					キー操作自体には問題はない。
-					<kbd>Tab</kbd>キーを押すと、summary要素、a要素のそれぞれにフォーカスを移せる。
 				</p>
 			</section>
 		</section>
