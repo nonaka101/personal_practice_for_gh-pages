@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+	<meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design password field | Form Design</title>
+</head>
+<body>
+	<style>
+		main {
+			padding: 1rem;
+		}
+		h2 {
+			padding-top: 2rem;
+			border-bottom: 1px dotted #000;
+		}
+		form {
+			border: 1px solid #777;
+			background-color: #eee;
+			padding: 1rem;
+		}
+		label {
+			display: block;
+			margin-top: 0.5rem;
+		}
+		.label_title {
+			display: block;
+			font-size: 1.5rem;
+			font-weight: 700;
+		}
+		.label_description {
+			display: block;
+			font-size: 0.75rem;
+			font-weight: 300;
+		}
+	</style>
+	<main>
+		<h1>パスワードフィールドのデザイン</h1>
+		<h2>最小構成</h2>
+		<p>
+			下記は入力した際「***」と表示されるため、他者から画面を盗み見られるリスクを低減させる。
+			一方で、自身のタイプミスが把握できない問題点もある。
+		</p>
+		<form action="#">
+			<label for="pass_a">
+				<span class="label_title">パスワードの設定</span>
+				<span class="label_description">数字と大文字をそれぞれ1文字以上含め、8文字以上で入力してください</span>
+			</label>
+			<input type="password" name="pass_a" id="pass_a">
+		</form>
+
+		<h2>パターン：確認用に再入力させる</h2>
+		<p>
+			タイプミスを回避する手段として広く用いられている方法に、確認用としてパスワードを再入力させるものがある。
+			これは予防策としては効果的だが、手間が倍になるデメリットがある。
+		</p>
+		<form action="#">
+			<label for="pass_b1">
+				<span class="label_title">パスワードの設定</span>
+				<span class="label_description">数字と大文字をそれぞれ1文字以上含め、8文字以上で入力してください</span>
+			</label>
+			<input type="password" name="pass_b1" id="pass_b1" autocomplete="new-password">
+			<label for="pass_b2">
+				<span class="label_description">確認用：パスワードを再入力してください</span>
+			</label>
+			<input type="password" name="pass_b2" id="pass_b2" autocomplete="new-password">
+		</form>
+		<p>
+			最近はブラウザ側がパスワードを自動的に生成・管理する機能もあるので、そことの整合性を求められるようにもなってきている。
+			上記のフォームは、`autocomplete` 属性を使用している。これによりブラウザは、生成したパスワードを両フォームに埋めてくれることがある。
+		</p>
+
+		<h2>パターン：表示切り替えボタンの実装</h2>
+		<p>
+			タイプミスを回避するもう一つの手段として、入力欄の表示形式を切り替えるものがある。
+		</p>
+		<form action="#">
+			<label for="pass_c">
+				<span class="label_title">パスワードの設定</span>
+				<span class="label_description">数字と大文字をそれぞれ1文字以上含め、8文字以上で入力してください</span>
+			</label>
+			<input type="password" name="pass_c" id="pass_c">
+			<input type="checkbox" name="pass_c__chk" id="pass_c__chk">
+		</form>
+		<style>
+			input[type=password] {
+				-webkit-text-security: unset;
+			}
+		</style>
+	</main>
+	<nav>
+		<a href="../index.html">まとめページに戻る</a>
+	</nav>
+</body>
+</html>

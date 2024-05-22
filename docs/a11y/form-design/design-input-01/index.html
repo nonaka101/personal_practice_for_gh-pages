@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+	<meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design input 01 | Form Design</title>
+</head>
+<body>
+	<style>
+		main {
+			padding: 1rem;
+		}
+		h2 {
+			padding-top: 2rem;
+			border-bottom: 1px dotted #000;
+		}
+		form {
+			border: 1px solid #777;
+			background-color: #eee;
+			padding: 1rem;
+		}
+		label {
+			display: block;
+		}
+		.label_title {
+			display: block;
+			font-size: 1.5rem;
+			font-weight: 700;
+		}
+		.label_description {
+			display: block;
+			font-size: 0.75rem;
+			font-weight: 300;
+		}
+	</style>
+	<main>
+		<h1>インプットボックスのデザイン：labelタグの使用について</h1>
+
+		<h2>基本的なパターン</h2>
+		<p>
+			`label` タグを用いて インプットボックスと関連付けることで、マシンリーダブルにすることができる。これには下記のメリットがある。
+		</p>
+		<ul>
+			<li>入力要素へフォーカスする際のヒット領域に、`label` 部を含めることができる</li>
+			<li>スクリーンリーダーが入力要素へフォーカスした際に、その要素の内容を説明してくれる</li>
+		</ul>
+		<form action="#">
+			<div>
+				<label for="name_a">
+					<span class="label_title">氏名</span>
+					<span class="label_description">性と名の間は、半角スペースで区切ってください</span>
+				</label>
+				<input type="text" name="name_a" id="name_a">
+			</div>
+		</form>
+		<p>
+			ラベル位置については、入力要素の直上が良いとされる。<br>
+			横に設置した場合、ビューポートやズーム機能によって見切れる可能性がある。<br>
+			下に設置した場合、スクリーンキーボードの表示で見切れる可能性がある。
+		</p>
+
+		<h2>Labelタグを用いていないパターン</h2>
+		<p>
+			この場合、フォームタイトルや説明文を触っても入力要素へフォーカスしない。
+			また入力要素とその説明の結びつきは、前後関係のみと弱くなっている（`label` タグを用いて結びつけた場合、スクリーンリーダーは 入力要素へフォーカスした際に読み上げてくれる）
+		</p>
+		<form action="#">
+			<div>
+				<div>
+					<span class="label_title">氏名</span>
+					<span class="label_description">性と名の間は、半角スペースで区切ってください</span>
+				</div>
+				<input type="text" name="name_b" id="name_b">
+			</div>
+		</form>
+		<h3>回避策： ARIA を使用</h3>
+		<p>
+			タイトルと説明要素にIDを割り振り、入力要素に `aria-describedby` で指定した場合、スクリーンリーダーはフォーカスがあたった際に読み上げてくれる。<br>
+			※ただし、`label` タグにあったフィールド領域としては扱ってはくれない。
+		</p>
+		<form action="#">
+			<div>
+				<div>
+					<span class="label_title" id="title_a">氏名</span>
+					<span class="label_description" id="description_a">性と名の間は、半角スペースで区切ってください</span>
+				</div>
+				<input type="text" name="name_c" id="name_c" aria-describedby="title_a description_a">
+			</div>
+		</form>
+
+		<h2>プレースホルダーを使ったパターン</h2>
+		<p>
+			フォームが占める範囲が小さくなるというメリットがあるが、下記の問題が生じる。
+		</p>
+		<ul>
+			<li>デフォルトのプレースホルダー文はコントラストが低く、基本パターンと比較すると見づらい</li>
+			<li>何かしら入力すると、プレースホルダー文は見えなくなる</li>
+			<li>空白である場合と比較して、入力要素が既に埋まっている と誤認しやすい</li>
+			<li>プレースホルダー文が長いと、内容が見切れてしまう</li>
+		</ul>
+		<form action="#">
+			<div>
+				<label for="name_d">
+					<span class="label_title">氏名</span>
+				</label>
+				<input type="text" name="name_d" id="name_d" placeholder="性と名の間は、半角スペースで区切ってください">
+			</div>
+		</form>
+		<h3>プレースホルダーの使用案： なくても問題ないもので、あると少し便利になる情報に</h3>
+		<p>
+			必要な情報は必ず入力ボックス外で常に表示されるようしておき、プレースホルダーには なくても問題ない情報に留める。<br>
+			ただしこれも<strong>空白であるというアフォーダンスは失われる</strong>以上、万能ではない。
+		</p>
+		<form action="#">
+			<div>
+				<label for="name_e">
+					<span class="label_title">氏名</span>
+					<span class="label_description">性と名の間は、半角スペースで区切ってください</span>
+				</label>
+				<input type="text" name="name_e" id="name_e" placeholder="例）田中 太郎">
+			</div>
+		</form>
+	</main>
+	<nav>
+		<a href="../index.html">まとめページに戻る</a>
+	</nav>
+</body>
+</html>
