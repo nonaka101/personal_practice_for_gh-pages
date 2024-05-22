@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+	<meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Input types | Form Design</title>
+	<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+	<style>
+		main {
+			padding: 1rem;
+		}
+		label {
+			display: block;
+		}
+		div {
+			margin: 1rem 0;
+		}
+		h2 {
+			padding-top: 2rem;
+			border-top: 2px solid #000;
+			border-bottom: 1px dotted #000;
+		}
+	</style>
+	<main>
+		<h1>インプット種類</h1>
+		<h2>テキスト入力が可能なもの</h2>
+		<form action="#">
+			<div>
+				<label for="name">氏名</label>
+				<input type="text" name="name" id="name">
+			</div>
+			<div>
+				<label for="password">パスワード</label>
+				<input type="password" name="password" id="password">
+			</div>
+			<div>
+				<label for="number">数</label>
+				<input type="number" name="number" id="number">
+			</div>
+			<div>
+				<label for="email">メールアドレス</label>
+				<input type="email" name="email" id="email">
+			</div>
+			<div>
+				<label for="search">検索キーワード</label>
+				<input type="search" name="search" id="search">
+			</div>
+			<div>
+				<label for="tel">電話番号</label>
+				<input type="tel" name="tel" id="tel">
+			</div>
+			<div>
+				<label for="url">URL</label>
+				<input type="url" name="url" id="url">
+			</div>
+		</form>
+		<h2>時間関係</h2>
+		<form action="#">
+			<div>
+				<label for="date">日付</label>
+				<input type="date" name="date" id="date">
+			</div>
+			<div>
+				<label for="month">月</label>
+				<input type="month" name="month" id="month">
+			</div>
+			<div>
+				<label for="week">週</label>
+				<input type="week" name="week" id="week">
+			</div>
+			<div>
+				<label for="time">時間</label>
+				<input type="time" name="time" id="time">
+			</div>
+			<div>
+				<label for="datetime-local">ローカルタイム</label>
+				<input type="datetime-local" name="datetime-local" id="datetime-local">
+			</div>
+		</form>
+		<h2>ボタン関係</h2>
+		<form action="#">
+			<div>
+				<label for="button">ボタン</label>
+				<input type="button" name="button" id="button" value="Button">
+			</div>
+			<div>
+				<label for="radio">ラジオボタン</label>
+				<input type="radio" name="radio" id="radio">
+			</div>
+			<div>
+				<label for="checkbox">チェックボックス</label>
+				<input type="checkbox" name="checkbox" id="checkbox">
+			</div>
+			<div>
+				<label for="reset">リセット</label>
+				<input type="reset" name="reset" id="reset">
+			</div>
+			<div>
+				<label for="submit">サブミット</label>
+				<input type="submit" name="submit" id="submit">
+			</div>
+		</form>
+		<h2>その他</h2>
+		<form action="#">
+			<div>
+				<label for="color">色</label>
+				<input type="color" name="color" id="color">
+			</div>
+			<div>
+				<label for="file">ファイル</label>
+				<input type="file" name="file" id="file">
+			</div>
+			<div>
+				<label for="image">画像</label>
+				<input type="image" name="image" id="image" src="data:image/svg+xml,%3Csvg width='48' height='48' version='1.1' viewBox='0 0 12.7 12.7' xmlns='http://www.w3.org/2000/svg'%3E%3Cg%3E%3Cg transform='matrix(1.2133 0 0 1.0561 -1.3912 -.15014)'%3E%3Cpath d='m1.3167 0.27178-0.032203 8.6644 5.2008 3.1023 4.9914-3.0553-0.032203-8.6801-10.128-0.031336' stroke='%23000' stroke-linejoin='round' stroke-width='.057977'/%3E%3Cpath d='m6.4038 3.4505-2.3656-2.2149-0.5575 1.6725 0.66298 1.8081z' fill='%23fff' fill-opacity='.79926'/%3E%3Cpath d='m6.4038 3.4505 2.4108-2.1095 0.49723 1.4013-0.67804 2.0341z' fill='%23fff'/%3E%3Cpath d='m3.8724 5.5901 0.52737-0.42189 0.4671 0.4671-0.37669 4.8367-2.8327-1.8232 0.045203-4.6258 1.2808-0.61777z' fill='%23fdffff' fill-opacity='.74721'/%3E%3Cpath d='m6.4038 4.0683-1.341 0.85886 0.64791 0.87392h1.341l0.70818-0.82872z' fill='%23800000' fill-opacity='.95911'/%3E%3Cpath d='m6.449 11.617-1.2657-0.94926 0.5575-4.2039 1.3109-0.015068 0.72325 4.1888z' fill='%23800000'/%3E%3Cpath d='m4.7915 1.3109 0.81365 0.9342h1.6574l0.79859-0.96433z' fill='%23fff' fill-opacity='.89591'/%3E%3Cpath d='m8.9502 5.5901-0.52737-0.42189-0.4671 0.4671 0.37669 4.8367 2.8327-1.8232-0.045203-4.6258-1.2808-0.61777z' fill='%23fff'/%3E%3Cpath d='m6.3946 4.2313 0.00808 1.4304h-0.60005l-0.55593-0.72384z' fill='%2328000c' fill-opacity='.57621'/%3E%3Cpath d='m6.4482 11.496-0.032297-4.9421-0.59198 0.016151-0.53978 4.0632z' fill='%2328000c' fill-opacity='.57621'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E">
+			</div>
+			<div>
+				<label for="range">レンジ（0〜10）</label>
+				<input type="range" name="range" id="range" step="1" min="0" max="10" value="0">
+			</div>
+			<div>
+				<label for="hidden">Hidden</label>
+				<input type="hidden" name="hidden" id="hidden">
+			</div>
+		</form>
+	</main>
+	<nav>
+		<a href="../index.html">まとめページに戻る</a>
+	</nav>
+	<script src="./main.js"></script>
+</body>
+</html>
