@@ -7,24 +7,77 @@
   <title>Stepper Component | Form Design</title>
 </head>
 <body>
+	<style>
+		.visually-hidden {
+			position: absolute !important;
+			clip: rect(0 0 0 0) !important;
+			clip-path: inset(100%) !important;
+			width :1px !important;
+			height: 1px !important;
+			margin: -1px !important;
+			overflow: hidden !important;
+			padding: 0 !important;
+			border: 0 !important;
+		}
+		.num-label {
+			display: block;
+		}
+		.num-component {
+			display: flex;
+			flex-flow: row nowrap;
+			height: 5rem;
+		}
+		.num-component > input::-webkit-outer-spin-button,
+		.num-component > input::-webkit-inner-spin-button {
+			appearance: none;
+			margin: 0;
+		}
+		.num-component > input {
+			border-radius: 0;
+			border: 1px solid black;
+			width: 5rem;
+			font-size: 4rem;
+			text-align: center;
+		}
+		.num-component > button {
+			appearance: none;
+			margin: 0;
+			background: none;
+			background-color: #1111ff;
+			color: white;
+			border: 1px solid black;
+			width: 5rem;
+			font-size: 4rem;
+		}
+		.num-minus {
+			display: flexbox;
+			border-radius: 1rem 0 0 1rem;
+		}
+		.num-plus {
+			display: flexbox;
+			border-radius: 0 1rem 1rem 0;
+		}
+	</style>
 	<main>
+		<h1>スピンボタンを使ったインプット要素</h1>
+		<h2>ブラウザのデフォルト機能を使ったケース</h2>
 		<form action="#">
 			<label for="num1">商品1の数量（0〜9）</label>
 			<input type="number" name="num1" id="num1" min="0" max="9" step="1" value="0">
 			<small>ブラウザに搭載されているスピンボタンは小さく、操作しにくいことが多い</small>
 		</form>
 		<hr>
+		<h2>スピンボタン追加、visually-hidden ＋ alia-live="polite" による通知利用</h2>
 		<form action="#">
-			<label for="num2" class="num2-label" id="num2-label">商品2の数量（0〜9）</label>
-			<div class="num2-component">
-				<button type="button" id="num2-minus" aria-label="減らす" aria-describedby="num2-label">-</button>
-				<input type="number" name="num2" id="num2" min="0" max="9" step="1" value="0">
-				<button type="button" id="num2-plus" aria-label="増やす" aria-describedby="num2-label">+</button>
+			<label for="num2" class="num-label" id="num2-label">商品2の数量（0〜9）</label>
+			<div class="num-component">
+				<button type="button" class="num-minus" id="num2-minus" aria-label="減らす" aria-describedby="num2-label">-</button>
+				<input type="number" class="num-input" name="num2" id="num2" min="0" max="9" step="1" value="0">
+				<button type="button" class="num-plus" id="num2-plus" aria-label="増やす" aria-describedby="num2-label">+</button>
 			</div>
 			<span class="visually-hidden" id="num2-status" role="status" aria-live="polite">0</span>
 		</form>
 		<script>
-			// TODO: span 要素の代替を検証（aria-controls, inputへのaria-live 付与、など）
 			const num2Input = document.querySelector('#num2');
 			const num2BtnMinus = document.querySelector('#num2-minus');
 			const num2BtnPlus = document.querySelector('#num2-plus');
@@ -48,50 +101,56 @@
 				}
 			})
 		</script>
-		<style>
-			.visually-hidden {
-				position: absolute !important;
-				clip: rect(0 0 0 0) !important;
-				clip-path: inset(100%) !important;
-				width :1px !important;
-				height: 1px !important;
-				margin: -1px !important;
-				overflow: hidden !important;
-				padding: 0 !important;
-				border: 0 !important;
-			}
-			.num2-label {
-				display: block;
-			}
-			.num2-component {
-				display: flex;
-				flex-flow: row nowrap;
-			}
-			.num2-component > input::-webkit-outer-spin-button,
-			.num2-component > input::-webkit-inner-spin-button {
-				appearance: none;
-				margin: 0;
-			}
-			.num2-component > input {
-				border-radius: 0;
-				border: 1px solid black;
-			}
-			.num2-component > button {
-				appearance: none;
-				margin: 0;
-				background-color: none;
-				border: 1px solid black;
-				padding: 4px;
-			}
-			#num2-minus {
-				display: flexbox;
-				border-radius: 4px 0 0 4px;
-			}
-			#num2-plus {
-				display: flexbox;
-				border-radius: 0 4px 4px 0;
-			}
-		</style>
+		<hr>
+		<h2>input への aria-controls 付与</h2>
+		<form action="#">
+			<label for="num3" class="num-label" id="num3-label">商品3の数量（0〜9）</label>
+			<div class="num-component">
+				<button type="button" aria-controls="num3" class="num-minus" id="num3-minus" aria-label="減らす" aria-describedby="num3-label">-</button>
+				<input type="number" class="num-input" name="num3" id="num3" min="0" max="9" step="1" value="0">
+				<button type="button" aria-controls="num3" class="num-plus" id="num3-plus" aria-label="増やす" aria-describedby="num3-label">+</button>
+			</div>
+		</form>
+		<script>
+			const num3Input = document.querySelector('#num3');
+			const num3BtnMinus = document.querySelector('#num3-minus');
+			const num3BtnPlus = document.querySelector('#num3-plus');
+			num3BtnMinus.addEventListener('click', ()=>{
+				if(num3Input.value > num3Input.min){
+					num3Input.stepDown();
+				}
+			})
+			num3BtnPlus.addEventListener('click', ()=>{
+				if(num3Input.value < num3Input.max){
+					num3Input.stepUp();
+				}
+			})
+		</script>
+		<hr>
+		<h2>input への role="status" ＋ aria-live 付与</h2>
+		<form action="#">
+			<label for="num4" class="num-label" id="num4-label">商品4の数量（0〜9）</label>
+			<div class="num-component">
+				<button type="button" class="num-minus" id="num4-minus" aria-label="減らす" aria-describedby="num4-label">-</button>
+				<input type="number" class="num-input" name="num4" id="num4" min="0" max="9" step="1" value="0" role="status" aria-live="polite">
+				<button type="button" class="num-plus" id="num4-plus" aria-label="増やす" aria-describedby="num4-label">+</button>
+			</div>
+		</form>
+		<script>
+			const num4Input = document.querySelector('#num4');
+			const num4BtnMinus = document.querySelector('#num4-minus');
+			const num4BtnPlus = document.querySelector('#num4-plus');
+			num4BtnMinus.addEventListener('click', ()=>{
+				if(num4Input.value > num4Input.min){
+					num4Input.stepDown();
+				}
+			})
+			num4BtnPlus.addEventListener('click', ()=>{
+				if(num4Input.value < num4Input.max){
+					num4Input.stepUp();
+				}
+			})
+		</script>
 	</main>
 	<nav>
 		<a href="../index.html">まとめページに戻る</a>
