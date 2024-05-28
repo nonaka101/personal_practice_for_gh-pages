@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+	<meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Datalist | Form Design</title>
+</head>
+<body>
+	<style>
+		main {
+			padding: 1rem;
+		}
+		label,
+		small {
+			display: block;
+		}
+		div {
+			margin: 1rem 0;
+		}
+		h2 {
+			padding-top: 2rem;
+			border-top: 2px solid #000;
+			border-bottom: 1px dotted #000;
+		}
+	</style>
+	<main>
+		<h1>インプット種類</h1>
+		<h2>テキスト入力が可能なもの</h2>
+		<form action="#">
+			<div>
+				<label for="pref">都道府県</label>
+				<input type="text" list="pref-names" name="pref" id="pref">
+				<datalist id="pref-names">
+					<option value="hokkaido">北海道</option>
+					<option value="tokyo">東京都</option>
+					<option value="osaka">大阪府</option>
+					<option value="fukuoka">福岡県</option>
+					<option value="okinawa">沖縄県</option>
+				</datalist>
+			</div>
+			<div>
+				<label for="password">パスワード</label>
+				<input type="password" name="password" id="password">
+				<small>※仕様では可能だが対応ブラウザなし（セキュリティの都合上）</small>
+			</div>
+			<div>
+				<label for="number">数</label>
+				<input type="number" name="number" id="number">
+			</div>
+			<div>
+				<label for="email">メールアドレス</label>
+				<input type="email" name="email" id="email">
+			</div>
+			<div>
+				<label for="search">検索キーワード</label>
+				<input type="search" name="search" id="search">
+			</div>
+			<div>
+				<label for="tel">電話番号</label>
+				<input type="tel" name="tel" id="tel">
+			</div>
+			<div>
+				<label for="url">URL</label>
+				<input type="url" name="url" id="url">
+			</div>
+		</form>
+		<h2>時間関係</h2>
+		<form action="#">
+			<div>
+				<label for="date">日付</label>
+				<input type="date" name="date" id="date">
+			</div>
+			<div>
+				<label for="month">月</label>
+				<input type="month" name="month" id="month">
+			</div>
+			<div>
+				<label for="week">週</label>
+				<input type="week" name="week" id="week">
+			</div>
+			<div>
+				<label for="time">時間</label>
+				<input type="time" name="time" id="time">
+			</div>
+			<div>
+				<label for="datetime-local">ローカルタイム</label>
+				<input type="datetime-local" name="datetime-local" id="datetime-local">
+			</div>
+		</form>
+		<h2>その他</h2>
+		<form action="#">
+			<div>
+				<label for="color">色</label>
+				<input type="color" name="color" id="color">
+			</div>
+			<div>
+				<label for="range">レンジ（0〜10）</label>
+				<input type="range" name="range" id="range" step="1" min="0" max="10" value="0">
+			</div>
+		</form>
+	</main>
+	<nav>
+		<a href="../index.html">まとめページに戻る</a>
+	</nav>
+</body>
+</html>
