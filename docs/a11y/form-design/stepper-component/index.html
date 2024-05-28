@@ -77,6 +77,12 @@
 			</div>
 			<span class="visually-hidden" id="num2-status" role="status" aria-live="polite">0</span>
 		</form>
+		<p>
+			【◯】VoiceOver Safari(iOS) : このケースでは、aria-label と 数値 を読み上げた。
+		</p>
+		<p>
+			【△】TalkBack Chrome(Android) : このケースでは、数値 のみ読み上げた。
+		</p>
 		<script>
 			const num2Input = document.querySelector('#num2');
 			const num2BtnMinus = document.querySelector('#num2-minus');
@@ -111,6 +117,12 @@
 				<button type="button" aria-controls="num3" class="num-plus" id="num3-plus" aria-label="増やす" aria-describedby="num3-label">+</button>
 			</div>
 		</form>
+		<p>
+			【✕】VoiceOver Safari(iOS) : このケースでは、aria-label と label 要素のみ読み上げ、数値は読み上げなかった。
+		</p>
+		<p>
+			【✕】TalkBack Chrome(Android) : このケースでは、ボタンを押しても何も読み上げなかった。
+		</p>
 		<script>
 			const num3Input = document.querySelector('#num3');
 			const num3BtnMinus = document.querySelector('#num3-minus');
@@ -136,6 +148,12 @@
 				<button type="button" class="num-plus" id="num4-plus" aria-label="増やす" aria-describedby="num4-label">+</button>
 			</div>
 		</form>
+		<p>
+			【✕】VoiceOver Safari(iOS) : このケースでは、input ボックスの role が変更されたことにより、テキストボックスとして認識されなかった。
+		</p>
+		<p>
+			【✕】TalkBack Chrome(Android) : このケースでは、ラベルのみ読み上げ、数値は読み上げなかった。
+		</p>
 		<script>
 			const num4Input = document.querySelector('#num4');
 			const num4BtnMinus = document.querySelector('#num4-minus');
