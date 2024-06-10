@@ -19,8 +19,10 @@ dialogTextCounter.addEventListener('click', (e) => {
 	}
 });
 
+// textarea
 const textCounterTextArea = document.querySelector('#js_textCounter_inputArea');
 
+// paste from clipboard
 const btnTextCounterPasteFromClipboard = document.querySelector('#js_textCounter_pasteFromClipboard');
 btnTextCounterPasteFromClipboard.addEventListener('click', () =>{
 	navigator.clipboard
@@ -31,3 +33,18 @@ btnTextCounterPasteFromClipboard.addEventListener('click', () =>{
 	});
 })
 
+// calculate text count
+const textCounterOutput = document.querySelector('#bl_textCounter_output');
+const textCounterCountBtn = document.querySelector('#js_textCounter_countBtn');
+textCounterCountBtn.addEventListener('click', ()=>{
+	const txt = textCounterTextArea.value;
+	// Array.from を使った手法
+	const charCount = Array.from(txt).length;
+	const charCount2 = [...txt.matchAll(/[\s\S]/g)].length;
+	const charCount3 = [...new Intl.Segmenter('ja', {granularity: 'grapheme'}).segment(txt)].length;
+	textCounterOutput.innerText = `Array.from -> ${charCount} / 正規表現 -> ${charCount2} / Intl.Segmenter -> ${charCount3}`
+})
+
+// TODO: Aあ🍎𩸽🏴󠁧󠁢󠁥󠁮󠁧󠁿🇯🇵👨🏻‍💻 -> 7 になるように
+// 現状、Array.from だと17、正規表現だと 31 になる
+// -> Intl.Segmenter の手法で解決しそう、英語もごっちゃにした文を試してみたけど、`ja` で通った。
