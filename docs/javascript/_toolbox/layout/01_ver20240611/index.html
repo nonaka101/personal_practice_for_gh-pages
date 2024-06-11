@@ -9,28 +9,33 @@
 	<link rel="stylesheet" href="./style.css">
 </head>
 <body>
-	<h1>Title</h1>
-	<h2>このページについて</h2>
+	<h1 class="el_heading_lv1">Title</h1><!-- /.el_heading_lv1 -->
+	<h2 class="el_heading_lv2">このページについて</h2><!-- /.el_heading_lv2 -->
 	<details>
 		<summary>概要</summary>
 		<p>
 			このページは、・・・です。
 		</p>
 	</details>
-	<h2>設定</h2>
+	<h2 class="el_heading_lv2">設定</h2><!-- /.el_heading_lv2 -->
 	<details>
 		<summary>設定パネルを開く</summary>
-		<form action="#" class="bl_header_settings">
-			<label class="el_setting el_setting__select">
-				カラーモード
+		<form action="#" class="bl_setting_unit">
+			<div class="bl_setting bl_setting__select">
+				<label for="js_setting_colorMode">
+					カラーモード
+				</label>
 				<select name="colorMode" id="js_setting_colorMode">
 					<option value=0>デフォルト</option>
 					<option value=1>ライト</option>
 					<option value=2>ダーク</option>
 				</select>
-			</label>
-			<label class="el_setting el_setting__select">
-				フォントサイズ
+			</div>
+			<!-- /.bl_setting.bl_setting__select -->
+			<div class="bl_setting bl_setting__select">
+				<label for="js_setting_fontSize">
+					フォントサイズ
+				</label>
 				<select name="fontSize" id="js_setting_fontSize">
 					<option value="0">デフォルト</option>
 					<option value="10">10px</option>
@@ -38,69 +43,67 @@
 					<option value="24">24px</option>
 					<option value="32">32px</option>
 				</select>
-			</label>
-			<div>
-				<label class="el_setting el_setting__chk">
-					<input type="checkbox" name="direction" id="js_setting_isLeft">
-					左利き
-				</label>
-				<label class="el_setting el_setting__chk">
-					<input type="checkbox" name="sound" id="js_setting_enableSound">
-					音
-				</label>
-				<label class="el_setting el_setting__chk">
-					<input type="checkbox" name="vibration" id="js_setting_enableVibration">
-					振動
-				</label>
 			</div>
+			<!-- /.bl_setting.bl_setting__select -->
+			<div class="bl_setting bl_setting__chk">
+				<input type="checkbox" name="direction" id="js_setting_isLeft">
+				<label for="js_setting_isLeft">左利き</label>
+			</div>
+			<!-- /.bl_setting.bl_setting__chk -->
+			<div class="bl_setting bl_setting__chk">
+				<input type="checkbox" name="sound" id="js_setting_enableSound">
+				<label for="js_setting_enableSound">音</label>
+			</div>
+			<!-- /.bl_setting.bl_setting__chk -->
+			<div class="bl_setting bl_setting__chk">
+				<input type="checkbox" name="vibration" id="js_setting_enableVibration">
+				<label for="js_setting_enableVibration">振動</label>
+			</div>
+			<!-- /.bl_setting.bl_setting__chk -->
 		</form>
+		<!-- /.bl_setting_unit -->
 	</details>
-	<h2>機能一覧</h2>
-	<h3>算術</h3>
-	<ul>
-		<li><button type="button">
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				viewBox="0 -960 960 960"
-				height="24" width="24"
-			>
-				<path d="M320-240h60v-80h80v-60h-80v-80h-60v80h-80v60h80v80Zm200-30h200v-60H520v60Zm0-100h200v-60H520v60Zm44-152 56-56 56 56 42-42-56-58 56-56-42-42-56 56-56-56-42 42 56 56-56 58 42 42Zm-314-70h200v-60H250v60Zm-50 472q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/>
-			</svg>
-			<span>電卓</span>
-		</button></li>
+	<h2 class="el_heading_lv2">機能一覧</h2><!-- /.el_heading_lv2 -->
+	<h3 class="el_heading_lv3 el_heading__iconLabel">
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			viewBox="0 -960 960 960"
+			height="24" width="24"
+		>
+			<path d="M320-240h60v-80h80v-60h-80v-80h-60v80h-80v60h80v80Zm200-30h200v-60H520v60Zm0-100h200v-60H520v60Zm44-152 56-56 56 56 42-42-56-58 56-56-42-42-56 56-56-56-42 42 56 56-56 58 42 42Zm-314-70h200v-60H250v60Zm-50 472q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/>
+		</svg>
+		<span>
+			算術
+		</span>
+	</h3><!-- /.el_heading_lv3.el_heading__iconLabel -->
+	<ul class="bl_funcList">
+		<li class="bl_funcList_item">
+			<button type="button" class="el_menuBtn">電卓</button><!-- /.el_menuBtn -->
+		</li><!-- /.bl_funcList_item -->
 	</ul>
-	<h3>暦・日付・期間</h3>
-	<ul>
-		<li><button type="button">
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				viewBox="0 -960 960 960"
-				height="24" width="24"
-			>
-				<path d="M320-240h60v-80h80v-60h-80v-80h-60v80h-80v60h80v80Zm200-30h200v-60H520v60Zm0-100h200v-60H520v60Zm44-152 56-56 56 56 42-42-56-58 56-56-42-42-56 56-56-56-42 42 56 56-56 58 42 42Zm-314-70h200v-60H250v60Zm-50 472q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/>
-			</svg>
-			<span>今、何歳？</span>
-		</button></li>
-		<li><button type="button">
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				viewBox="0 -960 960 960"
-				height="24" width="24"
-			>
-				<path d="M320-240h60v-80h80v-60h-80v-80h-60v80h-80v60h80v80Zm200-30h200v-60H520v60Zm0-100h200v-60H520v60Zm44-152 56-56 56 56 42-42-56-58 56-56-42-42-56 56-56-56-42 42 56 56-56 58 42 42Zm-314-70h200v-60H250v60Zm-50 472q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/>
-			</svg>
-			<span>西暦から和暦に変換</span>
-		</button></li>
-		<li><button type="button">
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				viewBox="0 -960 960 960"
-				height="24" width="24"
-			>
-				<path d="M320-240h60v-80h80v-60h-80v-80h-60v80h-80v60h80v80Zm200-30h200v-60H520v60Zm0-100h200v-60H520v60Zm44-152 56-56 56 56 42-42-56-58 56-56-42-42-56 56-56-56-42 42 56 56-56 58 42 42Zm-314-70h200v-60H250v60Zm-50 472q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/>
-			</svg>
-			<span>和暦から西暦に変換</span>
-		</button></li>
+
+	<h3 class="el_heading_lv3 el_heading__iconLabel">
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			viewBox="0 -960 960 960"
+			height="24" width="24"
+		>
+			<path d="M320-240h60v-80h80v-60h-80v-80h-60v80h-80v60h80v80Zm200-30h200v-60H520v60Zm0-100h200v-60H520v60Zm44-152 56-56 56 56 42-42-56-58 56-56-42-42-56 56-56-56-42 42 56 56-56 58 42 42Zm-314-70h200v-60H250v60Zm-50 472q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/>
+		</svg>
+		<span>
+			暦・日付・期間
+		</span>
+	</h3><!-- /.el_heading_lv3.el_heading__iconLabel -->
+	<ul class="bl_funcList">
+		<li class="bl_funcList_item">
+			<button type="button" class="el_menuBtn">今、何歳？</button><!-- /.el_menuBtn -->
+		</li><!-- /.bl_funcList_item -->
+		<li class="bl_funcList_item">
+			<button type="button" class="el_menuBtn">西暦から和暦に変換</button><!-- /.el_menuBtn -->
+		</li><!-- /.bl_funcList_item -->
+		<li class="bl_funcList_item">
+			<button type="button" class="el_menuBtn">和暦から西暦に変換</button><!-- /.el_menuBtn -->
+		</li><!-- /.bl_funcList_item -->
 	</ul>
 	<nav>
 		<a href="../index.html">まとめページに戻る</a>
