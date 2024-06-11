@@ -365,19 +365,9 @@ small {
 .el_heading_lv3.el_heading__iconLabel > span {
 }
 
-.el_menuBtn {
-  appearance: none;
-	padding: 8px;
-	font-size: 1.25rem;
-	width:max-content;
-  background-color: var(--sc_bg_btn__primary);
-  color: var(--sc_txt_btn__primary);
-  border: var(--sc_border_field);
-  border-radius: 4px;
-}
-
 .bl_setting_unit {
 	padding: 12px;
+	border: var(--sc_border_field);
 }
 
 .bl_setting {
@@ -395,9 +385,34 @@ small {
 
 .bl_funcList {
 	margin: 0;
-	list-style: none;
+	padding: 0 0 0 1.5rem;
+	list-style-type: none;
 }
 
 .bl_funcList_item {
 	margin: 8px 0;
 }
+
+.el_menuBtn {
+  appearance: none;
+	padding: 8px;
+	font-size: 1.25rem;
+	width:max-content;
+  background-color: var(--sc_bg_btn__primary);
+  color: var(--sc_txt_btn__primary);
+  border: var(--sc_border_field);
+  border-radius: 4px;
+	max-width: 100%;
+}
+
+.ly_body {
+	max-width: 1024px;
+	padding: 0 24px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+@media (min-width: 560px) {
+	.ly_body {padding: 0 40px;}
+}
+

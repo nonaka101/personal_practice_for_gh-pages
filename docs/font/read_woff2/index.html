@@ -13,13 +13,19 @@
 			src:
 				url("./DSwA.woff2") format("woff2");
 		}
-		.dswa {
+
+		h1,
+		p {
 			font-family: "DSwa", serif;
 		}
+		h1 {font-size: 4rem; font-weight: 700;}
+		p {font-size: 2rem; font-weight: 400;}
+		label {display: block;}
+		input {display: block; width: 100%;}
 	</style>
 	<main>
-		<h1 class="dswa">This is heading lv.1</h1>
-		<p class="dswa" style="font-size: 2rem;">
+		<h1>This is heading lv.1</h1>
+		<p>
 			Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 			Donec non diam diam. Etiam faucibus neque at mi vehicula,
 			non auctor urna finibus. Nulla facilisi. Nullam aliquet,
@@ -31,7 +37,7 @@
 			at pharetra justo lobortis ac.
 			Quisque nulla lectus, porta sit amet magna ac, feugiat dapibus ex.
 		</p>
-		<p class="dswa" style="font-size: 2rem;">
+		<p>
 			Aliquam finibus, ante nec lacinia scelerisque,
 			tellus arcu cursus enim, ut facilisis diam urna a ex.
 			Aenean bibendum elit sed urna mattis, ut suscipit neque placerat.
@@ -52,7 +58,7 @@
 			Sed imperdiet et lectus at efficitur.
 			Nunc ut est ex. Nullam ac massa sapien.
 		</p>
-		<p class="dswa" style="font-size: 2rem;">
+		<p>
 			Vivamus tincidunt placerat sapien.
 			Aliquam posuere leo sed commodo porttitor.
 			Suspendisse convallis elementum turpis,
@@ -67,6 +73,24 @@
 			accumsan felis a, bibendum ex. Sed sed ipsum sapien.
 			Duis a mi non lorem cursus egestas.
 		</p>
+		<div>
+			<label for="txt">入力欄【⚠：Unicode第一ブロック「基本ラテン文字」のみ対応】</label>
+			<input type="text" name="txt" id="txt">
+			<button type="button" id="btnAdd">Add text</button>
+			<script>
+				const txt = document.querySelector('#txt');
+				const btn = document.querySelector('#btnAdd');
+				btn.addEventListener('click', ()=>{
+					const output = document.getElementById('output');
+					let p = document.createElement('p');
+					p.innerHTML = txt.value;
+					p.classList.add('dswa');
+					output.appendChild(p);
+					txt.value = '';
+				})
+			</script>
+		</div>
+		<div id="output"></div>
 	</main>
 	<nav>
 		<a href="../index.html">まとめページに戻る</a>
