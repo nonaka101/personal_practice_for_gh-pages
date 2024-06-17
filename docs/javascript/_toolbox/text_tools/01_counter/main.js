@@ -28,8 +28,14 @@ btnTextCounterPasteFromClipboard.addEventListener('click', () =>{
 	navigator.clipboard
   .readText()
   .then((clipText) => {
-		textCounterTextArea.innerText = '';
-		textCounterTextArea.innerText = clipText;
+		/* innerText と value の扱いは違う（InnerTextだと、改行コードが <br> に変換された状態に？）
+		console.log(clipText.search(/\n/msu));
+		*/
+		textCounterTextArea.value = '';
+		textCounterTextArea.value = clipText;
+	})
+	.catch(e => {
+		console.error(e);
 	});
 })
 
