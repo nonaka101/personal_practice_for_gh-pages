@@ -135,3 +135,45 @@ html:has(dialog[open]) {
 	width: 1.625rem;
 	height: 1.625rem;
 }
+
+#bl_textCounter_output {
+	display: block;
+	width: 100%;
+	margin: 1rem 0;
+}
+
+#bl_textCounter_output > table {
+	table-layout: auto;
+	border-collapse: collapse;
+	margin-left: auto;
+	margin-right: auto;
+	border: var(--sc_border_field);
+}
+
+#bl_textCounter_output > table > thead {
+	background-color: var(--sc_bg_body__tertiary);
+	font-size: 1.5rem;
+	font-weight: 700;
+	border-bottom: var(--sc_border_field);
+}
+
+#bl_textCounter_output > table > tbody {
+	background-color: var(--sc_bg_body__primary);
+}
+
+#bl_textCounter_output > table > tbody > tr:nth-child(even) {
+	background-color: var(--sc_bg_body__secondary);
+	border-bottom: var(--sc_border_divider);
+}
+
+#bl_textCounter_output > table > tbody > tr:last-child {
+	border-bottom: var(--sc_border_field);
+}
+
+#bl_textCounter_output > table td {
+	padding: 0.2rem 1rem;
+}
+
+#bl_textCounter_output > table > tbody > tr > td:nth-child(even) {
+	text-align: right;
+}

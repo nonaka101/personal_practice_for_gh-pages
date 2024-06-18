@@ -66,18 +66,17 @@ textCounterCountBtn.addEventListener('click', ()=>{
 		if(chars > counterMaxChars) counterMaxChars = chars;
 
 		let matches = t.match(regex);
-		console.log(matches);
 		if(matches) counterSpace += matches.length;
 	}
 
 	// 計算結果を配列にまとめる
 	let dataArray = [];
-	dataArray.push(['文字数', counterAllChars]);
-	dataArray.push(['文字数（空白除く）', counterAllChars - counterSpace]);
-	dataArray.push(['空白文字数', counterSpace]);
-	dataArray.push(['行あたりの最大文字数', counterMaxChars]);
-	dataArray.push(['行数', inputTextArray.length]);
-	dataArray.push(['空行数', counterEmptyRow]);
+	dataArray.push(['文字', counterAllChars]);
+	dataArray.push(['文字（空白除く）', counterAllChars - counterSpace]);
+	dataArray.push(['空白文字', counterSpace]);
+	dataArray.push(['最大文字（行単位）', counterMaxChars]);
+	dataArray.push(['行', inputTextArray.length]);
+	dataArray.push(['空行', counterEmptyRow]);
 
 	// Table 要素として出力
 	createTable('bl_textCounter_output', dataArray);
