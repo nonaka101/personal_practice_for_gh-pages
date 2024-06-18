@@ -43,14 +43,70 @@ btnTextCounterPasteFromClipboard.addEventListener('click', () =>{
 const textCounterOutput = document.querySelector('#bl_textCounter_output');
 const textCounterCountBtn = document.querySelector('#js_textCounter_countBtn');
 textCounterCountBtn.addEventListener('click', ()=>{
-	const txt = textCounterTextArea.value;
-	// Array.from を使った手法
-	const charCount = Array.from(txt).length;
-	const charCount2 = [...txt.matchAll(/[\s\S]/g)].length;
-	const charCount3 = [...new Intl.Segmenter('ja', {granularity: 'grapheme'}).segment(txt)].length;
-	textCounterOutput.innerText = `Array.from -> ${charCount} / 正規表現 -> ${charCount2} / Intl.Segmenter -> ${charCount3}`
+	// 準備（既存のテーブルを消す）
+	textCounterOutput.innerHTML = '';
+
+	// 入力値を整形
+	const inputText = textCounterTextArea.value;
+	const inputTextArray = inputText.split(/\n/gmsu);
+
+	// 各種計算値を格納するための変数
+	let counterAllChars = 0;
+	let counterEmptyRow = 0;
+	let counterMaxChars = 0;
+
+	const regex = /\s/gui;
+	let counterSpace = 0;
+
+	// 各行毎に、各種計算値を求めていく
+	for(let t of inputTextArray){
+		if(t==='') counterEmptyRow += 1;
+		const chars = [...new Intl.Segmenter('ja', {granularity: 'grapheme'}).segment(t)].length;
+		counterAllChars += chars;
+		if(chars > counterMaxChars) counterMaxChars = chars;
+
+		let matches = t.match(regex);
+		console.log(matches);
+		if(matches) counterSpace += matches.length;
+	}
+
+	// 計算結果を配列にまとめる
+	let dataArray = [];
+	dataArray.push(['文字数', counterAllChars]);
+	dataArray.push(['文字数（空白除く）', counterAllChars - counterSpace]);
+	dataArray.push(['空白文字数', counterSpace]);
+	dataArray.push(['行あたりの最大文字数', counterMaxChars]);
+	dataArray.push(['行数', inputTextArray.length]);
+	dataArray.push(['空行数', counterEmptyRow]);
+
+	// Table 要素として出力
+	createTable('bl_textCounter_output', dataArray);
 })
 
 // TODO: Aあ🍎𩸽🏴󠁧󠁢󠁥󠁮󠁧󠁿🇯🇵👨🏻‍💻 -> 7 になるように
 // 現状、Array.from だと17、正規表現だと 31 になる
 // -> Intl.Segmenter の手法で解決しそう、英語もごっちゃにした文を試してみたけど、`ja` で通った。
+
+function createTable(containerId, dataArray) {
+  const container = document.getElementById(containerId);
+  const table = document.createElement('table');
+
+  // ヘッダー行を作成
+  const tableHeader = table.createTHead();
+	const tableHeaderRow = tableHeader.insertRow();
+	tableHeaderRow.insertCell().textContent = '項目';
+	tableHeaderRow.insertCell().textContent = '数';
+
+  // データ行を作成
+	const tableBody = table.createTBody();
+  for (const [key, value] of dataArray) {
+    const row = tableBody.insertRow();
+    const cell1 = row.insertCell();
+    const cell2 = row.insertCell();
+    cell1.textContent = key;
+    cell2.textContent = value;
+  }
+
+  // テーブルをコンテナ要素に追加
+  container.appendChild(table);
+}
