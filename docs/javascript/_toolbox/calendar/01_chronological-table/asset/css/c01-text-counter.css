@@ -1,0 +1,74 @@
+@charset "UTF-8";
+
+.c01ly_textCounter {
+	padding: 8px;
+	width: 100dvw;
+  height: 100dvh;
+	display: flex;
+	flex-flow: column nowrap;
+}
+
+.c01bl_form {
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+}
+
+.c01bl_form_block {
+	display: block;
+	width: 100%;
+	margin: 1rem 0;
+}
+
+.c01bl_form_label {
+	display: block;
+	align-self: flex-start;
+}
+
+.c01bl_form_textArea {
+	display: block;
+	width: 100%;
+	height: 10rem;
+}
+
+.c01bl_form_output {
+	display: block;
+	width: 100%;
+	margin: 1rem 0;
+}
+
+.c01bl_form_output > table {
+	table-layout: auto;
+	border-collapse: collapse;
+	margin-left: auto;
+	margin-right: auto;
+	border: var(--sc_border_field);
+}
+
+.c01bl_form_output > table > thead {
+	background-color: var(--sc_bg_body__tertiary);
+	font-size: 1.5rem;
+	font-weight: 700;
+	border-bottom: var(--sc_border_field);
+}
+
+.c01bl_form_output > table > tbody {
+	background-color: var(--sc_bg_body__primary);
+}
+
+.c01bl_form_output > table > tbody > tr:nth-child(even) {
+	background-color: var(--sc_bg_body__secondary);
+	border-bottom: var(--sc_border_divider);
+}
+
+.c01bl_form_output > table > tbody > tr:last-child {
+	border-bottom: var(--sc_border_field);
+}
+
+.c01bl_form_output > table td {
+	padding: 0.2rem 1rem;
+}
+
+.c01bl_form_output > table > tbody > tr > td:nth-child(even) {
+	text-align: right;
+}
