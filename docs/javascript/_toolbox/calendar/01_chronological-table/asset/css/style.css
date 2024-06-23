@@ -337,7 +337,7 @@ html:has(dialog[open]) {
 	max-height: 100dvh;
 	padding: 0;
 	border: none;
-	background-color: var(--sc_bg_body__tertiary);
+	background-color: var(--sc_bg_body__primary);
 	display: flex;
 	align-items: center;
 	justify-content: center;
