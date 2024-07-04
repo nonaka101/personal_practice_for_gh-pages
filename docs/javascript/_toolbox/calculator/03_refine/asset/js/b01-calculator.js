@@ -74,10 +74,10 @@ function isOperator(char) {
 
 
 const multiplication = (x, y) => {
-  const n = 10 ** (getDecimalPosition(x) + getDecimalPosition(y));
-  x = +(x + '').replace('.', '');
-  y = +(y + '').replace('.', '');
-  return (x * y) / n;
+  const z = 10 ** (getDecimalPosition(x) + getDecimalPosition(y));
+  x = x.replace('.', '');
+  y = y.replace('.', '');
+  return (x * y) / z;
 };
 
 
@@ -92,16 +92,9 @@ const subtract = (x, y) => {
 };
 
 const division = (x, y) => {
-  const decimalLengthX = getDecimalPosition(x);
-  const decimalLengthY = getDecimalPosition(y);
-  const n = 10 ** (decimalLengthY - decimalLengthX);
-
-  x = +(x + '').replace('.', '');
-  y = +(y + '').replace('.', '');
-
-  return (x / y) * n;
+  const z = 10 ** Math.max(getDecimalPosition(x), getDecimalPosition(y));
+  return multiplication(x, z) / multiplication(y, z);
 }
-
 
 /* ≡≡≡ ▀▄ Calculator ▀▄ ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
   ■ 概要
@@ -595,22 +588,22 @@ class b01Calculator extends Calculator{
 
 		// 操作用ボタン登録
 		this._btn = {};
-    this._btn['zero'] = btns['zero'] || null;
-    this._btn['one'] = btns['one'] || null;
-    this._btn['two'] = btns['two'] || null;
-    this._btn['three'] = btns['three'] || null;
-    this._btn['four'] = btns['four'] || null;
-    this._btn['five'] = btns['five'] || null;
-    this._btn['six'] = btns['six'] || null;
-    this._btn['seven'] = btns['seven'] || null;
-    this._btn['eight'] = btns['eight'] || null;
-    this._btn['nine'] = btns['nine'] || null;
-    this._btn['decimal'] = btns['decimal'] || null;
-    this._btn['add'] = btns['add'] || null;
-    this._btn['subtract'] = btns['subtract'] || null;
-    this._btn['multiply'] = btns['multiply'] || null;
-    this._btn['divide'] = btns['divide'] || null;
-    this._btn['equal'] = btns['equal'] || null;
+    this._btn['0'] = btns['0'] || null;
+    this._btn['1'] = btns['1'] || null;
+    this._btn['2'] = btns['2'] || null;
+    this._btn['3'] = btns['3'] || null;
+    this._btn['4'] = btns['4'] || null;
+    this._btn['5'] = btns['5'] || null;
+    this._btn['6'] = btns['6'] || null;
+    this._btn['7'] = btns['7'] || null;
+    this._btn['8'] = btns['8'] || null;
+    this._btn['9'] = btns['9'] || null;
+    this._btn['.'] = btns['.'] || null;
+    this._btn['+'] = btns['+'] || null;
+    this._btn['-'] = btns['-'] || null;
+    this._btn['*'] = btns['*'] || null;
+    this._btn['/'] = btns['/'] || null;
+    this._btn['='] = btns['='] || null;
 	}
 
 	get label(){
@@ -618,19 +611,21 @@ class b01Calculator extends Calculator{
 	}
 
 	pushExpression(input){
-		// 計算処理が実行される場合にラベル取得
-		if(
-			(
-				(input == '=') ||
-				(isOperator(input))
-			) &&
-			(
-				(this.state == CALC_STATE.OperandZero2) ||
-				(this.state == CALC_STATE.OperandInteger2) ||
-				(this.state == CALC_STATE.OperandDecimal2)
-			)
-		){
-			this._label = this.expression;
+		switch (this._state){
+			case CALC_STATE.OperandZero2:
+			case CALC_STATE.OperandInteger2:
+			case CALC_STATE.OperandDecimal2:
+				// 計算処理が実行される場合にラベル取得
+				if((isOperator(input)) || (input == '=')){
+					this._label = this.expression;
+				}
+				break;
+			case CALC_STATE.Result:
+				// 計算処理を破棄する場合にラベル除去
+				if((!isOperator(input)) && (input != '=')){
+					this._label = '';
+				}
+				break;
 		}
 		const result = super.pushExpression(input);
 		this.refreshButtons();
@@ -640,64 +635,40 @@ class b01Calculator extends Calculator{
 	reset(){
 		this._label = '';
 		super.reset();
+		this.refreshButtons();
+	}
+
+	back(){
+		const buf = this._label;
+		super.back();
+		this._label = buf;
 	}
 
   refreshButtons(){
 		const invalidNames = INVALID_INPUTS_BY_STATE[this.state];
-		console.log(invalidNames);
 		for(const name of VALID_INPUTS){
-			if(invalidNames.includes(name)){
-				this._btn[translate(name)].setAttribute("disabled", "");
-				console.log(`${name} is disabled.`);
-			} else {
-				this._btn[translate(name)].disabled = false;
-				console.log(`${name} is enabled.`);
-			}
+			this._btn[name].disabled = invalidNames.includes(name);
 		}
   }
 }
-// マッピング用のオブジェクトを作成
-const translationMap = {
-	'0': 'zero',
-	'1': 'one',
-	'2': 'two',
-	'3': 'three',
-	'4': 'four',
-	'5': 'five',
-	'6': 'six',
-	'7': 'seven',
-	'8': 'eight',
-	'9': 'nine',
-	'.': 'decimal',
-	'+': 'add',
-	'-': 'subtract',
-	'*': 'multiply',
-	'/': 'divide',
-	'=': 'equal',
-};
-
-// 関数を定義して翻訳を実行
-function translate(symbol) {
-	return translationMap[symbol] || 'unknown';  // 未定義のシンボルには 'unknown' を返す
-}
 
 const buttons = {
-	'zero': b01_calcBtn0,
-	'one': b01_calcBtn1,
-	'two': b01_calcBtn2,
-	'three': b01_calcBtn3,
-	'four': b01_calcBtn4,
-	'five': b01_calcBtn5,
-	'six': b01_calcBtn6,
-	'seven': b01_calcBtn7,
-	'eight': b01_calcBtn8,
-	'nine': b01_calcBtn9,
-	'decimal': b01_calcBtnDecimalPoint,
-	'add': b01_calcBtnAdd,
-	'subtract': b01_calcBtnSubtract,
-	'multiply': b01_calcBtnMultiply,
-	'divide': b01_calcBtnDevide,
-	'equal': b01_calcBtnEqual,
+	'0': b01_calcBtn0,
+	'1': b01_calcBtn1,
+	'2': b01_calcBtn2,
+	'3': b01_calcBtn3,
+	'4': b01_calcBtn4,
+	'5': b01_calcBtn5,
+	'6': b01_calcBtn6,
+	'7': b01_calcBtn7,
+	'8': b01_calcBtn8,
+	'9': b01_calcBtn9,
+	'.': b01_calcBtnDecimalPoint,
+	'+': b01_calcBtnAdd,
+	'-': b01_calcBtnSubtract,
+	'*': b01_calcBtnMultiply,
+	'/': b01_calcBtnDevide,
+	'=': b01_calcBtnEqual,
 }
 
 const calculator = new b01Calculator(buttons);
