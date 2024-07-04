@@ -1,3 +1,9 @@
+
+/* ≡≡≡ ▀▄ HTML要素郡 ▀▄ ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+  ■ 概要
+		各種入力ボタンや、出力先のラベルなどを管理する
+---------------------------------------------------------------------------- */
+
 // 出力要素
 const b01_calcLabel = document.querySelector('#b01js_label');
 const b01_calcOutput = document.querySelector('#b01js_output');
@@ -24,6 +30,24 @@ const b01_calcBtnEqual = document.querySelector('#b01js_Equal');
 const b01_calcBtnAllClear = document.querySelector('#b01js_AllClear');
 const b01_calcBtnBackSpace = document.querySelector('#b01js_BackSpace');
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ≡≡≡ ▀▄ Functions ▀▄ ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+  ■ 概要
+		主に、丸め誤差を回避するための四則演算関係のもの。
+---------------------------------------------------------------------------- */
 
 /**
  * 入力された数値の小数点位置を返す関数。
@@ -96,6 +120,16 @@ const division = (x, y) => {
   return multiplication(x, z) / multiplication(y, z);
 }
 
+
+
+
+
+
+
+
+
+
+
 /* ≡≡≡ ▀▄ Calculator ▀▄ ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
   ■ 概要
     電卓としての機能を持たせている。
@@ -147,6 +181,8 @@ const INVALID_INPUTS_BY_STATE = Object.freeze({
   11: ['+', '*', '/', '=']  // エラー（これ以上の計算処理を遮断）
 })
 
+
+/** 簡易的な電卓機能を持つ、ベースとなるクラス */
 class Calculator {
   constructor() {
     this._expression = '';
@@ -576,7 +612,9 @@ class Calculator {
   }
 }
 
-
+/**
+ * ベースとなる Calculator を、ラベルやボタン等のUIに適用させるために拡張させたもの。
+ */
 class b01Calculator extends Calculator{
 	constructor(btns){
 		super();
@@ -672,6 +710,24 @@ const calculator = new b01Calculator(buttons);
 calculator.refreshButtons();
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+/* ≡≡≡ ▀▄ 各種HTML要素への機能割当 ▀▄ ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+  ■ 概要
+		押下時 calculator を動かすためのイベント関係と処理を登録
+---------------------------------------------------------------------------- */
+
+// 式へ入力するためのボタン郡
 const b01_calcBtns = [
 	b01_calcBtn1, b01_calcBtn2, b01_calcBtn3, b01_calcBtn4, b01_calcBtn5,
 	b01_calcBtn6, b01_calcBtn7, b01_calcBtn8, b01_calcBtn9, b01_calcBtn0,
@@ -693,6 +749,7 @@ for (const btn of b01_calcBtns){
 	})
 }
 
+// 「全消去」
 b01_calcBtnAllClear.addEventListener('click', () => {
 	calculator.reset();
 	b01_calcOutput.textContent = calculator.expression;
@@ -700,6 +757,7 @@ b01_calcBtnAllClear.addEventListener('click', () => {
 	feedbackOK();
 })
 
+// 「1字消去」
 b01_calcBtnBackSpace.addEventListener('click', () => {
 	if(calculator.back() == true){
 		b01_calcOutput.textContent = calculator.expression;
@@ -710,6 +768,7 @@ b01_calcBtnBackSpace.addEventListener('click', () => {
 	}
 });
 
+// 「コピー」
 const b01_calcBtnCopy = document.querySelector('#b01js_Copy');
 b01_calcBtnCopy.addEventListener('click', () => {
 	navigator.clipboard
