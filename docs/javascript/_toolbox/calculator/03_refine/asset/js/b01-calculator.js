@@ -641,7 +641,7 @@ class b01Calculator extends Calculator{
 	}
 
   refreshButtons(){
-		const invalidNames = INVALID_INPUTS_BY_STATE[this.state];
+		const invalidNames = INVALID_INPUTS_BY_STATE[this._state];
 		for(const name of VALID_INPUTS){
       // 現状態で制限されるボタンは disable 付与、それ以外は解除
 			this._btn[name].disabled = invalidNames.includes(name);
