@@ -162,16 +162,43 @@
 	background-color: var(--sc_bg_btn__primary);
 }
 
+.b01el_calcBtn.b01el_calcBtn__primary:hover,
+.b01el_calcBtn.b01el_calcBtn__primary:active {
+	filter: brightness(87%);
+}
+
+.b01el_calcBtn.b01el_calcBtn__primary:disabled {
+	background-color: var(--sc_bg_disabled);
+}
+
 .b01el_calcBtn.b01el_calcBtn__secondary {
 	color: var(--sc_txt_btn__secondary);
 	background-color: var(--sc_bg_btn__secondary);
 	border-color: currentcolor;
 }
 
+.b01el_calcBtn.b01el_calcBtn__secondary:hover,
+.b01el_calcBtn.b01el_calcBtn__secondary:active {
+	background-color: var(--sc_bg_btn__secondary);
+}
+
+.b01el_calcBtn.b01el_calcBtn__secondary:disabled {
+	color: var(--sc_txt_disabled);
+}
+
 .b01el_calcBtn.b01el_calcBtn__tertiary {
 	color: var(--sc_txt_body);
 	background-color: transparent;
 	border: var(--sc_border_field);
+}
+
+.b01el_calcBtn.b01el_calcBtn__tertiary:hover,
+.b01el_calcBtn.b01el_calcBtn__tertiary:active {
+	color: var(--sc_txt_link__active);
+}
+
+.b01el_calcBtn.b01el_calcBtn__tertiary:disabled {
+	color: var(--sc_txt_disabled);
 }
 
 .b01el_calcBtn.b01el_calcBtn__iconLabel {
