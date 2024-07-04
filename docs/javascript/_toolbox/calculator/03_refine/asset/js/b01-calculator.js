@@ -157,10 +157,6 @@ class Calculator {
     return this._expression;
   }
 
-  get state(){
-    return this._state;
-  }
-
   pushExpression(input) {
     // 許容されているデータのみ処理に進める（入力としてありえるもの、かつ現ステートで無効な値）
     if ((!VALID_INPUTS.includes(input)) || (INVALID_INPUTS_BY_STATE[this._state].includes(input))) {
@@ -647,6 +643,7 @@ class b01Calculator extends Calculator{
   refreshButtons(){
 		const invalidNames = INVALID_INPUTS_BY_STATE[this.state];
 		for(const name of VALID_INPUTS){
+      // 現状態で制限されるボタンは disable 付与、それ以外は解除
 			this._btn[name].disabled = invalidNames.includes(name);
 		}
   }
