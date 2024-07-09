@@ -156,9 +156,10 @@ function calcCombinations(num){
 }
 
 class PlayerUnit{
-	constructor(name){
+	constructor(name, isPlayer = false){
 		this._name = name;
 		this._score = new Array(14).fill(null);
+		this._isPlayer = isPlayer;
 	}
 	get name(){
 		return this._name;
@@ -193,6 +194,9 @@ class PlayerUnit{
 			throw new Error('setScoreエラー：indexがスコア外、もしくはスコアが決定済みの可能性');
 		}
 		this.reportScoreTable();
+		document.dispatchEvent(new CustomEvent("handover", {
+			detail: {isPlayer: this._isPlayer}
+		}));
 	}
 
 	reportScoreTable(){
@@ -201,10 +205,35 @@ class PlayerUnit{
 	}
 }
 
-class PlayerOne extends PlayerUnit{
-	constructor(){
-		super();
+class Player extends PlayerUnit{
+	constructor(name){
+		super(name, true);
 	}
 }
 
+class Enemy extends PlayerUnit{
+	constructor(name){
+		super(name, false);
+		this._datas = [];
+		for(let i = 0;i <= 12; i++){
+			this._datas.push([i, i]);
+		}
+	}
+	setDummyData(){
+		let [index, point] = this._datas.shift();
+		super.setScore(index, point);
+	}
+}
 
+const p1 = new Player('PC');
+const e1 = new Enemy('NPC');
+
+document.addEventListener('handover', (e) =>{
+	let isPlayer = e.detail.isPlayer;
+	if(isPlayer){
+		console.log(`${e1.name} のターンです。`);
+		e1.setDummyData();
+	} else {
+		console.log(`${p1.name} のターンです。`);
+	}
+})
