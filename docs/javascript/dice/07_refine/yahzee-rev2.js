@@ -212,12 +212,9 @@ class Player extends PlayerUnit{
 }
 
 class Enemy extends PlayerUnit{
-	constructor(name){
+	constructor(name, dummyDatas){
 		super(name, false);
-		this._datas = [];
-		for(let i = 0;i <= 12; i++){
-			this._datas.push([i, i]);
-		}
+		this._datas = dummyDatas;
 	}
 	setDummyData(){
 		let [index, point] = this._datas.shift();
@@ -225,15 +222,71 @@ class Enemy extends PlayerUnit{
 	}
 }
 
+class GameMaster {
+	constructor(player, enemy){
+		this._player = player;
+		this._enemy = enemy;
+		this._isFinished = false;
+	}
+	get isFinished(){
+		return this._isFinished;
+	}
+	update(){
+		if(
+			(!hasNull(this._player.score)) &&
+			(!hasNull(this._enemy.score))
+		){
+			this.result();
+		}
+	}
+	result(){
+		let result = this._player.totalScore - this._enemy.totalScore;
+		console.log(`${this._player.name} の得点は ${this._player.totalScore}`)
+		console.log(`${this._enemy.name} の得点は ${this._enemy.totalScore}`)
+		switch (true) {
+			case (result > 0):
+				console.log(`${this._player.name} の勝利です`);
+				break;
+			case (result < 0):
+				console.log(`${this._enemy.name} の勝利です`);
+				break;
+			case (result === 0):
+				console.log("引き分けです");
+				break;
+		}
+		this._isFinished = true;
+	}
+}
+
+// Enemyの行動データ（ダミー）
+const dummies = [];
+for(let i = 0;i <= 12; i++){
+	dummies.push([i, i]);
+}
+
 const p1 = new Player('PC');
-const e1 = new Enemy('NPC');
+const e1 = new Enemy('NPC', dummies);
+const gm = new GameMaster(p1, e1);
 
 document.addEventListener('handover', (e) =>{
 	let isPlayer = e.detail.isPlayer;
 	if(isPlayer){
-		console.log(`${e1.name} のターンです。`);
-		e1.setDummyData();
+		gm.update();
+		if(!gm.isFinished){
+			console.log(`${e1.name} のターンです。`);
+			e1.setDummyData();
+		}
 	} else {
-		console.log(`${p1.name} のターンです。`);
+		gm.update();
+		if(!gm.isFinished){
+			console.log(`${p1.name} のターンです。`);
+		}
 	}
 })
+
+
+
+
+
+
+// Controller 関係を下記に
