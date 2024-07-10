@@ -1,0 +1,846 @@
+@charset "utf-8";
+
+:root {
+	--space_ctrls: 0.25vmin;
+	font-size: clamp(32px, 2rem + 1vmin, 8vmin);
+
+	/* プリミティブカラー */
+	--white: #ffffff;
+	--sea-1200: #00004F;
+	--sea-1100: #000060;
+	--sea-1000: #000071;
+	--sea-900: #0000be;
+	--sea-800: #0024ce;
+	--sea-700: #0031d8;
+	--sea-600: #003ee5;
+	--sea-500: #0946f1;
+	--sea-400: #4979f5;
+	--sea-300: #7096f8;
+	--sea-200: #9db7f9;
+	--sea-100: #c5d7fb;
+	--sea-50: #e8f1fe;
+	--sumi-1200: #000000;
+	--sumi-1100: #080808;
+	--sumi-1000: #111111;
+	--sumi-900: #1a1a1c;
+	--sumi-800: #414143;
+	--sumi-700: #626264;
+	--sumi-600: #757578;
+	--sumi-500: #949497;
+	--sumi-400: #b4b4b7;
+	--sumi-300: #d8d8db;
+	--sumi-200: #e8e8eb;
+	--sumi-100: #f1f1f4;
+	--sumi-50: #f8f8fb;
+	--forest-1200: #032213;
+	--forest-1100: #08351f;
+	--forest-1000: #0c472a;
+	--forest-900: #115a36;
+	--forest-800: #197a4b;
+	--forest-700: #1a8b56;
+	--forest-600: #259d63;
+	--forest-500: #2cac6e;
+	--forest-400: #51b883;
+	--forest-300: #71c598;
+	--forest-200: #9bd4b5;
+	--forest-100: #c2e5d1;
+	--forest-50: #e6f5ec;
+	--wood-1200: #662e00;
+	--wood-1100: #833b00;
+	--wood-1000: #9c4600;
+	--wood-900: #b65200;
+	--wood-800: #c16800;
+	--wood-700: #c87504;
+	--wood-600: #cd820a;
+	--wood-500: #d18d0f;
+	--wood-400: #d69c2b;
+	--wood-300: #dcac4d;
+	--wood-200: #e5c47f;
+	--wood-100: #efdbb1;
+	--wood-50: #f8f1e0;
+	--sun-1200: #640101;
+	--sun-1100: #890101;
+	--sun-1000: #af0000;
+	--sun-900: #d50000;
+	--sun-800: #ec0000;
+	--sun-700: #fa1606;
+	--sun-600: #ff220d;
+	--sun-500: #ff4b36;
+	--sun-400: #ff5838;
+	--sun-300: #ff7b5c;
+	--sun-200: #ffa28b;
+	--sun-100: #ffc8b8;
+	--sun-50: #ffe7e6;
+
+	/* セマンティックカラー */
+	--sc_txt_body: var(--sumi-900);
+	--sc_txt_body__small: var(--sumi-1200);
+	/* 小さな文字用 */
+	--sc_txt_desc: var(--sumi-700);
+	--sc_txt_placeholder: var(--sumi-600);
+	--sc_txt_onFill: var(--white);
+	--sc_txt_link: var(--sea-800);
+	--sc_txt_link__hover: var(--sea-900);
+	--sc_txt_link__active: var(--sea-900);
+	--sc_txt_link__visited: var(--sea-900);
+	--sc_txt_alert: var(--sun-800);
+	--sc_txt_disabled: var(--sumi-500);
+	--sc_txt_icon: var(--sumi-900);
+	--sc_txt_btn__primary: var(--white);
+	--sc_txt_btn__secondary: var(--sea-800);
+	--sc_txt_btn__tertiary: var(--sea-800);
+	--sc_border_field: 1px solid var(--sumi-900);
+	--sc_border_divider: 1px solid var(--sumi-300);
+	--sc_border_focused: 2px solid var(--wood-600);
+	--sc_border_selected: 2px solid var(--sea-800);
+	--sc_border_disabled: 1px solid var(--sumi-300);
+	--sc_border_alert: 2px solid var(--sun-800);
+	--sc_bg_body__primary: var(--sumi-50);
+	--sc_bg_body__secondary: var(--sumi-200);
+	--sc_bg_body__tertiary: var(--sumi-100);
+	--sc_bg_btn__primary: var(--sea-800);
+	--sc_bg_btn__secondary: var(--sea-50);
+	--sc_bg_disabled: var(--sumi-500);
+	--sc_bg_alert: var(--sun-800);
+	--sc_bg_shadow: var(--sumi-700);
+}
+
+::before,
+::after {
+	box-sizing: border-box;
+}
+
+h1,h2,h3,h4,h5,h6,
+li,
+th,
+td,
+div,
+span,
+code,
+pre,
+figcaption,
+caption,
+time,
+address,
+small,
+button,
+label,
+summary,
+p {
+	color: var(--sc_txt_body);
+}
+
+body {
+	background-color: var(--sc_bg_body__primary);
+}
+
+img {
+	max-width: 100%;
+}
+
+svg {
+	fill: currentcolor;
+}
+
+small {
+	font-size: 0.8em;
+}
+
+
+
+*:focus-visible,
+.bl_dice:focus-within {
+	outline: var(--sc_border_focused);
+	outline-offset: 2px;
+	animation-name: focusEffect;
+	animation-duration: 0.3s;
+}
+
+@keyframes focusEffect {
+	from {
+		outline-width: 1px;
+		outline-offset: 8px;
+	}
+
+	to {
+		outline-width: 2px;
+		outline-offset: 2px;
+	}
+}
+
+.ly_display {
+	--ly_landmark:
+		"head head head head head"
+		"main main main main main"
+		"main main main main main"
+		"foot foot foot foot foot"
+		"foot foot foot foot foot"
+		"foot foot foot foot foot"
+		"foot foot foot foot foot";
+	--ly_footer:
+		"dice dice dice dice dice"
+		"dice dice dice dice dice"
+		"roll roll roll roll roll"
+		"sele sele sele sele sbmt";
+	--num_hBox: 7;
+	--num_wBox: 5;
+	--size_btn: min(
+		100dvw / var(--num_wBox),
+		100dvh / var(--num_hBox)
+	);
+	display: grid;
+	gap: 0;
+	grid-template-areas:var(--ly_landmark);
+	width: 100dvw;
+	height: 100dvh;
+}
+
+/* 縦5に対し、横7以上の横長 */
+@media (min-aspect-ratio: 7/5) {
+	.ly_display {
+		--ly_landmark:
+			"head head head head head head head"
+			"main main main main main main main"
+			"main main main main main main main"
+			"foot foot foot foot foot foot foot"
+			"foot foot foot foot foot foot foot"
+			"foot foot foot foot foot foot foot";
+		--ly_footer:
+			"dice dice dice dice dice roll roll"
+			"dice dice dice dice dice roll roll"
+			"sele sele sele sele sele sbmt sbmt";
+		--num_hBox: 5;
+		--num_wBox: 7;
+	}
+}
+
+.ly_display_header {
+	grid-area: head;
+	border: var(--sc_border_divider);
+}
+
+.bl_header {
+	display: flex;
+	flex-flow: row nowrap;
+	height: var(--size_btn);
+	align-items: center;
+}
+
+.bl_header_select {
+	height: calc(var(--size_btn) * 0.9);
+	flex-grow: 1;
+	border: var(--sc_border_divider);
+	border-radius: 4px;
+}
+
+.bl_header_btn {
+	flex-grow: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: calc(var(--size_btn) * 0.9);
+	height: calc(var(--size_btn) * 0.9);
+	padding: 0;
+	margin: 0;
+	cursor: pointer;
+	background: none;
+	border: 2px solid transparent;
+	border-radius: 4px;
+	color: var(--sc_txt_btn__secondary);
+	text-decoration: none;
+	background-color: transparent;
+	border-color: currentcolor;
+}
+
+.bl_header_btn > svg {
+	height: calc(var(--size_btn) * 0.5);
+	width: calc(var(--size_btn) * 0.5);
+}
+
+.bl_header_btn > span {
+	font-size: calc(var(--size_btn) * 0.2);
+	color: var(--sc_txt_btn__secondary);
+}
+
+
+
+.ly_display_main {
+	grid-area: main;
+	border: var(--sc_border_divider);
+}
+
+.bl_result > .bl_result_unit {
+	display: flex;
+	flex-flow: row nowrap;
+	overflow-x: auto;
+	overflow-y: hidden;
+	height: var(--size_btn);
+	align-items: center;
+	gap: 0 1rem;
+}
+
+.bl_resule_dialogBtn {
+	width: auto;
+	height: calc(var(--size_btn) * 0.9);
+	padding: 0;
+	margin: 0;
+	cursor: pointer;
+	background: none;
+	border: 2px solid transparent;
+	color: var(--sc_txt_btn__primary);
+	text-decoration: none;
+	background-color: var(--sc_bg_btn__primary);
+	border-radius: 8px;
+}
+
+
+.bl_resule_dialogBtn > span {
+	font-size: calc(var(--size_btn) * 0.7);
+	color: var(--sc_txt_btn__primary);
+	line-height: 1;
+}
+
+.bl_resule_dialogBtn > svg {
+	width:  calc(var(--size_btn) * 0.2);
+	height:  calc(var(--size_btn) * 0.2);
+}
+
+
+
+
+.ly_display_footer {
+	grid-area: foot;
+	border: var(--sc_border_divider);
+}
+
+
+
+
+
+
+
+
+.ly_footer {
+	display: grid;
+	gap: 0;
+	grid-template-areas:var(--ly_footer);
+}
+
+.bl_dice_wrapper {
+	grid-area: dice;
+	display: flex;
+	height: calc(var(--size_btn) * 1.75);
+	flex-flow: row nowrap;
+	justify-content: center;
+	align-items: center;
+}
+
+.bl_dice {
+	cursor: pointer;
+	line-height: 1;
+	letter-spacing: 0;
+	flex: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: calc(var(--size_btn) * 1.5);
+	width: calc(var(--size_btn) * 1.5);
+	padding: 0;
+	text-align: center;
+}
+
+
+
+.bl_dice:has(:checked) {
+	background: linear-gradient(-45deg, transparent 0%, transparent 49%, #d40000 49%, #d40000 51%, transparent 51%, transparent 100%);
+	border: 2px solid red;
+}
+
+.bl_dice>span {
+	color: var(--sc_txt_body);
+}
+
+.bl_dice:has(:checked)>span {
+	color: var(--sc_txt_disabled);
+}
+
+.bl_dice_chkbox {
+	appearance: none;
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	clip-path: inset(100%);
+}
+
+#btn-roll {
+	grid-area: roll;
+}
+
+.bl_select {
+	grid-area: sele;
+
+	position: relative;
+	display: flex;
+	flex-flow: row nowrap;
+	cursor: pointer;
+}
+
+.bl_select>select {
+	width: 100%;
+	color: var(--sc_txt_body);
+	text-indent: 1ch;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background-color: var(--sc_bg_body__primary);
+	border: var(--sc_border_field);
+	border-radius: max(min(4px, calc(40px - 100%) * 9999),
+			min(8px, calc(100% - 40px) * 9999, calc(120px - 100%) * 9999),
+			min(12px, calc(100% - 120px) * 9999));
+	align-items: center;
+}
+
+
+.bl_select::after {
+	position: absolute;
+	align-self: center;
+	right: .1em;
+	display: flexbox;
+	width: 1em;
+	height: 1em;
+	content: "";
+	background-image: url('data:image/svg+xml;utf-8,<svg viewBox="0 0 24 24" fill="black" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.1L3 8L4 7L12 15L20 7L21 8L12 17.1Z"/></svg>');
+}
+
+.bl_select>select::-ms-expand {
+	display: none;
+}
+
+.bl_select>select:disabled {
+	pointer-events: none;
+	border: var(--sc_border_disabled);
+}
+
+
+@media (max-width: 200px) {
+	.bl_select::after {
+		display: none;
+	}
+}
+
+#btn-submit {
+	grid-area: sbmt;
+
+}
+
+.js_anime_roll {
+	animation-duration: 0.5s;
+	animation-name: rollEffect;
+}
+
+@keyframes rollEffect {
+	from {
+		transform: translateY(0);
+		opacity: 1;
+	}
+
+	20% {
+		transform: translateY(-3dvh);
+		opacity: 0;
+	}
+
+	21% {
+		transform: translateY(5dvh);
+	}
+
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+/* ≡≡≡ ☐ el_btn ☐ ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+■ 概要
+	ボタン要素
+---------------------------------------------------------------------------- */
+
+.el_btn {
+	display: block;
+	width: 100%;
+	padding: 16px;
+	margin: 0;
+	font-size: 1rem;
+	font-style: normal;
+	font-weight: 700;
+	line-height: 1.5;
+	text-align: center;
+	letter-spacing: 0.04em;
+	cursor: pointer;
+	background: none;
+	border: 2px solid transparent;
+	border-radius: max(min(4px, calc(40px - 100%) * 9999),
+			min(8px, calc(100% - 40px) * 9999, calc(120px - 100%) * 9999),
+			min(12px, calc(100% - 120px) * 9999));
+	transition: .25s;
+}
+
+.el_btn.el_btn__primary {
+	color: var(--sc_txt_btn__primary);
+	text-decoration: none;
+	background-color: var(--sc_bg_btn__primary);
+}
+
+.el_btn.el_btn__primary:hover,
+.el_btn.el_btn__primary:active {
+	filter: brightness(87%);
+}
+
+.el_btn.el_btn__secondary {
+	color: var(--sc_txt_btn__secondary);
+	text-decoration: none;
+	background-color: transparent;
+	border-color: currentcolor;
+}
+
+.el_btn.el_btn__secondary:hover,
+.el_btn.el_btn__secondary:active {
+	background-color: var(--sc_bg_btn__secondary);
+}
+
+.el_btn.el_btn__tertiary {
+	color: var(--sc_txt_btn__tertiary);
+	text-decoration: underline;
+	background-color: transparent;
+}
+
+.el_btn.el_btn__tertiary:hover,
+.el_btn.el_btn__tertiary:active {
+	color: var(--sc_txt_link__active);
+}
+
+.el_btn.el_btn__iconLabel {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-evenly;
+	width: 2.625rem;
+	height: 2.625rem;
+	padding: 0;
+	margin: 0;
+	color: var(--sc_txt_body);
+	text-decoration: none;
+	cursor: pointer;
+	background: none;
+	border: none;
+}
+
+.el_btn.el_btn__iconLabel > svg {
+	width: 1.625rem;
+	height: 1.625rem;
+}
+
+.el_btn.el_btn__iconLabel > span {
+	font-size: 0.7rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* ≡≡≡ ⚠ hp_srOnly(ScreenReaderOnly) ⚠ ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+	■ 概要
+		スクリーンリーダー専用要素。レンダリング上は隠しながら、読み上げを妨げない。
+---------------------------------------------------------------------------- */
+
+.hp_srOnly {
+	position: absolute !important;
+	clip: rect(0 0 0 0) !important;
+	clip-path: inset(100%) !important;
+	width: 1px !important;
+	height: 1px !important;
+	margin: -1px !important;
+	overflow: hidden !important;
+	padding: 0 !important;
+	border: 0 !important;
+}
+
+
+
+
+
+/* ≡≡≡ ◲ ly_dialog ◲ ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+	■ 概要
+		各種機能を格納するダイアログ要素
+---------------------------------------------------------------------------- */
+
+/* ダイアログ表示中は、裏側にあるページをスクロールさせない */
+html:has(dialog[open]) {
+	overflow: hidden;
+}
+
+/* `max-*` は、デフォルトのスタイル（例：`dialog:-internal-dialog-in-top-layer`）を上書きするため */
+.ly_dialog {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100dvw;
+	max-width: 100dvw;
+	min-height: 100dvh;
+	max-height: 100dvh;
+	padding: 0;
+	border: none;
+	background-color: var(--sc_bg_body__primary);
+	display: flex;
+	justify-content: center;
+}
+
+.ly_dialog:not([open]) {
+	display: none;
+}
+
+.ly_dialog_body {
+	position: absolute;
+	top: 0;
+	padding: 8px;
+	width: 100dvw;
+	display: flex;
+	flex-flow: column nowrap;
+}
+
+
+
+/* ≡≡≡ ☐ bl_menuHeader ☐ ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+	■ 概要
+		ダイアログ内の汎用ヘッダー、タイトルと閉じるボタンの2つで構成
+---------------------------------------------------------------------------- */
+
+.bl_menuHeader {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding-bottom: 8px;
+	margin-bottom: 16px;
+}
+
+.bl_menuHeader_title {
+	padding: 0;
+	margin: 0;
+	font-size: 1.75rem;
+	line-height: 1.5;
+}
+
+.bl_menuHeader_btnIcon {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-evenly;
+	width: 2.625rem;
+	height: 2.625rem;
+	padding: 0;
+	margin: 0;
+	color: var(--sc_txt_body);
+	text-decoration: none;
+	cursor: pointer;
+	background: none;
+	border: none;
+}
+
+.bl_menuHeader_btnIcon>svg {
+	width: 1.625rem;
+	height: 1.625rem;
+}
+
+.bl_menuHeader_btnIcon>span {
+	font-size: 0.7rem;
+}
+
+
+
+
+/* ≡≡≡ ☐ bl_table ☐ ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+■ 概要
+	テーブル要素
+	table
+		thead > tr > th
+		tbody > tr > th | td
+■ 使用方法
+	table 要素をラップする形で div を設け、それに対しクラス付けを行う
+■ バリエーション
+	bl_table : ベース
+	┃
+	┣┳ bl_table__horizontal : 列見出し固定（※ 表の高さは 75dvh までに制限される）
+	┃┣ bl_table__vertical : 行見出し固定（※ 768px【例：iPad 縦画面】を境に、行方向のスクロールが許可される）
+	┃┗ bl_table__cross : 行列見出し固定（上記にある両者の特徴を引き継ぐ）
+	┃
+	┗┳ bl_table__wide : 表幅が大きく画面幅 960px までスクロールが必要な表
+	　┗ bl_table__exWide : 表幅が非常に大きく画面幅 1200px までスクロールが必要な表
+---------------------------------------------------------------------------- */
+
+.bl_table {
+	border: var(--sc_border_divider);
+}
+
+.bl_table>table {
+	width: 100%;
+	text-align: center;
+	table-layout: fixed;
+	border-collapse: collapse;
+}
+
+.bl_table th {
+	padding: 8px;
+	background-color: var(--sc_bg_body__tertiary);
+	border-right: var(--sc_border_divider);
+	border-bottom: var(--sc_border_divider);
+	font-weight: 700;
+	vertical-align: middle;
+}
+
+.bl_table td {
+	padding: 8px;
+	border-right: var(--sc_border_divider);
+	border-bottom: var(--sc_border_divider);
+	vertical-align: middle;
+}
+
+/* 右端と下端のセルに対し、それぞれの border を消す
+* この状況下では、div側が担保 */
+.bl_table th:last-child,
+.bl_table td:last-child {
+	border-right-width: 0;
+}
+
+.bl_table tbody tr:last-child th,
+.bl_table tbody tr:last-child td {
+	border-bottom-width: 0;
+}
+
+/* 行が大量で見出し固定が必要なケース
+ * この場合 Sticky 化するために高さに制限を設け、スクロールを許可する */
+.bl_table.bl_table.bl_table__vertical,
+.bl_table.bl_table__cross {
+	max-height: 75dvh;
+	height: max-content;
+	overflow-y: auto;
+}
+
+.bl_table.bl_table__vertical thead th,
+.bl_table.bl_table__cross thead th {
+	position: -webkit-sticky;
+	position: sticky;
+	top: 0;
+	z-index: 1;
+}
+
+/* 表側頭 をテーブル内最上段に置き、スクロールの際の表示を確保 */
+.bl_table.bl_table__vertical thead th:first-child,
+.bl_table.bl_table__cross thead th:first-child {
+	z-index: 2;
+}
+
+@media screen and (max-width: 768px) {
+
+	/* 右端と下端の border を消す
+	* この状況下では、セル側が担保する。
+ * こうすることで、スクロールしないと border を見えないようしている */
+	.bl_table:not(.bl_table__wide):not(.bl_table__exWide) {
+		border-right-width: 0;
+		overflow-x: auto;
+	}
+
+	.bl_table:not(.bl_table__wide):not(.bl_table__exWide) table {
+		width: auto;
+		min-width: 100%;
+	}
+
+	.bl_table:not(.bl_table__wide):not(.bl_table__exWide) th,
+	.bl_table:not(.bl_table__wide):not(.bl_table__exWide) td {
+		white-space: nowrap;
+	}
+
+	.bl_table:not(.bl_table__wide):not(.bl_table__exWide) th:last-child,
+	.bl_table:not(.bl_table__wide):not(.bl_table__exWide) td:last-child {
+		border-right-width: 1px;
+	}
+
+	.bl_table.bl_table__horizontal:not(.bl_table__wide):not(.bl_table__exWide) th:first-child,
+	.bl_table.bl_table__cross:not(.bl_table__wide):not(.bl_table__exWide) th:first-child {
+		position: -webkit-sticky;
+		position: sticky;
+		left: 0;
+	}
+}
+
+@media screen and (max-width: 960px) {
+	.bl_table.bl_table__wide {
+		border-right-width: 0;
+		overflow-x: auto;
+	}
+
+	.bl_table.bl_table__wide table {
+		width: auto;
+		min-width: 100%;
+	}
+
+	.bl_table.bl_table__wide th,
+	.bl_table.bl_table__wide td {
+		white-space: nowrap;
+	}
+
+	.bl_table.bl_table__wide th:last-child,
+	.bl_table.bl_table__wide td:last-child {
+		border-right-width: 1px;
+	}
+
+	.bl_table.bl_table__horizontal.bl_table__wide th:first-child,
+	.bl_table.bl_table__cross.bl_table__wide th:first-child {
+		position: -webkit-sticky;
+		position: sticky;
+		left: 0;
+	}
+}
+
+@media screen and (max-width: 1200px) {
+	.bl_table.bl_table__exWide {
+		border-right-width: 0;
+		overflow-x: auto;
+	}
+
+	.bl_table.bl_table__exWide table {
+		width: auto;
+		min-width: 100%;
+	}
+
+	.bl_table.bl_table__exWide th,
+	.bl_table.bl_table__exWide td {
+		white-space: nowrap;
+	}
+
+	.bl_table.bl_table__exWide th:last-child,
+	.bl_table.bl_table__exWide td:last-child {
+		border-right-width: 1px;
+	}
+
+	.bl_table.bl_table__horizontal.bl_table__exWide th:first-child,
+	.bl_table.bl_table__cross.bl_table__exWide th:first-child {
+		position: -webkit-sticky;
+		position: sticky;
+		left: 0;
+	}
+}
