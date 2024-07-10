@@ -169,14 +169,6 @@ small {
 }
 
 .ly_display {
-	--ly_landmark:
-		"head head head head head"
-		"main main main main main"
-		"main main main main main"
-		"foot foot foot foot foot"
-		"foot foot foot foot foot"
-		"foot foot foot foot foot"
-		"foot foot foot foot foot";
 	--ly_footer:
 		"dice dice dice dice dice"
 		"dice dice dice dice dice"
@@ -188,9 +180,10 @@ small {
 		100dvw / var(--num_wBox),
 		100dvh / var(--num_hBox)
 	);
-	display: grid;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: space-between;
 	gap: 0;
-	grid-template-areas:var(--ly_landmark);
 	width: 100dvw;
 	height: 100dvh;
 }
@@ -198,13 +191,6 @@ small {
 /* 縦5に対し、横7以上の横長 */
 @media (min-aspect-ratio: 7/5) {
 	.ly_display {
-		--ly_landmark:
-			"head head head head head head head"
-			"main main main main main main main"
-			"main main main main main main main"
-			"foot foot foot foot foot foot foot"
-			"foot foot foot foot foot foot foot"
-			"foot foot foot foot foot foot foot";
 		--ly_footer:
 			"dice dice dice dice dice roll roll"
 			"dice dice dice dice dice roll roll"
@@ -215,7 +201,7 @@ small {
 }
 
 .ly_display_header {
-	grid-area: head;
+	display: block;
 	border: var(--sc_border_divider);
 }
 
@@ -265,8 +251,15 @@ small {
 
 
 .ly_display_main {
-	grid-area: main;
+	display: block;
 	border: var(--sc_border_divider);
+}
+
+
+.bl_result {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-around;
 }
 
 .bl_result > .bl_result_unit {
@@ -309,7 +302,7 @@ small {
 
 
 .ly_display_footer {
-	grid-area: foot;
+	display: block;
 	border: var(--sc_border_divider);
 }
 
@@ -329,7 +322,7 @@ small {
 .bl_dice_wrapper {
 	grid-area: dice;
 	display: flex;
-	height: calc(var(--size_btn) * 1.75);
+	height: calc(var(--size_btn) * 1.1);
 	flex-flow: row nowrap;
 	justify-content: center;
 	align-items: center;
@@ -343,12 +336,16 @@ small {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	height: calc(var(--size_btn) * 1.5);
-	width: calc(var(--size_btn) * 1.5);
+	height: var(--size_btn);
+	width: var(--size_btn);
 	padding: 0;
 	text-align: center;
 }
 
+.bl_dice > svg {
+	height: calc(var(--size_btn) * 0.9);
+	width: calc(var(--size_btn) * 0.9);
+}
 
 
 .bl_dice:has(:checked) {
