@@ -592,21 +592,13 @@ html:has(dialog[open]) {
 	border: none;
 	background-color: var(--sc_bg_body__primary);
 	display: flex;
-	justify-content: center;
+	flex-flow: column nowrap;
 }
 
 .ly_dialog:not([open]) {
 	display: none;
 }
 
-.ly_dialog_body {
-	position: absolute;
-	top: 0;
-	padding: 8px;
-	width: 100dvw;
-	display: flex;
-	flex-flow: column nowrap;
-}
 
 
 
