@@ -356,8 +356,34 @@ small {
 
 
 .bl_dice:has(:checked) {
-	background: linear-gradient(-45deg, transparent 0%, transparent 49%, #d40000 49%, #d40000 51%, transparent 51%, transparent 100%);
-	border: 2px solid red;
+	background:
+		linear-gradient(
+			90deg,
+			#d40000 0%,
+			#d40000 2%,
+			transparent 2%,
+			transparent 98%,
+			#d40000 98%,
+			#d40000 100%
+		),
+		linear-gradient(
+			0deg,
+			#d40000 0%,
+			#d40000 2%,
+			transparent 2%,
+			transparent 98%,
+			#d40000 98%,
+			#d40000 100%
+		);
+	position: relative;
+}
+.bl_dice:has(:checked)::after {
+	position: absolute;
+	bottom: 0;
+	width: calc(var(--size_btn) * 0.3);
+	height: calc(var(--size_btn) * 0.3);
+	content: "";
+	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 48 48' fill='%23d40000' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m21 3c-12 0-12 12-12 12v2.4199h-2.4199c-1.9835 0-3.5801 1.5966-3.5801 3.5801v20.42c0 1.9835 1.5966 3.5801 3.5801 3.5801h34.84c1.9835 0 3.5801-1.5966 3.5801-3.5801v-20.42c0-1.9835-1.5966-3.5801-3.5801-3.5801h-2.4199v-2.4199c0-12-12-12-12-12zm0 6h6c6 0 6 6 6 6v2.4199h-18v-2.4199c0-6 6-6 6-6z' stroke-width='2.144'/%3E%3Cpath d='m24 21a6 6 0 0 0-6 6 6 6 0 0 0 4.3203 5.7598l-1.3203 9.2402h6l-1.3203-9.2402a6 6 0 0 0 4.3203-5.7598 6 6 0 0 0-6-6z' fill='%23fff' stroke-width='2'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 .bl_dice>span {
