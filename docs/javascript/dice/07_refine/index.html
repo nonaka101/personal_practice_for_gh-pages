@@ -99,7 +99,7 @@
 		<ul class="bl_result">
 			<li class="bl_result_unit">
 				<button type="button" aria-controls="js_scoreDialog_player" class="bl_resule_dialogBtn js_btnShowDialog">
-					<span class="js_player_totalScore">100</span>
+					<span class="js_player_totalScore"></span>
 					<svg version="1.1" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
 						<circle cx="18" cy="18" r="15" fill="none" stroke="currentColor" stroke-linecap="round"
 							stroke-linejoin="round" stroke-width="2" />
@@ -128,7 +128,7 @@
 			</li><!-- /.bl_result_unit -->
 			<li class="bl_result_unit">
 				<button type="button" aria-controls="js_scoreDialog_enemy" class="bl_resule_dialogBtn js_btnShowDialog">
-					<span class="js_enemy_totalScore">80</span>
+					<span class="js_enemy_totalScore"></span>
 					<svg version="1.1" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
 						<circle cx="18" cy="18" r="15" fill="none" stroke="currentColor" stroke-linecap="round"
 							stroke-linejoin="round" stroke-width="2" />
@@ -205,6 +205,83 @@
 
 	<script src="./yahzee-rev2.js"></script>
 	<script>
+		function createTable(dataArray, tableStyle=0) {
+			console.log(dataArray);
+			const styleWidth = Math.floor(tableStyle / 4);
+			const styleDirection = tableStyle % 4;
+
+			// テーブルのラップ要素 div の生成
+			const tableWrapper = document.createElement('div');
+			let classes = ['bl_table'];
+			switch (styleDirection) {
+				case 0:
+					break;
+				case 1:
+					classes.push('bl_table__horizontal');
+					break;
+				case 2:
+					classes.push('bl_table__vertical');
+					break;
+				case 3:
+					classes.push('bl_table__cross');
+					break;
+			}
+			switch (styleWidth) {
+				case 0:
+					break;
+				case 1:
+					classes.push('bl_table__wide');
+					break;
+				case 2:
+					classes.push('bl_table__exWide');
+					break;
+			}
+			tableWrapper.classList.add(...classes);
+
+			const table = document.createElement('table');
+			tableWrapper.appendChild(table);
+
+			// ヘッダー部を作成
+			const tableHeaderRow = table.createTHead().insertRow();
+			const arrayHeader = dataArray.shift();
+			console.table(arrayHeader);
+			let isFirstCell = true;	// クロス表の表側頭で scope をつけないためのもの
+			for(const cell of arrayHeader){
+				const th = document.createElement('th');
+				th.textContent = cell;
+
+				// 表形式が 垂直 または クロスかつ表側頭セル以外の場合、スコープ付与
+				if((styleDirection === 2) || (styleDirection === 3 && isFirstCell === false)) {
+					th.scope = 'col';
+				}
+				tableHeaderRow.appendChild(th);
+				isFirstCell = false;
+			}
+
+			// ボディ部を作成
+			const tableBody = table.createTBody();
+			for (const arrayRow of dataArray) {
+				const row = tableBody.insertRow();
+
+				// 初回のみ th 要素
+				const thCell = arrayRow.shift();
+				const th = document.createElement('th');
+				th.textContent = thCell;
+				if(styleDirection === 1 || styleDirection === 3) {
+					th.scope = 'row';
+				}
+				row.appendChild(th);
+
+				// 2列目以降は td 要素
+				for(const tdCell of arrayRow){
+					const cell = row.insertCell();
+					cell.textContent = tdCell;
+				}
+			}
+
+			// テーブル要素を格納した div.bl_table 要素を返す
+			return tableWrapper;
+		}
 		// Template
 		const TEMP_DIEFACES = Object.freeze({
 			1: document.querySelector('#js_dieFace_1'),
@@ -311,7 +388,8 @@
 		}
 
 		const form = document.querySelector('#js_controller');
-		const p1 = new Player('PC');
+		const pName = 'プレイヤー1';
+		const p1 = new Player(pName);
 		const e1 = new Enemy(enemyList[enemyID], enemyScore);
 		const gm = new GameMaster(p1, e1);
 
@@ -323,7 +401,52 @@
 		*/
 		const resultDialog = document.querySelector('#js_resultDialog');
 
+		const playerNames = document.querySelectorAll('.js_player_name');
+		for(const ele of playerNames) ele.textContent = pName;
+
+		const enemyNames = document.querySelectorAll('.js_enemy_name');
+		for(const ele of enemyNames) ele.textContent = enemyList[enemyID];
+
+		const playerScoreTable = document.querySelectorAll('.js_player_score');
+		const playerTotalScore = document.querySelectorAll('.js_player_totalScore');
+		const enemyScoreTable = document.querySelectorAll('.js_enemy_score');
+		const enemyTotalScore = document.querySelectorAll('.js_enemy_totalScore');
+		console.log(playerScoreTable);
+
+		function updateScore(){
+			for(const ele of playerTotalScore){
+				ele.textContent = p1.totalScore;
+			}
+			for(const ele of enemyTotalScore){
+				ele.textContent = e1.totalScore;
+			}
+			for(const ele of playerScoreTable){
+				ele.innerHTML = '';
+				const dmy = createTable([
+					['1の目',0], ['2の目',0], ['3の目',0], ['4の目',0],
+					['5の目',0], ['6の目',0], ['フルハウス',0],
+					['スリー オブ アカインド',0], ['フォー オブ アカインド',0],
+					['ショート ストレート',0]
+				],2);
+
+				ele.append(dmy);
+			}
+			for(const ele of enemyScoreTable){
+				ele.innerHTML = '';
+				const dmy = createTable([
+					['1の目',0], ['2の目',0], ['3の目',0], ['4の目',0],
+					['5の目',0], ['6の目',0], ['フルハウス',0],
+					['スリー オブ アカインド',0], ['フォー オブ アカインド',0],
+					['ショート ストレート',0]
+				],2);
+
+				ele.appendChild(dmy)
+			};
+		}
+		updateScore();
+
 		document.addEventListener('handover', (e) => {
+			updateScore();
 			let isPlayer = e.detail.isPlayer;
 			if (isPlayer) {
 				gm.update();
