@@ -1,96 +1,94 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
-  <meta charset="UTF-8">
+	<meta charset="UTF-8">
 	<meta name="robots" content="noindex, nofollow">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>07 Refine | dice</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>07 Refine | dice</title>
 	<link rel="stylesheet" href="reset.css">
 	<link rel="stylesheet" href="./yahtzee.css">
 
 	<!-- DieFace SVGs -->
 	<template id="js_dieFace_1">
-		<svg role="graphics-symbol img" aria-label="1"
-			version="1.1" xmlns="http://www.w3.org/2000/svg"
-			viewBox="0 0 48 48" width="24" height="24"
-		>
-			<rect x="3" y="3" width="42" height="42" ry="3" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-			<circle cx="24" cy="24" r="6" fill="#800000"/>
+		<svg role="graphics-symbol img" aria-label="1" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+			width="24" height="24">
+			<rect x="3" y="3" width="42" height="42" ry="3" fill="none" stroke="currentColor" stroke-linecap="round"
+				stroke-linejoin="round" stroke-width="2" />
+			<circle cx="24" cy="24" r="6" fill="#800000" />
 		</svg>
 	</template>
 	<template id="js_dieFace_2">
-		<svg role="graphics-symbol img" aria-label="2"
-			version="1.1" xmlns="http://www.w3.org/2000/svg"
-			viewBox="0 0 48 48" width="24" height="24"
-		>
-			<rect x="3" y="3" width="42" height="42" ry="3" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-			<circle cx="13.5" cy="13.5" r="4.5"/>
-			<circle cx="34.5" cy="34.5" r="4.5"/>
+		<svg role="graphics-symbol img" aria-label="2" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+			width="24" height="24">
+			<rect x="3" y="3" width="42" height="42" ry="3" fill="none" stroke="currentColor" stroke-linecap="round"
+				stroke-linejoin="round" stroke-width="2" />
+			<circle cx="13.5" cy="13.5" r="4.5" />
+			<circle cx="34.5" cy="34.5" r="4.5" />
 		</svg>
 	</template>
 	<template id="js_dieFace_3">
-		<svg role="graphics-symbol img" aria-label="3"
-			version="1.1" xmlns="http://www.w3.org/2000/svg"
-			viewBox="0 0 48 48" width="24" height="24"
-		>
-			<rect x="3" y="3" width="42" height="42" ry="3" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-			<circle cx="13.5" cy="13.5" r="4.5"/>
-			<circle cx="34.5" cy="34.5" r="4.5"/>
-			<circle cx="24" cy="24" r="4.5"/>
+		<svg role="graphics-symbol img" aria-label="3" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+			width="24" height="24">
+			<rect x="3" y="3" width="42" height="42" ry="3" fill="none" stroke="currentColor" stroke-linecap="round"
+				stroke-linejoin="round" stroke-width="2" />
+			<circle cx="13.5" cy="13.5" r="4.5" />
+			<circle cx="34.5" cy="34.5" r="4.5" />
+			<circle cx="24" cy="24" r="4.5" />
 		</svg>
 	</template>
 	<template id="js_dieFace_4">
-		<svg role="graphics-symbol img" aria-label="4"
-			version="1.1" xmlns="http://www.w3.org/2000/svg"
-			viewBox="0 0 48 48" width="24" height="24"
-		>
-			<rect x="3" y="3" width="42" height="42" ry="3" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-			<circle cx="13.5" cy="13.5" r="4.5"/>
-			<circle cx="34.5" cy="34.5" r="4.5"/>
-			<circle cx="13.5" cy="34.5" r="4.5"/>
-			<circle cx="34.5" cy="13.5" r="4.5"/>
+		<svg role="graphics-symbol img" aria-label="4" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+			width="24" height="24">
+			<rect x="3" y="3" width="42" height="42" ry="3" fill="none" stroke="currentColor" stroke-linecap="round"
+				stroke-linejoin="round" stroke-width="2" />
+			<circle cx="13.5" cy="13.5" r="4.5" />
+			<circle cx="34.5" cy="34.5" r="4.5" />
+			<circle cx="13.5" cy="34.5" r="4.5" />
+			<circle cx="34.5" cy="13.5" r="4.5" />
 		</svg>
 	</template>
 	<template id="js_dieFace_5">
-		<svg role="graphics-symbol img" aria-label="5"
-			version="1.1" xmlns="http://www.w3.org/2000/svg"
-			viewBox="0 0 48 48" width="24" height="24"
-		>
-			<rect x="3" y="3" width="42" height="42" ry="3" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-			<circle cx="13.5" cy="13.5" r="4.5"/>
-			<circle cx="34.5" cy="34.5" r="4.5"/>
-			<circle cx="24" cy="24" r="4.5"/>
-			<circle cx="13.5" cy="34.5" r="4.5"/>
-			<circle cx="34.5" cy="13.5" r="4.5"/>
+		<svg role="graphics-symbol img" aria-label="5" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+			width="24" height="24">
+			<rect x="3" y="3" width="42" height="42" ry="3" fill="none" stroke="currentColor" stroke-linecap="round"
+				stroke-linejoin="round" stroke-width="2" />
+			<circle cx="13.5" cy="13.5" r="4.5" />
+			<circle cx="34.5" cy="34.5" r="4.5" />
+			<circle cx="24" cy="24" r="4.5" />
+			<circle cx="13.5" cy="34.5" r="4.5" />
+			<circle cx="34.5" cy="13.5" r="4.5" />
 		</svg>
 	</template>
 	<template id="js_dieFace_6">
-		<svg role="graphics-symbol img" aria-label="6"
-			version="1.1" xmlns="http://www.w3.org/2000/svg"
-			viewBox="0 0 48 48" width="24" height="24"
-		>
-			<rect x="3" y="3" width="42" height="42" ry="3" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-			<circle cx="13.5" cy="10.5" r="4.5"/>
-			<circle cx="13.5" cy="37.5" r="4.5"/>
-			<circle cx="34.5" cy="37.5" r="4.5"/>
-			<circle cx="34.5" cy="10.5" r="4.5"/>
-			<circle cx="13.5" cy="24" r="4.5"/>
-			<circle cx="34.5" cy="24" r="4.5"/>
+		<svg role="graphics-symbol img" aria-label="6" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+			width="24" height="24">
+			<rect x="3" y="3" width="42" height="42" ry="3" fill="none" stroke="currentColor" stroke-linecap="round"
+				stroke-linejoin="round" stroke-width="2" />
+			<circle cx="13.5" cy="10.5" r="4.5" />
+			<circle cx="13.5" cy="37.5" r="4.5" />
+			<circle cx="34.5" cy="37.5" r="4.5" />
+			<circle cx="34.5" cy="10.5" r="4.5" />
+			<circle cx="13.5" cy="24" r="4.5" />
+			<circle cx="34.5" cy="24" r="4.5" />
 		</svg>
 	</template>
 </head>
+
 <body class="ly_display">
 	<header class="ly_display_header">
 		<div class="bl_header">
-			<select class="bl_header_select" name="strategy" id="strategy">
-				<option value="strategy1" default>検証用</option>
-			</select>
+			<div class="bl_select bl_select__flex">
+				<select class="bl_header_select" name="js_decision_strategy" id="js_decision_strategy">
+					<option value="strategy1" default>検証用</option>
+				</select>
+			</div><!-- /.bbl_select -->
 			<button type="button" id="js_reset" class="bl_header_btn">
-				<svg role="graphics-symbol img" aria-hidden="true"
-					version="1.1" xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 48 48" width="48" height="48"
-				>
-					<path d="m24 5.25a21 21 0 0 0-21 21 21 21 0 0 0 4.7812 13.219l-3.2812 3.2812h9v-9l-3.6016 3.6016a18 18 0 0 1-3.8984-11.102 18 18 0 0 1 18-18 18 18 0 0 1 18 18 18 18 0 0 1-5.3047 12.695l2.1172 2.1172a21 21 0 0 0 6.1875-14.812 21 21 0 0 0-21-21z" stroke-linecap="round" stroke-linejoin="round"/>
+				<svg role="graphics-symbol img" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 48 48" width="48" height="48">
+					<path
+						d="m24 5.25a21 21 0 0 0-21 21 21 21 0 0 0 4.7812 13.219l-3.2812 3.2812h9v-9l-3.6016 3.6016a18 18 0 0 1-3.8984-11.102 18 18 0 0 1 18-18 18 18 0 0 1 18 18 18 18 0 0 1-5.3047 12.695l2.1172 2.1172a21 21 0 0 0 6.1875-14.812 21 21 0 0 0-21-21z"
+						stroke-linecap="round" stroke-linejoin="round" />
 				</svg>
 				<span>リセット</span>
 			</button>
@@ -100,13 +98,12 @@
 	<main class="ly_display_main">
 		<ul class="bl_result">
 			<li class="bl_result_unit">
-				<button type="button"	aria-controls="js_resultDialog_player"
-					class="bl_resule_dialogBtn js_btnShowDialog"
-				>
+				<button type="button" aria-controls="js_resultDialog_player" class="bl_resule_dialogBtn js_btnShowDialog">
 					<span>100</span>
 					<svg version="1.1" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-						<circle cx="18" cy="18" r="15" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-						<path d="m27 30 1.5 1.5 1.5 4.5 9 9 6-6-9-9-4.5-1.5-1.5-1.5z"/>
+						<circle cx="18" cy="18" r="15" fill="none" stroke="currentColor" stroke-linecap="round"
+							stroke-linejoin="round" stroke-width="2" />
+						<path d="m27 30 1.5 1.5 1.5 4.5 9 9 6-6-9-9-4.5-1.5-1.5-1.5z" />
 					</svg>
 				</button>
 				<span class="bl_result_unitName js_name_player">Player1</span>
@@ -114,16 +111,12 @@
 				<dialog class="ly_dialog" id="js_resultDialog_player">
 					<div class="bl_menuHeader">
 						<h2 class="bl_menuHeader_title" id="result_player">プレイヤーのスコア</h2>
-						<button type="button"
-							class="bl_menuHeader_btnIcon js_btnCloseDialog"
-							aria-controls="js_resultDialog_player"
-							aria-describedby="result_player"
-						>
-							<svg role="graphics-symbol img" aria-hidden="true"
-								version="1.1" xmlns="http://www.w3.org/2000/svg"
-								viewBox="0 0 24 24" width="24" height="24"
-							>
-								<path transform="rotate(45)" d="m4.9705-2.0012v4.0023h9.9989v9.9989h4.0023v-9.9989h9.9989v-4.0023h-9.9989v-9.9989h-4.0023v9.9989h-9.9989z"/>
+						<button type="button" class="bl_menuHeader_btnIcon js_btnCloseDialog" aria-controls="js_resultDialog_player"
+							aria-describedby="result_player">
+							<svg role="graphics-symbol img" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 24 24" width="24" height="24">
+								<path transform="rotate(45)"
+									d="m4.9705-2.0012v4.0023h9.9989v9.9989h4.0023v-9.9989h9.9989v-4.0023h-9.9989v-9.9989h-4.0023v9.9989h-9.9989z" />
 							</svg>
 							<span>閉じる</span>
 						</button>
@@ -132,13 +125,12 @@
 				</dialog><!-- /.ly_dialog -->
 			</li><!-- /.bl_result_unit -->
 			<li class="bl_result_unit">
-				<button type="button" aria-controls="js_resultDialog_enemy"
-					class="bl_resule_dialogBtn js_btnShowDialog"
-				>
+				<button type="button" aria-controls="js_resultDialog_enemy" class="bl_resule_dialogBtn js_btnShowDialog">
 					<span>80</span>
 					<svg version="1.1" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-						<circle cx="18" cy="18" r="15" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-						<path d="m27 30 1.5 1.5 1.5 4.5 9 9 6-6-9-9-4.5-1.5-1.5-1.5z"/>
+						<circle cx="18" cy="18" r="15" fill="none" stroke="currentColor" stroke-linecap="round"
+							stroke-linejoin="round" stroke-width="2" />
+						<path d="m27 30 1.5 1.5 1.5 4.5 9 9 6-6-9-9-4.5-1.5-1.5-1.5z" />
 					</svg>
 				</button>
 				<span class="bl_result_unitName js_name_enemy">Enemy1</span>
@@ -146,16 +138,12 @@
 				<dialog class="ly_dialog" id="js_resultDialog_enemy">
 					<div class="bl_menuHeader">
 						<h2 class="bl_menuHeader_title" id="result_enemy">CPUのスコア</h2>
-						<button type="button"
-							class="bl_menuHeader_btnIcon js_btnCloseDialog"
-							aria-controls="js_resultDialog_enemy"
-							aria-describedby="result_enemy"
-						>
-							<svg role="graphics-symbol img" aria-hidden="true"
-								version="1.1" xmlns="http://www.w3.org/2000/svg"
-								viewBox="0 0 24 24" width="24" height="24"
-							>
-								<path transform="rotate(45)" d="m4.9705-2.0012v4.0023h9.9989v9.9989h4.0023v-9.9989h9.9989v-4.0023h-9.9989v-9.9989h-4.0023v9.9989h-9.9989z"/>
+						<button type="button" class="bl_menuHeader_btnIcon js_btnCloseDialog" aria-controls="js_resultDialog_enemy"
+							aria-describedby="result_enemy">
+							<svg role="graphics-symbol img" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 24 24" width="24" height="24">
+								<path transform="rotate(45)"
+									d="m4.9705-2.0012v4.0023h9.9989v9.9989h4.0023v-9.9989h9.9989v-4.0023h-9.9989v-9.9989h-4.0023v9.9989h-9.9989z" />
 							</svg>
 							<span>閉じる</span>
 						</button>
@@ -167,84 +155,162 @@
 	</main><!-- /.ly_display_main -->
 
 	<footer class="ly_display_footer">
-		<form action="#" class="ly_footer"><!-- TODO: preventDefault 処理 -->
+		<form action="#" class="ly_footer" id="js_controller">
 			<div id="js_dice" class="bl_dice_wrapper">
 				<label class="bl_dice">
 					<input type="checkbox" name="dice5" class="bl_dice_chkbox">
-					<svg class="bl_dice_val"  role="graphics-symbol img" aria-label="1"
-						version="1.1" xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 48 48" width="24" height="24"
-					>
-						<rect x="3" y="3" width="42" height="42" ry="3" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-						<circle cx="24" cy="24" r="6" fill="#800000"/>
+					<svg class="bl_dice_val" role="graphics-symbol img" aria-label="1" version="1.1"
+						xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24" height="24">
+						<rect x="3" y="3" width="42" height="42" ry="3" fill="none" stroke="currentColor" stroke-linecap="round"
+							stroke-linejoin="round" stroke-width="2" />
+						<circle cx="24" cy="24" r="6" fill="#800000" />
 					</svg>
 				</label>
 				<label class="bl_dice">
 					<input type="checkbox" name="dice5" class="bl_dice_chkbox">
-					<svg class="bl_dice_val"  role="graphics-symbol img" aria-label="1"
-						version="1.1" xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 48 48" width="24" height="24"
-					>
-						<rect x="3" y="3" width="42" height="42" ry="3" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-						<circle cx="24" cy="24" r="6" fill="#800000"/>
+					<svg class="bl_dice_val" role="graphics-symbol img" aria-label="1" version="1.1"
+						xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24" height="24">
+						<rect x="3" y="3" width="42" height="42" ry="3" fill="none" stroke="currentColor" stroke-linecap="round"
+							stroke-linejoin="round" stroke-width="2" />
+						<circle cx="24" cy="24" r="6" fill="#800000" />
 					</svg>
 				</label>
 				<label class="bl_dice">
 					<input type="checkbox" name="dice5" class="bl_dice_chkbox">
-					<svg class="bl_dice_val"  role="graphics-symbol img" aria-label="1"
-						version="1.1" xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 48 48" width="24" height="24"
-					>
-						<rect x="3" y="3" width="42" height="42" ry="3" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-						<circle cx="24" cy="24" r="6" fill="#800000"/>
+					<svg class="bl_dice_val" role="graphics-symbol img" aria-label="1" version="1.1"
+						xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24" height="24">
+						<rect x="3" y="3" width="42" height="42" ry="3" fill="none" stroke="currentColor" stroke-linecap="round"
+							stroke-linejoin="round" stroke-width="2" />
+						<circle cx="24" cy="24" r="6" fill="#800000" />
 					</svg>
 				</label>
 				<label class="bl_dice">
 					<input type="checkbox" name="dice5" class="bl_dice_chkbox">
-					<svg role="graphics-symbol img" aria-label="3"
-						version="1.1" xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 48 48" width="24" height="24"
-					>
-						<rect x="3" y="3" width="42" height="42" ry="3" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-						<circle cx="13.5" cy="13.5" r="4.5"/>
-						<circle cx="34.5" cy="34.5" r="4.5"/>
-						<circle cx="24" cy="24" r="4.5"/>
+					<svg role="graphics-symbol img" aria-label="3" version="1.1" xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 48 48" width="24" height="24">
+						<rect x="3" y="3" width="42" height="42" ry="3" fill="none" stroke="currentColor" stroke-linecap="round"
+							stroke-linejoin="round" stroke-width="2" />
+						<circle cx="13.5" cy="13.5" r="4.5" />
+						<circle cx="34.5" cy="34.5" r="4.5" />
+						<circle cx="24" cy="24" r="4.5" />
 					</svg>
 				</label>
 				<label class="bl_dice">
 					<input type="checkbox" name="dice5" class="bl_dice_chkbox">
-					<svg role="graphics-symbol img" aria-label="6"
-						version="1.1" xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 48 48" width="24" height="24"
-					>
-						<rect x="3" y="3" width="42" height="42" ry="3" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-						<circle cx="13.5" cy="10.5" r="4.5"/>
-						<circle cx="13.5" cy="37.5" r="4.5"/>
-						<circle cx="34.5" cy="37.5" r="4.5"/>
-						<circle cx="34.5" cy="10.5" r="4.5"/>
-						<circle cx="13.5" cy="24" r="4.5"/>
-						<circle cx="34.5" cy="24" r="4.5"/>
+					<svg role="graphics-symbol img" aria-label="6" version="1.1" xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 48 48" width="24" height="24">
+						<rect x="3" y="3" width="42" height="42" ry="3" fill="none" stroke="currentColor" stroke-linecap="round"
+							stroke-linejoin="round" stroke-width="2" />
+						<circle cx="13.5" cy="10.5" r="4.5" />
+						<circle cx="13.5" cy="37.5" r="4.5" />
+						<circle cx="34.5" cy="37.5" r="4.5" />
+						<circle cx="34.5" cy="10.5" r="4.5" />
+						<circle cx="13.5" cy="24" r="4.5" />
+						<circle cx="34.5" cy="24" r="4.5" />
 					</svg>
 				</label>
 			</div>
 			<!-- /.js_dice_wrapper -->
-			<button type="button" id="btn-roll" class="el_btn el_btn_roll">
+			<button type="button" id="js_roll" class="el_rollBtn">
 				振る(<span id="js_roll_remain">1</span>)
 			</button>
 			<!-- /.el_btn.el_btn_roll -->
-			<div class="bl_select">
-				<select name="" id="">
-					<option value="a">a</option>
+			<div class="bl_select bl_select__combination">
+				<select name="js_decision_combination" id="js_decision_combination">
+					<option selected>a</option>
+					<option>b</option>
+					<option>c</option>
 				</select>
 			</div>
 			<!-- /.bl_select -->
-			<button type="submit" id="btn-submit"
-				class="el_btn el_btn_submit" aria-label="決定">
+			<button type="submit" id="js_btn_submit" class="el_submitBtn" aria-label="決定">
 				決定
 			</button>
 			<!-- /.el_btn.el_btn_submit -->
 		</form><!-- /.ly_footer -->
 	</footer><!-- /.ly_display_footer -->
 	<script src="./yahzee-rev2.js"></script>
+	<script>
+
+		// Enemyの行動データ（ダミー）
+		const dummies = [];
+		for (let i = 0; i <= 12; i++) {
+			dummies.push([i, i]);
+		}
+
+		const p1 = new Player('PC');
+		const e1 = new Enemy('NPC', dummies);
+		const gm = new GameMaster(p1, e1);
+
+		document.addEventListener('handover', (e) => {
+			let isPlayer = e.detail.isPlayer;
+			if (isPlayer) {
+				gm.update();
+				if (!gm.isFinished) {
+					console.log(`${e1.name} のターンです。`);
+					e1.setDummyData();
+				}
+			} else {
+				gm.update();
+				if (!gm.isFinished) {
+					console.log(`${p1.name} のターンです。`);
+				}
+			}
+		})
+
+		class Controller {
+			constructor(player, form){
+				this.remainTime = 3;
+				this.player = player;
+				this.form = form;
+				this.dummydata = 0;
+
+				// form内要素の定義
+				this.rollBtn = form.querySelector('#js_roll');
+				this.rollBtnRemain = form.querySelector('#js_roll_remain');	// span;
+				this.dices = form.querySelector('#js_dice');	// div;
+				this.select = form.querySelector('#js_decision_combination');
+				/*this.submit = form.querySelector('#js_btn_submit');*/
+
+				// Submitボタン押下、またはフォーム内エンターでのサブミット処理
+				this.form.addEventListener('submit', (e) => {
+					e.preventDefault();
+					this.decide(this.dummydata, this.dummydata);
+					this.dummydata++;
+				});
+
+				this.rollBtn.addEventListener('click',()=>{
+					this.roll();
+				})
+				this.refreshControl();
+			}
+			roll(){
+				if(this.remainTime > 0){
+					this.remainTime -= 1;
+					this.refreshControl();
+				}
+			}
+			refreshControl(){
+				// ロールボタンの更新（残回数0なら disabled 化）
+				this.rollBtnRemain.textContent = this.remainTime;
+				this.rollBtn.disabled = (this.remainTime === 0)
+			}
+			decide(i, point){
+				this.player.setScore(i, point);
+			}
+		}
+		const form = document.querySelector('#js_controller');
+		const TEMP_DIEFACES = Object.freeze({
+			1: document.querySelector('#js_dieFace_1'),
+			2: document.querySelector('#js_dieFace_2'),
+			3: document.querySelector('#js_dieFace_3'),
+			4: document.querySelector('#js_dieFace_4'),
+			5: document.querySelector('#js_dieFace_5'),
+			6: document.querySelector('#js_dieFace_6'),
+		});
+		const ctrl = new Controller(p1, form);
+
+	</script>
 </body><!-- /.ly_display -->
+
 </html>

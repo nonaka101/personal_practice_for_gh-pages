@@ -275,39 +275,6 @@ class GameMaster {
 	}
 }
 
-// Enemyの行動データ（ダミー）
-const dummies = [];
-for(let i = 0;i <= 12; i++){
-	dummies.push([i, i]);
-}
-
-const p1 = new Player('PC');
-const e1 = new Enemy('NPC', dummies);
-const gm = new GameMaster(p1, e1);
-
-document.addEventListener('handover', (e) =>{
-	let isPlayer = e.detail.isPlayer;
-	if(isPlayer){
-		gm.update();
-		if(!gm.isFinished){
-			console.log(`${e1.name} のターンです。`);
-			e1.setDummyData();
-		}
-	} else {
-		gm.update();
-		if(!gm.isFinished){
-			console.log(`${p1.name} のターンです。`);
-		}
-	}
-})
-
-
-
-
-
-
-// Controller 関係を下記に
-
 /**
  * テーブルスタイルを enum 風に管理
  */
