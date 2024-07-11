@@ -157,58 +157,6 @@
 	<footer class="ly_display_footer">
 		<form action="#" class="ly_footer" id="js_controller">
 			<div id="js_dice" class="bl_dice_wrapper">
-				<label class="bl_dice">
-					<input type="checkbox" name="dice5" class="bl_dice_chkbox">
-					<svg class="bl_dice_val" role="graphics-symbol img" aria-label="1" version="1.1"
-						xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24" height="24">
-						<rect x="3" y="3" width="42" height="42" ry="3" fill="none" stroke="currentColor" stroke-linecap="round"
-							stroke-linejoin="round" stroke-width="2" />
-						<circle cx="24" cy="24" r="6" fill="#800000" />
-					</svg>
-				</label>
-				<label class="bl_dice">
-					<input type="checkbox" name="dice5" class="bl_dice_chkbox">
-					<svg class="bl_dice_val" role="graphics-symbol img" aria-label="1" version="1.1"
-						xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24" height="24">
-						<rect x="3" y="3" width="42" height="42" ry="3" fill="none" stroke="currentColor" stroke-linecap="round"
-							stroke-linejoin="round" stroke-width="2" />
-						<circle cx="24" cy="24" r="6" fill="#800000" />
-					</svg>
-				</label>
-				<label class="bl_dice">
-					<input type="checkbox" name="dice5" class="bl_dice_chkbox">
-					<svg class="bl_dice_val" role="graphics-symbol img" aria-label="1" version="1.1"
-						xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24" height="24">
-						<rect x="3" y="3" width="42" height="42" ry="3" fill="none" stroke="currentColor" stroke-linecap="round"
-							stroke-linejoin="round" stroke-width="2" />
-						<circle cx="24" cy="24" r="6" fill="#800000" />
-					</svg>
-				</label>
-				<label class="bl_dice">
-					<input type="checkbox" name="dice5" class="bl_dice_chkbox">
-					<svg role="graphics-symbol img" aria-label="3" version="1.1" xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 48 48" width="24" height="24">
-						<rect x="3" y="3" width="42" height="42" ry="3" fill="none" stroke="currentColor" stroke-linecap="round"
-							stroke-linejoin="round" stroke-width="2" />
-						<circle cx="13.5" cy="13.5" r="4.5" />
-						<circle cx="34.5" cy="34.5" r="4.5" />
-						<circle cx="24" cy="24" r="4.5" />
-					</svg>
-				</label>
-				<label class="bl_dice">
-					<input type="checkbox" name="dice5" class="bl_dice_chkbox">
-					<svg role="graphics-symbol img" aria-label="6" version="1.1" xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 48 48" width="24" height="24">
-						<rect x="3" y="3" width="42" height="42" ry="3" fill="none" stroke="currentColor" stroke-linecap="round"
-							stroke-linejoin="round" stroke-width="2" />
-						<circle cx="13.5" cy="10.5" r="4.5" />
-						<circle cx="13.5" cy="37.5" r="4.5" />
-						<circle cx="34.5" cy="37.5" r="4.5" />
-						<circle cx="34.5" cy="10.5" r="4.5" />
-						<circle cx="13.5" cy="24" r="4.5" />
-						<circle cx="34.5" cy="24" r="4.5" />
-					</svg>
-				</label>
 			</div>
 			<!-- /.js_dice_wrapper -->
 			<button type="button" id="js_roll" class="el_rollBtn">
@@ -231,6 +179,15 @@
 	</footer><!-- /.ly_display_footer -->
 	<script src="./yahzee-rev2.js"></script>
 	<script>
+		// Template
+		const TEMP_DIEFACES = Object.freeze({
+			1: document.querySelector('#js_dieFace_1'),
+			2: document.querySelector('#js_dieFace_2'),
+			3: document.querySelector('#js_dieFace_3'),
+			4: document.querySelector('#js_dieFace_4'),
+			5: document.querySelector('#js_dieFace_5'),
+			6: document.querySelector('#js_dieFace_6'),
+		});
 
 		// Enemyの行動データ（ダミー）
 		const dummies = [];
@@ -238,50 +195,52 @@
 			dummies.push([i, i]);
 		}
 
-		const p1 = new Player('PC');
-		const e1 = new Enemy('NPC', dummies);
-		const gm = new GameMaster(p1, e1);
-
-		document.addEventListener('handover', (e) => {
-			let isPlayer = e.detail.isPlayer;
-			if (isPlayer) {
-				gm.update();
-				if (!gm.isFinished) {
-					console.log(`${e1.name} のターンです。`);
-					e1.setDummyData();
-				}
-			} else {
-				gm.update();
-				if (!gm.isFinished) {
-					console.log(`${p1.name} のターンです。`);
-				}
-			}
-		})
+		let dummydata = 0;
 
 		class Controller {
 			constructor(player, form){
 				this.remainTime = 3;
 				this.player = player;
 				this.form = form;
-				this.dummydata = 0;
 
 				// form内要素の定義
 				this.rollBtn = form.querySelector('#js_roll');
 				this.rollBtnRemain = form.querySelector('#js_roll_remain');	// span;
 				this.dices = form.querySelector('#js_dice');	// div;
 				this.select = form.querySelector('#js_decision_combination');
-				/*this.submit = form.querySelector('#js_btn_submit');*/
+
+				for(let i = 1; i <= 5; i++){
+					const diceElement = document.createElement('label');
+					diceElement.classList.add('bl_dice');
+					const chkbox = document.createElement('input');
+					chkbox.type = 'checkbox';
+					chkbox.checked = false;
+					chkbox.name = 'dice' + i;
+					chkbox.classList.add('bl_dice_chkbox');
+					const tmpSvg = TEMP_DIEFACES[1].content.cloneNode(true);
+					diceElement.appendChild(chkbox);
+					diceElement.appendChild(tmpSvg);
+					this.dices.appendChild(diceElement);
+				}
+
+				// Submit 時のイベントハンドラ関数（Playerのスコアを決定し、Submitイベントを除去）
+				this.decide = (event) => {
+					event.preventDefault();
+					// dice 要素除去
+					while (this.dices.firstChild) {
+					  this.dices.removeChild(this.dices.firstChild);
+					}
+					this.player.setScore(dummydata, 0);
+					dummydata++;
+					this.form.removeEventListener('submit', this.decide);
+				}
 
 				// Submitボタン押下、またはフォーム内エンターでのサブミット処理
-				this.form.addEventListener('submit', (e) => {
-					e.preventDefault();
-					this.decide(this.dummydata, this.dummydata);
-					this.dummydata++;
-				});
-
+				this.form.addEventListener('submit', this.decide);
 				this.rollBtn.addEventListener('click',()=>{
 					this.roll();
-				})
+				});
+
 				this.refreshControl();
 			}
 			roll(){
@@ -295,20 +254,30 @@
 				this.rollBtnRemain.textContent = this.remainTime;
 				this.rollBtn.disabled = (this.remainTime === 0)
 			}
-			decide(i, point){
-				this.player.setScore(i, point);
-			}
 		}
 		const form = document.querySelector('#js_controller');
-		const TEMP_DIEFACES = Object.freeze({
-			1: document.querySelector('#js_dieFace_1'),
-			2: document.querySelector('#js_dieFace_2'),
-			3: document.querySelector('#js_dieFace_3'),
-			4: document.querySelector('#js_dieFace_4'),
-			5: document.querySelector('#js_dieFace_5'),
-			6: document.querySelector('#js_dieFace_6'),
-		});
-		const ctrl = new Controller(p1, form);
+		const p1 = new Player('PC');
+		const e1 = new Enemy('NPC', dummies);
+		const gm = new GameMaster(p1, e1);
+
+		let ctrl = new Controller(p1, form);
+
+		document.addEventListener('handover', (e) => {
+			let isPlayer = e.detail.isPlayer;
+			if (isPlayer) {
+				gm.update();
+				if (!gm.isFinished) {
+					console.log(`${e1.name} のターンです。`);
+					e1.setDummyData();
+					ctrl = new Controller(p1, form);
+				}
+			} else {
+				gm.update();
+				if (!gm.isFinished) {
+					console.log(`${p1.name} のターンです。`);
+				}
+			}
+		})
 
 	</script>
 </body><!-- /.ly_display -->
