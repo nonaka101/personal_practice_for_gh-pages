@@ -1,9 +1,6 @@
 @charset "utf-8";
 
 :root {
-	--space_ctrls: 0.25vmin;
-	font-size: clamp(32px, 2rem + 1vmin, 8vmin);
-
 	/* プリミティブカラー */
 	--white: #ffffff;
 	--sea-1200: #00004F;

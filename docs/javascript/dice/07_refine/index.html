@@ -192,10 +192,16 @@
 				<span style="font-size: 0.5em;">リセット</span>
 			</button>
 		</div><!-- /.bl_menuHeader -->
-		<h3><span class="js_player_name"></span>のスコア</h3>
+		<h3>
+			<span class="js_player_name"></span>のスコア：
+			<span class="js_player_totalScore"></span>
+		</h3>
 		<div class="js_player_score"></div>
 		<!-- /.js_player_score -->
-		<h3><span class="js_enemy_name"></span>のスコア</h3>
+		<h3>
+			<span class="js_enemy_name"></span>のスコア：
+			<span class="js_enemy_totalScore"></span>
+		</h3>
 		<div class="js_enemy_score"></div>
 		<!-- /.js_enemy_score -->
 	</dialog>
@@ -484,10 +490,7 @@
 
 		let ctrl = new Controller(p1, form);
 
-		/* 下記クラスへ情報挿入（score は createTable() を使う）
-			'.js_player_score', '.js_player_totalScore', '.js_player_name'
-			'.js_enemy_score', '.js_enemy_totalScore', '.js_enemy_name'
-		*/
+		
 		const resultDialog = document.querySelector('#js_resultDialog');
 
 		const playerNames = document.querySelectorAll('.js_player_name');
@@ -508,27 +511,22 @@
 			for(const ele of enemyTotalScore){
 				ele.textContent = e1.totalScore;
 			}
+			const scoreNames = Object.values(SCORE_NAMES);
 			for(const ele of playerScoreTable){
 				ele.innerHTML = '';
-				const dmy = createTable([
-					['1の目',0], ['2の目',0], ['3の目',0], ['4の目',0],
-					['5の目',0], ['6の目',0], ['フルハウス',0],
-					['スリー オブ アカインド',0], ['フォー オブ アカインド',0],
-					['ショート ストレート',0]
-				],2);
-
-				ele.append(dmy);
+				let pTable = [['点数', '役']];
+				const p1score = p1.score;
+				for(i=0; i<14; i++) pTable.push([p1score[i], scoreNames[i]]);
+				const pTableElement = createTable(pTable,2);
+				ele.append(pTableElement);
 			}
 			for(const ele of enemyScoreTable){
 				ele.innerHTML = '';
-				const dmy = createTable([
-					['1の目',0], ['2の目',0], ['3の目',0], ['4の目',0],
-					['5の目',0], ['6の目',0], ['フルハウス',0],
-					['スリー オブ アカインド',0], ['フォー オブ アカインド',0],
-					['ショート ストレート',0]
-				],2);
-
-				ele.appendChild(dmy)
+				let eTable = [['点数', '役']];
+				const e1score = e1.score;
+				for(i=0; i<14; i++) eTable.push([e1score[i], scoreNames[i]]);
+				const eTableElement = createTable(eTable,2);
+				ele.appendChild(eTableElement);
 			};
 		}
 		updateScore();
