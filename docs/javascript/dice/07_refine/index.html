@@ -205,8 +205,9 @@
 
 	<script src="./yahzee-rev2.js"></script>
 	<script>
+		const wait = async (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
 		function createTable(dataArray, tableStyle=0) {
-			console.log(dataArray);
 			const styleWidth = Math.floor(tableStyle / 4);
 			const styleDirection = tableStyle % 4;
 
@@ -244,7 +245,6 @@
 			// ヘッダー部を作成
 			const tableHeaderRow = table.createTHead().insertRow();
 			const arrayHeader = dataArray.shift();
-			console.table(arrayHeader);
 			let isFirstCell = true;	// クロス表の表側頭で scope をつけないためのもの
 			for(const cell of arrayHeader){
 				const th = document.createElement('th');
@@ -337,30 +337,38 @@
 				// form内要素の定義
 				this.rollBtn = form.querySelector('#js_roll');
 				this.rollBtnRemain = form.querySelector('#js_roll_remain');	// span;
-				this.dices = form.querySelector('#js_dice');	// div;
+				this.diceContainer = form.querySelector('#js_dice');	// div;
 				this.select = form.querySelector('#js_decision_combination');
 
-				for(let i = 1; i <= 5; i++){
+				// [dieFace, lock] の形で、5つのダイスを状態管理
+				this.diceStatus = [[1, false], [1, false], [1, false], [1, false], [1, false]];
+				this.dices = [];
+				for(let i = 0; i < 5; i++){
+					this.dices[i] = {};
+
+					// Label
 					const diceElement = document.createElement('label');
 					diceElement.classList.add('bl_dice');
+					this.dices[i].label = diceElement;
+
+					// CheckBox
 					const chkbox = document.createElement('input');
 					chkbox.type = 'checkbox';
-					chkbox.checked = false;
+					chkbox.checked = this.diceStatus[i][1];
 					chkbox.name = 'dice' + i;
 					chkbox.classList.add('bl_dice_chkbox');
-					const tmpSvg = TEMP_DIEFACES[1].content.cloneNode(true);
-					diceElement.appendChild(chkbox);
-					diceElement.appendChild(tmpSvg);
-					this.dices.appendChild(diceElement);
+					this.dices[i].chkbox = chkbox;
+
+					// Append Container node(ChkBox, SVG -> diceContainer)
+					this.dices[i].label.appendChild(this.dices[i].chkbox);
+					this.dices[i].label.appendChild(TEMP_DIEFACES[this.diceStatus[i][0]].content.cloneNode(true));
+					this.diceContainer.appendChild(this.dices[i].label);
 				}
 
 				// Submit 時のイベントハンドラ関数（Playerのスコアを決定し、Submitイベントを除去）
 				this.decide = (event) => {
 					event.preventDefault();
-					// dice 要素除去
-					while (this.dices.firstChild) {
-					  this.dices.removeChild(this.dices.firstChild);
-					}
+					this.diceContainer.innerHTML = '';  // ChildNode がなくなるまで removeChild する必要はなし
 					this.player.setScore(dummydata, 0);
 					dummydata++;
 					this.form.removeEventListener('submit', this.decide);
@@ -372,19 +380,49 @@
 					this.roll();
 				});
 
-				this.refreshControl();
+				this.roll();
 			}
 			roll(){
 				if(this.remainTime > 0){
 					this.remainTime -= 1;
+					let newStatus = [];
+
+					// Lock 状態を取得し、diceStatus を更新。その後ロール処理
+					for(let i = 0; i < 5; i++){
+						roleEffect(this.dices[i].label, 'js_anime_roll');
+						this.diceStatus[i][1] = this.dices[i].chkbox.checked;
+						if(this.diceStatus[i][1] === true){
+							// Lock 状態ならそのまま移行
+							newStatus.push(this.diceStatus[i]);
+						} else {
+							// Unlock 状態なら、ダイスを振って登録
+							newStatus.push([Math.floor(Math.random() * 6) + 1, false]);
+						}
+					}
+
+					// ソートしたものを登録し、画面更新して終了
+					this.diceStatus = newStatus.sort((a, b) => a[0] - b[0]);
 					this.refreshControl();
 				}
 			}
 			refreshControl(){
 				// ロールボタンの更新（残回数0なら disabled 化）
 				this.rollBtnRemain.textContent = this.remainTime;
-				this.rollBtn.disabled = (this.remainTime === 0)
+				this.rollBtn.disabled = (this.remainTime === 0);
+
+				// ダイス更新
+				for(let i = 0; i < 5; i++){
+					this.dices[i].chkbox.checked = this.diceStatus[i][1];
+					const newSvg = TEMP_DIEFACES[this.diceStatus[i][0]].content.cloneNode(true);
+					this.dices[i].label.replaceChild(newSvg, this.dices[i].label.querySelector('svg'));
+				}
 			}
+		}
+
+		async function roleEffect(element, className, ms = 500){
+			element.classList.add(className);
+			await wait(ms);
+			element.classList.remove(className);
 		}
 
 		const form = document.querySelector('#js_controller');
@@ -411,7 +449,6 @@
 		const playerTotalScore = document.querySelectorAll('.js_player_totalScore');
 		const enemyScoreTable = document.querySelectorAll('.js_enemy_score');
 		const enemyTotalScore = document.querySelectorAll('.js_enemy_totalScore');
-		console.log(playerScoreTable);
 
 		function updateScore(){
 			for(const ele of playerTotalScore){
