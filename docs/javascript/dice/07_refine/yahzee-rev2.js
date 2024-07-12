@@ -158,7 +158,7 @@ function calcCombinations(num){
 			};
 		}
 		// ロング条件を満たしてない場合、ショート判定を行う
-		if(combinations[SCORE_CATEGORIES.Short_straight] === 30){
+		if(combinations[SCORE_CATEGORIES.Short_straight] !== 30){
 			const patternShortStraight = [[1, 2, 3, 4], [2, 3, 4, 5], [3, 4, 5, 6]];
 			for(const pattern of patternShortStraight){
 				if(pattern.every(ele => dices.includes(ele))){
