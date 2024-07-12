@@ -169,9 +169,6 @@
 			<!-- /.el_btn.el_btn_roll -->
 			<div class="bl_select bl_select__combination">
 				<select name="js_decision_combination" id="js_decision_combination">
-					<option selected>a</option>
-					<option>b</option>
-					<option>c</option>
 				</select>
 			</div>
 			<!-- /.bl_select -->
@@ -206,6 +203,40 @@
 	<script src="./yahzee-rev2.js"></script>
 	<script>
 		const wait = async (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+    function findNullIndices(arr) {
+      let indices = [];
+      arr.forEach((element, index) => {
+          if (element === null) {
+              indices.push(index);
+          }
+      });
+      return indices;
+    }
+
+		async function roleEffect(element, className, ms = 500){
+			element.classList.add(className);
+			await wait(ms);
+			element.classList.remove(className);
+		}
+
+		/**
+		 * テーブルスタイルを enum 風に管理
+		 */
+		const TABLE_STYLE = Object.freeze({
+			none: 0,							// ベース
+			horizontal: 1,				// 水平（行方向に重きを置く表）
+			vertical: 2,					// 垂直（列方向に重きを置く表）
+			cross: 3,							// クロス（行列組み合わせた表）
+			noneWide: 4,					// ベース＋ワイド（列数が多めで、横方向へスクロールするスタイルの幅が広め）
+			horizontalWide: 5,
+			verticalWide: 6,
+			crossWide: 7,
+			noneWideEx: 8,				// ベース＋EXワイド（列数が更に多く、ワイドよりも更に広め）
+			horizontalWideEx: 9,
+			verticalWideEx: 10,
+			crossWideEx: 11,
+		});
 
 		function createTable(dataArray, tableStyle=0) {
 			const styleWidth = Math.floor(tableStyle / 4);
@@ -297,6 +328,7 @@
 		const enemyID = parseInt(urlParams.get('enemy_id')) || 0;
 		const enemyList = ['検証用ダミー', 'CPU弱'];
 		const selEnemy = document.querySelector('#js_decision_strategy');
+		selEnemy.innerHTML = '';
 		for (let i = 0; i < enemyList.length; i++){
 			const opt = document.createElement('option');
 			opt.value = i;
@@ -325,8 +357,6 @@
 				}
 		}
 
-
-		let dummydata = 0;
 
 		class Controller {
 			constructor(player, form){
@@ -365,12 +395,15 @@
 					this.diceContainer.appendChild(this.dices[i].label);
 				}
 
+				// 役情報の格納（確定済みの役を除外した上での [index, point] の形）
+				this.combinations = [];
+
 				// Submit 時のイベントハンドラ関数（Playerのスコアを決定し、Submitイベントを除去）
 				this.decide = (event) => {
 					event.preventDefault();
 					this.diceContainer.innerHTML = '';  // ChildNode がなくなるまで removeChild する必要はなし
-					this.player.setScore(dummydata, 0);
-					dummydata++;
+          const scoreIndex = parseInt(this.select.value) || 0;
+					this.player.setScore(this.combinations[scoreIndex][0], this.combinations[scoreIndex][1]);
 					this.form.removeEventListener('submit', this.decide);
 				}
 
@@ -382,6 +415,7 @@
 
 				this.roll();
 			}
+
 			roll(){
 				if(this.remainTime > 0){
 					this.remainTime -= 1;
@@ -400,8 +434,20 @@
 						}
 					}
 
-					// ソートしたものを登録し、画面更新して終了
+					// ソートしたものを登録
 					this.diceStatus = newStatus.sort((a, b) => a[0] - b[0]);
+
+					// ダイス値からのポイント判定
+					let dieFaces = '';
+					for(let i = 0; i < 5;i++) dieFaces += this.diceStatus[i][0].toString();
+					const points = calcCombinations(dieFaces);
+
+					// 確定済みを除去した、選択可能な役情報の作成（select用に、高得点順にソート）
+					const nulls = findNullIndices(this.player.score.slice(0, -1));
+					let combinations = []
+					for(let i of nulls) combinations.push([i, points[i]]);
+					this.combinations = combinations.sort((a, b) => b[1] - a[1]);;
+
 					this.refreshControl();
 				}
 			}
@@ -416,13 +462,18 @@
 					const newSvg = TEMP_DIEFACES[this.diceStatus[i][0]].content.cloneNode(true);
 					this.dices[i].label.replaceChild(newSvg, this.dices[i].label.querySelector('svg'));
 				}
-			}
-		}
 
-		async function roleEffect(element, className, ms = 500){
-			element.classList.add(className);
-			await wait(ms);
-			element.classList.remove(className);
+				// 役のセレクト内容を更新
+				this.select.innerHTML = '';
+        const length = this.combinations.length;
+				for(let i = 0; i < length; i++){
+          // value に this.combination へのインデックスを持つ、オプション要素
+					const opt = document.createElement('option');
+					opt.value = i;
+					opt.text = `${SCORE_NAMES[this.combinations[i][0]]}：${this.combinations[i][1]}`;
+					this.select.add(opt, this.select.options.item(i));
+				}
+			}
 		}
 
 		const form = document.querySelector('#js_controller');

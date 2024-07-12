@@ -92,7 +92,6 @@ function calcCombinations(num){
 	// 入力値の検証（数値としての、5桁のダイス値）
   const regex = /^[1-6]{5}$/;
   if(!regex.test(String(num))) throw new Error('引数は5桁のダイス値でなければなりません');
-	if(typeof(num) !== 'number') throw new Error('引数は数値でなければなりません');
 
 	// ソートした配列とセットに変換
   const dices = String(num).split('').map(Number).sort();
@@ -274,24 +273,6 @@ class GameMaster {
 		this._isFinished = true;
 	}
 }
-
-/**
- * テーブルスタイルを enum 風に管理
- */
-const TABLE_STYLE = Object.freeze({
-	none: 0,							// ベース
-	horizontal: 1,				// 水平（行方向に重きを置く表）
-	vertical: 2,					// 垂直（列方向に重きを置く表）
-	cross: 3,							// クロス（行列組み合わせた表）
-	noneWide: 4,					// ベース＋ワイド（列数が多めで、横方向へスクロールするスタイルの幅が広め）
-	horizontalWide: 5,
-	verticalWide: 6,
-	crossWide: 7,
-	noneWideEx: 8,				// ベース＋EXワイド（列数が更に多く、ワイドよりも更に広め）
-	horizontalWideEx: 9,
-	verticalWideEx: 10,
-	crossWideEx: 11,
-});
 
 /*
  * 「ダイアログを開くボタン」に機能を付与
