@@ -268,32 +268,36 @@ small {
 	align-items: center;
 	gap: 0 8px;
 	border: 1px solid var(--white);
-	padding: 4px;
+	padding: 4px 16px 4px 4px;
 	border-radius: 12px;
+	background-color: var(--sc_bg_body__primary);
 }
 .bl_result > .bl_result_unit > span {
-	color: var(--sc_txt_onFill);
 	font-size: calc(var(--size_btn) * 0.5);
 }
 
 .bl_resule_dialogBtn {
 	width: auto;
 	height: calc(var(--size_btn) * 0.9);
-	padding: 0;
+	padding: 0 4px;
 	margin: 0;
 	cursor: pointer;
 	background: none;
-	border: 2px solid transparent;
-	color: var(--sc_txt_btn__primary);
-	text-decoration: none;
-	background-color: var(--sc_bg_btn__primary);
 	border-radius: 8px;
+
+	/* Secondary-style */
+	background: none;
+	border: 2px solid transparent;
+	color: var(--sc_txt_btn__secondary);
+	text-decoration: none;
+	background-color: transparent;
+	border-color: currentcolor;
 }
 
 
 .bl_resule_dialogBtn > span {
 	font-size: calc(var(--size_btn) * 0.7);
-	color: var(--sc_txt_btn__primary);
+	color: var(--sc_txt_btn__secondary);
 	line-height: 1;
 }
 
@@ -411,9 +415,12 @@ small {
 	padding: 0;
 	margin: auto;
 	cursor: pointer;
+	border-radius: 8px;
+	font-size: 4dvw;
+
+	/* Secondary-style */
 	background: none;
 	border: 2px solid transparent;
-	border-radius: 8px;
 	color: var(--sc_txt_btn__secondary);
 	text-decoration: none;
 	background-color: transparent;
@@ -454,6 +461,7 @@ small {
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	appearance: none;
+	font-size: 4dvw;
 	background-color: var(--sc_bg_body__primary);
 	border: var(--sc_border_field);
 	border-radius: max(min(4px, calc(40px - 100%) * 9999),
@@ -501,13 +509,13 @@ small {
 	padding: 0;
 	margin: 0;
 	cursor: pointer;
-	background: none;
-	border: 2px solid transparent;
 	border-radius: 8px;
-	color: var(--sc_txt_btn__secondary);
+	font-size: 4dvw;
+	/* Primary-style */
+	border: 2px solid transparent;
+	color: var(--sc_txt_btn__primary);
 	text-decoration: none;
-	background-color: transparent;
-	border-color: currentcolor;
+	background-color: var(--sc_bg_btn__primary);
 }
 
 .js_anime_roll {
@@ -816,5 +824,56 @@ html:has(dialog[open]) {
 		position: -webkit-sticky;
 		position: sticky;
 		left: 0;
+	}
+}
+
+/* ≡≡≡ ☐ el_heading_lv* ☐ ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+	■ 概要
+		見出し
+---------------------------------------------------------------------------- */
+
+.el_heading_lv1 {
+	margin: 1em 0 0 0;
+	font-size: 2rem;
+	font-weight: 500;
+	line-height: 1.5;
+	letter-spacing: 0.04em;
+}
+
+@media (min-width: 960px) {
+	.el_heading_lv1 {
+		font-size: 2.25rem;
+		font-weight: 400;
+		line-height: 1.4;
+	}
+}
+
+.el_heading_lv2 {
+	margin: 1em 0 0 0;
+	font-size: 1.75rem;
+	font-weight: 500;
+	line-height: 1.5;
+	letter-spacing: 0.04em;
+}
+
+@media (min-width: 960px) {
+	.el_heading_lv2 {
+		font-size: 2rem;
+		font-weight: 400;
+	}
+}
+
+.el_heading_lv3 {
+	margin: 1em 0 0 0;
+	font-size: 1.5rem;
+	font-weight: 500;
+	line-height: 1.5;
+	letter-spacing: 0.04em;
+}
+
+@media (min-width: 960px) {
+	.el_heading_lv3 {
+		font-size: 1.75rem;
+		font-weight: 400;
 	}
 }

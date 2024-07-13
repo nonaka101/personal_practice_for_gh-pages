@@ -6,8 +6,8 @@ const SCORE_CATEGORIES = Object.freeze({
 	Fives: 4,
 	Sixes: 5,
 	Full_house: 6,
-	Three_of_a_kind: 7,
-	Four_of_a_kind: 8,
+	Four_of_a_kind: 7,
+	Three_of_a_kind: 8,
 	Short_straight: 9,
 	Long_straight: 10,
 	Yahzee: 11,
@@ -23,14 +23,75 @@ const SCORE_NAMES = Object.freeze({
 	4: '5の目',
 	5: '6の目',
 	6: 'フルハウス',
-	7: 'スリー オブ アカインド',
-	8: 'フォー オブ アカインド',
+	7: 'フォー オブ アカインド',
+	8: 'スリー オブ アカインド',
 	9: 'ショート ストレート',
 	10: 'ロング ストレート',
 	11: 'ヤッツィー',
 	12: 'チャンス',
 	13: 'アッパーボーナス',
 });
+
+// TODO: 両者をまとめたこちらに移行させる
+const SCORES = Object.freeze({
+	Aces: {
+		number: 0,
+		name: '1の目',
+	},
+	Twos: {
+		number: 1,
+		name: '2の目',
+	},
+	Threes: {
+		number: 2,
+		name: '3の目',
+	},
+	Fours: {
+		number: 3,
+		name: '4の目',
+	},
+	Fives: {
+		number: 4,
+		name: '5の目',
+	},
+	Sixes: {
+		number: 5,
+		name: '6の目',
+	},
+	Full_house: {
+		number: 6,
+		name: 'フルハウス',
+	},
+	Four_of_a_kind: {
+		number: 7,
+		name: 'フォー オブ アカインド',
+	},
+	Three_of_a_kind: {
+		number: 8,
+		name: 'スリー オブ アカインド',
+	},
+	Short_straight: {
+		number: 9,
+		name: 'ショート ストレート',
+	},
+	Long_straight: {
+		number: 10,
+		name: 'ロング ストレート',
+	},
+	Yahzee: {
+		number: 11,
+		name: 'ヤッツィー',
+	},
+	Chance: {
+		number: 12,
+		name: 'チャンス',
+	},
+	Upper_bonus: {
+		// （Aces-Sixes の合計値が63以上の場合、35点）
+		number: 13,
+		name: 'アッパーボーナス',
+	},
+})
 
 // 関数を定義して翻訳を実行
 function translateScore(symbol) {

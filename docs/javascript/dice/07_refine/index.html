@@ -98,15 +98,17 @@
 	<main class="ly_display_main">
 		<ul class="bl_result">
 			<li class="bl_result_unit">
-				<button type="button" aria-controls="js_scoreDialog_player" class="bl_resule_dialogBtn js_btnShowDialog">
+				<button type="button" class="bl_resule_dialogBtn js_btnShowDialog"
+					aria-controls="js_scoreDialog_player" aria-describedby="player_name">
 					<span class="js_player_totalScore"></span>
+					<small class="hp_srOnly">点 詳細</small>
 					<svg version="1.1" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
 						<circle cx="18" cy="18" r="15" fill="none" stroke="currentColor" stroke-linecap="round"
 							stroke-linejoin="round" stroke-width="2" />
 						<path d="m27 30 1.5 1.5 1.5 4.5 9 9 6-6-9-9-4.5-1.5-1.5-1.5z" />
 					</svg>
 				</button>
-				<span class="bl_result_unitName js_player_name">Player1</span>
+				<span class="bl_result_unitName js_player_name" id="player_name"></span>
 				<!-- /.bl_result_unitName -->
 				<dialog class="ly_dialog" id="js_scoreDialog_player">
 					<div class="bl_menuHeader">
@@ -127,15 +129,17 @@
 				</dialog><!-- /.ly_dialog -->
 			</li><!-- /.bl_result_unit -->
 			<li class="bl_result_unit">
-				<button type="button" aria-controls="js_scoreDialog_enemy" class="bl_resule_dialogBtn js_btnShowDialog">
+				<button type="button" class="bl_resule_dialogBtn js_btnShowDialog"
+					aria-controls="js_scoreDialog_enemy" aria-describedby="enemy_name">
 					<span class="js_enemy_totalScore"></span>
+					<small class="hp_srOnly">点 詳細</small>
 					<svg version="1.1" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
 						<circle cx="18" cy="18" r="15" fill="none" stroke="currentColor" stroke-linecap="round"
 							stroke-linejoin="round" stroke-width="2" />
 						<path d="m27 30 1.5 1.5 1.5 4.5 9 9 6-6-9-9-4.5-1.5-1.5-1.5z" />
 					</svg>
 				</button>
-				<span class="bl_result_unitName js_enemy_name">Enemy1</span>
+				<span class="bl_result_unitName js_enemy_name" id="enemy_name"></span>
 				<!-- /.bl_result_unitName -->
 				<dialog class="ly_dialog" id="js_scoreDialog_enemy">
 					<div class="bl_menuHeader">
@@ -192,13 +196,13 @@
 				<span style="font-size: 0.5em;">リセット</span>
 			</button>
 		</div><!-- /.bl_menuHeader -->
-		<h3>
+		<h3 class="el_heading_lv2">
 			<span class="js_player_name"></span>のスコア：
 			<span class="js_player_totalScore"></span>
 		</h3>
 		<div class="js_player_score"></div>
 		<!-- /.js_player_score -->
-		<h3>
+		<h3 class="el_heading_lv2">
 			<span class="js_enemy_name"></span>のスコア：
 			<span class="js_enemy_totalScore"></span>
 		</h3>
@@ -490,7 +494,7 @@
 
 		let ctrl = new Controller(p1, form);
 
-		
+
 		const resultDialog = document.querySelector('#js_resultDialog');
 
 		const playerNames = document.querySelectorAll('.js_player_name');
