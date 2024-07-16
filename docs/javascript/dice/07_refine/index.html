@@ -6,7 +6,6 @@
 	<meta name="robots" content="noindex, nofollow">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>07 Refine | dice</title>
-	<link rel="stylesheet" href="reset.css">
 	<link rel="stylesheet" href="./yahtzee.css">
 
 	<!-- DieFace SVGs -->
@@ -78,12 +77,52 @@
 <body class="ly_display">
 	<header class="ly_display_header">
 		<div class="bl_header">
-			<div class="bl_select bl_select__flex">
+			<button type="button" class="bl_iconBtn js_btnShowDialog" aria-controls="js_infoDialog">
+				<svg role="graphics-symbol img" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 48 48" width="48" height="48">
+					<path
+						d="m24 5.25a21 21 0 0 0-21 21 21 21 0 0 0 4.7812 13.219l-3.2812 3.2812h9v-9l-3.6016 3.6016a18 18 0 0 1-3.8984-11.102 18 18 0 0 1 18-18 18 18 0 0 1 18 18 18 18 0 0 1-5.3047 12.695l2.1172 2.1172a21 21 0 0 0 6.1875-14.812 21 21 0 0 0-21-21z"
+						stroke-linecap="round" stroke-linejoin="round" />
+				</svg>
+				<span>インフォ</span>
+			</button>
+			<dialog class="ly_dialog" id="js_infoDialog">
+				<div class="bl_menuHeader">
+					<h2 class="bl_menuHeader_title" id="about">
+						このページについて
+					</h2>
+					<button type="button" class="bl_menuHeader_btnIcon js_btnCloseDialog"
+						aria-controls="js_infoDialog" aria-describedby="about">
+						<svg role="graphics-symbol img" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 24 24" width="24" height="24">
+							<path transform="rotate(45)"
+								d="m4.9705-2.0012v4.0023h9.9989v9.9989h4.0023v-9.9989h9.9989v-4.0023h-9.9989v-9.9989h-4.0023v9.9989h-9.9989z" />
+						</svg>
+						<span>閉じる</span>
+					</button>
+				</div><!-- /.bl_menuHeader -->
+				<h3 class="el_heading_lv3">概要</h3>
+				<p>
+					このページでは、Yacht ライクのダイスゲームを遊べます。
+				</p>
+				<h3 class="el_heading_lv3">基本的な流れ</h3>
+				<p>
+					5つのダイスを使って役を作り、12(+1) の役の合計点を競います。
+					ターンの初めにダイスを振り、2回まで振り直すことができます。ダイスを振り直す際、任意のダイスにロックを掛けることができます。
+				</p>
+				<h3 class="el_heading_lv3">役の一覧</h3>
+				<p>
+					役は12と1つのボーナスで構成されています。
+				</p>
+				<h4 class="el_heading_lv4">アッパーセクション</h4>
+				<h5 class="el_heading_lv5">エース</h5>
+			</dialog><!-- /.ly_dialog -->
+			<div class="bl_select">
 				<select class="bl_header_select" name="js_decision_strategy" id="js_decision_strategy">
 					<!-- 中身はJS側で管理 -->
 				</select>
 			</div><!-- /.bbl_select -->
-			<button type="button" id="js_reset" class="bl_header_btn" onclick="reloadWithQuery()">
+			<button type="button" id="js_reset" class="bl_iconBtn" onclick="reloadWithQuery()">
 				<svg role="graphics-symbol img" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 48 48" width="48" height="48">
 					<path
@@ -98,7 +137,7 @@
 	<main class="ly_display_main">
 		<ul class="bl_result">
 			<li class="bl_result_unit">
-				<button type="button" class="bl_resule_dialogBtn js_btnShowDialog"
+				<button type="button" class="bl_iconBtn bl_iconBtn__horizontal js_btnShowDialog"
 					aria-controls="js_scoreDialog_player" aria-describedby="player_name">
 					<span class="js_player_totalScore"></span>
 					<small class="hp_srOnly">点 詳細</small>
@@ -129,7 +168,7 @@
 				</dialog><!-- /.ly_dialog -->
 			</li><!-- /.bl_result_unit -->
 			<li class="bl_result_unit">
-				<button type="button" class="bl_resule_dialogBtn js_btnShowDialog"
+				<button type="button" class="bl_iconBtn bl_iconBtn__horizontal js_btnShowDialog"
 					aria-controls="js_scoreDialog_enemy" aria-describedby="enemy_name">
 					<span class="js_enemy_totalScore"></span>
 					<small class="hp_srOnly">点 詳細</small>
@@ -164,21 +203,27 @@
 
 	<footer class="ly_display_footer">
 		<form action="#" class="ly_footer" id="js_controller">
-			<div id="js_dice" class="bl_dice_wrapper">
-			</div>
-			<!-- /.js_dice_wrapper -->
-			<button type="button" id="js_roll" class="el_rollBtn">
-				振る(<span id="js_roll_remain">1</span>)
-			</button>
-			<!-- /.el_btn.el_btn_roll -->
-			<div class="bl_select bl_select__combination">
-				<select name="js_decision_combination" id="js_decision_combination">
-				</select>
-			</div>
-			<!-- /.bl_select -->
-			<button type="submit" id="js_btn_submit" class="el_submitBtn" aria-label="決定">
-				決定
-			</button>
+			<div class="ly_footer_diceContainer">
+				<div id="js_dice" class="bl_dice_wrapper">
+				</div><!-- /.js_dice_wrapper -->
+			</div><!-- /.ly_footer_diceContainer -->
+			<div class="ly_footer_rollBtn">
+				<button type="button" id="js_roll" class="el_btn el_btn__secondary">
+					振る(<span id="js_roll_remain">1</span>)
+				</button><!-- /.el_btn.el_btn_roll -->
+			</div><!-- /.ly_footer_rollBtn -->
+			<div class="ly_footer_select">
+				<div class="bl_select">
+					<select name="js_decision_combination" id="js_decision_combination">
+					</select>
+				</div>
+				<!-- /.bl_select -->
+			</div><!-- /.ly_footer_select -->
+			<div class="ly_footer_submit">
+				<button type="submit" id="js_btn_submit" class="el_btn el_btn__primary" aria-label="決定">
+					決定
+				</button>
+			</div><!-- /.ly_footer_submit -->
 			<!-- /.el_btn.el_btn_submit -->
 		</form><!-- /.ly_footer -->
 	</footer><!-- /.ly_display_footer -->

@@ -1,7 +1,11 @@
 @charset "utf-8";
 
+/* ≡≡≡ Basement ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+	■ About
+---------------------------------------------------------------------- */
+
 :root {
-	/* プリミティブカラー */
+	/* Primitive color */
 	--white: #ffffff;
 	--sea-1200: #00004F;
 	--sea-1100: #000060;
@@ -69,10 +73,9 @@
 	--sun-100: #ffc8b8;
 	--sun-50: #ffe7e6;
 
-	/* セマンティックカラー */
+	/* Semantic color */
 	--sc_txt_body: var(--sumi-900);
 	--sc_txt_body__small: var(--sumi-1200);
-	/* 小さな文字用 */
 	--sc_txt_desc: var(--sumi-700);
 	--sc_txt_placeholder: var(--sumi-600);
 	--sc_txt_onFill: var(--white);
@@ -103,6 +106,12 @@
 	--sc_bg_shadow: var(--sumi-700);
 }
 
+*:where(:not(html, img, svg, audio):not(svg *)) {
+	all: unset;
+	display: revert;
+}
+
+*,
 ::before,
 ::after {
 	box-sizing: border-box;
@@ -145,7 +154,7 @@ small {
 }
 
 
-
+/* Focus effect for a11y */
 *:focus-visible,
 .bl_dice:focus-within {
 	outline: var(--sc_border_focused);
@@ -166,6 +175,29 @@ small {
 	}
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ≡≡≡ ly_display ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+	■ About
+---------------------------------------------------------------------- */
+
 .ly_display {
 	--ly_footer:
 		"dice dice dice dice dice"
@@ -175,18 +207,19 @@ small {
 	--num_hBox: 7;
 	--num_wBox: 5;
 	--size_btn: min(
-		100dvw / var(--num_wBox),
-		100dvh / var(--num_hBox)
+		98dvw / var(--num_wBox),
+		98dvh / var(--num_hBox)
 	);
 	display: flex;
 	flex-flow: column nowrap;
 	justify-content: space-between;
 	gap: 0;
-	width: 100dvw;
-	height: 100dvh;
+	width: 98dvw;
+	height: 98dvh;
+	margin:1dvh 1dvw;
 }
 
-/* 縦5に対し、横7以上の横長 */
+/* Layout for landscape */
 @media (min-aspect-ratio: 7/5) {
 	.ly_display {
 		--ly_footer:
@@ -200,47 +233,7 @@ small {
 
 .ly_display_header {
 	display: block;
-	border: var(--sc_border_divider);
 }
-
-.bl_header {
-	display: flex;
-	flex-flow: row nowrap;
-	height: var(--size_btn);
-	align-items: center;
-}
-
-
-.bl_header_btn {
-	flex-grow: 0;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	width: calc(var(--size_btn) * 0.9);
-	height: calc(var(--size_btn) * 0.9);
-	padding: 0;
-	margin: 0;
-	cursor: pointer;
-	background: none;
-	border: 2px solid transparent;
-	border-radius: 4px;
-	color: var(--sc_txt_btn__secondary);
-	text-decoration: none;
-	background-color: transparent;
-	border-color: currentcolor;
-}
-
-.bl_header_btn > svg {
-	height: calc(var(--size_btn) * 0.5);
-	width: calc(var(--size_btn) * 0.5);
-}
-
-.bl_header_btn > span {
-	font-size: calc(var(--size_btn) * 0.2);
-	color: var(--sc_txt_btn__secondary);
-}
-
-
 
 .ly_display_main {
 	display: flex;
@@ -251,6 +244,159 @@ small {
 	align-items: center;
 }
 
+.ly_display_footer {
+	display: block;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ≡≡≡ ly_display ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+	■ Footer (form) layout
+---------------------------------------------------------------------- */
+
+.ly_footer {
+	display: grid;
+	gap: 2px 4px;
+	grid-template-areas:var(--ly_footer);
+}
+
+.ly_footer_diceContainer {
+	grid-area: dice;
+}
+
+.ly_footer_rollBtn {
+	grid-area: roll;
+	display: flex;
+	align-items: center;
+}
+
+.ly_footer_select{
+	grid-area: sele;
+}
+
+.ly_footer_submit {
+	grid-area: sbmt;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ≡≡≡ ly_dialog ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+	■ About
+---------------------------------------------------------------------- */
+
+/* ダイアログ表示中は、裏側にあるページをスクロールさせない */
+html:has(dialog[open]) {
+	overflow: hidden;
+}
+
+/* `max-*` は、デフォルトのスタイル（例：`dialog:-internal-dialog-in-top-layer`）を上書きするため */
+.ly_dialog {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100dvw;
+	max-width: 100dvw;
+	min-height: 100dvh;
+	max-height: 100dvh;
+	padding: 8px;
+	border: none;
+	background-color: var(--sc_bg_body__primary);
+	display: flex;
+	flex-flow: column nowrap;
+}
+
+.ly_dialog:not([open]) {
+	display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ≡≡≡ bl_header ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+	■ About
+---------------------------------------------------------------------- */
+
+.bl_header {
+	display: flex;
+	flex-flow: row nowrap;
+	height: var(--size_btn);
+	align-items: center;
+	gap: 0 4px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ≡≡≡ bl_result ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+	■ About
+---------------------------------------------------------------------- */
 
 .bl_result {
 	display: flex;
@@ -269,50 +415,15 @@ small {
 	gap: 0 8px;
 	border: 1px solid var(--white);
 	padding: 4px 16px 4px 4px;
-	border-radius: 12px;
+	border-radius: max(min(4px, calc(40px - 100%) * 9999),
+			min(8px, calc(100% - 40px) * 9999, calc(120px - 100%) * 9999),
+			min(12px, calc(100% - 120px) * 9999));
 	background-color: var(--sc_bg_body__primary);
 }
 .bl_result > .bl_result_unit > span {
 	font-size: calc(var(--size_btn) * 0.5);
 }
 
-.bl_resule_dialogBtn {
-	width: auto;
-	height: calc(var(--size_btn) * 0.9);
-	padding: 0 4px;
-	margin: 0;
-	cursor: pointer;
-	background: none;
-	border-radius: 8px;
-
-	/* Secondary-style */
-	background: none;
-	border: 2px solid transparent;
-	color: var(--sc_txt_btn__secondary);
-	text-decoration: none;
-	background-color: transparent;
-	border-color: currentcolor;
-}
-
-
-.bl_resule_dialogBtn > span {
-	font-size: calc(var(--size_btn) * 0.7);
-	color: var(--sc_txt_btn__secondary);
-	line-height: 1;
-}
-
-.bl_resule_dialogBtn > svg {
-	width:  calc(var(--size_btn) * 0.2);
-	height:  calc(var(--size_btn) * 0.2);
-}
-
-
-
-
-.ly_display_footer {
-	display: block;
-	border: var(--sc_border_divider);
-}
 
 
 
@@ -321,14 +432,22 @@ small {
 
 
 
-.ly_footer {
-	display: grid;
-	gap: 0;
-	grid-template-areas:var(--ly_footer);
-}
+
+
+
+
+
+
+
+
+
+
+
+/* ≡≡≡ bl_dice ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+	■ About
+---------------------------------------------------------------------- */
 
 .bl_dice_wrapper {
-	grid-area: dice;
 	display: flex;
 	height: calc(var(--size_btn) * 1.1);
 	flex-flow: row nowrap;
@@ -355,7 +474,6 @@ small {
 	width: calc(var(--size_btn) * 0.9);
 }
 
-
 .bl_dice:has(:checked) {
 	background:
 		linear-gradient(
@@ -378,6 +496,7 @@ small {
 		);
 	position: relative;
 }
+
 .bl_dice:has(:checked)::after {
 	position: absolute;
 	bottom: 0;
@@ -403,121 +522,7 @@ small {
 	clip-path: inset(100%);
 }
 
-.el_rollBtn {
-	grid-area: roll;
-	flex-grow: 0;
-	display: block;
-	align-items: center;
-	justify-content: center;
-	text-align: center;
-	width: 100%;
-	height: var(--size_btn);
-	padding: 0;
-	margin: auto;
-	cursor: pointer;
-	border-radius: 8px;
-	font-size: 4dvw;
-
-	/* Secondary-style */
-	background: none;
-	border: 2px solid transparent;
-	color: var(--sc_txt_btn__secondary);
-	text-decoration: none;
-	background-color: transparent;
-	border-color: currentcolor;
-}
-
-
-.el_rollBtn > span {
-	color: var(--sc_txt_btn__secondary);
-}
-
-.el_rollBtn:disabled,
-.el_rollBtn:disabled > span {
-	color: var(--sc_txt_disabled);
-}
-
-.bl_select {
-	position: relative;
-	display: flex;
-	flex-flow: row nowrap;
-	cursor: pointer;
-	height: calc(var(--size_btn) * 0.9);
-}
-
-.bl_select.bl_select__combination {
-	grid-area: sele;
-}
-
-.bl_select.bl_select__flex {
-	flex-grow: 1;
-}
-
-
-.bl_select>select {
-	width: 100%;
-	color: var(--sc_txt_body);
-	text-indent: 1ch;
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	appearance: none;
-	font-size: 4dvw;
-	background-color: var(--sc_bg_body__primary);
-	border: var(--sc_border_field);
-	border-radius: max(min(4px, calc(40px - 100%) * 9999),
-			min(8px, calc(100% - 40px) * 9999, calc(120px - 100%) * 9999),
-			min(12px, calc(100% - 120px) * 9999));
-	align-items: center;
-}
-
-
-.bl_select::after {
-	position: absolute;
-	align-self: center;
-	right: .1em;
-	display: flexbox;
-	width: 1em;
-	height: 1em;
-	content: "";
-	background-image: url('data:image/svg+xml;utf-8,<svg viewBox="0 0 24 24" fill="black" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.1L3 8L4 7L12 15L20 7L21 8L12 17.1Z"/></svg>');
-}
-
-.bl_select>select::-ms-expand {
-	display: none;
-}
-
-.bl_select>select:disabled {
-	pointer-events: none;
-	border: var(--sc_border_disabled);
-}
-
-
-@media (max-width: 200px) {
-	.bl_select::after {
-		display: none;
-	}
-}
-
-.el_submitBtn {
-	grid-area: sbmt;
-	flex-grow: 0;
-	display: block;
-	align-items: center;
-	text-align: center;
-	width: 100%;
-	height: calc(var(--size_btn) * 0.9);
-	padding: 0;
-	margin: 0;
-	cursor: pointer;
-	border-radius: 8px;
-	font-size: 4dvw;
-	/* Primary-style */
-	border: 2px solid transparent;
-	color: var(--sc_txt_btn__primary);
-	text-decoration: none;
-	background-color: var(--sc_bg_btn__primary);
-}
-
+/* Roll effect (controled by JavaScript) */
 .js_anime_roll {
 	animation-duration: 0.5s;
 	animation-name: rollEffect;
@@ -553,10 +558,94 @@ small {
 
 
 
-/* ≡≡≡ ⚠ hp_srOnly(ScreenReaderOnly) ⚠ ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
-	■ 概要
-		スクリーンリーダー専用要素。レンダリング上は隠しながら、読み上げを妨げない。
----------------------------------------------------------------------------- */
+
+
+
+
+
+
+
+
+
+
+/* ≡≡≡ bl_select ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+	■ About
+---------------------------------------------------------------------- */
+
+.bl_select {
+	display: flex;
+	flex-flow: row nowrap;
+	cursor: pointer;
+	height: calc(var(--size_btn) * 0.9);
+	position: relative;
+	flex-grow: 1;
+}
+
+/* Remove styles of the "User-Agent-Stylesheet" for select element */
+.bl_select>select::-ms-expand {
+	display: none;
+}
+
+.bl_select > select {
+	width: 100%;
+	color: var(--sc_txt_body);
+	text-indent: 1ch;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	font-size: 4dvw;
+	background-color: var(--sc_bg_body__primary);
+	border: var(--sc_border_field);
+	border-radius: max(min(4px, calc(40px - 100%) * 9999),
+			min(8px, calc(100% - 40px) * 9999, calc(120px - 100%) * 9999),
+			min(12px, calc(100% - 120px) * 9999));
+	align-items: center;
+}
+
+.bl_select::after {
+	position: absolute;
+	align-self: center;
+	right: 2dvw;
+	display: flexbox;
+	width: 4dvw;
+	height: 4dvw;
+	content: "";
+	background-image: url('data:image/svg+xml;utf-8,<svg viewBox="0 0 24 24" fill="black" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.1L3 8L4 7L12 15L20 7L21 8L12 17.1Z"/></svg>');
+}
+
+.bl_select>select:disabled {
+	pointer-events: none;
+	border: var(--sc_border_disabled);
+}
+
+
+@media (max-width: 200px) {
+	.bl_select::after {
+		display: none;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ≡≡≡ hp_srOnly(ScreenReaderOnly) ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+	■ Element for screen reader
+---------------------------------------------------------------------- */
 
 .hp_srOnly {
 	position: absolute !important;
@@ -574,43 +663,24 @@ small {
 
 
 
-/* ≡≡≡ ◲ ly_dialog ◲ ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
-	■ 概要
-		各種機能を格納するダイアログ要素
----------------------------------------------------------------------------- */
-
-/* ダイアログ表示中は、裏側にあるページをスクロールさせない */
-html:has(dialog[open]) {
-	overflow: hidden;
-}
-
-/* `max-*` は、デフォルトのスタイル（例：`dialog:-internal-dialog-in-top-layer`）を上書きするため */
-.ly_dialog {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100dvw;
-	max-width: 100dvw;
-	min-height: 100dvh;
-	max-height: 100dvh;
-	padding: 0;
-	border: none;
-	background-color: var(--sc_bg_body__primary);
-	display: flex;
-	flex-flow: column nowrap;
-}
-
-.ly_dialog:not([open]) {
-	display: none;
-}
 
 
 
 
-/* ≡≡≡ ☐ bl_menuHeader ☐ ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
-	■ 概要
-		ダイアログ内の汎用ヘッダー、タイトルと閉じるボタンの2つで構成
----------------------------------------------------------------------------- */
+
+
+
+
+
+
+
+
+
+
+
+/* ≡≡≡ bl_menuHeader ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+	■ About
+---------------------------------------------------------------------- */
 
 .bl_menuHeader {
 	display: flex;
@@ -655,24 +725,40 @@ html:has(dialog[open]) {
 
 
 
-/* ≡≡≡ ☐ bl_table ☐ ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
-■ 概要
-	テーブル要素
-	table
-		thead > tr > th
-		tbody > tr > th | td
-■ 使用方法
-	table 要素をラップする形で div を設け、それに対しクラス付けを行う
-■ バリエーション
-	bl_table : ベース
-	┃
-	┣┳ bl_table__horizontal : 列見出し固定（※ 表の高さは 75dvh までに制限される）
-	┃┣ bl_table__vertical : 行見出し固定（※ 768px【例：iPad 縦画面】を境に、行方向のスクロールが許可される）
-	┃┗ bl_table__cross : 行列見出し固定（上記にある両者の特徴を引き継ぐ）
-	┃
-	┗┳ bl_table__wide : 表幅が大きく画面幅 960px までスクロールが必要な表
-	　┗ bl_table__exWide : 表幅が非常に大きく画面幅 1200px までスクロールが必要な表
----------------------------------------------------------------------------- */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ≡≡≡ bl_table ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+	■ About
+		Table element
+		table
+			thead > tr > th
+			tbody > tr > th | td
+	■ How-to use
+		Wrap the table element with a `div`, and add a class to the `div`.
+	■ Variation
+		bl_table : ベース
+		┃
+		┣┳ bl_table__horizontal : Column headings fixed (* Table height is limited to 75dvh)
+		┃┣ bl_table__vertical : Row headings fixed (* Scrolling in line direction is permitted after 768px [e.g., iPad portrait screen])
+		┃┗ bl_table__cross : Matrix heading fixed (inherits the features of both above)
+		┃
+		┗┳ bl_table__wide : Tables that are wide and require scrolling to a screen width of 960px
+		　┗ bl_table__exWide : Tables that are very wide and require scrolling to a screen width of 1200px
+---------------------------------------------------------------------- */
 
 .bl_table {
 	border: var(--sc_border_divider);
@@ -876,4 +962,149 @@ html:has(dialog[open]) {
 		font-size: 1.75rem;
 		font-weight: 400;
 	}
+}
+
+.el_heading_lv4 {
+	margin-top: var(--space_5);
+	margin-bottom: var(--space_2);
+	font-size: 1.25rem;
+	font-weight: 500;
+	line-height: 1.5;
+	letter-spacing: 0.04em;
+}
+
+@media (min-width: 960px) {
+	.el_heading_lv4 {
+		font-size: 1.5rem;
+		font-weight: 400;
+	}
+}
+
+.el_heading_lv5 {
+	margin-top: var(--space_5);
+	margin-bottom: var(--space_2);
+	font-size: 1rem;
+	font-weight: 500;
+	line-height: 1.7;
+	letter-spacing: 0.04em;
+}
+
+@media (min-width: 960px) {
+	.el_heading_lv5 {
+		font-size: 1.25rem;
+		font-weight: 400;
+		line-height: 1.5;
+	}
+}
+
+.el_heading_lv6 {
+	margin-top: var(--space_3);
+	margin-bottom: var(--space_2);
+	font-size: 1rem;
+	font-weight: 400;
+	line-height: 1.7;
+	letter-spacing: 0.04em;
+}
+
+@media (min-width: 960px) {
+	.el_heading_lv6 {
+		font-size: 1rem;
+		font-weight: 500;
+	}
+}
+
+
+
+
+
+
+
+.el_btn {
+	flex-grow: 0;
+	display: block;
+	align-items: center;
+	text-align: center;
+	width: 100%;
+	height: calc(var(--size_btn) * 0.9);
+	padding: 0;
+	margin: 0;
+	cursor: pointer;
+	border-radius: max(min(4px, calc(40px - 100%) * 9999),
+			min(8px, calc(100% - 40px) * 9999, calc(120px - 100%) * 9999),
+			min(12px, calc(100% - 120px) * 9999));
+	font-size: 4dvw;
+	border: 2px solid transparent;
+	text-decoration: none;
+	background: none;
+}
+
+.el_btn.el_btn__primary {
+	color: var(--sc_txt_btn__primary);
+	background-color: var(--sc_bg_btn__primary);
+}
+
+.el_btn.el_btn__secondary {
+	color: var(--sc_txt_btn__secondary);
+	background-color: transparent;
+	border-color: currentcolor;
+}
+
+.el_btn.el_btn__secondary > span {
+	color: var(--sc_txt_btn__secondary);
+}
+
+.el_btn.el_btn__secondary:disabled,
+.el_btn.el_btn__secondary:disabled > span {
+	color: var(--sc_txt_disabled);
+}
+
+
+/* Secondary button with svg-icon */
+.bl_iconBtn {
+	flex-grow: 0;
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+	width: calc(var(--size_btn) * 0.9);
+	height: calc(var(--size_btn) * 0.9);
+	padding: 0;
+	margin: 0;
+	cursor: pointer;
+	background: none;
+	border: 2px solid transparent;
+	border-radius: max(min(4px, calc(40px - 100%) * 9999),
+			min(8px, calc(100% - 40px) * 9999, calc(120px - 100%) * 9999),
+			min(12px, calc(100% - 120px) * 9999));
+	color: var(--sc_txt_btn__secondary);
+	text-decoration: none;
+	border-color: currentcolor;
+}
+
+.bl_iconBtn > svg {
+	height: calc(var(--size_btn) * 0.5);
+	width: calc(var(--size_btn) * 0.5);
+}
+
+.bl_iconBtn > span {
+	font-size: calc(var(--size_btn) * 0.2);
+	color: var(--sc_txt_btn__secondary);
+}
+
+/* Variation of iconBtn(icon positioned backward) */
+.bl_iconBtn.bl_iconBtn__horizontal {
+	flex-flow: row nowrap;
+	width: auto;
+	padding: 0 4px;
+}
+
+.bl_iconBtn.bl_iconBtn__horizontal > svg {
+	height:  calc(var(--size_btn) * 0.2);
+	width:  calc(var(--size_btn) * 0.2);
+	align-self: flex-end;
+}
+
+.bl_iconBtn.bl_iconBtn__horizontal > span {
+	font-size: calc(var(--size_btn) * 0.7);
+	color: var(--sc_txt_btn__secondary);
+	line-height: 1;
 }
