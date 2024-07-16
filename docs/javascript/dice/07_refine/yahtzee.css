@@ -5,6 +5,15 @@
 ---------------------------------------------------------------------- */
 
 :root {
+	/* Spacing with relative unit */
+	--space_0: 0.25rem;
+	--space_1: 0.5rem;
+	--space_2: 1rem;
+	--space_3: 1.5rem;
+	--space_5: 2.5rem;
+	--space_8: 4rem;
+	--space_13:6.5rem;
+
 	/* Primitive color */
 	--white: #ffffff;
 	--sea-1200: #00004F;
@@ -338,6 +347,7 @@ html:has(dialog[open]) {
 	background-color: var(--sc_bg_body__primary);
 	display: flex;
 	flex-flow: column nowrap;
+	overflow-y: auto;
 }
 
 .ly_dialog:not([open]) {
@@ -690,6 +700,10 @@ html:has(dialog[open]) {
 	margin-bottom: 16px;
 }
 
+.ly_dialog > .bl_menuHeader + * {
+	margin-top: 0;
+}
+
 .bl_menuHeader_title {
 	padding: 0;
 	margin: 0;
@@ -919,7 +933,8 @@ html:has(dialog[open]) {
 ---------------------------------------------------------------------------- */
 
 .el_heading_lv1 {
-	margin: 1em 0 0 0;
+	margin-top: var(--space_8);
+	margin-bottom: var(--space_3);
 	font-size: 2rem;
 	font-weight: 500;
 	line-height: 1.5;
@@ -935,7 +950,8 @@ html:has(dialog[open]) {
 }
 
 .el_heading_lv2 {
-	margin: 1em 0 0 0;
+	margin-top: var(--space_8);
+	margin-bottom: var(--space_3);
 	font-size: 1.75rem;
 	font-weight: 500;
 	line-height: 1.5;
@@ -950,7 +966,8 @@ html:has(dialog[open]) {
 }
 
 .el_heading_lv3 {
-	margin: 1em 0 0 0;
+	margin-top: var(--space_5);
+	margin-bottom: var(--space_3);
 	font-size: 1.5rem;
 	font-weight: 500;
 	line-height: 1.5;
@@ -1012,6 +1029,7 @@ html:has(dialog[open]) {
 		font-weight: 500;
 	}
 }
+
 
 
 
