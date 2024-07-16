@@ -342,7 +342,6 @@ html:has(dialog[open]) {
 	max-width: 100dvw;
 	min-height: 100dvh;
 	max-height: 100dvh;
-	padding: 8px;
 	border: none;
 	background-color: var(--sc_bg_body__primary);
 	display: flex;
@@ -354,6 +353,12 @@ html:has(dialog[open]) {
 	display: none;
 }
 
+.ly_dialog_body {
+	max-width: 1024px;
+	padding: 0 16px;
+	margin-right: auto;
+	margin-left: auto;
+}
 
 
 
@@ -383,6 +388,41 @@ html:has(dialog[open]) {
 	height: var(--size_btn);
 	align-items: center;
 	gap: 0 4px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ≡≡≡ bl_logo ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+	■ About
+---------------------------------------------------------------------- */
+
+.bl_logo {
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+	justify-content: center;
+}
+
+.bl_logo > svg {
+	height: auto;
+	width: clamp(75%, 50dvw, 1024px) ;
 }
 
 
@@ -653,40 +693,6 @@ html:has(dialog[open]) {
 
 
 
-/* ≡≡≡ hp_srOnly(ScreenReaderOnly) ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
-	■ Element for screen reader
----------------------------------------------------------------------- */
-
-.hp_srOnly {
-	position: absolute !important;
-	clip: rect(0 0 0 0) !important;
-	clip-path: inset(100%) !important;
-	width: 1px !important;
-	height: 1px !important;
-	margin: -1px !important;
-	overflow: hidden !important;
-	padding: 0 !important;
-	border: 0 !important;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* ≡≡≡ bl_menuHeader ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
 	■ About
@@ -927,6 +933,148 @@ html:has(dialog[open]) {
 	}
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Secondary button with svg-icon */
+.bl_iconBtn {
+	flex-grow: 0;
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+	width: calc(var(--size_btn) * 0.9);
+	height: calc(var(--size_btn) * 0.9);
+	padding: 0;
+	margin: 0;
+	cursor: pointer;
+	background: none;
+	border: 2px solid transparent;
+	border-radius: max(min(4px, calc(40px - 100%) * 9999),
+			min(8px, calc(100% - 40px) * 9999, calc(120px - 100%) * 9999),
+			min(12px, calc(100% - 120px) * 9999));
+	color: var(--sc_txt_btn__secondary);
+	text-decoration: none;
+	border-color: currentcolor;
+}
+
+.bl_iconBtn > svg {
+	height: calc(var(--size_btn) * 0.5);
+	width: calc(var(--size_btn) * 0.5);
+}
+
+.bl_iconBtn > span {
+	font-size: calc(var(--size_btn) * 0.2);
+	color: var(--sc_txt_btn__secondary);
+}
+
+/* Variation of iconBtn(icon positioned backward) */
+.bl_iconBtn.bl_iconBtn__horizontal {
+	flex-flow: row nowrap;
+	width: auto;
+	padding: 0 4px;
+}
+
+.bl_iconBtn.bl_iconBtn__horizontal > svg {
+	height:  calc(var(--size_btn) * 0.2);
+	width:  calc(var(--size_btn) * 0.2);
+	align-self: flex-end;
+}
+
+.bl_iconBtn.bl_iconBtn__horizontal > span {
+	font-size: calc(var(--size_btn) * 0.7);
+	color: var(--sc_txt_btn__secondary);
+	line-height: 1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.el_btn {
+	flex-grow: 0;
+	display: block;
+	align-items: center;
+	text-align: center;
+	width: 100%;
+	height: calc(var(--size_btn) * 0.9);
+	padding: 0;
+	margin: 0;
+	cursor: pointer;
+	border-radius: max(min(4px, calc(40px - 100%) * 9999),
+			min(8px, calc(100% - 40px) * 9999, calc(120px - 100%) * 9999),
+			min(12px, calc(100% - 120px) * 9999));
+	font-size: 4dvw;
+	border: 2px solid transparent;
+	text-decoration: none;
+	background: none;
+}
+
+.el_btn.el_btn__primary {
+	color: var(--sc_txt_btn__primary);
+	background-color: var(--sc_bg_btn__primary);
+}
+
+.el_btn.el_btn__secondary {
+	color: var(--sc_txt_btn__secondary);
+	background-color: transparent;
+	border-color: currentcolor;
+}
+
+.el_btn.el_btn__secondary > span {
+	color: var(--sc_txt_btn__secondary);
+}
+
+.el_btn.el_btn__secondary:disabled,
+.el_btn.el_btn__secondary:disabled > span {
+	color: var(--sc_txt_disabled);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* ≡≡≡ ☐ el_heading_lv* ☐ ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
 	■ 概要
 		見出し
@@ -1037,92 +1185,18 @@ html:has(dialog[open]) {
 
 
 
-.el_btn {
-	flex-grow: 0;
-	display: block;
-	align-items: center;
-	text-align: center;
-	width: 100%;
-	height: calc(var(--size_btn) * 0.9);
-	padding: 0;
-	margin: 0;
-	cursor: pointer;
-	border-radius: max(min(4px, calc(40px - 100%) * 9999),
-			min(8px, calc(100% - 40px) * 9999, calc(120px - 100%) * 9999),
-			min(12px, calc(100% - 120px) * 9999));
-	font-size: 4dvw;
-	border: 2px solid transparent;
-	text-decoration: none;
-	background: none;
-}
+/* ≡≡≡ hp_srOnly(ScreenReaderOnly) ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+	■ Element for screen reader
+---------------------------------------------------------------------- */
 
-.el_btn.el_btn__primary {
-	color: var(--sc_txt_btn__primary);
-	background-color: var(--sc_bg_btn__primary);
-}
-
-.el_btn.el_btn__secondary {
-	color: var(--sc_txt_btn__secondary);
-	background-color: transparent;
-	border-color: currentcolor;
-}
-
-.el_btn.el_btn__secondary > span {
-	color: var(--sc_txt_btn__secondary);
-}
-
-.el_btn.el_btn__secondary:disabled,
-.el_btn.el_btn__secondary:disabled > span {
-	color: var(--sc_txt_disabled);
-}
-
-
-/* Secondary button with svg-icon */
-.bl_iconBtn {
-	flex-grow: 0;
-	display: flex;
-	flex-flow: column nowrap;
-	align-items: center;
-	width: calc(var(--size_btn) * 0.9);
-	height: calc(var(--size_btn) * 0.9);
-	padding: 0;
-	margin: 0;
-	cursor: pointer;
-	background: none;
-	border: 2px solid transparent;
-	border-radius: max(min(4px, calc(40px - 100%) * 9999),
-			min(8px, calc(100% - 40px) * 9999, calc(120px - 100%) * 9999),
-			min(12px, calc(100% - 120px) * 9999));
-	color: var(--sc_txt_btn__secondary);
-	text-decoration: none;
-	border-color: currentcolor;
-}
-
-.bl_iconBtn > svg {
-	height: calc(var(--size_btn) * 0.5);
-	width: calc(var(--size_btn) * 0.5);
-}
-
-.bl_iconBtn > span {
-	font-size: calc(var(--size_btn) * 0.2);
-	color: var(--sc_txt_btn__secondary);
-}
-
-/* Variation of iconBtn(icon positioned backward) */
-.bl_iconBtn.bl_iconBtn__horizontal {
-	flex-flow: row nowrap;
-	width: auto;
-	padding: 0 4px;
-}
-
-.bl_iconBtn.bl_iconBtn__horizontal > svg {
-	height:  calc(var(--size_btn) * 0.2);
-	width:  calc(var(--size_btn) * 0.2);
-	align-self: flex-end;
-}
-
-.bl_iconBtn.bl_iconBtn__horizontal > span {
-	font-size: calc(var(--size_btn) * 0.7);
-	color: var(--sc_txt_btn__secondary);
-	line-height: 1;
+.hp_srOnly {
+	position: absolute !important;
+	clip: rect(0 0 0 0) !important;
+	clip-path: inset(100%) !important;
+	width: 1px !important;
+	height: 1px !important;
+	margin: -1px !important;
+	overflow: hidden !important;
+	padding: 0 !important;
+	border: 0 !important;
 }
