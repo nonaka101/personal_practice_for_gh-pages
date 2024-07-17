@@ -1187,6 +1187,61 @@ html:has(dialog[open]) {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+/* ≡≡≡ ☐ el_link ☐ ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+	■ 概要
+		リンク要素
+---------------------------------------------------------------------------- */
+.el_link {
+	color: var(--sc_txt_link);
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.el_link:active {
+	color: var(--sc_txt_link__active);
+}
+
+.el_link:visited {
+	color: var(--sc_txt_link__visited);
+}
+
+.el_link:hover {
+	color: var(--sc_txt_link__hover);
+}
+
+.el_link > svg {
+	color: var(--sc_txt_body);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* ≡≡≡ hp_srOnly(ScreenReaderOnly) ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
 	■ Element for screen reader
 ---------------------------------------------------------------------- */
