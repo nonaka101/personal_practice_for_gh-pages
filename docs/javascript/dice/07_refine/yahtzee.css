@@ -162,6 +162,9 @@ small {
 	font-size: 0.8em;
 }
 
+*[hidden]{
+	display: none;
+}
 
 /* Focus effect for a11y */
 *:focus-visible,
@@ -183,7 +186,6 @@ small {
 		outline-offset: 2px;
 	}
 }
-
 
 
 
