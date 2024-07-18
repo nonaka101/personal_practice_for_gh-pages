@@ -1,0 +1,1433 @@
+@charset "utf-8";
+
+/* ≡≡≡ Basement ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+	■ About
+---------------------------------------------------------------------- */
+
+:root {
+	/* Spacing with relative unit */
+	--space_0: 0.25rem;
+	--space_1: 0.5rem;
+	--space_2: 1rem;
+	--space_3: 1.5rem;
+	--space_5: 2.5rem;
+	--space_8: 4rem;
+	--space_13:6.5rem;
+
+	/* Primitive color */
+	--white: #ffffff;
+	--sea-1200: #00004F;
+	--sea-1100: #000060;
+	--sea-1000: #000071;
+	--sea-900: #0000be;
+	--sea-800: #0024ce;
+	--sea-700: #0031d8;
+	--sea-600: #003ee5;
+	--sea-500: #0946f1;
+	--sea-400: #4979f5;
+	--sea-300: #7096f8;
+	--sea-200: #9db7f9;
+	--sea-100: #c5d7fb;
+	--sea-50: #e8f1fe;
+	--sumi-1200: #000000;
+	--sumi-1100: #080808;
+	--sumi-1000: #111111;
+	--sumi-900: #1a1a1c;
+	--sumi-800: #414143;
+	--sumi-700: #626264;
+	--sumi-600: #757578;
+	--sumi-500: #949497;
+	--sumi-400: #b4b4b7;
+	--sumi-300: #d8d8db;
+	--sumi-200: #e8e8eb;
+	--sumi-100: #f1f1f4;
+	--sumi-50: #f8f8fb;
+	--forest-1200: #032213;
+	--forest-1100: #08351f;
+	--forest-1000: #0c472a;
+	--forest-900: #115a36;
+	--forest-800: #197a4b;
+	--forest-700: #1a8b56;
+	--forest-600: #259d63;
+	--forest-500: #2cac6e;
+	--forest-400: #51b883;
+	--forest-300: #71c598;
+	--forest-200: #9bd4b5;
+	--forest-100: #c2e5d1;
+	--forest-50: #e6f5ec;
+	--wood-1200: #662e00;
+	--wood-1100: #833b00;
+	--wood-1000: #9c4600;
+	--wood-900: #b65200;
+	--wood-800: #c16800;
+	--wood-700: #c87504;
+	--wood-600: #cd820a;
+	--wood-500: #d18d0f;
+	--wood-400: #d69c2b;
+	--wood-300: #dcac4d;
+	--wood-200: #e5c47f;
+	--wood-100: #efdbb1;
+	--wood-50: #f8f1e0;
+	--sun-1200: #640101;
+	--sun-1100: #890101;
+	--sun-1000: #af0000;
+	--sun-900: #d50000;
+	--sun-800: #ec0000;
+	--sun-700: #fa1606;
+	--sun-600: #ff220d;
+	--sun-500: #ff4b36;
+	--sun-400: #ff5838;
+	--sun-300: #ff7b5c;
+	--sun-200: #ffa28b;
+	--sun-100: #ffc8b8;
+	--sun-50: #ffe7e6;
+
+	/* Semantic color (Light mode) */
+	--sc_txt_body: var(--sumi-900);
+	--sc_txt_body__small: var(--sumi-1200);
+	--sc_txt_desc: var(--sumi-700);
+	--sc_txt_placeholder: var(--sumi-600);
+	--sc_txt_onFill: var(--white);
+	--sc_txt_link: var(--sea-800);
+	--sc_txt_link__hover: var(--sea-900);
+	--sc_txt_link__active: var(--sea-900);
+	--sc_txt_link__visited: var(--sea-900);
+	--sc_txt_alert: var(--sun-800);
+	--sc_txt_disabled: var(--sumi-500);
+	--sc_txt_icon: var(--sumi-900);
+	--sc_txt_btn__primary: var(--white);
+	--sc_txt_btn__secondary: var(--sea-800);
+	--sc_txt_btn__tertiary: var(--sea-800);
+	--sc_border_field: 1px solid var(--sumi-900);
+	--sc_border_divider: 1px solid var(--sumi-300);
+	--sc_border_focused: 2px solid var(--wood-600);
+	--sc_border_selected: 2px solid var(--sea-800);
+	--sc_border_disabled: 1px solid var(--sumi-300);
+	--sc_border_alert: 2px solid var(--sun-800);
+	--sc_bg_body__primary: var(--sumi-50);
+	--sc_bg_body__primaryRevert: var(--sumi-900);
+	--sc_bg_body__secondary: var(--sumi-200);
+	--sc_bg_body__tertiary: var(--sumi-100);
+	--sc_bg_btn__primary: var(--sea-800);
+	--sc_bg_btn__secondary: var(--sea-50);
+	--sc_bg_disabled: var(--sumi-500);
+	--sc_bg_alert: var(--sun-800);
+	--sc_bg_shadow: var(--sumi-700);
+}
+
+
+/* Semantic color(Dark mode) */
+@media (prefers-color-scheme: dark) {
+	:root {
+		--sc_txt_body: var(--white);
+		--sc_txt_body__small: var(--white);
+		--sc_txt_desc: var(--sumi-400);
+		--sc_txt_placeholder: var(--sumi-500);
+		--sc_txt_onFill: var(--white);
+		--sc_txt_link: var(--sea-300);
+		--sc_txt_link__hover: var(--sea-200);
+		--sc_txt_link__active: var(--sea-200);
+		--sc_txt_link__visited: var(--sea-200);
+		--sc_txt_alert: var(--sun-500);
+		--sc_txt_disabled: var(--sumi-600);
+		--sc_txt_icon: var(--white);
+		--sc_txt_btn__primary: var(--white);
+		--sc_txt_btn__secondary: var(--sea-300);
+		--sc_txt_btn__tertiary: var(--sea-300);
+		--sc_border_field: 1px solid var(--white);
+		--sc_border_divider: 1px solid var(--sumi-700);
+		--sc_border_focused: 2px solid var(--wood-600);
+		--sc_border_selected: 2px solid var(--sea-300);
+		--sc_border_disabled: 1px solid var(--sumi-300);
+		--sc_border_alert: 2px solid var(--sun-500);
+		--sc_bg_body__primary: var(--sumi-900);
+		--sc_bg_body__secondary: var(--sumi-700);
+		--sc_bg_body__tertiary: var(--sumi-800);
+		--sc_bg_btn__primary: var(--sea-300);
+		--sc_bg_btn__secondary: var(--sea-1200);
+		--sc_bg_disabled: var(--sumi-600);
+		--sc_bg_alert: var(--sun-500);
+		--sc_bg_shadow: var(--white);
+	}
+}
+
+/* Semantic color(Manualy light) */
+:root.is_lightMode {
+	--sc_txt_body: var(--sumi-900);
+	--sc_txt_body__small: var(--sumi-1200); /* 小さな文字用 */
+	--sc_txt_desc: var(--sumi-700);
+	--sc_txt_placeholder: var(--sumi-600);
+	--sc_txt_onFill: var(--white);
+	--sc_txt_link: var(--sea-800);
+	--sc_txt_link__hover: var(--sea-900);
+	--sc_txt_link__active: var(--sea-900);
+	--sc_txt_link__visited: var(--sea-900);
+	--sc_txt_alert: var(--sun-800);
+	--sc_txt_disabled: var(--sumi-500);
+	--sc_txt_icon: var(--sumi-900);
+	--sc_txt_btn__primary: var(--white);
+	--sc_txt_btn__secondary: var(--sea-800);
+	--sc_txt_btn__tertiary: var(--sea-800);
+	--sc_border_field: 1px solid var(--sumi-900);
+	--sc_border_divider: 1px solid var(--sumi-300);
+	--sc_border_focused: 2px solid var(--wood-600);
+	--sc_border_selected: 2px solid var(--sea-800);
+	--sc_border_disabled: 1px solid var(--sumi-300);
+	--sc_border_alert: 2px solid var(--sun-800);
+	--sc_bg_body__primary: var(--sumi-50);
+	--sc_bg_body__secondary: var(--sumi-200);
+	--sc_bg_body__tertiary: var(--sumi-100);
+	--sc_bg_btn__primary: var(--sea-800);
+	--sc_bg_btn__secondary: var(--sea-50);
+	--sc_bg_disabled: var(--sumi-500);
+	--sc_bg_alert: var(--sun-800);
+	--sc_bg_shadow: var(--sumi-700);
+}
+
+/* Semantic color(Manualy dark) */
+:root.is_darkMode {
+	--sc_txt_body: var(--white);
+	--sc_txt_body__small: var(--white);
+	--sc_txt_desc: var(--sumi-400);
+	--sc_txt_placeholder: var(--sumi-500);
+	--sc_txt_onFill: var(--white);
+	--sc_txt_link: var(--sea-300);
+	--sc_txt_link__hover: var(--sea-200);
+	--sc_txt_link__active: var(--sea-200);
+	--sc_txt_link__visited: var(--sea-200);
+	--sc_txt_alert: var(--sun-500);
+	--sc_txt_disabled: var(--sumi-600);
+	--sc_txt_icon: var(--white);
+	--sc_txt_btn__primary: var(--white);
+	--sc_txt_btn__secondary: var(--sea-300);
+	--sc_txt_btn__tertiary: var(--sea-300);
+	--sc_border_field: 1px solid var(--white);
+	--sc_border_divider: 1px solid var(--sumi-700);
+	--sc_border_focused: 2px solid var(--wood-600);
+	--sc_border_selected: 2px solid var(--sea-300);
+	--sc_border_disabled: 1px solid var(--sumi-300);
+	--sc_border_alert: 2px solid var(--sun-500);
+	--sc_bg_body__primary: var(--sumi-900);
+	--sc_bg_body__secondary: var(--sumi-700);
+	--sc_bg_body__tertiary: var(--sumi-800);
+	--sc_bg_btn__primary: var(--sea-300);
+	--sc_bg_btn__secondary: var(--sea-1100);
+	--sc_bg_disabled: var(--sumi-600);
+	--sc_bg_alert: var(--sun-500);
+	--sc_bg_shadow: var(--white);
+}
+
+
+
+*:where(:not(html, img, svg, audio):not(svg *)) {
+	all: unset;
+	display: revert;
+}
+
+*,
+::before,
+::after {
+	box-sizing: border-box;
+}
+
+h1,h2,h3,h4,h5,h6,
+li,
+th,
+td,
+div,
+span,
+code,
+pre,
+figcaption,
+caption,
+time,
+address,
+small,
+button,
+label,
+summary,
+p {
+	color: var(--sc_txt_body);
+}
+
+body {
+	background-color: var(--sc_bg_body__primary);
+}
+
+img {
+	max-width: 100%;
+}
+
+svg {
+	fill: currentcolor;
+}
+
+small {
+	font-size: 0.8em;
+}
+
+*[hidden]{
+	display: none;
+}
+
+/* Focus effect for a11y */
+*:focus-visible,
+.bl_dice:focus-within {
+	outline: var(--sc_border_focused);
+	outline-offset: 2px;
+	animation-name: focusEffect;
+	animation-duration: 0.3s;
+}
+
+@keyframes focusEffect {
+	from {
+		outline-width: 1px;
+		outline-offset: 8px;
+	}
+
+	to {
+		outline-width: 2px;
+		outline-offset: 2px;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ≡≡≡ ly_display ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+	■ About
+---------------------------------------------------------------------- */
+
+.ly_display {
+	--ly_footer:
+		"dice dice dice dice dice"
+		"dice dice dice dice dice"
+		"roll roll roll roll roll"
+		"sele sele sele sele sbmt";
+	--num_hBox: 7;
+	--num_wBox: 5;
+	--size_btn: min(
+		98dvw / var(--num_wBox),
+		98dvh / var(--num_hBox)
+	);
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: space-between;
+	gap: 0;
+	width: 98dvw;
+	height: 98dvh;
+	margin:1dvh 1dvw;
+}
+
+/* Left handed mode */
+.is_leftMode .ly_display {
+	--ly_footer:
+		"dice dice dice dice dice"
+		"dice dice dice dice dice"
+		"roll roll roll roll roll"
+		"sbmt sele sele sele sele";
+}
+
+/* Layout for landscape */
+@media (min-aspect-ratio: 7/5) {
+	.ly_display {
+		--ly_footer:
+			"dice dice dice dice dice roll roll"
+			"dice dice dice dice dice roll roll"
+			"sele sele sele sele sele sbmt sbmt";
+		--num_hBox: 5;
+		--num_wBox: 7;
+	}
+
+	.is_leftMode .ly_display {
+		--ly_footer:
+			"roll roll dice dice dice dice dice"
+			"roll roll dice dice dice dice dice"
+			"sbmt sbmt sele sele sele sele sele";
+	}
+}
+
+.ly_display_header {
+	display: block;
+}
+
+.ly_display_main {
+	display: flex;
+	border: var(--sc_border_divider);
+	background-color: var(--sc_bg_body__primaryRevert);
+	flex-grow: 1;
+	justify-content: center;
+	align-items: center;
+}
+
+.ly_display_footer {
+	display: block;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ≡≡≡ ly_display ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+	■ Footer (form) layout
+---------------------------------------------------------------------- */
+
+.ly_footer {
+	display: grid;
+	gap: 2px 4px;
+	grid-template-areas:var(--ly_footer);
+}
+
+.ly_footer_diceContainer {
+	grid-area: dice;
+}
+
+.ly_footer_rollBtn {
+	grid-area: roll;
+	display: flex;
+	align-items: center;
+}
+
+.ly_footer_select{
+	grid-area: sele;
+}
+
+.ly_footer_submit {
+	grid-area: sbmt;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ≡≡≡ ly_dialog ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+	■ About
+---------------------------------------------------------------------- */
+
+/* ダイアログ表示中は、裏側にあるページをスクロールさせない */
+html:has(dialog[open]) {
+	overflow: hidden;
+}
+
+/* `max-*` は、デフォルトのスタイル（例：`dialog:-internal-dialog-in-top-layer`）を上書きするため */
+.ly_dialog {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100dvw;
+	max-width: 100dvw;
+	min-height: 100dvh;
+	max-height: 100dvh;
+	border: none;
+	background-color: var(--sc_bg_body__primary);
+	display: flex;
+	flex-flow: column nowrap;
+	overflow-y: auto;
+}
+
+.ly_dialog:not([open]) {
+	display: none;
+}
+
+.ly_dialog_body {
+	max-width: 1024px;
+	padding: 0 16px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ≡≡≡ bl_header ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+	■ About
+---------------------------------------------------------------------- */
+
+.bl_header {
+	display: flex;
+	flex-flow: row nowrap;
+	height: var(--size_btn);
+	align-items: center;
+	gap: 0 4px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ≡≡≡ bl_logo ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+	■ About
+---------------------------------------------------------------------- */
+
+.bl_logo {
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+	justify-content: center;
+}
+
+.bl_logo > svg {
+	height: auto;
+	width: clamp(75%, 50dvw, 1024px) ;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ≡≡≡ bl_setting ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+	■ About
+---------------------------------------------------------------------- */
+
+.bl_setting_unit {
+	padding: 12px;
+	border: var(--sc_border_field);
+}
+
+.bl_setting {
+	display: flex;
+	flex-flow: row wrap;
+	margin: 8px 0;
+	gap: 0.2rem;
+}
+
+.bl_setting.bl_setting__select {
+}
+
+.bl_setting.bl_setting__chk {
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ≡≡≡ bl_result ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+	■ About
+---------------------------------------------------------------------- */
+
+.bl_result {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-around;
+	gap: 2dvh 4dvw;
+}
+
+.bl_result > .bl_result_unit {
+	display: flex;
+	flex-flow: row nowrap;
+	overflow-x: auto;
+	overflow-y: hidden;
+	height: var(--size_btn);
+	align-items: center;
+	gap: 0 8px;
+	border: 1px solid var(--white);
+	padding: 4px 16px 4px 4px;
+	border-radius: max(min(4px, calc(40px - 100%) * 9999),
+			min(8px, calc(100% - 40px) * 9999, calc(120px - 100%) * 9999),
+			min(12px, calc(100% - 120px) * 9999));
+	background-color: var(--sc_bg_body__primary);
+}
+.bl_result > .bl_result_unit > span {
+	font-size: calc(var(--size_btn) * 0.5);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ≡≡≡ bl_dice ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+	■ About
+---------------------------------------------------------------------- */
+
+.bl_dice_wrapper {
+	display: flex;
+	height: calc(var(--size_btn) * 1.1);
+	flex-flow: row nowrap;
+	justify-content: center;
+	align-items: center;
+}
+
+.bl_dice {
+	cursor: pointer;
+	line-height: 1;
+	letter-spacing: 0;
+	flex: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: var(--size_btn);
+	width: var(--size_btn);
+	padding: 0;
+	text-align: center;
+}
+
+.bl_dice > svg {
+	height: calc(var(--size_btn) * 0.9);
+	width: calc(var(--size_btn) * 0.9);
+}
+
+.bl_dice:has(:checked) {
+	background:
+		linear-gradient(
+			90deg,
+			#d40000 0%,
+			#d40000 2%,
+			transparent 2%,
+			transparent 98%,
+			#d40000 98%,
+			#d40000 100%
+		),
+		linear-gradient(
+			0deg,
+			#d40000 0%,
+			#d40000 2%,
+			transparent 2%,
+			transparent 98%,
+			#d40000 98%,
+			#d40000 100%
+		);
+	position: relative;
+}
+
+.bl_dice:has(:checked)::after {
+	position: absolute;
+	bottom: 0;
+	width: calc(var(--size_btn) * 0.3);
+	height: calc(var(--size_btn) * 0.3);
+	content: "";
+	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 48 48' fill='%23d40000' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m21 3c-12 0-12 12-12 12v2.4199h-2.4199c-1.9835 0-3.5801 1.5966-3.5801 3.5801v20.42c0 1.9835 1.5966 3.5801 3.5801 3.5801h34.84c1.9835 0 3.5801-1.5966 3.5801-3.5801v-20.42c0-1.9835-1.5966-3.5801-3.5801-3.5801h-2.4199v-2.4199c0-12-12-12-12-12zm0 6h6c6 0 6 6 6 6v2.4199h-18v-2.4199c0-6 6-6 6-6z' stroke-width='2.144'/%3E%3Cpath d='m24 21a6 6 0 0 0-6 6 6 6 0 0 0 4.3203 5.7598l-1.3203 9.2402h6l-1.3203-9.2402a6 6 0 0 0 4.3203-5.7598 6 6 0 0 0-6-6z' fill='%23fff' stroke-width='2'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.bl_dice>span {
+	color: var(--sc_txt_body);
+}
+
+.bl_dice:has(:checked)>span {
+	color: var(--sc_txt_disabled);
+}
+
+.bl_dice_chkbox {
+	appearance: none;
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	clip-path: inset(100%);
+}
+
+/* Roll effect (controled by JavaScript) */
+.js_anime_roll {
+	animation-duration: 0.5s;
+	animation-name: rollEffect;
+}
+
+@keyframes rollEffect {
+	from {
+		transform: translateY(0);
+		opacity: 1;
+	}
+
+	20% {
+		transform: translateY(-3dvh);
+		opacity: 0;
+	}
+
+	21% {
+		transform: translateY(5dvh);
+	}
+
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ≡≡≡ bl_select ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+	■ About
+---------------------------------------------------------------------- */
+
+.bl_select {
+	display: flex;
+	flex-flow: row nowrap;
+	cursor: pointer;
+	height: calc(var(--size_btn) * 0.9);
+	position: relative;
+	flex-grow: 1;
+}
+
+/* Remove styles of the "User-Agent-Stylesheet" for select element */
+.bl_select>select::-ms-expand {
+	display: none;
+}
+
+.bl_select > select {
+	width: 100%;
+	color: var(--sc_txt_body);
+	text-indent: 1ch;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	font-size: 4dvw;
+	background-color: var(--sc_bg_body__primary);
+	border: var(--sc_border_field);
+	border-radius: max(min(4px, calc(40px - 100%) * 9999),
+			min(8px, calc(100% - 40px) * 9999, calc(120px - 100%) * 9999),
+			min(12px, calc(100% - 120px) * 9999));
+	align-items: center;
+}
+
+.bl_select::after {
+	position: absolute;
+	align-self: center;
+	right: 2dvw;
+	display: flexbox;
+	width: 4dvw;
+	height: 4dvw;
+	content: "";
+	background-image: url('data:image/svg+xml;utf-8,<svg viewBox="0 0 24 24" fill="black" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.1L3 8L4 7L12 15L20 7L21 8L12 17.1Z"/></svg>');
+}
+
+/* Styles for manualy color mode */
+@media (prefers-color-scheme: dark) {
+	.bl_select::after {
+		filter: invert(1);
+	}
+
+	.is_lightMode .bl_select::after {
+		filter: invert(0);
+	}
+}
+
+.is_darkMode .bl_select::after {
+	filter: invert(1);
+}
+
+.bl_select>select:disabled {
+	pointer-events: none;
+	border: var(--sc_border_disabled);
+}
+
+
+@media (max-width: 200px) {
+	.bl_select::after {
+		display: none;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ≡≡≡ bl_menuHeader ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+	■ About
+---------------------------------------------------------------------- */
+
+.bl_menuHeader {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding-bottom: 8px;
+	margin-bottom: 16px;
+}
+
+.ly_dialog > .bl_menuHeader + * {
+	margin-top: 0;
+}
+
+.bl_menuHeader_title {
+	padding: 0;
+	margin: 0;
+	font-size: 1.75rem;
+	line-height: 1.5;
+}
+
+.bl_menuHeader_btnIcon {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-evenly;
+	width: 2.625rem;
+	height: 2.625rem;
+	padding: 0;
+	margin: 0;
+	color: var(--sc_txt_body);
+	text-decoration: none;
+	cursor: pointer;
+	background: none;
+	border: none;
+}
+
+.bl_menuHeader_btnIcon>svg {
+	width: 1.625rem;
+	height: 1.625rem;
+}
+
+.bl_menuHeader_btnIcon>span {
+	font-size: 0.7rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ≡≡≡ bl_table ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+	■ About
+		Table element
+		table
+			thead > tr > th
+			tbody > tr > th | td
+	■ How-to use
+		Wrap the table element with a `div`, and add a class to the `div`.
+	■ Variation
+		bl_table : ベース
+		┃
+		┣┳ bl_table__horizontal : Column headings fixed (* Table height is limited to 75dvh)
+		┃┣ bl_table__vertical : Row headings fixed (* Scrolling in line direction is permitted after 768px [e.g., iPad portrait screen])
+		┃┗ bl_table__cross : Matrix heading fixed (inherits the features of both above)
+		┃
+		┗┳ bl_table__wide : Tables that are wide and require scrolling to a screen width of 960px
+		　┗ bl_table__exWide : Tables that are very wide and require scrolling to a screen width of 1200px
+---------------------------------------------------------------------- */
+
+.bl_table {
+	border: var(--sc_border_divider);
+}
+
+.bl_table>table {
+	width: 100%;
+	text-align: center;
+	table-layout: fixed;
+	border-collapse: collapse;
+}
+
+.bl_table th {
+	padding: 8px;
+	background-color: var(--sc_bg_body__tertiary);
+	border-right: var(--sc_border_divider);
+	border-bottom: var(--sc_border_divider);
+	font-weight: 700;
+	vertical-align: middle;
+}
+
+.bl_table td {
+	padding: 8px;
+	border-right: var(--sc_border_divider);
+	border-bottom: var(--sc_border_divider);
+	vertical-align: middle;
+}
+
+/* 右端と下端のセルに対し、それぞれの border を消す
+* この状況下では、div側が担保 */
+.bl_table th:last-child,
+.bl_table td:last-child {
+	border-right-width: 0;
+}
+
+.bl_table tbody tr:last-child th,
+.bl_table tbody tr:last-child td {
+	border-bottom-width: 0;
+}
+
+/* 行が大量で見出し固定が必要なケース
+ * この場合 Sticky 化するために高さに制限を設け、スクロールを許可する */
+.bl_table.bl_table.bl_table__vertical,
+.bl_table.bl_table__cross {
+	max-height: 75dvh;
+	height: max-content;
+	overflow-y: auto;
+}
+
+.bl_table.bl_table__vertical thead th,
+.bl_table.bl_table__cross thead th {
+	position: -webkit-sticky;
+	position: sticky;
+	top: 0;
+	z-index: 1;
+}
+
+/* 表側頭 をテーブル内最上段に置き、スクロールの際の表示を確保 */
+.bl_table.bl_table__vertical thead th:first-child,
+.bl_table.bl_table__cross thead th:first-child {
+	z-index: 2;
+}
+
+@media screen and (max-width: 768px) {
+
+	/* 右端と下端の border を消す
+	* この状況下では、セル側が担保する。
+ * こうすることで、スクロールしないと border を見えないようしている */
+	.bl_table:not(.bl_table__wide):not(.bl_table__exWide) {
+		border-right-width: 0;
+		overflow-x: auto;
+	}
+
+	.bl_table:not(.bl_table__wide):not(.bl_table__exWide) table {
+		width: auto;
+		min-width: 100%;
+	}
+
+	.bl_table:not(.bl_table__wide):not(.bl_table__exWide) th,
+	.bl_table:not(.bl_table__wide):not(.bl_table__exWide) td {
+		white-space: nowrap;
+	}
+
+	.bl_table:not(.bl_table__wide):not(.bl_table__exWide) th:last-child,
+	.bl_table:not(.bl_table__wide):not(.bl_table__exWide) td:last-child {
+		border-right-width: 1px;
+	}
+
+	.bl_table.bl_table__horizontal:not(.bl_table__wide):not(.bl_table__exWide) th:first-child,
+	.bl_table.bl_table__cross:not(.bl_table__wide):not(.bl_table__exWide) th:first-child {
+		position: -webkit-sticky;
+		position: sticky;
+		left: 0;
+	}
+}
+
+@media screen and (max-width: 960px) {
+	.bl_table.bl_table__wide {
+		border-right-width: 0;
+		overflow-x: auto;
+	}
+
+	.bl_table.bl_table__wide table {
+		width: auto;
+		min-width: 100%;
+	}
+
+	.bl_table.bl_table__wide th,
+	.bl_table.bl_table__wide td {
+		white-space: nowrap;
+	}
+
+	.bl_table.bl_table__wide th:last-child,
+	.bl_table.bl_table__wide td:last-child {
+		border-right-width: 1px;
+	}
+
+	.bl_table.bl_table__horizontal.bl_table__wide th:first-child,
+	.bl_table.bl_table__cross.bl_table__wide th:first-child {
+		position: -webkit-sticky;
+		position: sticky;
+		left: 0;
+	}
+}
+
+@media screen and (max-width: 1200px) {
+	.bl_table.bl_table__exWide {
+		border-right-width: 0;
+		overflow-x: auto;
+	}
+
+	.bl_table.bl_table__exWide table {
+		width: auto;
+		min-width: 100%;
+	}
+
+	.bl_table.bl_table__exWide th,
+	.bl_table.bl_table__exWide td {
+		white-space: nowrap;
+	}
+
+	.bl_table.bl_table__exWide th:last-child,
+	.bl_table.bl_table__exWide td:last-child {
+		border-right-width: 1px;
+	}
+
+	.bl_table.bl_table__horizontal.bl_table__exWide th:first-child,
+	.bl_table.bl_table__cross.bl_table__exWide th:first-child {
+		position: -webkit-sticky;
+		position: sticky;
+		left: 0;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Secondary button with svg-icon */
+.bl_iconBtn {
+	flex-grow: 0;
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+	width: calc(var(--size_btn) * 0.9);
+	height: calc(var(--size_btn) * 0.9);
+	padding: 0;
+	margin: 0;
+	cursor: pointer;
+	background: none;
+	border: 2px solid transparent;
+	border-radius: max(min(4px, calc(40px - 100%) * 9999),
+			min(8px, calc(100% - 40px) * 9999, calc(120px - 100%) * 9999),
+			min(12px, calc(100% - 120px) * 9999));
+	color: var(--sc_txt_btn__secondary);
+	text-decoration: none;
+	border-color: currentcolor;
+}
+
+.bl_iconBtn > svg {
+	height: calc(var(--size_btn) * 0.5);
+	width: calc(var(--size_btn) * 0.5);
+}
+
+.bl_iconBtn > span {
+	font-size: calc(var(--size_btn) * 0.2);
+	color: var(--sc_txt_btn__secondary);
+}
+
+/* Variation of iconBtn(icon positioned backward) */
+.bl_iconBtn.bl_iconBtn__horizontal {
+	flex-flow: row nowrap;
+	width: auto;
+	padding: 0 4px;
+}
+
+.bl_iconBtn.bl_iconBtn__horizontal > svg {
+	height:  calc(var(--size_btn) * 0.2);
+	width:  calc(var(--size_btn) * 0.2);
+	align-self: flex-end;
+}
+
+.bl_iconBtn.bl_iconBtn__horizontal > span {
+	font-size: calc(var(--size_btn) * 0.7);
+	color: var(--sc_txt_btn__secondary);
+	line-height: 1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.el_btn {
+	flex-grow: 0;
+	display: block;
+	align-items: center;
+	text-align: center;
+	width: 100%;
+	height: calc(var(--size_btn) * 0.9);
+	padding: 0;
+	margin: 0;
+	cursor: pointer;
+	border-radius: max(min(4px, calc(40px - 100%) * 9999),
+			min(8px, calc(100% - 40px) * 9999, calc(120px - 100%) * 9999),
+			min(12px, calc(100% - 120px) * 9999));
+	font-size: 4dvw;
+	border: 2px solid transparent;
+	text-decoration: none;
+	background: none;
+}
+
+.el_btn.el_btn__primary {
+	color: var(--sc_txt_btn__primary);
+	background-color: var(--sc_bg_btn__primary);
+}
+
+.el_btn.el_btn__secondary {
+	color: var(--sc_txt_btn__secondary);
+	background-color: transparent;
+	border-color: currentcolor;
+}
+
+.el_btn.el_btn__secondary > span {
+	color: var(--sc_txt_btn__secondary);
+}
+
+.el_btn.el_btn__secondary:disabled,
+.el_btn.el_btn__secondary:disabled > span {
+	color: var(--sc_txt_disabled);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ≡≡≡ ☐ el_heading_lv* ☐ ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+	■ 概要
+		見出し
+---------------------------------------------------------------------------- */
+
+.el_heading_lv1 {
+	margin-top: var(--space_8);
+	margin-bottom: var(--space_3);
+	font-size: 2rem;
+	font-weight: 500;
+	line-height: 1.5;
+	letter-spacing: 0.04em;
+}
+
+@media (min-width: 960px) {
+	.el_heading_lv1 {
+		font-size: 2.25rem;
+		font-weight: 400;
+		line-height: 1.4;
+	}
+}
+
+.el_heading_lv2 {
+	margin-top: var(--space_8);
+	margin-bottom: var(--space_3);
+	font-size: 1.75rem;
+	font-weight: 500;
+	line-height: 1.5;
+	letter-spacing: 0.04em;
+}
+
+@media (min-width: 960px) {
+	.el_heading_lv2 {
+		font-size: 2rem;
+		font-weight: 400;
+	}
+}
+
+.el_heading_lv3 {
+	margin-top: var(--space_5);
+	margin-bottom: var(--space_3);
+	font-size: 1.5rem;
+	font-weight: 500;
+	line-height: 1.5;
+	letter-spacing: 0.04em;
+}
+
+@media (min-width: 960px) {
+	.el_heading_lv3 {
+		font-size: 1.75rem;
+		font-weight: 400;
+	}
+}
+
+.el_heading_lv4 {
+	margin-top: var(--space_5);
+	margin-bottom: var(--space_2);
+	font-size: 1.25rem;
+	font-weight: 500;
+	line-height: 1.5;
+	letter-spacing: 0.04em;
+}
+
+@media (min-width: 960px) {
+	.el_heading_lv4 {
+		font-size: 1.5rem;
+		font-weight: 400;
+	}
+}
+
+.el_heading_lv5 {
+	margin-top: var(--space_5);
+	margin-bottom: var(--space_2);
+	font-size: 1rem;
+	font-weight: 500;
+	line-height: 1.7;
+	letter-spacing: 0.04em;
+}
+
+@media (min-width: 960px) {
+	.el_heading_lv5 {
+		font-size: 1.25rem;
+		font-weight: 400;
+		line-height: 1.5;
+	}
+}
+
+.el_heading_lv6 {
+	margin-top: var(--space_3);
+	margin-bottom: var(--space_2);
+	font-size: 1rem;
+	font-weight: 400;
+	line-height: 1.7;
+	letter-spacing: 0.04em;
+}
+
+@media (min-width: 960px) {
+	.el_heading_lv6 {
+		font-size: 1rem;
+		font-weight: 500;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ≡≡≡ ☐ el_link ☐ ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+	■ 概要
+		リンク要素
+---------------------------------------------------------------------------- */
+.el_link {
+	color: var(--sc_txt_link);
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.el_link:active {
+	color: var(--sc_txt_link__active);
+}
+
+.el_link:visited {
+	color: var(--sc_txt_link__visited);
+}
+
+.el_link:hover {
+	color: var(--sc_txt_link__hover);
+}
+
+.el_link > svg {
+	color: var(--sc_txt_body);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ≡≡≡ hp_srOnly(ScreenReaderOnly) ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+	■ Element for screen reader
+---------------------------------------------------------------------- */
+
+.hp_srOnly {
+	position: absolute !important;
+	clip: rect(0 0 0 0) !important;
+	clip-path: inset(100%) !important;
+	width: 1px !important;
+	height: 1px !important;
+	margin: -1px !important;
+	overflow: hidden !important;
+	padding: 0 !important;
+	border: 0 !important;
+}
