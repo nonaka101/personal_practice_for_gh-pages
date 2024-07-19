@@ -164,6 +164,7 @@ const priorityA02 = [
 	SCORE_CATEGORIES.Full_house,
 	SCORE_CATEGORIES.Four_of_a_kind,
 	SCORE_CATEGORIES.Three_of_a_kind,
+	SCORE_CATEGORIES.Chance,
 	SCORE_CATEGORIES.Sixes,
 	SCORE_CATEGORIES.Fives,
 	SCORE_CATEGORIES.Fours,
