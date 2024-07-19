@@ -14,26 +14,6 @@ const TEMP_DIEFACES = Object.freeze({
 	6: document.querySelector('#js_dieFace_6'),
 });
 
-let url = new URL(document.location);
-let urlParams = url.searchParams;
-const enemyID = parseInt(urlParams.get('enemy_id')) || 0;
-const enemyList = ['検証用ダミー', 'CPU弱'];
-const selEnemy = document.querySelector('#js_decision_strategy');
-selEnemy.innerHTML = '';
-for (let i = 0; i < enemyList.length; i++){
-	const opt = document.createElement('option');
-	opt.value = i;
-	opt.text = enemyList[i];
-	if (enemyID === i) opt.selected = true;
-	selEnemy.add(opt, selEnemy.options.item(i));
-}
-
-// クエリ付きでリロードする関数（CPU変更や、ゲーム終了時に使用）
-function reloadWithQuery(){
-	urlParams.set('enemy_id', selEnemy.value);
-	window.location.href = url.href;
-}
-
 
 
 /*
@@ -294,20 +274,6 @@ soundEffects[2] = new Audio("./assets/se/roll_3.mp3");
 
 
 
-// Enemyの行動データ
-let enemyScore = [];
-switch(enemyID){
-	case 1:
-		for (let i = 0; i <= 12; i++) {
-			enemyScore.push([i, i]);
-		}
-		break;
-	default:	// 不明、もしくは0
-		for (let i = 0; i <= 12; i++) {
-			enemyScore.push([i, 0]);
-		}
-}
-
 
 class Controller {
 	constructor(player, form){
@@ -447,7 +413,10 @@ class Controller {
 const form = document.querySelector('#js_controller');
 const pName = 'プレイヤー1';
 const p1 = new Player(pName);
+
+/** enemyScore は、`fune-enemies.js` 側に格納 */
 const e1 = new Enemy(enemyList[enemyID], enemyScore);
+
 const gm = new GameMaster(p1, e1);
 
 let ctrl = new Controller(p1, form);

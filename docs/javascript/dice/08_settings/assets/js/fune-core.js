@@ -126,22 +126,7 @@ function zip(arr1, arr2) {
 	return result;
 }
 
-/**
- * 外側の次元要素をランダムな順番にする
- *
- * @param {[any]} arr - 1次以上の配列
- * @returns {[any]} 最も外にある次元要素がランダムな順番になった配列
- */
-function randomizeArray(arr) {
-  if (arr.length === 0) return arr;
 
-  // ランダムなインデックスを生成
-	for (let i = arr.length - 1; i > 0; i--) {
-		const j = Math.floor(Math.random() * (i + 1));
-		[arr[i], arr[j]] = [arr[j], arr[i]];
-	}
-	return arr;
-}
 
 /**
  * 5つのダイスから役を判定する。
