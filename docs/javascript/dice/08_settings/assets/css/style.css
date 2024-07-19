@@ -580,7 +580,10 @@ html:has(dialog[open]) {
 	gap: 0.2rem;
 }
 
-.bl_setting.bl_setting__select {
+.bl_setting.bl_setting__chk {
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
 }
 
 .bl_setting.bl_setting__chk > input{
@@ -609,6 +612,66 @@ html:has(dialog[open]) {
 	filter: invert(1);
 }
 
+.bl_setting.bl_setting__select {
+	display: flex;
+	flex-flow: row nowrap;
+	cursor: pointer;
+	height: 1.2rem;
+	position: relative;
+}
+
+/* Remove styles of the "User-Agent-Stylesheet" for select element */
+.bl_setting.bl_setting__select > select::-ms-expand {
+	display: none;
+}
+
+.bl_setting.bl_setting__select > select {
+	width: auto;
+	flex-grow: 1;
+	color: var(--sc_txt_body);
+	text-indent: 1ch;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	font-size: 0.9rem;
+	line-height: 1;
+	background-color: var(--sc_bg_body__primary);
+	border: var(--sc_border_field);
+	border-radius: 4px;
+	align-items: center;
+}
+
+.bl_setting.bl_setting__select::after {
+	position: absolute;
+	align-self: center;
+	right: 1ch;
+	display: flexbox;
+	width: 1rem;
+	height: 1rem;
+	content: "";
+	background-image: url('data:image/svg+xml;utf-8,<svg viewBox="0 0 24 24" fill="black" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.1L3 8L4 7L12 15L20 7L21 8L12 17.1Z"/></svg>');
+}
+
+/* Styles for manualy color mode */
+@media (prefers-color-scheme: dark) {
+	.bl_setting.bl_setting__select::after {
+		filter: invert(1);
+	}
+
+	.is_lightMode .bl_setting.bl_setting__select::after {
+		filter: invert(0);
+	}
+}
+
+.is_darkMode .bl_setting.bl_setting__select::after {
+	filter: invert(1);
+}
+
+@media (max-width: 200px) {
+	.bl_setting.bl_setting__select::after {
+		display: none;
+	}
+}
 
 
 
