@@ -1,3 +1,6 @@
+/** ボーナスに必要となるアッパーセクション合計値 */
+const NEED_UPPER_BONUS = 63;
+
 const SCORE_CATEGORIES = Object.freeze({
 	Aces: 0,
 	Twos: 1,
@@ -246,7 +249,8 @@ class PlayerUnit{
 				(! hasNull(this._score.slice(SCORE_CATEGORIES.Aces, SCORE_CATEGORIES.Sixes + 1)))
 			){
 				// Aces から Sixes までの合計値が 63以上の場合は35点、そうでなければ 0点
-				if(this._score.slice(SCORE_CATEGORIES.Aces, SCORE_CATEGORIES.Sixes + 1).reduce((a, b) => a + b, 0) >= 63){
+				const upperScore = this._score.slice(SCORE_CATEGORIES.Aces, SCORE_CATEGORIES.Sixes + 1).reduce((a, b) => a + b, 0);
+				if(upperScore >= NEED_UPPER_BONUS){
 					this._score[SCORE_CATEGORIES.Upper_bonus] = 35;
 				} else {
 					this._score[SCORE_CATEGORIES.Upper_bonus] = 0;
