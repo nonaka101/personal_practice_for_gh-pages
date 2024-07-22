@@ -1,0 +1,17 @@
+{
+  "lang": "ja",
+  "dir": "ltr",
+  "name": "FUNE : ダイスゲーム",
+  "short_name": "FUNE",
+  "scope": "https://nonaka101.github.io/fune-dice-game/",
+  "start_url": "./index-ja.html",
+	"display": "standalone",
+  "icons": [
+		{ "src": "./icon-192x192.png", "sizes": "192x192", "type": "image/png" },
+		{ "src": "./icon-512x512.png", "sizes": "512x512", "type": "image/png" },
+		{ "src": "./icon-150x150.svg",
+			"sizes": "48x48 72x72 96x96 128x128 150x150 256x256 512x512",
+			"type": "image/svg+xml", "purpose": "any"
+		}
+	]
+}

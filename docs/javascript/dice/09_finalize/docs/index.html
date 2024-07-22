@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>FUNE : dice game</title>
+	<link rel="stylesheet" href="./assets/css/style.css">
+
+	<!-- DieFace SVGs -->
+	<template id="js_dieFace_1">
+		<svg role="graphics-symbol img" aria-hidden="true" aria-label="1" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+			width="24" height="24">
+			<rect x="3" y="3" width="42" height="42" ry="3" fill="none" stroke="currentColor" stroke-linecap="round"
+				stroke-linejoin="round" stroke-width="2" />
+			<circle cx="24" cy="24" r="6" fill="#cc3333" />
+		</svg>
+	</template>
+	<template id="js_dieFace_2">
+		<svg role="graphics-symbol img" aria-hidden="true" aria-label="2" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+			width="24" height="24">
+			<rect x="3" y="3" width="42" height="42" ry="3" fill="none" stroke="currentColor" stroke-linecap="round"
+				stroke-linejoin="round" stroke-width="2" />
+			<circle cx="13.5" cy="13.5" r="4.5" />
+			<circle cx="34.5" cy="34.5" r="4.5" />
+		</svg>
+	</template>
+	<template id="js_dieFace_3">
+		<svg role="graphics-symbol img" aria-hidden="true" aria-label="3" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+			width="24" height="24">
+			<rect x="3" y="3" width="42" height="42" ry="3" fill="none" stroke="currentColor" stroke-linecap="round"
+				stroke-linejoin="round" stroke-width="2" />
+			<circle cx="13.5" cy="13.5" r="4.5" />
+			<circle cx="34.5" cy="34.5" r="4.5" />
+			<circle cx="24" cy="24" r="4.5" />
+		</svg>
+	</template>
+	<template id="js_dieFace_4">
+		<svg role="graphics-symbol img" aria-hidden="true" aria-label="4" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+			width="24" height="24">
+			<rect x="3" y="3" width="42" height="42" ry="3" fill="none" stroke="currentColor" stroke-linecap="round"
+				stroke-linejoin="round" stroke-width="2" />
+			<circle cx="13.5" cy="13.5" r="4.5" />
+			<circle cx="34.5" cy="34.5" r="4.5" />
+			<circle cx="13.5" cy="34.5" r="4.5" />
+			<circle cx="34.5" cy="13.5" r="4.5" />
+		</svg>
+	</template>
+	<template id="js_dieFace_5">
+		<svg role="graphics-symbol img" aria-hidden="true" aria-label="5" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+			width="24" height="24">
+			<rect x="3" y="3" width="42" height="42" ry="3" fill="none" stroke="currentColor" stroke-linecap="round"
+				stroke-linejoin="round" stroke-width="2" />
+			<circle cx="13.5" cy="13.5" r="4.5" />
+			<circle cx="34.5" cy="34.5" r="4.5" />
+			<circle cx="24" cy="24" r="4.5" />
+			<circle cx="13.5" cy="34.5" r="4.5" />
+			<circle cx="34.5" cy="13.5" r="4.5" />
+		</svg>
+	</template>
+	<template id="js_dieFace_6">
+		<svg role="graphics-symbol img" aria-hidden="true" aria-label="6" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+			width="24" height="24">
+			<rect x="3" y="3" width="42" height="42" ry="3" fill="none" stroke="currentColor" stroke-linecap="round"
+				stroke-linejoin="round" stroke-width="2" />
+			<circle cx="13.5" cy="10.5" r="4.5" />
+			<circle cx="13.5" cy="37.5" r="4.5" />
+			<circle cx="34.5" cy="37.5" r="4.5" />
+			<circle cx="34.5" cy="10.5" r="4.5" />
+			<circle cx="13.5" cy="24" r="4.5" />
+			<circle cx="34.5" cy="24" r="4.5" />
+		</svg>
+	</template>
+</head>
+
+<body class="ly_display">
+	<header class="ly_display_header">
+		<div class="bl_header">
+			<button type="button" class="bl_iconBtn js_btnShowDialog" aria-controls="js_infoDialog">
+				<svg role="graphics-symbol img" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 48 48" width="48" height="48">
+					<circle cx="24" cy="10.75" r="3.75"/>
+					<rect x="21" y="18" width="6" height="24" ry="0"/>
+				</svg>
+				<span>インフォ</span>
+			</button>
+			<dialog class="ly_dialog" id="js_infoDialog">
+				<div class="ly_dialog_body">
+					<div class="bl_menuHeader">
+						<h2 class="bl_menuHeader_title" id="about">
+							このページについて
+						</h2>
+						<button type="button" class="bl_menuHeader_btnIcon js_btnCloseDialog"
+							aria-controls="js_infoDialog" aria-describedby="about">
+							<svg role="graphics-symbol img" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 24 24" width="24" height="24">
+								<path transform="rotate(45)"
+									d="m4.9705-2.0012v4.0023h9.9989v9.9989h4.0023v-9.9989h9.9989v-4.0023h-9.9989v-9.9989h-4.0023v9.9989h-9.9989z" />
+							</svg>
+							<span>閉じる</span>
+						</button>
+					</div><!-- /.bl_menuHeader -->
+					<figure class="bl_logo">
+						<svg version="1.1" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+							aria-label="FUNE Dice Game" viewBox="0 0 156 52" height="52" width="156">
+							<path d="m25.844 1.957a24 24 0 0 0-23.566 19.5h1.5312a22.5 22.5 0 0 1 22.035-18 22.5 22.5 0 0 1 22.5 22.5 22.5 22.5 0 0 1-22.5 22.5 22.5 22.5 0 0 1-22.293-19.5h-1.5137a24 24 0 0 0 23.807 21 24 24 0 0 0 24-24 24 24 0 0 0-24-24zm29.049 0.085938v22.258h1.8555v-11.129h20.4v-1.8555h-20.4v-7.418h20.4v-1.8555zm25.67 0v18.547s-4.15e-4 3.7109 3.709 3.7109h14.838s3.709-0.0015 3.709-3.7109v-18.547h-1.8555v18.547s1e-3 1.8555-1.8535 1.8555h-14.838s-1.8555-7.68e-4 -1.8555-1.8555v-18.547zm25.668 0v22.258h1.8555v-20.234l18.547 20.234h1.8555v-22.258h-1.8555v20.234l-18.547-20.234zm25.67 0v22.258h22.256v-1.8555h-20.402v-9.2734h20.402v-1.8555h-20.402v-7.418h20.402v-1.8555zm-106.06 2.9141a21 21 0 0 0-20.893 19.5h-3a24 24 0 0 0-0.10742 1.5h3a21 21 0 0 0 6.1719 14.828l1.0586-1.0586a19.5 19.5 0 0 1-5.7305-13.77h18v19.389a19.5 19.5 0 0 1-3.8496-0.66211l-0.41211 1.4414a21 21 0 0 0 5.7617 0.83203v-36h-12.418a19.5 19.5 0 0 1 12.418-4.5zm3 0.22461v17.775h1.5v-17.51a21 21 0 0 0-1.5-0.26562zm6.9551 2.2871-0.71094 1.3223a19.5 19.5 0 0 1 10.008 14.166h1.5117a21 21 0 0 0-10.809-15.488zm-23.961 4.9883h12.506v12h-17.893a19.5 19.5 0 0 1 5.3867-12zm3.5059 4.5c-0.831 0-1.5 0.669-1.5 1.5v1.5c0 0.831 0.669 1.5 1.5 1.5h1.5c0.831 0 1.5-0.669 1.5-1.5v-1.5c0-0.831-0.669-1.5-1.5-1.5zm13.5 10.5v19.277a21 21 0 0 0 17.934-19.277h-1.5039zm-13.5 1.5c-0.4155 0-0.75 0.3345-0.75 0.75v6c0 0.4155 0.3345 0.75 0.75 0.75h1.5c0.4155 0 0.75-0.3345 0.75-0.75v-6c0-0.4155-0.3345-0.75-0.75-0.75zm15 0h14.701a19.5 19.5 0 0 1-14.701 15.908zm20.785 0a25.5 25.5 0 0 1-0.23438 1.5h103.26v-1.5zm3.7637 5.877v15.209h10.139c1.2674 0 5.0703-2.5339 5.0703-7.6035 0-5.0696-3.8029-7.6055-5.0703-7.6055zm49.582 0s-2.5352 3.38e-4 -2.5352 2.5352v10.141s3.5e-4 2.5332 2.5352 2.5332h10.139s2.5352 0.0016 2.5352-2.5332v-3.8027h-6.3379v1.2676h5.0703v2.5352s-1.7e-4 1.2656-1.2676 1.2656h-10.139s-1.2676 0.0018-1.2676-1.2656v-10.141s1.7e-4 -1.2676 1.2676-1.2676h10.139s1.2676 1.7e-4 1.2676 1.2676v2.5352h1.2676v-2.5352s-3.4e-4 -2.5352-2.5352-2.5352zm-48.314 1.2676h8.4492c1.0562 0 4.2246 2.1132 4.2246 6.3379 0 4.2247-3.1684 6.3359-4.2246 6.3359h-8.4492zm16.637 1.2676a0.6337 0.6337 0 0 0-0.63281 0.63476 0.6337 0.6337 0 0 0 0.63281 0.63281 0.6337 0.6337 0 0 0 0.63477-0.63281 0.6337 0.6337 0 0 0-0.63477-0.63476zm-0.63281 2.5352v10.139h1.2676v-10.139zm5.8633 0s-2.5352 3.37e-4 -2.5352 2.5352v5.0703s3.37e-4 2.5332 2.5352 2.5332h7.6035v-1.2676h-7.6035s-1.2676 0.0018-1.2676-1.2656v-5.0703s1.68e-4 -1.2676 1.2676-1.2676h7.6035v-1.2676zm12.201 0s-2.5352 3.4e-4 -2.5352 2.5352v5.0703s3.4e-4 2.5332 2.5352 2.5332h5.0703s2.5332 0.0016 2.5332-2.5332h-1.2676s0.0018 1.2656-1.2656 1.2656h-5.0703s-1.2676 0.0018-1.2676-1.2656v-2.5352h8.8711v-2.5352s0.0016-2.5352-2.5332-2.5352zm31.229 0s-2.5352 3.43e-4 -2.5352 2.5352v5.0703s3.4e-4 2.5332 2.5352 2.5332h1.2676s3.221-6.78e-4 5.0703-2.2969v2.2969h1.2676v-7.6035s-3.5e-4 -2.5352-2.5352-2.5352zm9.3789 0v10.139h1.2676v-7.6035s1.6e-4 -1.2676 1.2676-1.2676h1.2676s1.2676 1.71e-4 1.2676 1.2676v7.6035h1.2676v-7.6035s1.7e-4 -1.2676 1.2676-1.2676h1.2656s1.2676 1.71e-4 1.2676 1.2676v7.6035h1.2676v-7.6035s-3.5e-4 -2.5352-2.5352-2.5352h-1.2656s-1.1556 0.0016-1.9062 0.78125c-0.37242-0.4355-0.96125-0.78125-1.8965-0.78125h-1.2676s-0.63386-4.47e-4 -1.2676 0.31641v-0.31641zm15.717 0s-2.5352 3.4e-4 -2.5352 2.5352v5.0703s3.3e-4 2.5332 2.5352 2.5332h5.0684s2.5352 0.0016 2.5352-2.5332h-1.2676s-1.7e-4 1.2656-1.2676 1.2656h-5.0684s-1.2676 0.0018-1.2676-1.2656v-2.5352h8.8711v-2.5352s-3.5e-4 -2.5352-2.5352-2.5352zm-56.324 1.2676h5.0703c1.2674 0 1.2656 1.2676 1.2656 1.2676v1.2676h-7.6035v-1.2676c0-1.2674 1.2676-1.2676 1.2676-1.2676zm31.229 0h5.0703c1.2674 0 1.2676 1.2676 1.2676 1.2676v1.2676c0 5.0696-5.0703 5.0684-5.0703 5.0684h-1.2676c-1.2674 0-1.2676-1.2656-1.2676-1.2656v-5.0703c0-1.2674 1.2676-1.2676 1.2676-1.2676zm25.096 0h5.0684c1.2674 0 1.2676 1.2676 1.2676 1.2676v1.2676h-7.6035v-1.2676c0-1.2674 1.2676-1.2676 1.2676-1.2676z"/>
+						</svg>
+					</figure>
+
+					<h3 class="el_heading_lv3">設定</h3>
+					<div class="bl_setting_unit">
+						<div class="bl_setting bl_setting__select">
+							<label for="js_setting_colorMode">
+								カラーモード
+							</label>
+							<select name="colorMode" id="js_setting_colorMode">
+								<option value=0>デフォルト</option>
+								<option value=1>ライト</option>
+								<option value=2>ダーク</option>
+							</select>
+						</div>
+						<!-- /.bl_setting.bl_setting__select -->
+						<div class="bl_setting bl_setting__select">
+							<label for="js_setting_fontSize">
+								フォントサイズ
+							</label>
+							<select name="fontSize" id="js_setting_fontSize">
+								<option value="0">デフォルト</option>
+								<option value="10">10px</option>
+								<option value="16">16px</option>
+								<option value="24">24px</option>
+								<option value="32">32px</option>
+							</select>
+						</div>
+						<!-- /.bl_setting.bl_setting__select -->
+						<div class="bl_setting bl_setting__chk">
+							<input type="checkbox" name="direction" id="js_setting_isLeft">
+							<label for="js_setting_isLeft">左利き</label>
+						</div>
+						<!-- /.bl_setting.bl_setting__chk -->
+						<div class="bl_setting bl_setting__chk">
+							<input type="checkbox" name="sound" id="js_setting_enableSound">
+							<label for="js_setting_enableSound">音</label>
+						</div>
+						<!-- /.bl_setting.bl_setting__chk -->
+					</div><!-- /.bl_setting_unit -->
+
+					<h3 class="el_heading_lv3">概要</h3>
+					<p>
+						このページでは、Yacht ライクのダイスゲームを遊べます。
+						ゲームの説明等については、<a href="#" class="el_link">GitHub リポジトリ</a>を参照ください。
+					</p>
+					<h3 class="el_heading_lv3">リンク</h3>
+					<a href="#" class="el_link">
+						<svg role="graphics-symbol img" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+							width="1.25em" height="1.25em" viewBox="0 0 98 96"
+						>
+							<path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z" fill="currentColor"/>
+						</svg>
+						GitHub : nonaka101
+					</a>
+				</div><!-- /.ly_dialog_body -->
+			</dialog><!-- /.ly_dialog -->
+			<div class="bl_select">
+				<select class="bl_header_select" name="js_decision_strategy" id="js_decision_strategy">
+					<!-- 中身はJS側で管理 -->
+				</select>
+			</div><!-- /.bbl_select -->
+			<button type="button" id="js_reset" class="bl_iconBtn" onclick="reloadWithQuery()">
+				<svg role="graphics-symbol img" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 48 48" width="48" height="48">
+					<path
+						d="m24 5.25a21 21 0 0 0-21 21 21 21 0 0 0 4.7812 13.219l-3.2812 3.2812h9v-9l-3.6016 3.6016a18 18 0 0 1-3.8984-11.102 18 18 0 0 1 18-18 18 18 0 0 1 18 18 18 18 0 0 1-5.3047 12.695l2.1172 2.1172a21 21 0 0 0 6.1875-14.812 21 21 0 0 0-21-21z"
+						stroke-linecap="round" stroke-linejoin="round" />
+				</svg>
+				<span>リセット</span>
+			</button>
+		</div><!-- /.bl_header -->
+	</header><!-- /.ly_display_header -->
+
+	<main class="ly_display_main">
+		<ul class="bl_result">
+			<li class="bl_result_unit">
+				<button type="button" class="bl_iconBtn bl_iconBtn__horizontal js_btnShowDialog"
+					aria-controls="js_scoreDialog_player" aria-describedby="player_name">
+					<span class="js_player_totalScore"></span>
+					<small class="hp_srOnly">点 詳細</small>
+					<svg version="1.1" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+						<circle cx="18" cy="18" r="15" fill="none" stroke="currentColor" stroke-linecap="round"
+							stroke-linejoin="round" stroke-width="2" />
+						<path d="m27 30 1.5 1.5 1.5 4.5 9 9 6-6-9-9-4.5-1.5-1.5-1.5z" />
+					</svg>
+				</button>
+				<span class="bl_result_unitName js_player_name" id="player_name"></span>
+				<!-- /.bl_result_unitName -->
+				<dialog class="ly_dialog" id="js_scoreDialog_player">
+					<div class="ly_dialog_body">
+						<div class="bl_menuHeader">
+							<h2 class="bl_menuHeader_title" id="result_player">
+								<span class="js_player_name"></span>のスコア
+							</h2>
+							<button type="button" class="bl_menuHeader_btnIcon js_btnCloseDialog" aria-controls="js_scoreDialog_player"
+								aria-describedby="result_player">
+								<svg role="graphics-symbol img" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 24 24" width="24" height="24">
+									<path transform="rotate(45)"
+										d="m4.9705-2.0012v4.0023h9.9989v9.9989h4.0023v-9.9989h9.9989v-4.0023h-9.9989v-9.9989h-4.0023v9.9989h-9.9989z" />
+								</svg>
+								<span>閉じる</span>
+							</button>
+						</div><!-- /.bl_menuHeader -->
+						<div class="js_player_score"></div><!-- /.js_player_score -->
+					</div><!-- /.ly_dialog_body -->
+				</dialog><!-- /.ly_dialog -->
+			</li><!-- /.bl_result_unit -->
+			<li class="bl_result_unit">
+				<button type="button" class="bl_iconBtn bl_iconBtn__horizontal js_btnShowDialog"
+					aria-controls="js_scoreDialog_enemy" aria-describedby="enemy_name">
+					<span class="js_enemy_totalScore"></span>
+					<small class="hp_srOnly">点 詳細</small>
+					<svg version="1.1" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+						<circle cx="18" cy="18" r="15" fill="none" stroke="currentColor" stroke-linecap="round"
+							stroke-linejoin="round" stroke-width="2" />
+						<path d="m27 30 1.5 1.5 1.5 4.5 9 9 6-6-9-9-4.5-1.5-1.5-1.5z" />
+					</svg>
+				</button>
+				<span class="bl_result_unitName js_enemy_name" id="enemy_name"></span>
+				<!-- /.bl_result_unitName -->
+				<dialog class="ly_dialog" id="js_scoreDialog_enemy">
+					<div class="ly_dialog_body">
+						<div class="bl_menuHeader">
+							<h2 class="bl_menuHeader_title" id="result_enemy">
+								<span class="js_enemy_name"></span>のスコア
+							</h2>
+							<button type="button" class="bl_menuHeader_btnIcon js_btnCloseDialog" aria-controls="js_scoreDialog_enemy"
+								aria-describedby="result_enemy">
+								<svg role="graphics-symbol img" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 24 24" width="24" height="24">
+									<path transform="rotate(45)"
+										d="m4.9705-2.0012v4.0023h9.9989v9.9989h4.0023v-9.9989h9.9989v-4.0023h-9.9989v-9.9989h-4.0023v9.9989h-9.9989z" />
+								</svg>
+								<span>閉じる</span>
+							</button>
+						</div><!-- /.bl_menuHeader -->
+						<div class="js_enemy_score"></div><!-- /.js_enemy_score -->
+					</div><!-- /.ly_dialog_body -->
+				</dialog><!-- /.ly_dialog -->
+			</li><!-- /.bl_result_unit -->
+		</ul><!-- /.bl_result -->
+	</main><!-- /.ly_display_main -->
+
+	<footer class="ly_display_footer">
+		<form action="#" class="ly_footer" id="js_controller">
+			<div class="ly_footer_diceContainer">
+				<div id="js_dice" class="bl_dice_wrapper">
+				</div><!-- /.js_dice_wrapper -->
+			</div><!-- /.ly_footer_diceContainer -->
+			<div class="ly_footer_rollBtn">
+				<button type="button" id="js_roll" class="el_btn el_btn__secondary">
+					振る(<span id="js_roll_remain" aria-describedby="roll-desc">1</span>)
+					<span hidden id="roll-desc">残り回数</span>
+				</button><!-- /.el_btn.el_btn_roll -->
+				<output class="hp_srOnly" id="js_dice_output"
+					aria-describedby="js_dice_outputDesc"></output>
+				<span hidden id="js_dice_outputDesc">現ダイスの状態</span>
+			</div><!-- /.ly_footer_rollBtn -->
+			<div class="ly_footer_select">
+				<div class="bl_select">
+					<select name="js_decision_combination" id="js_decision_combination">
+					</select>
+				</div>
+				<!-- /.bl_select -->
+			</div><!-- /.ly_footer_select -->
+			<div class="ly_footer_submit">
+				<button type="submit" id="js_btn_submit" class="el_btn el_btn__primary" aria-describedby="js_decision_combination">
+					決定
+				</button>
+			</div><!-- /.ly_footer_submit -->
+			<!-- /.el_btn.el_btn_submit -->
+		</form><!-- /.ly_footer -->
+	</footer><!-- /.ly_display_footer -->
+	<dialog class="ly_dialog" id="js_resultDialog">
+		<div class="ly_dialog_body">
+			<div class="bl_menuHeader">
+				<h2 class="bl_menuHeader_title" id="result_player">ゲーム結果</h2>
+				<button type="button" class="bl_menuHeader_btnIcon"
+					aria-describedby="result_player" onclick="reloadWithQuery()">
+					<svg role="graphics-symbol img" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 48 48" width="48" height="48">
+						<path
+							d="m24 5.25a21 21 0 0 0-21 21 21 21 0 0 0 4.7812 13.219l-3.2812 3.2812h9v-9l-3.6016 3.6016a18 18 0 0 1-3.8984-11.102 18 18 0 0 1 18-18 18 18 0 0 1 18 18 18 18 0 0 1-5.3047 12.695l2.1172 2.1172a21 21 0 0 0 6.1875-14.812 21 21 0 0 0-21-21z"
+							stroke-linecap="round" stroke-linejoin="round" />
+					</svg>
+					<span style="font-size: 0.5em;">リセット</span>
+				</button>
+			</div><!-- /.bl_menuHeader -->
+			<h3 class="el_heading_lv2">
+				<span class="js_player_name"></span>のスコア：
+				<span class="js_player_totalScore"></span>
+			</h3>
+			<div class="js_player_score"></div>
+			<!-- /.js_player_score -->
+			<h3 class="el_heading_lv2">
+				<span class="js_enemy_name"></span>のスコア：
+				<span class="js_enemy_totalScore"></span>
+			</h3>
+			<div class="js_enemy_score"></div>
+			<!-- /.js_enemy_score -->
+		</div><!-- /.ly_dialog_body -->
+	</dialog>
+
+	<script src="./assets/js/fune-core.js"></script>
+	<script src="./assets/js/fune-utils.js"></script>
+	<script src="./assets/js/fune-enemies.js"></script>
+	<script src="./assets/js/fune-controller.js"></script>
+</body><!-- /.ly_display -->
+
+</html>
