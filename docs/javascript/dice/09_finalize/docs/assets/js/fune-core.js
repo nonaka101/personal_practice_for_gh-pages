@@ -292,10 +292,10 @@ class GameMaster {
 	constructor(player, enemy){
 		this._player = player;
 		this._enemy = enemy;
-		this._isFinished = false;
+		this._winner = undefined;
 	}
-	get isFinished(){
-		return this._isFinished;
+	get winner(){
+		return this._winner;
 	}
 	update(){
 		if(
@@ -312,14 +312,16 @@ class GameMaster {
 		switch (true) {
 			case (result > 0):
 				console.log(`${this._player.name} の勝利です`);
+				this._winner = this._player.name;
 				break;
 			case (result < 0):
 				console.log(`${this._enemy.name} の勝利です`);
+				this._winner = this._enemy.name;
 				break;
 			case (result === 0):
 				console.log("引き分けです");
+				this._winner = 'Draw';
 				break;
 		}
-		this._isFinished = true;
 	}
 }

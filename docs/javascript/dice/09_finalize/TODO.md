@@ -6,18 +6,19 @@
 
 1. [ ] `index.html` の完成（英語化等はまだ）
    1. [ ] ユニット名欄のスタイル（4dvw? rem使用？）
-   2. [ ] ScoreTableにUpperSectionもしくは別途場所に表示を
-   3. [ ] Result画面（勝敗が即座にわかるよう、ヘッダー下に何かしら？）
-   4. [ ] 用語統一（スコアとポイントとか、役名とか）
-   5. [ ] ポイント変更（成立確率から）
-   6. [ ] `dice` と `priority` から配列を返す関数 `calcScore()` を作る？
-   7. [ ] スコアオブジェクト
+   2. [ ] `dialog.bl_menuHeader` のスタイル（上部余白など）
+   3. [ ] ScoreTableにUpperSectionもしくは別途場所に表示を
+   4. [ ] Result画面（勝敗が即座にわかるよう、ヘッダー下に何かしら？）
+   5. [ ] 用語統一（スコアとポイントとか、役名とか）
+   6. [ ] ポイント変更（成立確率から）
+   7. [ ] `dice` と `priority` から配列を返す関数 `calcScore()` を作る？
+   8. [ ] スコアオブジェクト
       - `id`, `name`, `calcPoint` の３つ？
       - function `targetPoint()`, `totalPoint()`, `fixPoint()` 等を別途設け、`calcPoint` で指定？
       - 上記関数はダイス値を受け取り（fix は固定値も）、点数を計算させる？
       - `document.documentElement.lang // -> "en"` とわかるので、`name` は `ja`, `en` を用意？
-   8. [ ] エネミーの最初らへんをテーブル使用に置き換える、assignmentは消去
-   9. [ ] コンソールに出すのは選択されたものだけに？
+   9. [ ] エネミーの最初らへんをテーブル使用に置き換える、assignmentは消去
+   10. [ ] コンソールに出すのは選択されたものだけに？
 2. 日本語版として完成できたか確認
 3. `index-ja.html` にリネームし、英語版の `index.html` を生成、英語化
 4. スクショを取りつつ、`how-to-play.md` の作成（ja/en）

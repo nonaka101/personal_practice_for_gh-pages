@@ -434,8 +434,10 @@ const playerScoreTable = document.querySelectorAll('.js_player_score');
 const playerTotalScore = document.querySelectorAll('.js_player_totalScore');
 const enemyScoreTable = document.querySelectorAll('.js_enemy_score');
 const enemyTotalScore = document.querySelectorAll('.js_enemy_totalScore');
+const winnerName = document.querySelectorAll('.js_winner_name');
 
 function updateScore(){
+	// Refresh ScoreTable
 	for(const ele of playerTotalScore){
 		ele.textContent = p1.totalScore;
 	}
@@ -445,7 +447,7 @@ function updateScore(){
 	const scoreNames = Object.values(SCORE_NAMES);
 	for(const ele of playerScoreTable){
 		ele.innerHTML = '';
-		let pTable = [['点数', '役']];
+		let pTable = [['Point', 'Combinations']];
 		const p1score = p1.score;
 		for(i=0; i<14; i++) pTable.push([p1score[i], scoreNames[i]]);
 		const pTableElement = createTable(pTable,2);
@@ -453,7 +455,7 @@ function updateScore(){
 	}
 	for(const ele of enemyScoreTable){
 		ele.innerHTML = '';
-		let eTable = [['点数', '役']];
+		let eTable = [['Point', 'Combinations']];
 		const e1score = e1.score;
 		for(i=0; i<14; i++) eTable.push([e1score[i], scoreNames[i]]);
 		const eTableElement = createTable(eTable,2);
@@ -467,18 +469,22 @@ document.addEventListener('handover', (e) => {
 	let isPlayer = e.detail.isPlayer;
 	if (isPlayer) {
 		gm.update();
-		if (!gm.isFinished) {
+		if (!gm.winner) {
 			console.log(`${e1.name} のターンです。`);
 			e1.setDummyData();
 			ctrl = new Controller(p1, form);
 		} else {
+			// Result dialog update (when game is finished)
+			for(const ele of winnerName) ele.textContent = gm.winner;
 			resultDialog.showModal();
 		}
 	} else {
 		gm.update();
-		if (!gm.isFinished) {
+		if (!gm.winner) {
 			console.log(`${p1.name} のターンです。`);
 		} else {
+			// Result dialog update (when game is finished)
+			for(const ele of winnerName) ele.textContent = gm.winner;
 			resultDialog.showModal();
 		}
 	}
