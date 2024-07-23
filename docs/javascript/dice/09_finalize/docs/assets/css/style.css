@@ -476,8 +476,9 @@ html:has(dialog[open]) {
 }
 
 .ly_dialog_body {
+	width: 100%;
 	max-width: 1024px;
-	padding: 0 16px;
+	padding: 8px 16px 32px;
 	margin-right: auto;
 	margin-left: auto;
 }
@@ -689,18 +690,18 @@ html:has(dialog[open]) {
 
 
 
-/* ≡≡≡ bl_result ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+/* ≡≡≡ bl_scoreUnit ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
 	■ About
 ---------------------------------------------------------------------- */
 
-.bl_result {
+.bl_scoreUnit {
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: space-around;
 	gap: 2dvh 4dvw;
 }
 
-.bl_result > .bl_result_unit {
+.bl_scoreUnit_item {
 	display: flex;
 	flex-flow: row nowrap;
 	overflow-x: auto;
@@ -715,8 +716,9 @@ html:has(dialog[open]) {
 			min(12px, calc(100% - 120px) * 9999));
 	background-color: var(--sc_bg_body__primary);
 }
-.bl_result > .bl_result_unit > span {
-	font-size: calc(var(--size_btn) * 0.5);
+
+.bl_scoreUnit_name {
+	font-size: clamp(16px, calc(1rem + 3dvw), calc(var(--size_btn) * 0.5));
 }
 
 
@@ -954,6 +956,50 @@ html:has(dialog[open]) {
 
 
 
+
+/* ≡≡≡ bl_result ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+	■ About
+---------------------------------------------------------------------- */
+
+.bl_result {
+	display: flex;
+	flex-flow: column nowrap;
+	gap: 12px;
+	list-style-type: none;
+}
+
+.bl_result_item {
+	font-size: 1.25rem;
+	font-weight: 500;
+	line-height: 1.5;
+	letter-spacing: 0.04em;
+}
+
+@media (min-width: 960px) {
+	.bl_result_item {
+		font-size: 1.5rem;
+		font-weight: 400;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* ≡≡≡ bl_menuHeader ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
 	■ About
 ---------------------------------------------------------------------- */
@@ -961,14 +1007,13 @@ html:has(dialog[open]) {
 .bl_menuHeader {
 	display: flex;
 	flex-direction: row;
+	gap: 0 8px;
 	justify-content: space-between;
-	padding-bottom: 8px;
+	align-items: center;
 	margin-bottom: 16px;
-}
-
-.ly_dialog > .bl_menuHeader + * {
 	margin-top: 0;
 }
+
 
 .bl_menuHeader_title {
 	padding: 0;
@@ -981,9 +1026,11 @@ html:has(dialog[open]) {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: space-evenly;
+	justify-content: center;
 	width: 2.625rem;
 	height: 2.625rem;
+	min-width: 40px;
+	min-height: 40px;
 	padding: 0;
 	margin: 0;
 	color: var(--sc_txt_body);
@@ -993,13 +1040,15 @@ html:has(dialog[open]) {
 	border: none;
 }
 
-.bl_menuHeader_btnIcon>svg {
+.bl_menuHeader_btnIcon > svg {
 	width: 1.625rem;
 	height: 1.625rem;
+	min-width: 24px;
+	min-height: 24px;
 }
 
-.bl_menuHeader_btnIcon>span {
-	font-size: 0.7rem;
+.bl_menuHeader_btnIcon > span {
+	font-size: max(11px, 0.7rem);
 }
 
 

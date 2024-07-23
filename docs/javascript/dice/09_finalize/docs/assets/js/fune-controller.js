@@ -272,7 +272,11 @@ soundEffects[2] = new Audio("./assets/se/roll_3.mp3");
 
 
 
-
+// UpperBonus 取得条件（スコア値）を設定
+const needUpperBonus = document.querySelectorAll('.js_needScore_upperBonus');
+for(const ele of needUpperBonus){
+	ele.textContent = NEED_UPPER_BONUS;
+}
 
 
 class Controller {
@@ -432,18 +436,30 @@ for(const ele of enemyNames) ele.textContent = enemyList[enemyID];
 
 const playerScoreTable = document.querySelectorAll('.js_player_score');
 const playerTotalScore = document.querySelectorAll('.js_player_totalScore');
+const playerUpperScore = document.querySelectorAll('.js_player_upperScore');
 const enemyScoreTable = document.querySelectorAll('.js_enemy_score');
 const enemyTotalScore = document.querySelectorAll('.js_enemy_totalScore');
+const enemyUpperScore = document.querySelectorAll('.js_enemy_upperScore');
 const winnerName = document.querySelectorAll('.js_winner_name');
 
 function updateScore(){
-	// Refresh ScoreTable
+	// Refresh totalScore
 	for(const ele of playerTotalScore){
 		ele.textContent = p1.totalScore;
 	}
 	for(const ele of enemyTotalScore){
 		ele.textContent = e1.totalScore;
 	}
+
+	// Refresh upperScore
+	for(const ele of playerUpperScore){
+		ele.textContent = p1.upperScore;
+	}
+	for(const ele of enemyUpperScore){
+		ele.textContent = e1.upperScore;
+	}
+
+	// Refresh ScoreTable
 	const scoreNames = Object.values(SCORE_NAMES);
 	for(const ele of playerScoreTable){
 		ele.innerHTML = '';

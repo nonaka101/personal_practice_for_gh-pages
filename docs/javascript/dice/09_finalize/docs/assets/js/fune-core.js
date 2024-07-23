@@ -226,16 +226,25 @@ class PlayerUnit{
 		this._score = new Array(14).fill(null);
 		this._isPlayer = isPlayer;
 	}
+
 	get name(){
 		return this._name;
 	}
+
 	get score(){
 		return this._score;
 	}
+
+	get upperScore(){
+		// score前方にあるアッパーセクション部の合計値を算出
+		return this._score.slice(SCORE_CATEGORIES.Aces, SCORE_CATEGORIES.Sixes + 1).reduce((a, b) => a + b, 0);;
+	}
+
 	get totalScore(){
 		// Null値を除いたスコア合計を算出
 		return this._score.reduce((a, b) => a + b, 0);
 	}
+
 	setScore(index, point){
 		if(
 			(index >= SCORE_CATEGORIES.Aces && index <= SCORE_CATEGORIES.Chance) &&
@@ -243,14 +252,13 @@ class PlayerUnit{
 		){
 			this._score[index] = point;
 
-			// UpperBonus 判定
+			// UpperBonus 判定（確定前 かつ アッパーセクションに Null値なし）
 			if(
 				(this._score[SCORE_CATEGORIES.Upper_bonus] === null) &&
 				(! hasNull(this._score.slice(SCORE_CATEGORIES.Aces, SCORE_CATEGORIES.Sixes + 1)))
 			){
 				// Aces から Sixes までの合計値が 63以上の場合は35点、そうでなければ 0点
-				const upperScore = this._score.slice(SCORE_CATEGORIES.Aces, SCORE_CATEGORIES.Sixes + 1).reduce((a, b) => a + b, 0);
-				if(upperScore >= NEED_UPPER_BONUS){
+				if(this.upperScore >= NEED_UPPER_BONUS){
 					this._score[SCORE_CATEGORIES.Upper_bonus] = 35;
 				} else {
 					this._score[SCORE_CATEGORIES.Upper_bonus] = 0;

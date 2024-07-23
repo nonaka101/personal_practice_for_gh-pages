@@ -189,8 +189,8 @@
 	</header><!-- /.ly_display_header -->
 
 	<main class="ly_display_main">
-		<ul class="bl_result">
-			<li class="bl_result_unit">
+		<ul class="bl_scoreUnit">
+			<li class="bl_scoreUnit_item">
 				<button type="button" class="bl_iconBtn bl_iconBtn__horizontal js_btnShowDialog"
 					aria-controls="js_scoreDialog_player" aria-describedby="player_name">
 					<span class="js_player_totalScore"></span>
@@ -201,8 +201,8 @@
 						<path d="m27 30 1.5 1.5 1.5 4.5 9 9 6-6-9-9-4.5-1.5-1.5-1.5z" />
 					</svg>
 				</button>
-				<span class="bl_result_unitName js_player_name" id="player_name"></span>
-				<!-- /.bl_result_unitName -->
+				<span class="bl_scoreUnit_name js_player_name" id="player_name"></span>
+				<!-- /.bl_scoreUnit_name -->
 				<dialog class="ly_dialog" id="js_scoreDialog_player">
 					<div class="ly_dialog_body">
 						<div class="bl_menuHeader">
@@ -219,11 +219,15 @@
 								<span>閉じる</span>
 							</button>
 						</div><!-- /.bl_menuHeader -->
+						<p>
+							ボーナス達成条件：アッパーセクションの合計値　
+							<span class="js_player_upperScore"></span> / <span class="js_needScore_upperBonus"></span>
+						</p>
 						<div class="js_player_score"></div><!-- /.js_player_score -->
 					</div><!-- /.ly_dialog_body -->
 				</dialog><!-- /.ly_dialog -->
-			</li><!-- /.bl_result_unit -->
-			<li class="bl_result_unit">
+			</li><!-- /.bl_scoreUnit_item -->
+			<li class="bl_scoreUnit_item">
 				<button type="button" class="bl_iconBtn bl_iconBtn__horizontal js_btnShowDialog"
 					aria-controls="js_scoreDialog_enemy" aria-describedby="enemy_name">
 					<span class="js_enemy_totalScore"></span>
@@ -234,8 +238,8 @@
 						<path d="m27 30 1.5 1.5 1.5 4.5 9 9 6-6-9-9-4.5-1.5-1.5-1.5z" />
 					</svg>
 				</button>
-				<span class="bl_result_unitName js_enemy_name" id="enemy_name"></span>
-				<!-- /.bl_result_unitName -->
+				<span class="bl_scoreUnit_name js_enemy_name" id="enemy_name"></span>
+				<!-- /.bl_scoreUnit_name -->
 				<dialog class="ly_dialog" id="js_scoreDialog_enemy">
 					<div class="ly_dialog_body">
 						<div class="bl_menuHeader">
@@ -252,11 +256,15 @@
 								<span>閉じる</span>
 							</button>
 						</div><!-- /.bl_menuHeader -->
+						<p>
+							ボーナス達成条件：アッパーセクションの合計値　
+							<span class="js_enemy_upperScore"></span> / <span class="js_needScore_upperBonus"></span>
+						</p>
 						<div class="js_enemy_score"></div><!-- /.js_enemy_score -->
 					</div><!-- /.ly_dialog_body -->
 				</dialog><!-- /.ly_dialog -->
-			</li><!-- /.bl_result_unit -->
-		</ul><!-- /.bl_result -->
+			</li><!-- /.bl_scoreUnit_item -->
+		</ul><!-- /.bl_scoreUnit -->
 	</main><!-- /.ly_display_main -->
 
 	<footer class="ly_display_footer">
@@ -308,12 +316,12 @@
 				<span>勝者：</span>
 				<span class="js_winner_name"></span>
 			</h3>
-			<ul>
-				<li>
+			<ul class="bl_result">
+				<li class="bl_result_item">
 					<span class="js_player_name"></span>のスコア：
 					<span class="js_player_totalScore"></span>
 				</li>
-				<li>
+				<li class="bl_result_item">
 					<span class="js_enemy_name"></span>のスコア：
 					<span class="js_enemy_totalScore"></span>
 				</li>
@@ -322,12 +330,20 @@
 				<span class="js_player_name"></span>のスコア：
 				<span class="js_player_totalScore"></span>
 			</h3>
+			<p>
+				ボーナス達成条件：アッパーセクションの合計値　
+				<span class="js_player_upperScore"></span> / <span class="js_needScore_upperBonus"></span>
+			</p>
 			<div class="js_player_score"></div>
 			<!-- /.js_player_score -->
 			<h3 class="el_heading_lv2">
 				<span class="js_enemy_name"></span>のスコア：
 				<span class="js_enemy_totalScore"></span>
 			</h3>
+			<p>
+				ボーナス達成条件：アッパーセクションの合計値　
+				<span class="js_enemy_upperScore"></span> / <span class="js_needScore_upperBonus"></span>
+			</p>
 			<div class="js_enemy_score"></div>
 			<!-- /.js_enemy_score -->
 		</div><!-- /.ly_dialog_body -->

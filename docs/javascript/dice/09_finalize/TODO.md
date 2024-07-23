@@ -5,10 +5,10 @@
 ### 順序通りに行う作業
 
 1. [ ] `index.html` の完成（英語化等はまだ）
-   1. [ ] ユニット名欄のスタイル（4dvw? rem使用？）
-   2. [ ] `dialog.bl_menuHeader` のスタイル（上部余白など）
-   3. [ ] ScoreTableにUpperSectionもしくは別途場所に表示を
-   4. [ ] Result画面（勝敗が即座にわかるよう、ヘッダー下に何かしら？）
+   1. [x] ユニット名欄のスタイル（4dvw? rem使用？）
+   2. [x] `dialog.bl_menuHeader` のスタイル（上部余白など）
+   3. [x] ScoreTableにUpperSectionもしくは別途場所に表示を
+   4. [x] Result画面（勝敗が即座にわかるよう、ヘッダー下に何かしら？）
    5. [ ] 用語統一（スコアとポイントとか、役名とか）
    6. [ ] ポイント変更（成立確率から）
    7. [ ] `dice` と `priority` から配列を返す関数 `calcScore()` を作る？
@@ -27,10 +27,9 @@
 ### 並行して行う作業
 
 - [ ] CSS stylelint（Web-Zukuri側）
-- [ ] LogoIcon の生成
 - [x] GH-Pages の webmanifest 確認（`start_url`）
   - [x] webmanifest の作成(en/ja)
-- [ ] a
+- [x] LogoIcon の生成
 
 ## リリース前最終チェックリスト
 
@@ -40,7 +39,7 @@
   - [x] .gitignore
   - [x] .nojekyll
   - [x] .editorconfig
-  - [ ] Squooshd された icons(32x32.ico, 150x150.svg, 180x180.png, 192x192.png, 512x512.png)
+  - [x] Squooshd された icons(32x32.ico, 150x150.svg, 180x180.png, 192x192.png, 512x512.png)
   - [x] LISENCE
   - [ ] README.md
   - [ ] how-to-play-en.md, how-to-play-ja.md
