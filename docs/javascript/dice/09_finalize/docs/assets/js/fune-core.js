@@ -35,66 +35,145 @@ const SCORE_NAMES = Object.freeze({
 	13: 'アッパーボーナス',
 });
 
-// TODO: 両者をまとめたこちらに移行させる
-const SCORES = Object.freeze({
-	Aces: {
-		number: 0,
-		name: '1の目',
+// TODO: 両者をまとめたこちらに移行させる（注意：役名が異なる）
+const SCORE = Object.freeze({
+	categories: {
+		Ones: {
+			id: 0,
+			name: {
+				ja: '1の目',
+				en: 'Ones',
+			},
+		},
+		Twos: {
+			id: 1,
+			name: {
+				ja: '2の目',
+				en: 'Twos',
+			},
+		},
+		Threes: {
+			id: 2,
+			name: {
+				ja: '3の目',
+				en: 'Threes',
+			},
+		},
+		Fours: {
+			id: 3,
+			name: {
+				ja: '4の目',
+				en: 'Fours',
+			},
+		},
+		Fives: {
+			id: 4,
+			name: {
+				ja: '5の目',
+				en: 'Fives',
+			},
+		},
+		Sixes: {
+			id: 5,
+			name: {
+				ja: '6の目',
+				en: 'Sixes',
+			},
+		},
+		FullHouse: {
+			id: 6,
+			name: {
+				ja: 'フルハウス',
+				en: 'Full House',
+			},
+		},
+		FourDice: {
+			id: 7,
+			name: {
+				ja: 'フォーダイス',
+				en: 'Four Dice',
+			},
+		},
+		ThreeDice: {
+			id: 8,
+			name: {
+				ja: 'スリーダイス',
+				en: 'Three Dice',
+			},
+		},
+		ShortStraight: {
+			id: 9,
+			name: {
+				ja: 'ショートストレート',
+				en: 'Short Straight',
+			},
+		},
+		LongStraight: {
+			id: 10,
+			name: {
+				ja: 'ロングストレート',
+				en: 'Long Straight',
+			},
+		},
+		Fune: {
+			id: 11,
+			name: {
+				ja: 'フネ',
+				en: 'FUNE',
+			},
+		},
+		Choice: {
+			id: 12,
+			name: {
+				ja: 'チョイス',
+				en: 'Choice',
+			},
+		},
+		UpperBonus: {
+			// （Aces-Sixes の合計値が63以上の場合、35点）
+			id: 13,
+			name: {
+				ja: 'ボーナス',
+				en: 'Bonus',
+			},
+		},
 	},
-	Twos: {
-		number: 1,
-		name: '2の目',
+
+	getNameByID: function(id, lang = 'en'){
+		let entries = Object.values(this.categories);
+		for(const entry of entries){
+			if(entry.id === id){
+				return entry.name[lang];
+			}
+		}
+		// 見つからない場合
+		return 'unknown';
 	},
-	Threes: {
-		number: 2,
-		name: '3の目',
+
+	getNames: function(lang = 'en'){
+		let entries = Object.values(this.categories);
+		let arr = [];
+		for(const entry of entries){
+			arr.push(entry.name[lang]);
+		}
+		return arr;
 	},
-	Fours: {
-		number: 3,
-		name: '4の目',
-	},
-	Fives: {
-		number: 4,
-		name: '5の目',
-	},
-	Sixes: {
-		number: 5,
-		name: '6の目',
-	},
-	Full_house: {
-		number: 6,
-		name: 'フルハウス',
-	},
-	Four_of_a_kind: {
-		number: 7,
-		name: 'フォー オブ アカインド',
-	},
-	Three_of_a_kind: {
-		number: 8,
-		name: 'スリー オブ アカインド',
-	},
-	Short_straight: {
-		number: 9,
-		name: 'ショート ストレート',
-	},
-	Long_straight: {
-		number: 10,
-		name: 'ロング ストレート',
-	},
-	Yahzee: {
-		number: 11,
-		name: 'ヤッツィー',
-	},
-	Chance: {
-		number: 12,
-		name: 'チャンス',
-	},
-	Upper_bonus: {
-		// （Aces-Sixes の合計値が63以上の場合、35点）
-		number: 13,
-		name: 'アッパーボーナス',
-	},
-})
+
+	getIDs: function(){
+		let entries = Object.values(this.categories);
+		let arr = [];
+		for(const entry of entries){
+			arr.push(entry.id);
+		}
+		return arr.sort();
+	}
+});
+
+
+// 言語指定（デフォ：en）
+const docLang = document.documentElement.lang || 'en';
+
+
 
 // 関数を定義して翻訳を実行
 function translateScore(symbol) {
