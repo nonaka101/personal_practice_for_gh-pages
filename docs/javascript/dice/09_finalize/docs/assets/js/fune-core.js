@@ -180,7 +180,7 @@ function zip(arr1, arr2) {
  * 5つのダイスから役を判定する。
  *
  * @param {number} num - 5桁のダイス値
- * @returns {[number]} SCORE.categories.Name.id のインデックスに沿った、役のスコア値
+ * @returns {[number]} SCORE.categories.{Name}.id のインデックスに沿った、役のスコア値
  */
 function calcCombinations(num){
 	// 入力値の検証（数値としての、5桁のダイス値）
@@ -197,7 +197,7 @@ function calcCombinations(num){
 	// 13役を格納する配列（UpperBonusを除く）
 	const combinations = new Array(13).fill(0);
 
-	/* Upper Section（Aces から Sixes まで）
+	/* Upper Section（Ones から Sixes まで）
 		得点：ダイス値✕該当するダイス数  */
 	for(let i = SCORE.categories.Ones.id, d = 1; i <= SCORE.categories.Sixes.id; i++, d++){
 		const filtered = dices.filter((item) => item === d);
@@ -205,21 +205,21 @@ function calcCombinations(num){
 	}
 
 	// Lower Section
-	// Chance（得点：ダイス合計値）
+	// Choice（得点：ダイス合計値）
 	combinations[SCORE.categories.Choice.id] = totalDices;
 
 	/* ダイス種類による処理の分岐
-		4より少なければフルハウス、Nオブアカインド、ヤッツィーが該当
-		4以上なら（ショート/ロング）ストレートが該当 */
+		4より少なければFullHouse、N-Dice、FUNE が該当
+		4以上なら (Short or Long) Straight が該当 */
 	if(uniqDices.size < 4){
 		/* FullHouse
 			判定：2種類かつ `11222`,`11122` のように 2番目と4番目の数値が異なる
-			得点：固定値 25  */
-		if((uniqDices.size === 2) && (dices[1] !== dices[3])) combinations[SCORE.categories.FullHouse.id] = 25;
+			得点：固定値 35  */
+		if((uniqDices.size === 2) && (dices[1] !== dices[3])) combinations[SCORE.categories.FullHouse.id] = 35;
 
-		/* N of a kind + Yahzee
-			判定：隣り合う数値が同値である最大回数（4回ならYahtzee、3回なら Four of a kind）
-			得点：Yahtzee は固定値 50、Nオブアカインドはダイス合計値  */
+		/* N-Dice + Fune
+			判定：隣り合う数値が同値である最大回数（4回なら FUNE、3回なら FourDice）
+			得点：FUNE は固定値 50、N-Dice はダイス合計値  */
 		let count = 0;
 		let maxCount = 0;
 		for(let i = 0; i < dices.length - 1; i++){
@@ -231,7 +231,7 @@ function calcCombinations(num){
 			}
 		}
 		switch(maxCount){
-			// 注：`break` なしは意図的（Yahtzee は Nオブアカインドの十分条件）
+			// 注：`break` なしは意図的（FUNE は N-Dice の十分条件）
 			case 4:
 				combinations[SCORE.categories.Fune.id] = 50;
 			case 3:
@@ -302,7 +302,7 @@ class PlayerUnit{
 				(this._score[SCORE.categories.UpperBonus.id] === null) &&
 				(! hasNull(this._score.slice(SCORE.categories.Ones.id, SCORE.categories.Sixes.id + 1)))
 			){
-				// Aces から Sixes までの合計値が 63以上の場合は35点、そうでなければ 0点
+				// Ones から Sixes までの合計値が 63以上の場合は35点、そうでなければ 0点
 				if(this.upperScore >= NEED_UPPER_BONUS){
 					this._score[SCORE.categories.UpperBonus.id] = 35;
 				} else {
