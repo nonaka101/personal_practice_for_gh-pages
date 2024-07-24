@@ -1,160 +1,130 @@
 /** ボーナスに必要となるアッパーセクション合計値 */
 const NEED_UPPER_BONUS = 63;
 
-const SCORE_CATEGORIES = Object.freeze({
-	Aces: 0,
-	Twos: 1,
-	Threes: 2,
-	Fours: 3,
-	Fives: 4,
-	Sixes: 5,
-	Full_house: 6,
-	Four_of_a_kind: 7,
-	Three_of_a_kind: 8,
-	Short_straight: 9,
-	Long_straight: 10,
-	Yahzee: 11,
-	Chance: 12,
-	Upper_bonus: 13,	// （Aces-Sixes の合計値が63以上の場合、35点）
-})
+/**
+ * 言語指定（デフォルト：en）
+ * @constant {string}
+ */
+const docLang = document.documentElement.lang || 'en';
 
-const SCORE_NAMES = Object.freeze({
-	0: '1の目',
-	1: '2の目',
-	2: '3の目',
-	3: '4の目',
-	4: '5の目',
-	5: '6の目',
-	6: 'フルハウス',
-	7: 'フォー オブ アカインド',
-	8: 'スリー オブ アカインド',
-	9: 'ショート ストレート',
-	10: 'ロング ストレート',
-	11: 'ヤッツィー',
-	12: 'チャンス',
-	13: 'アッパーボーナス',
-});
-
-// TODO: 両者をまとめたこちらに移行させる（注意：役名が異なる）
 const SCORE = Object.freeze({
-	categories: {
-		Ones: {
+	categories: Object.freeze({
+		Ones: Object.freeze({
 			id: 0,
-			name: {
+			name: Object.freeze({
 				ja: '1の目',
 				en: 'Ones',
-			},
-		},
-		Twos: {
+			}),
+		}),
+		Twos: Object.freeze({
 			id: 1,
-			name: {
+			name: Object.freeze({
 				ja: '2の目',
 				en: 'Twos',
-			},
-		},
-		Threes: {
+			}),
+		}),
+		Threes: Object.freeze({
 			id: 2,
-			name: {
+			name: Object.freeze({
 				ja: '3の目',
 				en: 'Threes',
-			},
-		},
-		Fours: {
+			}),
+		}),
+		Fours: Object.freeze({
 			id: 3,
-			name: {
+			name: Object.freeze({
 				ja: '4の目',
 				en: 'Fours',
-			},
-		},
-		Fives: {
+			}),
+		}),
+		Fives: Object.freeze({
 			id: 4,
-			name: {
+			name: Object.freeze({
 				ja: '5の目',
 				en: 'Fives',
-			},
-		},
-		Sixes: {
+			}),
+		}),
+		Sixes: Object.freeze({
 			id: 5,
-			name: {
+			name: Object.freeze({
 				ja: '6の目',
 				en: 'Sixes',
-			},
-		},
-		FullHouse: {
+			}),
+		}),
+		FullHouse: Object.freeze({
 			id: 6,
-			name: {
+			name: Object.freeze({
 				ja: 'フルハウス',
 				en: 'Full House',
-			},
-		},
-		FourDice: {
+			}),
+		}),
+		FourDice: Object.freeze({
 			id: 7,
-			name: {
+			name: Object.freeze({
 				ja: 'フォーダイス',
 				en: 'Four Dice',
-			},
-		},
-		ThreeDice: {
+			}),
+		}),
+		ThreeDice: Object.freeze({
 			id: 8,
-			name: {
+			name: Object.freeze({
 				ja: 'スリーダイス',
 				en: 'Three Dice',
-			},
-		},
-		ShortStraight: {
+			}),
+		}),
+		ShortStraight: Object.freeze({
 			id: 9,
-			name: {
+			name: Object.freeze({
 				ja: 'ショートストレート',
 				en: 'Short Straight',
-			},
-		},
-		LongStraight: {
+			}),
+		}),
+		LongStraight: Object.freeze({
 			id: 10,
-			name: {
+			name: Object.freeze({
 				ja: 'ロングストレート',
 				en: 'Long Straight',
-			},
-		},
-		Fune: {
+			}),
+		}),
+		Fune: Object.freeze({
 			id: 11,
-			name: {
+			name: Object.freeze({
 				ja: 'フネ',
 				en: 'FUNE',
-			},
-		},
-		Choice: {
+			}),
+		}),
+		Choice: Object.freeze({
 			id: 12,
-			name: {
+			name: Object.freeze({
 				ja: 'チョイス',
 				en: 'Choice',
-			},
-		},
-		UpperBonus: {
-			// （Aces-Sixes の合計値が63以上の場合、35点）
+			}),
+		}),
+		UpperBonus: Object.freeze({
 			id: 13,
-			name: {
+			name: Object.freeze({
 				ja: 'ボーナス',
 				en: 'Bonus',
-			},
-		},
-	},
+			}),
+		}),
+	}),
 
-	getNameByID: function(id, lang = 'en'){
+	getNameByID: function(id){
 		let entries = Object.values(this.categories);
 		for(const entry of entries){
 			if(entry.id === id){
-				return entry.name[lang];
+				return entry.name[docLang];
 			}
 		}
 		// 見つからない場合
 		return 'unknown';
 	},
 
-	getNames: function(lang = 'en'){
+	getNames: function(){
 		let entries = Object.values(this.categories);
 		let arr = [];
 		for(const entry of entries){
-			arr.push(entry.name[lang]);
+			arr.push(entry.name[docLang]);
 		}
 		return arr;
 	},
@@ -169,16 +139,10 @@ const SCORE = Object.freeze({
 	}
 });
 
-
-// 言語指定（デフォ：en）
-const docLang = document.documentElement.lang || 'en';
+let scoreNames = SCORE.getNames();
 
 
 
-// 関数を定義して翻訳を実行
-function translateScore(symbol) {
-	return SCORE_NAMES[symbol] || 'unknown';  // 未定義のシンボルには 'unknown' を返す
-}
 
 /**
  * 配列にNull値があるかを判定する。
@@ -214,7 +178,7 @@ function zip(arr1, arr2) {
  * 5つのダイスから役を判定する。
  *
  * @param {number} num - 5桁のダイス値
- * @returns {[number]} SCORE_CATEGORIES のインデックスに沿った、役のスコア値
+ * @returns {[number]} SCORE.categories.Name.id のインデックスに沿った、役のスコア値
  */
 function calcCombinations(num){
 	// 入力値の検証（数値としての、5桁のダイス値）
@@ -233,14 +197,14 @@ function calcCombinations(num){
 
 	/* Upper Section（Aces から Sixes まで）
 		得点：ダイス値✕該当するダイス数  */
-	for(let i = SCORE_CATEGORIES.Aces, d = 1; i <= SCORE_CATEGORIES.Sixes; i++, d++){
+	for(let i = SCORE.categories.Ones.id, d = 1; i <= SCORE.categories.Sixes.id; i++, d++){
 		const filtered = dices.filter((item) => item === d);
 		combinations[i] = d * filtered.length;
 	}
 
 	// Lower Section
 	// Chance（得点：ダイス合計値）
-	combinations[SCORE_CATEGORIES.Chance] = totalDices;
+	combinations[SCORE.categories.Choice.id] = totalDices;
 
 	/* ダイス種類による処理の分岐
 		4より少なければフルハウス、Nオブアカインド、ヤッツィーが該当
@@ -249,7 +213,7 @@ function calcCombinations(num){
 		/* FullHouse
 			判定：2種類かつ `11222`,`11122` のように 2番目と4番目の数値が異なる
 			得点：固定値 25  */
-		if((uniqDices.size === 2) && (dices[1] !== dices[3])) combinations[SCORE_CATEGORIES.Full_house] = 25;
+		if((uniqDices.size === 2) && (dices[1] !== dices[3])) combinations[SCORE.categories.FullHouse.id] = 25;
 
 		/* N of a kind + Yahzee
 			判定：隣り合う数値が同値である最大回数（4回ならYahtzee、3回なら Four of a kind）
@@ -267,11 +231,11 @@ function calcCombinations(num){
 		switch(maxCount){
 			// 注：`break` なしは意図的（Yahtzee は Nオブアカインドの十分条件）
 			case 4:
-				combinations[SCORE_CATEGORIES.Yahzee] = 50;
+				combinations[SCORE.categories.Fune.id] = 50;
 			case 3:
-				combinations[SCORE_CATEGORIES.Four_of_a_kind] = totalDices;
+				combinations[SCORE.categories.FourDice.id] = totalDices;
 			case 2:
-				combinations[SCORE_CATEGORIES.Three_of_a_kind] = totalDices;
+				combinations[SCORE.categories.ThreeDice.id] = totalDices;
 		}
 	} else {
 		/* (Short / Long) Straight
@@ -280,17 +244,17 @@ function calcCombinations(num){
 		const patternLongStraight = [[1, 2, 3, 4, 5], [2, 3, 4, 5, 6]];
 		for(const pattern of patternLongStraight){
 			if(pattern.every(ele => dices.includes(ele))){
-				combinations[SCORE_CATEGORIES.Long_straight] = 40;
-				combinations[SCORE_CATEGORIES.Short_straight] = 30;
+				combinations[SCORE.categories.LongStraight.id] = 40;
+				combinations[SCORE.categories.ShortStraight.id] = 30;
 				break;
 			};
 		}
 		// ロング条件を満たしてない場合、ショート判定を行う
-		if(combinations[SCORE_CATEGORIES.Short_straight] !== 30){
+		if(combinations[SCORE.categories.ShortStraight.id] !== 30){
 			const patternShortStraight = [[1, 2, 3, 4], [2, 3, 4, 5], [3, 4, 5, 6]];
 			for(const pattern of patternShortStraight){
 				if(pattern.every(ele => dices.includes(ele))){
-					combinations[SCORE_CATEGORIES.Short_straight] = 30;
+					combinations[SCORE.categories.ShortStraight.id] = 30;
 					break;
 				};
 			}
@@ -316,7 +280,7 @@ class PlayerUnit{
 
 	get upperScore(){
 		// score前方にあるアッパーセクション部の合計値を算出
-		return this._score.slice(SCORE_CATEGORIES.Aces, SCORE_CATEGORIES.Sixes + 1).reduce((a, b) => a + b, 0);;
+		return this._score.slice(SCORE.categories.Ones.id, SCORE.categories.Sixes.id + 1).reduce((a, b) => a + b, 0);;
 	}
 
 	get totalScore(){
@@ -326,21 +290,21 @@ class PlayerUnit{
 
 	setScore(index, point){
 		if(
-			(index >= SCORE_CATEGORIES.Aces && index <= SCORE_CATEGORIES.Chance) &&
+			(index >= SCORE.categories.Ones.id && index <= SCORE.categories.Choice.id) &&
 			(this._score[index] === null)
 		){
 			this._score[index] = point;
 
 			// UpperBonus 判定（確定前 かつ アッパーセクションに Null値なし）
 			if(
-				(this._score[SCORE_CATEGORIES.Upper_bonus] === null) &&
-				(! hasNull(this._score.slice(SCORE_CATEGORIES.Aces, SCORE_CATEGORIES.Sixes + 1)))
+				(this._score[SCORE.categories.UpperBonus.id] === null) &&
+				(! hasNull(this._score.slice(SCORE.categories.Ones.id, SCORE.categories.Sixes.id + 1)))
 			){
 				// Aces から Sixes までの合計値が 63以上の場合は35点、そうでなければ 0点
 				if(this.upperScore >= NEED_UPPER_BONUS){
-					this._score[SCORE_CATEGORIES.Upper_bonus] = 35;
+					this._score[SCORE.categories.UpperBonus.id] = 35;
 				} else {
-					this._score[SCORE_CATEGORIES.Upper_bonus] = 0;
+					this._score[SCORE.categories.UpperBonus.id] = 0;
 				}
 			}
 		} else {
@@ -353,7 +317,7 @@ class PlayerUnit{
 	}
 
 	reportScoreTable(){
-		let table = zip(Object.values(SCORE_NAMES), this._score);
+		let table = zip(SCORE.getNames(), this._score);
 		console.table(table);
 	}
 }

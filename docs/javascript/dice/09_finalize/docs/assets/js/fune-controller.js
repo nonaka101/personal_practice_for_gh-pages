@@ -408,7 +408,7 @@ class Controller {
 			// value に this.combination へのインデックスを持つ、オプション要素
 			const opt = document.createElement('option');
 			opt.value = i;
-			opt.text = `${SCORE_NAMES[this.combinations[i][0]]}：${this.combinations[i][1]}`;
+			opt.text = `${scoreNames[this.combinations[i][0]]}：${this.combinations[i][1]}`;
 			this.select.add(opt, this.select.options.item(i));
 		}
 	}
@@ -460,7 +460,6 @@ function updateScore(){
 	}
 
 	// Refresh ScoreTable
-	const scoreNames = Object.values(SCORE_NAMES);
 	for(const ele of playerScoreTable){
 		ele.innerHTML = '';
 		let pTable = [['Point', 'Combinations']];

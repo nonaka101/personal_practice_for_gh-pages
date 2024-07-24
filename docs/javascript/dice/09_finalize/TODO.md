@@ -12,10 +12,8 @@
    5. [ ] 用語統一（スコアとポイントとか、役名とか）
    6. [ ] ポイント変更（成立確率から）
    7. [ ] `dice` と `priority` から配列を返す関数 `calcScore()` を作る？
-   8. [ ] スコアオブジェクト
+   8. [x] スコアオブジェクト
       - `id`, `name`, `calcPoint` の３つ？
-      - function `targetPoint()`, `totalPoint()`, `fixPoint()` 等を別途設け、`calcPoint` で指定？
-      - 上記関数はダイス値を受け取り（fix は固定値も）、点数を計算させる？
       - `document.documentElement.lang // -> "en"` とわかるので、`name` は `ja`, `en` を用意？
    9. [ ] エネミーの最初らへんをテーブル使用に置き換える、assignmentは消去
    10. [ ] コンソールに出すのは選択されたものだけに？
@@ -23,6 +21,8 @@
 3. `index-ja.html` にリネームし、英語版の `index.html` を生成、英語化
 4. スクショを取りつつ、`how-to-play.md` の作成（ja/en）
 5. `README.md` の作成（en/ja）
+
+`SCORE.categories.Name.calcPoint` は、一旦取りやめ（点数計算するためにはダイス値をもらう必要があるが、そこまですると相互で繋がりが強くなりすぎるため）
 
 ### 並行して行う作業
 

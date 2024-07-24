@@ -229,7 +229,7 @@ console.log('--- 敵側のダイスセット ---');
 console.table(enemyDiceSet);
 
 // 役一覧（13 に該当するボーナスを除いた形）
-let categories = Object.values(SCORE_CATEGORIES).slice(0, -1);
+let categories = SCORE.getIDs().slice(0, -1);
 
 let emptyScore = [];
 for (let i = 0; i <= 12; i++) {
@@ -294,7 +294,7 @@ for (const category of categories) {
   }
 
   // 役と最適なダイス値を割り当て
-  enemyA01Assignment[SCORE_NAMES[category]] = [bestDice, maxScore];
+  enemyA01Assignment[scoreNames[category]] = [bestDice, maxScore];
 
   // 使用済みダイスセットから削除（同じダイス値があるケースを想定、1つのみに限定をかける）
 	const removeIndex = enemyA01DiceSetCopy.indexOf(bestDice);
@@ -342,19 +342,19 @@ let enemyA02Score = JSON.parse(JSON.stringify(emptyScore));
 
 /** 役の成立が難しい順に優先度を設定 */
 const priorityA02 = [
-	SCORE_CATEGORIES.Long_straight,
-	SCORE_CATEGORIES.Yahzee,
-	SCORE_CATEGORIES.Short_straight,
-	SCORE_CATEGORIES.Full_house,
-	SCORE_CATEGORIES.Four_of_a_kind,
-	SCORE_CATEGORIES.Three_of_a_kind,
-	SCORE_CATEGORIES.Chance,
-	SCORE_CATEGORIES.Sixes,
-	SCORE_CATEGORIES.Fives,
-	SCORE_CATEGORIES.Fours,
-	SCORE_CATEGORIES.Threes,
-	SCORE_CATEGORIES.Twos,
-	SCORE_CATEGORIES.Aces
+	SCORE.categories.Fune.id,
+	SCORE.categories.FourDice.id,
+	SCORE.categories.LongStraight.id,
+	SCORE.categories.FullHouse.id,
+	SCORE.categories.ShortStraight.id,
+	SCORE.categories.ThreeDice.id,
+	SCORE.categories.Sixes.id,
+	SCORE.categories.Fives.id,
+	SCORE.categories.Fours.id,
+	SCORE.categories.Threes.id,
+	SCORE.categories.Twos.id,
+	SCORE.categories.Ones.id,
+	SCORE.categories.Choice.id
 ];
 
 // enemyDiceSet 要素を弄るため ディープコピーを用意
@@ -374,7 +374,7 @@ for (const category of priorityA02) {
     }
   }
 
-  enemyA02Assignment[SCORE_NAMES[category]] = [bestDice, maxScore];
+  enemyA02Assignment[scoreNames[category]] = [bestDice, maxScore];
 
 	const removeIndex = enemyA02DiceSetCopy.indexOf(bestDice);
 	if(removeIndex !== -1) enemyA02DiceSetCopy.splice(removeIndex, 1);
@@ -447,7 +447,7 @@ if(enemyA03SumUpperSection >= NEED_UPPER_BONUS){
 
 		// 参照テーブルからインデックスを調べ、ダイス値を求める（コンソール用）
 		const dice = enemyA03DiceSetCopy[index];
-		enemyA03Assignment[SCORE_NAMES[i]] = [dice, point];
+		enemyA03Assignment[scoreNames[i]] = [dice, point];
 
 		// テーブルから確定したダイススコアを除去
 		enemyA03Table.removeRow(index);
@@ -455,14 +455,15 @@ if(enemyA03SumUpperSection >= NEED_UPPER_BONUS){
 
 	/** 役の成立が難しい順に優先度を設定（アッパーセクションは除去） */
 	const priorityA03 = [
-		SCORE_CATEGORIES.Long_straight,
-		SCORE_CATEGORIES.Yahzee,
-		SCORE_CATEGORIES.Short_straight,
-		SCORE_CATEGORIES.Full_house,
-		SCORE_CATEGORIES.Four_of_a_kind,
-		SCORE_CATEGORIES.Three_of_a_kind,
-		SCORE_CATEGORIES.Chance
+		SCORE.categories.Fune.id,
+		SCORE.categories.FourDice.id,
+		SCORE.categories.LongStraight.id,
+		SCORE.categories.FullHouse.id,
+		SCORE.categories.ShortStraight.id,
+		SCORE.categories.ThreeDice.id,
+		SCORE.categories.Choice.id
 	];
+
 	for(let category of priorityA03){
 		// 点数の確定
 		const points = enemyA03Table.getColumn(category);
@@ -473,7 +474,7 @@ if(enemyA03SumUpperSection >= NEED_UPPER_BONUS){
 		const arr = enemyA03TableRef.getColumn(category);
 		const index = arr.indexOf(maxPoint);
 		const dice = enemyA03DiceSetCopy[index];
-		enemyA03Assignment[SCORE_NAMES[category]] = [dice, maxPoint];
+		enemyA03Assignment[scoreNames[category]] = [dice, maxPoint];
 
 		// 確定したダイススコアを除去
 		enemyA03Table.removeRow(points.indexOf(maxPoint));
