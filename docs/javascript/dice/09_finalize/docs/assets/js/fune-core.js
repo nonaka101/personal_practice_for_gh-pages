@@ -133,9 +133,11 @@ const SCORE = Object.freeze({
 		let entries = Object.values(this.categories);
 		let arr = [];
 		for(const entry of entries){
-			arr.push(entry.id);
+			arr.push(parseInt(entry.id));
 		}
-		return arr.sort();
+		return arr.sort((a,b)=>{
+			return a - b;
+		});
 	}
 });
 

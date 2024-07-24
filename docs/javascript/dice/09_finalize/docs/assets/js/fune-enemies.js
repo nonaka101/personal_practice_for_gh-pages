@@ -217,6 +217,8 @@ class Table {
 
 /** 敵側のダイスセット */
 let enemyDiceSet = [];
+
+// Random
 for(let i = 0; i < 13; i++){
   let dices = '';
   for(let j = 0; j < 5; j++){
@@ -225,6 +227,16 @@ for(let i = 0; i < 13; i++){
 	dices = dices.split('').map(Number).sort().toString().replace(/,/gui,'');
   enemyDiceSet.push(dices);
 }
+
+// TestCase01: ['11111', '22222', ...] と、UpperSectionボーナスが確定できるダイスセットを生成
+/*
+for(let i = 0; i < 13; i++){
+	const num = (i % 6) + 1;
+	const dice = new Array(5).fill(num).toString().replace(/,/gui,'');
+  enemyDiceSet.push(dice);
+}
+*/
+
 console.log('--- 敵側のダイスセット ---');
 console.table(enemyDiceSet);
 
@@ -239,291 +251,208 @@ for (let i = 0; i <= 12; i++) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/** [A01] 敵戦略１：役順に高得点を当てはめていく
- *
- *  特徴：役順に未割り当てのダイスを当てはめ、高得点になるものを割り当てる
- *
- *  課題：後方にある役の方が最善手でも前方の役に割り当てることがある
- * （例：11222 でも、場合によってはフルハウスでもスリーダイスでも、まして 2の目でもなく 1の目に割り当てられる）
- */
-let enemyA01Assignment = {};
-console.log('--- 敵戦略１：役順に高得点を当てはめていく ---');
-
-// 各種配列のディープコピーを用意
-let enemyA01Score = JSON.parse(JSON.stringify(emptyScore));
-let enemyA01DiceSetCopy = JSON.parse(JSON.stringify(enemyDiceSet));
-
-// 各役について、最適なダイス値を見つける
-for (const category of categories) {
-  // 未割り当てのダイスセット
-  const unassignedenemyDiceSet = [...enemyA01DiceSetCopy];
-
-  // 現在の役の最高得点
-  let maxScore = 0;
-
-  // 現在の役に対応する最適なダイス値（コンソール用）
-  let bestDice = '';
-
-  // 未割り当てのダイスセットをすべて試す
-  for (const dices of unassignedenemyDiceSet) {
-    // 現在のダイス値で役のスコアを計算
-    const score = calcCombinations(dices)[category];
-
-    // 現在の役の最高得点を超えていれば更新
-    if (score >= maxScore) {
-      maxScore = score;
-      bestDice = dices;
-			enemyA01Score[category][1] = score;
-    }
-  }
-
-  // 役と最適なダイス値を割り当て
-  enemyA01Assignment[scoreNames[category]] = [bestDice, maxScore];
-
-  // 使用済みダイスセットから削除（同じダイス値があるケースを想定、1つのみに限定をかける）
-	const removeIndex = enemyA01DiceSetCopy.indexOf(bestDice);
-	if(removeIndex !== -1) enemyA01DiceSetCopy.splice(removeIndex, 1);
-}
-
-// 割り当て結果を表示
-const enemyA01ScoreUpperSection = enemyA01Score.slice(0, 5 + 1).reduce((total, value) => total + value[1], 0);
-let enemyA01Bonus = 0;
-if(enemyA01ScoreUpperSection >= NEED_UPPER_BONUS) enemyA01Bonus = 35;
-enemyA01Assignment['UpperBonus'] = ['---', enemyA01Bonus];
-console.table(enemyA01Assignment);
-console.log(`スコア合計値：${enemyA01Score.reduce((total, value) => total + value[1], 0) + enemyA01Bonus}`);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/** [A02] 敵戦略２：A01に優先度を付与
- *
- *  特徴：役の成立可能性が低い順にダイスを当てはめていくことで、A01より得点力を上げる
- *  （ダイスパターン 252 に対し、L-Straight: 2, Fune: 6, S-Straight: 10, FullHouse: 30, FourDice: 36, ThreeDice: 126 の組み合わせが存在）
- *
- *  課題：「役の0点を無くすこと」と「高得点を狙うこと」は微妙に違う。例えばこの方針だと、ボーナスは得にくいかもしれない。
- *        必ずA01より高得点になるとは限らない。例えば L-Straight がダイスセット内で成立しなかった場合、ダイスセットの一番最後が捨てられることになるが、それが Fune の可能性がある。
- */
-let enemyA02Assignment = {};
-console.log('--- 敵戦略２：A01に優先度を付与 ---');
-let enemyA02Score = JSON.parse(JSON.stringify(emptyScore));
-
-/** 役の成立が難しい順に優先度を設定 */
-const priorityA02 = [
-	SCORE.categories.Fune.id,
-	SCORE.categories.FourDice.id,
-	SCORE.categories.LongStraight.id,
-	SCORE.categories.FullHouse.id,
-	SCORE.categories.ShortStraight.id,
-	SCORE.categories.ThreeDice.id,
-	SCORE.categories.Sixes.id,
-	SCORE.categories.Fives.id,
-	SCORE.categories.Fours.id,
-	SCORE.categories.Threes.id,
-	SCORE.categories.Twos.id,
-	SCORE.categories.Ones.id,
-	SCORE.categories.Choice.id
-];
-
-// enemyDiceSet 要素を弄るため ディープコピーを用意
-let enemyA02DiceSetCopy = JSON.parse(JSON.stringify(enemyDiceSet));
-
-for (const category of priorityA02) {
-  const unassignedenemyDiceSet = [...enemyA02DiceSetCopy];
-  let maxScore = 0;
-  let bestDice = '';
-
-  for (const dices of unassignedenemyDiceSet) {
-    const score = calcCombinations(dices)[category];
-    if (score >= maxScore) {
-      maxScore = score;
-      bestDice = dices;
-			enemyA02Score[category][1] = score;
-    }
-  }
-
-  enemyA02Assignment[scoreNames[category]] = [bestDice, maxScore];
-
-	const removeIndex = enemyA02DiceSetCopy.indexOf(bestDice);
-	if(removeIndex !== -1) enemyA02DiceSetCopy.splice(removeIndex, 1);
-}
-
-// 割り当て結果を表示
-const enemyA02ScoreUpperSection = enemyA02Score.slice(0, 5 + 1).reduce((total, value) => total + value[1], 0);
-let enemyA02Bonus = 0;
-if(enemyA02ScoreUpperSection >= NEED_UPPER_BONUS) enemyA02Bonus = 35;
-enemyA02Assignment['UpperBonus'] = ['---', enemyA02Bonus];
-console.table(enemyA02Assignment);
-console.log(`スコア合計値：${enemyA02Score.reduce((total, value) => total + value[1], 0) + enemyA02Bonus}`);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/** [A03] 敵戦略3：ボーナス優先後、A02
- *
- *  特徴：まずはアッパーセクションでのボーナスを求め、その後A02ライクの挙動をする
- * 	（ボーナス達成が不可能の場合は、A02を使う）
- *
- *  課題：振り直しなしだとボーナス達成は体感1%ないくらいなので、現状A02と変わらない。
- *  TODO: Assignment の表示がおかしい、恐らくローワーセクションの最大値からインデックスを求める箇所で、最大値で別の箇所を参照している
- * 			（やるなら配列全体を使った indexOf ）
- */
-let enemyA03Assignment = {};
-console.log('--- 敵戦略３：ボーナス優先＋A02 ---');
-
-// 各種配列のディープコピーを用意
-let enemyA03DiceSetCopy = JSON.parse(JSON.stringify(enemyDiceSet));
-let enemyA03Score = JSON.parse(JSON.stringify(emptyScore));
-
-// テーブルデータ生成（各行は1つのダイス値の役一覧を表し、各列は役ごとの点数となる）
-let enemyA03ScoreMap = enemyA03DiceSetCopy.map(calcCombinations);
-const enemyA03Table = new Table(enemyA03ScoreMap);
-const enemyA03TableRef = new Table(enemyA03ScoreMap); // 参照用
-
-/** アッパーボーナス判定 */
-let enemyA03UpperSectionBonus = [];
-for(i = 0; i < 6; i++){
-	const points = enemyA03Table.getColumn(i);
-	const maxPoint = Math.max(...points);
-	const index = points.indexOf(maxPoint);
-	enemyA03UpperSectionBonus.push([index, maxPoint]);
-}
-
-const enemyA03SumUpperSection = enemyA03UpperSectionBonus.reduce((total, value) => total + value[1], 0);
-if(enemyA03SumUpperSection >= NEED_UPPER_BONUS){
-	// アッパーボーナス達成成功のため、まずは条件を満たすダイスを確定させていく
-	for(i = 0; i < 6; i++){
-		let [index, point] = enemyA03UpperSectionBonus[i];
-		enemyA03Score[i][1] = point;
-
-		// 参照テーブルからインデックスを調べ、ダイス値を求める（コンソール用）
-		const dice = enemyA03DiceSetCopy[index];
-		enemyA03Assignment[scoreNames[i]] = [dice, point];
-
-		// テーブルから確定したダイススコアを除去
-		enemyA03Table.removeRow(index);
-	}
-
-	/** 役の成立が難しい順に優先度を設定（アッパーセクションは除去） */
-	const priorityA03 = [
-		SCORE.categories.Fune.id,
-		SCORE.categories.FourDice.id,
-		SCORE.categories.LongStraight.id,
-		SCORE.categories.FullHouse.id,
-		SCORE.categories.ShortStraight.id,
-		SCORE.categories.ThreeDice.id,
-		SCORE.categories.Choice.id
-	];
-
-	for(let category of priorityA03){
-		// 点数の確定
-		const points = enemyA03Table.getColumn(category);
-		const maxPoint = Math.max(...points);
-		enemyA03Score[category][1] = maxPoint;
-
-		// 参照テーブルからインデックスを調べ、ダイス値を求める（コンソール用）
-		const arr = enemyA03TableRef.getColumn(category);
-		const index = arr.indexOf(maxPoint);
-		const dice = enemyA03DiceSetCopy[index];
-		enemyA03Assignment[scoreNames[category]] = [dice, maxPoint];
-
-		// 確定したダイススコアを除去
-		enemyA03Table.removeRow(points.indexOf(maxPoint));
-	}
-
-} else {
-	// アッパーボーナスの達成不可能なので、A02をそのまま流用する
-	enemyA03Assignment = enemyA02Assignment;
-	enemyA03Score = enemyA02Score
-}
-
-// 割り当て結果を表示
-const enemyA03ScoreUpperSection = enemyA03Score.slice(0, 5 + 1).reduce((total, value) => total + value[1], 0);
-let enemyA03Bonus = 0;
-if(enemyA03ScoreUpperSection >= NEED_UPPER_BONUS) enemyA03Bonus = 35;
-enemyA03Assignment['UpperBonus'] = ['---', enemyA03Bonus];
-console.table(enemyA03Assignment);
-console.log(`スコア合計値：${enemyA03Score.reduce((total, value) => total + value[1], 0) + enemyA03Bonus}`);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Enemyの行動データ
 let enemyScore = [];
 switch(enemyID){
-	case 1: // A01: 役順に高得点を割り当てる
+	case 1:
+		console.log('--- 敵戦略：役順に高得点を当てはめていく ---');
+
+		/** [A01] 敵戦略１：役順に高得点を当てはめていく
+		 *
+		 *  特徴：役順に未割り当てのダイスを当てはめ、高得点になるものを割り当てる
+		 *
+		 *  課題：後方にある役の方が最善手でも前方の役に割り当てることがある
+		 * （例：11222 でも、場合によってはフルハウスでもスリーダイスでも、まして 2の目でもなく 1の目に割り当てられる）
+		 */
+		let enemyA01Score = JSON.parse(JSON.stringify(emptyScore));
+
+		// 配列のディープコピーを用意
+		let enemyA01DiceSetCopy = JSON.parse(JSON.stringify(enemyDiceSet));
+		let enemyA01Table = new Table(enemyA01DiceSetCopy.map(calcCombinations));
+
+		// 各役について、最適なダイス値を見つける
+		for (const category of categories) {
+			// 点数の確定
+			const points = enemyA01Table.getColumn(category);
+			const maxPoint = Math.max(...points);
+			enemyA01Score[category][1] = maxPoint;
+
+			// 確定したダイススコアを除去
+			enemyA01Table.removeRow(points.indexOf(maxPoint));
+		}
+
+		// 割り当て結果を表示
+		const enemyA01ScoreUpperSection = enemyA01Score.slice(0, 5 + 1).reduce((total, value) => total + value[1], 0);
+		let enemyA01Bonus = 0;
+		if(enemyA01ScoreUpperSection >= NEED_UPPER_BONUS) enemyA01Bonus = 35;
+		console.table(enemyA01Score);
+		console.log(`スコア合計値：${enemyA01Score.reduce((total, value) => total + value[1], 0) + enemyA01Bonus}`);
+
 		enemyScore = randomizeArray(enemyA01Score);
 		break;
-	case 2:	// A02: A01に優先度を付与
+
+	case 2:
+		console.log('--- 敵戦略：A01に優先度を付与 ---');
+
+		/** [A02] 敵戦略２：A01に優先度を付与
+		 *
+		 *  特徴：役の成立可能性が低い順にダイスを当てはめていくことで、A01より得点力を上げる
+		 *  （ダイスパターン 252 に対し、L-Straight: 2, Fune: 6, S-Straight: 10, FullHouse: 30, FourDice: 36, ThreeDice: 126 の組み合わせが存在）
+		 *
+		 *  課題：「役の0点を無くすこと」と「高得点を狙うこと」は微妙に違う。例えばこの方針だと、ボーナスは得にくいかもしれない。
+		 *        必ずA01より高得点になるとは限らない。例えば L-Straight がダイスセット内で成立しなかった場合、ダイスセットの一番最後が捨てられることになるが、それが Fune の可能性がある。
+		 */
+		let enemyA02Score = JSON.parse(JSON.stringify(emptyScore));
+
+		// 配列のディープコピーを用意
+		let enemyA02DiceSetCopy = JSON.parse(JSON.stringify(enemyDiceSet));
+		let enemyA02Table = new Table(enemyA02DiceSetCopy.map(calcCombinations));
+
+		/** 役の成立が難しい順に優先度を設定 */
+		const priorityA02 = [
+			SCORE.categories.Fune.id,
+			SCORE.categories.FourDice.id,
+			SCORE.categories.LongStraight.id,
+			SCORE.categories.FullHouse.id,
+			SCORE.categories.ShortStraight.id,
+			SCORE.categories.ThreeDice.id,
+			SCORE.categories.Sixes.id,
+			SCORE.categories.Fives.id,
+			SCORE.categories.Fours.id,
+			SCORE.categories.Threes.id,
+			SCORE.categories.Twos.id,
+			SCORE.categories.Ones.id,
+			SCORE.categories.Choice.id
+		];
+
+		for (const category of priorityA02) {
+			// 点数の確定
+			const points = enemyA02Table.getColumn(category);
+			const maxPoint = Math.max(...points);
+			enemyA02Score[category][1] = maxPoint;
+
+			// 確定したダイススコアを除去
+			enemyA02Table.removeRow(points.indexOf(maxPoint));
+		}
+
+		// 割り当て結果を表示
+		const enemyA02ScoreUpperSection = enemyA02Score.slice(0, 5 + 1).reduce((total, value) => total + value[1], 0);
+		let enemyA02Bonus = 0;
+		if(enemyA02ScoreUpperSection >= NEED_UPPER_BONUS) enemyA02Bonus = 35;
+		console.table(enemyA02Score);
+		console.log(`スコア合計値：${enemyA02Score.reduce((total, value) => total + value[1], 0) + enemyA02Bonus}`);
+
 		enemyScore = randomizeArray(enemyA02Score);
 		break;
-	case 3:	// A02: ボーナス優先、その後A02
+
+	case 3:
+		console.log('--- 敵戦略：ボーナス優先＋A02 ---');
+
+		/** [A03] 敵戦略3：ボーナス優先後、A02
+		 *
+		 *  特徴：まずはアッパーセクションでのボーナスを求め、その後A02ライクの挙動をする
+		 * 	（ボーナス達成が不可能の場合は、A02を使う）
+		 *
+		 *  課題：振り直しなしだとボーナス達成は体感1%ないくらいなので、現状A02と変わらない。
+		 *  TODO: UpperSection の removeRow 時にインデックスがずれる、index値が大きい順にする必要がある
+		 */
+		let enemyA03Score = JSON.parse(JSON.stringify(emptyScore));
+
+		// 各種配列のディープコピーを用意
+		let enemyA03DiceSetCopy = JSON.parse(JSON.stringify(enemyDiceSet));
+
+		// テーブルデータ生成（各行は1つのダイス値の役一覧を表し、各列は役ごとの点数となる）
+		const enemyA03Table = new Table(enemyA03DiceSetCopy.map(calcCombinations));
+
+		/** アッパーボーナス判定 [[TableIndex, ScoreID, Point]...] */
+		let enemyA03UpperSectionBonus = [];
+		for(i = 0; i < 6; i++){
+			const points = enemyA03Table.getColumn(i);
+			const maxPoint = Math.max(...points);
+			const tableIndex = points.indexOf(maxPoint);
+			enemyA03UpperSectionBonus.push([tableIndex, i, maxPoint]);
+		}
+
+		const enemyA03SumUpperSection = enemyA03UpperSectionBonus.reduce((total, value) => total + value[2], 0);
+		console.log(enemyA03SumUpperSection);
+		if(enemyA03SumUpperSection >= NEED_UPPER_BONUS){
+			// アッパーボーナス達成成功のため、まずは条件を満たすダイスを確定させていく
+
+			console.log('Upper bonus!');
+			// テーブルインデックスの大きい順にソートして、removeRow() で除去（※後方のインデックスに影響を及ぼさないように）
+			enemyA03UpperSectionBonus.sort((a,b)=>{
+				return b[0] - a[0];
+			});
+
+			for(const arr of enemyA03UpperSectionBonus){
+				let [tableIndex, scoreIndex, point] = arr;
+				enemyA03Score[scoreIndex][1] = point;
+
+				// テーブルから確定したダイススコアを除去
+				enemyA03Table.removeRow(tableIndex);
+			}
+
+			/** 役の成立が難しい順に優先度を設定（アッパーセクションは除去） */
+			const priorityA03 = [
+				SCORE.categories.Fune.id,
+				SCORE.categories.FourDice.id,
+				SCORE.categories.LongStraight.id,
+				SCORE.categories.FullHouse.id,
+				SCORE.categories.ShortStraight.id,
+				SCORE.categories.ThreeDice.id,
+				SCORE.categories.Choice.id
+			];
+
+			for(let category of priorityA03){
+				// 点数の確定
+				const points = enemyA03Table.getColumn(category);
+				const maxPoint = Math.max(...points);
+				enemyA03Score[category][1] = maxPoint;
+
+				// 確定したダイススコアを除去
+				enemyA03Table.removeRow(points.indexOf(maxPoint));
+			}
+		} else {
+			// アッパーボーナスの達成不可能なので、A02をそのまま流用する
+
+			/** 役の成立が難しい順に優先度を設定 */
+			const priorityA02 = [
+				SCORE.categories.Fune.id,
+				SCORE.categories.FourDice.id,
+				SCORE.categories.LongStraight.id,
+				SCORE.categories.FullHouse.id,
+				SCORE.categories.ShortStraight.id,
+				SCORE.categories.ThreeDice.id,
+				SCORE.categories.Sixes.id,
+				SCORE.categories.Fives.id,
+				SCORE.categories.Fours.id,
+				SCORE.categories.Threes.id,
+				SCORE.categories.Twos.id,
+				SCORE.categories.Ones.id,
+				SCORE.categories.Choice.id
+			];
+
+			for (const category of priorityA02) {
+				// 点数の確定
+				const points = enemyA03Table.getColumn(category);
+				const maxPoint = Math.max(...points);
+				enemyA03Score[category][1] = maxPoint;
+
+				// 確定したダイススコアを除去
+				enemyA03Table.removeRow(points.indexOf(maxPoint));
+			}
+		}
+
+		// 割り当て結果を表示
+		const enemyA03ScoreUpperSection = enemyA03Score.slice(0, 5 + 1).reduce((total, value) => total + value[1], 0);
+		let enemyA03Bonus = 0;
+		if(enemyA03ScoreUpperSection >= NEED_UPPER_BONUS) enemyA03Bonus = 35;
+		console.table(enemyA03Score);
+		console.log(`スコア合計値：${enemyA03Score.reduce((total, value) => total + value[1], 0) + enemyA03Bonus}`);
+
 		enemyScore = randomizeArray(enemyA03Score);
 		break;
+
 	default:	// 不明、もしくは検証用ダミー（全役で 0点）
 		enemyScore = emptyScore;
 }
