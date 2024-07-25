@@ -11,12 +11,11 @@
    4. [x] Result画面（勝敗が即座にわかるよう、ヘッダー下に何かしら？）
    5. [ ] 用語統一（スコアとポイントとか、役名とか）
    6. [x] ポイント変更（成立確率から）
-   7. [ ] `dice` と `priority` から配列を返す関数 `calcScore()` を作る？
-   8. [x] スコアオブジェクト
+   7. [x] [x] スコアオブジェクト
       - `id`, `name`, `calcPoint` の３つ？
       - `document.documentElement.lang // -> "en"` とわかるので、`name` は `ja`, `en` を用意？
-   9. [x] エネミーの最初らへんをテーブル使用に置き換える、assignmentは消去
-   10. [x] コンソールに出すのは選択されたものだけに？
+   8. [x] エネミーの最初らへんをテーブル使用に置き換える、assignmentは消去
+   9. [x] コンソールに出すのは選択されたものだけに？
 2. 日本語版として完成できたか確認
 3. `index-ja.html` にリネームし、英語版の `index.html` を生成、英語化
 4. スクショを取りつつ、`how-to-play.md` の作成（ja/en）
@@ -24,9 +23,11 @@
 
 `SCORE.categories.Name.calcPoint` は、一旦取りやめ（点数計算するためにはダイス値をもらう必要があるが、そこまですると相互で繋がりが強くなりすぎるため）
 
+「`dice` と `priority` から配列を返す関数 `calcScore()` を作る」のも、一旦除外
+
 ### 並行して行う作業
 
-- [ ] CSS stylelint（Web-Zukuri側）
+- [x] CSS stylelint
 - [x] GH-Pages の webmanifest 確認（`start_url`）
   - [x] webmanifest の作成(en/ja)
 - [x] LogoIcon の生成
