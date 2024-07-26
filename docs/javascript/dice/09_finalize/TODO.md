@@ -4,7 +4,7 @@
 
 ### 順序通りに行う作業
 
-1. [ ] `index.html` の完成（英語化等はまだ）
+1. [x] `index.html` の完成（英語化等はまだ）
    1. [x] ユニット名欄のスタイル（4dvw? rem使用？）
    2. [x] `dialog.bl_menuHeader` のスタイル（上部余白など）
    3. [x] ScoreTableにUpperSectionもしくは別途場所に表示を
@@ -16,10 +16,10 @@
       - `document.documentElement.lang // -> "en"` とわかるので、`name` は `ja`, `en` を用意？
    8. [x] エネミーの最初らへんをテーブル使用に置き換える、assignmentは消去
    9. [x] コンソールに出すのは選択されたものだけに？
-2. 日本語版として完成できたか確認
-3. `index-ja.html` にリネームし、英語版の `index.html` を生成、英語化
-4. スクショを取りつつ、`how-to-play.md` の作成（ja/en）
-5. `README.md` の作成（en/ja）
+2. [x] 日本語版として完成できたか確認
+3. [x] `index-ja.html` にリネームし、英語版の `index.html` を生成、英語化
+4. [ ] スクショを取りつつ、`how-to-play.md` の作成（ja/en）
+5. [ ] `README.md` の作成（en/ja）
 
 `SCORE.categories.Name.calcPoint` は、一旦取りやめ（点数計算するためにはダイス値をもらう必要があるが、そこまですると相互で繋がりが強くなりすぎるため）
 
@@ -35,7 +35,7 @@
 ## リリース前最終チェックリスト
 
 - [ ] 各種ファイルの準備
-  - [ ] index.html, index-ja.html
+  - [x] index.html, index-ja.html
   - [x] manifest-en.webmanifest, manifest-ja.webmanifest
   - [x] .gitignore
   - [x] .nojekyll
