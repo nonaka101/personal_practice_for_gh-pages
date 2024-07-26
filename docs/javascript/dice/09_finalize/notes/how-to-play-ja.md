@@ -14,7 +14,15 @@ This manual is in Japanese, the English version is [here](./how-to-play-en.md).
 
 ## 画面操作
 
-<!-- @pic: 画面１：通常の画面 -->
+<figure>
+  <img src="./images/operation-screen-01.png" alt="メイン画面、コンテンツ順に1〜9の番号を割り振り、下表と結びつけている">
+  <figcaption>横画面時</figcaption>
+</figure>
+
+<figure>
+  <img src="./images/operation-screen-02.png" alt="上図に対して縦画面の場合">
+  <figcaption>縦画面時</figcaption>
+</figure>
 
 |番号|名前|説明|
 |:---:|:---|:---|
