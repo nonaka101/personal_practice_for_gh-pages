@@ -5,7 +5,7 @@ const enemyID = parseInt(urlParams.get('enemy_id')) || 0;
 
 /** 敵ユニット名 */
 const enemyList = [
-	'_00:TestDummy',
+	'000:TestDummy',
 	'A01:Basic',
 	'A02:Priority+A01',
 	'A03:Bonus+A02'
@@ -92,10 +92,10 @@ class Table {
 	 */
 	constructor(array){
 		// テーブル化の事前検証（2次元配列で、各行で列数が同じ）
-		if(getDimension(array) !== 2) throw new Error('2次元配列でないため Table 作成不可');
+		if(getDimension(array) !== 2) throw new Error('Table cannot be created, because argument is not a 2-dimensional array.');
 		const colSize = array[0].length;
 		for(let i = 1; i < array.length; i++){
-			if(array[i].length !== colSize) throw new Error('列数が統一されていないため Table 作成不可');
+			if(array[i].length !== colSize) throw new Error("Table cannot be created, because the number of argument's columns is not constant");
 		}
 
 		/** @private */
@@ -132,7 +132,7 @@ class Table {
 	 * @param {[number]} newRow - 置換先
 	 */
 	replaceRow(rowIndex, newRow){
-		if(this.columns !== newRow.length) throw new Error('サイズ違いにより置換不能');
+		if(this.columns !== newRow.length) throw new Error('Replace error, because of different size.');
 		this._table[rowIndex] = newRow;
 	}
 
@@ -141,7 +141,7 @@ class Table {
 	 * @param {[number]} newRow - 新規追加分
 	 */
 	addRow(newRow){
-		if(this.columns !== newRow.length) throw new Error('サイズ違いにより置換不能');
+		if(this.columns !== newRow.length) throw new Error('Replace error, because of different size.');
 		this._table.push(newRow);
 	}
 
@@ -168,7 +168,7 @@ class Table {
 	 * @param {[number]} newCol - 置換先
 	 */
 	replaceColumn(colIndex, newCol){
-		if(this.rows !== newCol.length) throw new Error('サイズ違いにより置換不能');
+		if(this.rows !== newCol.length) throw new Error('Replace error, because of different size.');
 		for (let i = 0; i < this.rows; i++) {
 			this._table[i][colIndex] = newCol[i];
 		}
@@ -179,7 +179,7 @@ class Table {
 	 * @param {[number]} newCol - 新規追加分
 	 */
 	addColumn(newCol){
-		if(this.rows !== newCol.length) throw new Error('サイズ違いにより置換不能');
+		if(this.rows !== newCol.length) throw new Error('Replace error, because of different size.');
 		for (let i = 0; i < this.rows; i++) {
 			this._table[i].push(newCol[i]);
 		}
@@ -237,7 +237,7 @@ for(let i = 0; i < 13; i++){
 }
 */
 
-console.log('--- 敵側のダイスセット ---');
+console.log("--- Enemy's dice set ---");
 console.table(enemyDiceSet);
 
 // 役一覧（13 に該当するボーナスを除いた形）
@@ -255,7 +255,7 @@ for (let i = 0; i <= 12; i++) {
 let enemyScore = [];
 switch(enemyID){
 	case 1:
-		console.log('--- 敵戦略：役順に高得点を当てはめていく ---');
+		console.log('--- Enemy strategy: Apply high scores in the order of roles. ---');
 
 		/** [A01] 敵戦略１：役順に高得点を当てはめていく
 		 *
@@ -286,13 +286,13 @@ switch(enemyID){
 		let enemyA01Bonus = 0;
 		if(enemyA01ScoreUpperSection >= NEED_UPPER_BONUS) enemyA01Bonus = 35;
 		console.table(enemyA01Score);
-		console.log(`スコア合計値：${enemyA01Score.reduce((total, value) => total + value[1], 0) + enemyA01Bonus}`);
+		console.log(`The sum of score is ${enemyA01Score.reduce((total, value) => total + value[1], 0) + enemyA01Bonus}`);
 
 		enemyScore = randomizeArray(enemyA01Score);
 		break;
 
 	case 2:
-		console.log('--- 敵戦略：A01に優先度を付与 ---');
+		console.log('--- Enemy Strategy: Priority given to A01 ---');
 
 		/** [A02] 敵戦略２：A01に優先度を付与
 		 *
@@ -340,13 +340,13 @@ switch(enemyID){
 		let enemyA02Bonus = 0;
 		if(enemyA02ScoreUpperSection >= NEED_UPPER_BONUS) enemyA02Bonus = 35;
 		console.table(enemyA02Score);
-		console.log(`スコア合計値：${enemyA02Score.reduce((total, value) => total + value[1], 0) + enemyA02Bonus}`);
+		console.log(`The sum of score is ${enemyA02Score.reduce((total, value) => total + value[1], 0) + enemyA02Bonus}`);
 
 		enemyScore = randomizeArray(enemyA02Score);
 		break;
 
 	case 3:
-		console.log('--- 敵戦略：ボーナス優先＋A02 ---');
+		console.log('--- Enemy Strategy: The conbination of bonus priority and A02 ---');
 
 		/** [A03] 敵戦略3：ボーナス優先後、A02
 		 *
@@ -378,7 +378,7 @@ switch(enemyID){
 		if(enemyA03SumUpperSection >= NEED_UPPER_BONUS){
 			// アッパーボーナス達成成功のため、まずは条件を満たすダイスを確定させていく
 
-			console.log('Upper bonus!');
+			console.log('Achieved upper-section bonus!');
 			// テーブルインデックスの大きい順にソートして、removeRow() で除去（※後方のインデックスに影響を及ぼさないように）
 			enemyA03UpperSectionBonus.sort((a,b)=>{
 				return b[0] - a[0];
@@ -448,7 +448,7 @@ switch(enemyID){
 		let enemyA03Bonus = 0;
 		if(enemyA03ScoreUpperSection >= NEED_UPPER_BONUS) enemyA03Bonus = 35;
 		console.table(enemyA03Score);
-		console.log(`スコア合計値：${enemyA03Score.reduce((total, value) => total + value[1], 0) + enemyA03Bonus}`);
+		console.log(`The sum of score is ${enemyA03Score.reduce((total, value) => total + value[1], 0) + enemyA03Bonus}`);
 
 		enemyScore = randomizeArray(enemyA03Score);
 		break;

@@ -594,6 +594,7 @@ html:has(dialog[open]) {
 	height: 1em;
 	content: "";
 	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 48 48' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='9' y='12' width='30' height='30' ry='3' fill='none' stroke='currentColor' stroke-width='2'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
 }
 
 .bl_setting.bl_setting__chk > input:checked{
@@ -653,6 +654,7 @@ html:has(dialog[open]) {
 	height: 1rem;
 	content: "";
 	background-image: url('data:image/svg+xml;utf-8,<svg viewBox="0 0 24 24" fill="black" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.1L3 8L4 7L12 15L20 7L21 8L12 17.1Z"/></svg>');
+	background-repeat: no-repeat;
 }
 
 /* Styles for manualy color mode */
@@ -802,6 +804,7 @@ html:has(dialog[open]) {
 	height: calc(var(--size_btn) * 0.3);
 	content: "";
 	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 48 48' fill='%23d40000' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m21 3c-12 0-12 12-12 12v2.4199h-2.4199c-1.9835 0-3.5801 1.5966-3.5801 3.5801v20.42c0 1.9835 1.5966 3.5801 3.5801 3.5801h34.84c1.9835 0 3.5801-1.5966 3.5801-3.5801v-20.42c0-1.9835-1.5966-3.5801-3.5801-3.5801h-2.4199v-2.4199c0-12-12-12-12-12zm0 6h6c6 0 6 6 6 6v2.4199h-18v-2.4199c0-6 6-6 6-6z' stroke-width='2.144'/%3E%3Cpath d='m24 21a6 6 0 0 0-6 6 6 6 0 0 0 4.3203 5.7598l-1.3203 9.2402h6l-1.3203-9.2402a6 6 0 0 0 4.3203-5.7598 6 6 0 0 0-6-6z' fill='%23fff' stroke-width='2'/%3E%3C/g%3E%3C/svg%3E");
+	background-repeat: no-repeat;
 }
 
 .bl_dice>span {
@@ -866,6 +869,37 @@ html:has(dialog[open]) {
 
 
 
+/* ≡≡≡ bl_list ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+	■ About
+---------------------------------------------------------------------- */
+
+.bl_list {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+.bl_list_item {
+	margin: 4px 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* ≡≡≡ bl_select ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
 	■ About
 ---------------------------------------------------------------------- */
@@ -909,6 +943,7 @@ html:has(dialog[open]) {
 	height: 4dvw;
 	content: "";
 	background-image: url('data:image/svg+xml;utf-8,<svg viewBox="0 0 24 24" fill="black" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.1L3 8L4 7L12 15L20 7L21 8L12 17.1Z"/></svg>');
+	background-repeat: no-repeat;
 }
 
 /* Styles for manualy color mode */

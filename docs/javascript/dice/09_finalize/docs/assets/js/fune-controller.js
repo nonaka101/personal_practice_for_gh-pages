@@ -124,7 +124,7 @@ function changeColorMode(colorMode) {
 			document.documentElement.classList.add("is_darkMode");
 			break;
 		default:
-			console.log(`不明な設定値が検出されました [colorMode : ${colorMode}]`);
+			console.log(`Unknown setting value detected: colorMode -> ${colorMode}`);
 	}
 }
 
@@ -159,7 +159,7 @@ function changeFontSize(fontSize) {
 		if (typeof size === "number"){
 			document.documentElement.style.fontSize = size + 'px';
 		} else {
-			console.log(`不明な設定値が検出されました [fontSize : ${fontSize}]`);
+			console.log(`Unknown setting value detected: fontSize -> ${fontSize}`);
 		}
 	}
 }
@@ -242,7 +242,9 @@ changeSoundMode(settingState.enableSound);
 var isEnabledSound = false;
 if((window.AudioContext || window.webkitAudioContext) === undefined) {
 	// AudioContext による ビープ生成 未対応
-	chkEnableSound.parentElement.lastChild.textContent = 'この機器は未対応です'
+	let textLabel = 'This device is not supported.';
+	if(document.documentElement.lang === 'ja') textLabel = 'この機器は未対応です';
+	chkEnableSound.parentElement.lastChild.textContent = textLabel;
 	chkEnableSound.disabled = true;
 } else {
 	isEnabledSound = true;
@@ -415,7 +417,7 @@ class Controller {
 }
 
 const form = document.querySelector('#js_controller');
-const pName = 'プレイヤー1';
+const pName = 'Player';
 const p1 = new Player(pName);
 
 /** enemyScore は、`fune-enemies.js` 側に格納 */
@@ -485,7 +487,7 @@ document.addEventListener('handover', (e) => {
 	if (isPlayer) {
 		gm.update();
 		if (!gm.winner) {
-			console.log(`${e1.name} のターンです。`);
+			console.log(`${e1.name}'s turn.`);
 			e1.setDummyData();
 			ctrl = new Controller(p1, form);
 		} else {
@@ -496,7 +498,7 @@ document.addEventListener('handover', (e) => {
 	} else {
 		gm.update();
 		if (!gm.winner) {
-			console.log(`${p1.name} のターンです。`);
+			console.log(`${p1.name}'s turn.`);
 		} else {
 			// Result dialog update (when game is finished)
 			for(const ele of winnerName) ele.textContent = gm.winner;

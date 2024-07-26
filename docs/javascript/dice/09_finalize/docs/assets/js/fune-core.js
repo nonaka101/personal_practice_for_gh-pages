@@ -185,7 +185,7 @@ function zip(arr1, arr2) {
 function calcCombinations(num){
 	// 入力値の検証（数値としての、5桁のダイス値）
   const regex = /^[1-6]{5}$/;
-  if(!regex.test(String(num))) throw new Error('引数は5桁のダイス値でなければなりません');
+  if(!regex.test(String(num))) throw new Error('Argument must be a 5-digit dice value.');
 
 	// ソートした配列とセットに変換
   const dices = String(num).split('').map(Number).sort();
@@ -310,7 +310,7 @@ class PlayerUnit{
 				}
 			}
 		} else {
-			throw new Error('setScoreエラー：indexがスコア外、もしくはスコアが決定済みの可能性');
+			throw new Error('setScore error : Index is out of score, or score has already been determined.');
 		}
 		this.reportScoreTable();
 		document.dispatchEvent(new CustomEvent("handover", {
@@ -360,19 +360,19 @@ class GameMaster {
 	}
 	result(){
 		let result = this._player.totalScore - this._enemy.totalScore;
-		console.log(`${this._player.name} の得点は ${this._player.totalScore}`)
-		console.log(`${this._enemy.name} の得点は ${this._enemy.totalScore}`)
+		console.log(`${this._player.name}'s Score is ${this._player.totalScore}`)
+		console.log(`${this._enemy.name}'s Score is${this._enemy.totalScore}`)
 		switch (true) {
 			case (result > 0):
-				console.log(`${this._player.name} の勝利です`);
+				console.log(`${this._player.name} is winner.`);
 				this._winner = this._player.name;
 				break;
 			case (result < 0):
-				console.log(`${this._enemy.name} の勝利です`);
+				console.log(`${this._enemy.name} is winner.`);
 				this._winner = this._enemy.name;
 				break;
 			case (result === 0):
-				console.log("引き分けです");
+				console.log("This game is a draw.");
 				this._winner = 'Draw';
 				break;
 		}
