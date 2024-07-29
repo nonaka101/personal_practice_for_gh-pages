@@ -18,7 +18,7 @@
    9. [x] コンソールに出すのは選択されたものだけに？
 2. [x] 日本語版として完成できたか確認
 3. [x] `index-ja.html` にリネームし、英語版の `index.html` を生成、英語化
-4. [ ] スクショを取りつつ、`how-to-play.md` の作成（ja/en）
+4. [x] スクショを取りつつ、`how-to-play.md` の作成（ja/en）
 5. [ ] `README.md` の作成（en/ja）
 
 `SCORE.categories.Name.calcPoint` は、一旦取りやめ（点数計算するためにはダイス値をもらう必要があるが、そこまですると相互で繋がりが強くなりすぎるため）

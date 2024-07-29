@@ -2,7 +2,9 @@
 
 ![FUNE logo](./notes/images/fune-logo-long-bgWhite.svg)
 
-このリポジトリは、ヨットライクのダイスゲーム「フネ」を扱っております。ゲーム自体は、Web上で遊ぶことができます。
+This repository has the game based on the public domain dice game **Yacht**. Other similar games include **Yahtzee**, **Yatzy** and **Poker dice**.
+
+ゲーム自体は、Web上で遊ぶことができます。
 
 ## 遊び方
 
@@ -21,13 +23,17 @@
 
 様々なデバイス上で遊ぶことができます。
 
-横画面時
-![メイン画面](./notes/images/main-screen-01.png)
+<figure>
+  <img src="./notes/images/main-screen-01.png" alt="メイン画面">
+  <figcaption>横画面時</figcaption>
+</figure>
 
-縦画面時
-![上図に対して縦画面のレイアウト](./notes/images/main-screen-02.png)
+<figure>
+  <img src="./notes/images/main-screen-02.png" alt="上図に対して縦画面のレイアウト">
+  <figcaption>縦画面時</figcaption>
+</figure>
 
-### Accessibility
+### アクセシビリティ
 
 キー操作、スクリーンリーダーで動作できることを目指しています。
 また、フォントサイズやカラーモードなど、デバイス上の設定を使って適切なレイアウトになるようにしてます（手動でも変更可能）
