@@ -6,8 +6,7 @@ This manual is in English, the **Japanese version** is [here](./how-to-play-ja.m
 
 ## About This Game
 
-This game is based on the public domain dice game **Yacht**. Other similar games include **Yahtzee**, **Yatzy** and **Poker dice**. Most of the rules are based on these games, but some changes have been made as [house rules](#about-this-game).
-<!--TODO: modify link-->
+This game is based on the public domain dice game **Yacht**. Other similar games include **Yahtzee**, **Yatzy** and **Poker dice**. Most of the rules are based on these games, but some changes have been made as [house rules](#differences-from-other-dice-games).
 
 In this game, you compete against an opponent for the total score. To get points, you need to make a combination using 5 dice. The number of rerolls is limited, and you cannot reuse a combination once selected. Therefore, this game requires both **luck and strategy**.
 
@@ -39,6 +38,8 @@ Portrait mode
 
 When you press the "**5: Score Button**" in [main screen](#main-screen), a score dialog will be enpanded.
 
+![Score screen, assigned numbers 1-3 in order of content and tied to the table below](./images/play-instruction-03-en.png)
+
 | No. | Name             | Description                                    |
 |:---:|:-----------------|:-----------------------------------------------|
 | 1   | Close Button     | Closes the dialog                              |
@@ -56,10 +57,10 @@ In this game, there are **13 conbinations** using five dices, and **1 bonus** th
 Players and opponents aim for one of these combinations each turn.
 
 ![Dice value '1 1 1 2 2' applied to 'Full House' from the chart of combinations.](./images/play-instruction-01-ja.png)
+<!-- TODO: change to english -->
 
 Once a combination is confirmed, it cannot be changed, even if a higher score is achieved in later turns.
 
-The game ends when the hand chart is filled with 13 turns,
 The game ends after 13 turns, which means the chart of combinations is filled. And then, a winner is the one who got a higher score.
 
 ![13 dice values applied to the chart of combinations to calculate the score](./images/play-instruction-02-en.png)
@@ -173,7 +174,7 @@ For example, with the dice value "2 3 4 5 5" (`⚁⚂⚃⚄⚄`), the score is 3
 
 Achieved if **all dices** show a sequential pattern. The score is 40 points regardless of the dices.
 
-"Long Straight" is achieved with "1 2 3 4 5"(`⚀⚁⚂⚃⚄`) or "2 3 4 5 6"(`⚁⚂⚃⚄⚅`).
+"Long Straight" is achieved with "1 2 3 4 5" (`⚀⚁⚂⚃⚄`) or "2 3 4 5 6" (`⚁⚂⚃⚄⚅`).
 
 #### Choice
 
