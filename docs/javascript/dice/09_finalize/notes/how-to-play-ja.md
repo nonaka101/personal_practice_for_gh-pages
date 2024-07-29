@@ -74,7 +74,7 @@ This manual is in Japanese, the English version is [here](./how-to-play-en.md).
 1ターンにダイスは最大3回振ることができます。
 最初の1回は強制で、プレイヤーはそこから2回まで振りなおすことができます。
 
-<!-- @pic: 3回の振りなおしでフネ確定させる図-->
+![ダイスを2回振りなおし、ロングストレートを成立させている](./images/the-flow-a-turn-01.png)
 
 振りなおしは任意なので、一度も振りなおしせず確定させることも可能です。
 
@@ -88,7 +88,7 @@ This manual is in Japanese, the English version is [here](./how-to-play-en.md).
 
 ロック状態のダイスは、振りなおしの対象にならず、固定されたままとなります。
 
-<!-- ダイス ロック状態 にしながら役を成立させる -->
+![ダイスロックを使いながら、フネ成立を目指している](./images/the-flow-a-turn-02.png)
 
 ※一度ロックしたダイスは、再度ロックを外すことも可能です。
 

@@ -19,7 +19,6 @@ Landscape mode
 
 Portrait mode
 ![Main screen in portrait mode](./images/operation-screen-02.png)
-<!-- TODO:Change picture `confirm` button, and modify `howto-play-ja.md` -->
 
 | No. | Name                | Description                                    |
 |:---:|:--------------------|:-----------------------------------------------|
@@ -56,8 +55,7 @@ In this game, there are **13 conbinations** using five dices, and **1 bonus** th
 
 Players and opponents aim for one of these combinations each turn.
 
-![Dice value '1 1 1 2 2' applied to 'Full House' from the chart of combinations.](./images/play-instruction-01-ja.png)
-<!-- TODO: change to english -->
+![Dice value '1 1 1 2 2' applied to 'Full House' from the chart of combinations.](./images/play-instruction-01-en.png)
 
 Once a combination is confirmed, it cannot be changed, even if a higher score is achieved in later turns.
 
@@ -74,7 +72,7 @@ In addition to the combination that depend on 5 dices, the chart of combinations
 You can roll the dice up to 3 times in a turn.
 The first roll is mandatory, and player can reroll up to 2 more times.
 
-<!-- @pic: Diagram of confirming a combination with 3 rerolls -->
+![Using two rerolling, player achieved the combination 'Long Straight'](./images/the-flow-a-turn-01.png)
 
 Rerolling is optional, so you are also possible to confirm a combination without rerolling.
 
@@ -88,7 +86,7 @@ Before rerolling dices, you can **lock** specific dice.
 
 Locked dice will not be rerolled and will remain fixed.
 
-<!-- Diagram of confirming a combination with locked dice -->
+![Using two rerolling and dice locked, player achieved the combination 'FUNE'](./images/the-flow-a-turn-02.png)
 
 *Note: Locked dice can be unlocked again.*
 
