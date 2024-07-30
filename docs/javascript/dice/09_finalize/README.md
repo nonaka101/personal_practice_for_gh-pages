@@ -2,36 +2,37 @@
 
 ![FUNE logo](./notes/images/fune-logo-long-bgWhite.svg)
 
-このリポジトリは、ヨットライクのダイスゲーム「フネ」を扱っております。ゲーム自体は、Web上で遊ぶことができます。
+This repository is the game based on the public domain dice game **Yacht**. Other similar games include **Yahtzee**, **Yatzy** and **Poker dice**. This game can be played on the web.
 
-## 遊び方
+This `README` is in English, the **Japanese version** is [here](./README-ja.md).
 
-リンクより、ブラウザ上で遊ぶことができます。ゲームの説明については、下記を参照ください。
+## How to play
+
+You can play in your browser from [this link](./)(Japanese version is [here](./)). Please see below for a description of the game flow and combinations.
 
 - [How to play this game (EN)](./notes/how-to-play-en.md)
-- [遊び方 (JP)](./notes/how-to-play-ja.md)
+- [遊び方(JP)](./notes/how-to-play-ja.md)
 
-## 特徴
+## Features
 
-### PWA
+### PWA(Progressive Web App)
 
-デバイスに登録し、遊ぶことができます。
-
-### レスポンシブデザイン
-
-様々なデバイス上で遊ぶことができます。
-
-横画面時
-![メイン画面](./notes/images/main-screen-01.png)
-
-縦画面時
-![上図に対して縦画面のレイアウト](./notes/images/main-screen-02.png)
+It can be installed on devices as a PWA.
 
 ### Accessibility
 
-キー操作、スクリーンリーダーで動作できることを目指しています。
-また、フォントサイズやカラーモードなど、デバイス上の設定を使って適切なレイアウトになるようにしてます（手動でも変更可能）
+The game can be played on any device and in any screen orientation.
 
-### 敵戦略の追加
+Landscape mode
+![Main screen](./notes/images/main-screen-01.png)
 
-現状、スコア配列を用意できれば敵を追加することができます。詳しくは for-dev.md を参照してください。
+Portrait mode
+![main screen in portrait mode](./notes/images/main-screen-02.png)
+
+It also uses device settings such as `font-size` and `color-mode` to ensure an appropriate layout (These can also be changed manually).
+
+Furthermore, I aim to make it possible to operate the game with a keyboard and screen reader.
+
+### Enemy strategy
+
+If you can prepare a `score array`, you can change or add opponent behavior. Please refer to [for-developer-ja.md(JP)](./notes/for-developer-ja.md) for details.

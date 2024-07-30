@@ -19,7 +19,7 @@
 2. [x] 日本語版として完成できたか確認
 3. [x] `index-ja.html` にリネームし、英語版の `index.html` を生成、英語化
 4. [x] スクショを取りつつ、`how-to-play.md` の作成（ja/en）
-5. [ ] `README.md` の作成（en/ja）
+5. [x] `README.md` の作成（en/ja）
 
 `SCORE.categories.Name.calcPoint` は、一旦取りやめ（点数計算するためにはダイス値をもらう必要があるが、そこまですると相互で繋がりが強くなりすぎるため）
 
@@ -42,8 +42,8 @@
   - [x] .editorconfig
   - [x] Squooshd された icons(32x32.ico, 150x150.svg, 180x180.png, 192x192.png, 512x512.png)
   - [x] LISENCE
-  - [ ] README.md
-  - [ ] how-to-play-en.md, how-to-play-ja.md
+  - [x] README.md
+  - [x] how-to-play-en.md, how-to-play-ja.md
   - [ ] development.md(jaのみ？)
 - [ ] index.html(en/ja) の内容確認（英語日本語それぞれで対応しているか含む）
   - [ ] webmanifest の連携
