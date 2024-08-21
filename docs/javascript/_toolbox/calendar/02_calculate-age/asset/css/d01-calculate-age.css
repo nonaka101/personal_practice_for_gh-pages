@@ -1,0 +1,11 @@
+.ly_subDialog {
+	border: var(--sc_border_divider);
+	background-color: var(--sc_bg_body__primary);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.ly_subDialog:not([open]){
+	display: none;
+}
