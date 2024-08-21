@@ -381,15 +381,14 @@
 						</button>
 					</div><!-- /.bl_menuHeader -->
 					<form action="#">
-						<label for="">生年月日</label>
-						<input type="date" name="" id="">
-						<button type="button">和暦入力</button>
+						<label for="d01js_inputBirthday">生年月日</label>
+						<input type="date" name="d01js_inputBirthday" id="d01js_inputBirthday">
 						<button type="button" class="js_btnShowDialog" aria-controls="d01-1js_dialog_sub">
-							年齢計算
+							和暦入力
 						</button><!-- /.js_btnShowDialog -->
 						<dialog class="ly_subDialog" id="d01-1js_dialog_sub" aria-labelledby="d01-1_title" autofocus>
 							<div class="bl_menuHeader">
-								<h2 class="bl_menuHeader_title" id="d01-1_title">年齢計算</h2>
+								<h2 class="bl_menuHeader_title" id="d01-1_title">和暦入力</h2>
 								<button type="button" class="bl_menuHeader_btnIcon js_btnCloseDialog"
 									aria-controls="d01-1js_dialog_sub" aria-describedby="d01-1_title">
 									<span>閉じる</span>
@@ -397,6 +396,7 @@
 							</div><!-- /.bl_menuHeader -->
 						</dialog>
 						<input type="submit" value="aaa">
+						<button type="button" class="el_btn el_btn__primary" id="d01js_calcBtn">計算</button>
 					</form>
 
 				</div><!-- /.ly_dialog_body -->
