@@ -1,11 +1,29 @@
 .ly_subDialog {
-	border: var(--sc_border_divider);
-	background-color: var(--sc_bg_body__primary);
 	display: flex;
+	flex-flow: column nowrap;
 	align-items: center;
 	justify-content: center;
+	background-color: var(--sc_bg_body__primary);
 }
 
 .ly_subDialog:not([open]){
 	display: none;
+}
+
+.ly_subDialog::backdrop {
+	background-color: var(--sc_bg_body__secondary);
+	filter: opacity(0.7);
+}
+
+.bl_subDialog {
+	border: 1px splid var(--sc_bg_shadow);
+	background-color: var(--sc_bg_body__primary);
+}
+
+.bl_subDialog_row {
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
 }

@@ -387,13 +387,24 @@
 							和暦入力
 						</button><!-- /.js_btnShowDialog -->
 						<dialog class="ly_subDialog" id="d01-1js_dialog_sub" aria-labelledby="d01-1_title" autofocus>
-							<div class="bl_menuHeader">
-								<h2 class="bl_menuHeader_title" id="d01-1_title">和暦入力</h2>
-								<button type="button" class="bl_menuHeader_btnIcon js_btnCloseDialog"
-									aria-controls="d01-1js_dialog_sub" aria-describedby="d01-1_title">
-									<span>閉じる</span>
-								</button>
-							</div><!-- /.bl_menuHeader -->
+              <div class="bl_subDialog">
+                <h3 class="bl_subDialog_title" id="d01-1_title">和暦入力</h3>
+                <label for="d01js_wareki_num">和暦＋6桁の数値（例：令和 <strong>1年2月3日</strong> → <strong>010203</strong>）</label>
+                <div class="bl_subDialog_row">
+                  <select name="d01js_wareki_category" id="d01js_wareki_category">
+                    <option value="0" default>令和</option>
+                    <option value="1" default>平成</option>
+                    <option value="2" default>昭和</option>
+                    <option value="3" default>大正</option>
+                    <option value="4" default>明治</option>
+                  </select>
+									<input type="text" name="d01js_wareki_num" id="d01js_wareki_num" size="6" pattern="[0-9]{6}" required>
+                </div><!-- /.bl_subDialog_row -->
+                <div class="bl_subDialog_row">
+									<button type="button" class="el_btn el_btn__tertiary">キャンセル</button>
+									<button type="button" class="el_btn el_btn__primary">決定</button>
+                </div><!-- /.bl_subDialog_row -->
+              </div>
 						</dialog>
 						<input type="submit" value="aaa">
 						<button type="button" class="el_btn el_btn__primary" id="d01js_calcBtn">計算</button>
