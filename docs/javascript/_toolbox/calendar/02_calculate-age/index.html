@@ -172,7 +172,7 @@
 	<ul class="bl_funcList">
 		<!-- [b01] -->
 		<li class="bl_funcList_item">
-			<button type="button" class="js_btnShowDialog" aria-controls="b01js_dialog_calculator">
+			<button type="button" class="js_btnShowDialog el_btn el_btn__primary el_btn__wMaxContent" aria-controls="b01js_dialog_calculator">
 				簡易電卓
 			</button><!-- /.js_btnShowDialog -->
 			<dialog class="ly_dialog" id="b01js_dialog_calculator" aria-labelledby="b01_title" autofocus>
@@ -294,7 +294,7 @@
 	<ul class="bl_funcList">
 		<!-- [c01] -->
 		<li class="bl_funcList_item">
-			<button type="button" class="js_btnShowDialog" aria-controls="c01js_dialog_textCounter">
+			<button type="button" class="js_btnShowDialog el_btn el_btn__primary el_btn__wMaxContent" aria-controls="c01js_dialog_textCounter">
 				文字列カウンタ
 			</button><!-- /.js_btnShowDialog -->
 
@@ -367,7 +367,7 @@
 
 	<ul class="bl_funcList">
 		<li class="bl_funcList_item">
-			<button type="button" class="js_btnShowDialog" aria-controls="d01js_dialog_calcAge">
+			<button type="button" class="js_btnShowDialog el_btn el_btn__primary el_btn__wMaxContent" aria-controls="d01js_dialog_calcAge">
 				年齢計算
 			</button><!-- /.js_btnShowDialog -->
 
@@ -380,36 +380,39 @@
 							<span>閉じる</span>
 						</button>
 					</div><!-- /.bl_menuHeader -->
-					<form action="#">
-						<label for="d01js_inputBirthday">生年月日</label>
-						<input type="date" name="d01js_inputBirthday" id="d01js_inputBirthday">
-						<button type="button" class="js_btnShowDialog" aria-controls="d01-1js_dialog_sub">
-							和暦入力
-						</button><!-- /.js_btnShowDialog -->
-						<dialog class="ly_subDialog" id="d01-1js_dialog_sub" aria-labelledby="d01-1_title" autofocus>
-              <div class="bl_subDialog">
-                <h3 class="bl_subDialog_title" id="d01-1_title">和暦入力</h3>
-                <label for="d01js_wareki_num">和暦＋6桁の数値（例：令和 <strong>1年2月3日</strong> → <strong>010203</strong>）</label>
-                <div class="bl_subDialog_row">
-                  <select name="d01js_wareki_category" id="d01js_wareki_category">
-                    <option value="0" default>令和</option>
-                    <option value="1" default>平成</option>
-                    <option value="2" default>昭和</option>
-                    <option value="3" default>大正</option>
-                    <option value="4" default>明治</option>
-                  </select>
-									<input type="text" name="d01js_wareki_num" id="d01js_wareki_num" size="6" pattern="[0-9]{6}" required>
-                </div><!-- /.bl_subDialog_row -->
-                <div class="bl_subDialog_row">
-									<button type="button" class="el_btn el_btn__tertiary">キャンセル</button>
-									<button type="button" class="el_btn el_btn__primary">決定</button>
-                </div><!-- /.bl_subDialog_row -->
-              </div>
-						</dialog>
-						<input type="submit" value="aaa">
+					<form action="#" class="d01bl_form">
+						<label for="d01js_inputBirthday" class="d01bl_form_label">生年月日</label>
+						<div class="d01bl_form_inputs">
+							<input type="date" name="d01js_inputBirthday" id="d01js_inputBirthday" class="d01bl_form_dateInput">
+							<button type="button" class="js_btnShowDialog el_btn el_btn__secondary el_btn__wMaxContent" aria-controls="d01-1js_dialog_sub">
+								和暦入力
+							</button><!-- /.js_btnShowDialog -->
+							<dialog class="ly_subDialog" id="d01-1js_dialog_sub" aria-labelledby="d01-1_title" autofocus>
+								<div class="bl_subDialog">
+									<h3 class="bl_subDialog_title" id="d01-1_title">和暦入力</h3>
+									<label for="d01js_wareki_num" class="bl_subDialog_label">
+										和暦を選択し、6桁の数値を入力してください<br>
+										（例：令和 <strong>1年2月3日</strong> → <strong>010203</strong>）
+									</label>
+									<div class="bl_subDialog_row">
+										<select name="d01js_wareki_category" id="d01js_wareki_category">
+											<option value="0" default>令和</option>
+											<option value="1" default>平成</option>
+											<option value="2" default>昭和</option>
+											<option value="3" default>大正</option>
+											<option value="4" default>明治</option>
+										</select>
+										<input type="text" name="d01js_wareki_num" id="d01js_wareki_num" size="6" pattern="[0-9]{6}" required>
+									</div><!-- /.bl_subDialog_row -->
+									<div class="bl_subDialog_row">
+										<button type="button" class="el_btn el_btn__tertiary el_btn__w12ch">キャンセル</button>
+										<button type="button" class="el_btn el_btn__primary el_btn__w12ch">決定</button>
+									</div><!-- /.bl_subDialog_row -->
+								</div>
+							</dialog>
+						</div><!-- /.d01bl_form_inputs -->
 						<button type="button" class="el_btn el_btn__primary" id="d01js_calcBtn">計算</button>
 					</form>
-
 				</div><!-- /.ly_dialog_body -->
 			</dialog><!-- /.ly_dialog -->
 			<link rel="stylesheet" href="./asset/css/d01-calculate-age.css">
