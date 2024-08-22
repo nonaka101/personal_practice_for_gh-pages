@@ -152,12 +152,50 @@ function isDateFormat(dateString) {
 const dateInput = document.querySelector('#d01js_inputBirthday');	// This value has the required format "yyyy-MM-dd".
 // Example : `dateInput.value = '2000-01-23';`
 
+const warekiName = document.querySelector('#d01js_wareki_name');
+const warekiNum = document.querySelector('#d01js_wareki_num');
 const warekiBtn = document.querySelector('#d01js_wareki_submit');
 warekiBtn.addEventListener('click', ()=> {
+	const warekiID = parseInt(warekiName.value);
+	const warekiString = warekiNum.value;
 
+	// 年月日文字列のチェック（eeMMdd：和暦2桁 + 月2桁 + 日2桁）
+	if(!warekiString.match(/^([0-9]{2})(0[1-9]|1[0-2])([0-2][0-9]|3[01])$/)) throw new Error('引数は6桁の年月日文字列でなければなりません');
+
+	const warekiYear = parseInt(warekiString.substring(0, 2));
+	const year = wareki.getYearByEra(warekiID, warekiYear);
+	const dateString = `${year}-${warekiString.substring(2, 4)}-${warekiString.substring(4)}`;
+
+	// 適正な日付形式かをチェック
+	if(isDateFormat(dateString) === false) throw new Error('和暦→西暦日付への変換に失敗しました');
+
+	// 入力ボックスに結果を入れ、ダイアログを閉じる
+	dateInput.value = dateString;
+	closeDialog(warekiBtn);
 });
 
-const calcBtn = document.querySelector('#d01js_calcBtn');
-calcBtn.addEventListener('click', ()=> {
+const d01Output = document.querySelector('#d01js_output');
+const d01CalcBtn = document.querySelector('#d01js_calcBtn');
+d01CalcBtn.addEventListener('click', ()=> {
+	const dateString = dateInput.value;
+	if(isDateFormat(dateString) === false) throw new Error('入力値が適正でありません');
+  const dateParts = dateString.split('-');
+  const date = new Date(parseInt(dateParts[0]), parseInt(dateParts[1]) - 1, parseInt(dateParts[2]));
 
+	// 年齢算出
+	const age = calcAge(date);
+
+	// 現年齢の加齢タイミング（≒誕生日前日24時）
+	const timeAgingInThisYear = new Date(
+		date.getFullYear() + age,
+		date.getMonth(),
+		date.getDate() - 1,
+		24
+	);
+
+	// 経過日数を算出
+	const days = dateDiff(timeAgingInThisYear, new Date());
+
+	const buf = `年齢： ${age} 歳、経過日数： ${days} 日`;
+	d01Output.value = buf;
 });
