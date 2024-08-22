@@ -1,11 +1,3 @@
-// 2月29日24時について、2024年（閏年）の場合は 3/1 となる
-const d2 = new Date(2024, 1, 29, 24, 0) // -> 2024-03-01 00:00
-
-// 2023年（閏年でない）の場合は 2月29日は3月1日となり、その24時なので 3/2 となる
-const d1 = new Date(2023, 1, 29, 24, 0) // -> 2023-03-02 00:00
-
-
-
 /**
  * 生年月日から、年齢を計算する（時間基準）
  *
@@ -23,14 +15,13 @@ function calcAge(dateBirth, dateBase = new Date()){
 		dateBirth.getDate() - 1,
 		24
 	);
-	console.log(`今年 加齢されるタイミングは、${timeBoundaryForAging} です。`);
 
 	const age = dateBase.getFullYear() - dateBirth.getFullYear();
 	if(timeBoundaryForAging > dateBase){
-		console.log('加齢タイミングはまだ越えていません');
+		// 加齢タイミングは まだ越えていないため、年齢を1つデクリメント
 		return age - 1;
 	} else {
-		console.log('加齢タイミングを越えています');
+		// 加齢タイミングを越えている
 		return age;
 	}
 }
@@ -76,3 +67,45 @@ function calcAgeDays(dateBirth, dateBase = new Date()){
 
 	console.log(`年齢は ${age} 歳、経過日数は ${days} 日です。`);
 }
+
+
+
+/**
+ * 年月日文字列が適正かを判断
+ *
+ * @param {string} dateString - 'yyyy-MM-dd' 形式の文字列
+ * @returns {boolean} 存在しうる日付かの判定
+ */
+function isDateFormat(dateString) {
+  // 正規表現による形式チェック（yyyy-MM-dd）
+  const dateFormatRegexp = /^([0-9]{4})-(0[1-9]|1[0-2])-([0-2][0-9]|3[01])$/;
+  if (!dateString.match(dateFormatRegexp)) return false;
+
+  // date 型による妥当性チェック（入力値と実際の日付が、閏日などでずれてないかを含む）
+  const dateParts = dateString.split('-');
+  const year = parseInt(dateParts[0], 10);
+  const month = parseInt(dateParts[1], 10);
+  const day = parseInt(dateParts[2], 10);
+  const date = new Date(year, month - 1, day);	// 注：date 型の月は 0 開始となっている
+  if (
+		date.getFullYear() !== year ||
+		date.getMonth() + 1 !== month ||
+		date.getDate() !== day
+	) {
+    return false;
+  }
+
+  return true;
+}
+
+
+
+const dateInput = document.querySelector('#d01js_inputBirthday');	// This value has the required format "yyyy-MM-dd".
+// Example : `dateInput.value = '2000-01-23';`
+
+
+
+const calcBtn = document.querySelector('#d01js_calcBtn');
+calcBtn.addEventListener('click', ()=> {
+
+});
