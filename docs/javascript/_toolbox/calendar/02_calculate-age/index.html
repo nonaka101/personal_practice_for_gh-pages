@@ -396,17 +396,17 @@
 									</label>
 									<div class="bl_subDialog_row">
 										<select name="d01js_wareki_category" id="d01js_wareki_category">
-											<option value="0" default>令和</option>
-											<option value="1" default>平成</option>
-											<option value="2" default>昭和</option>
-											<option value="3" default>大正</option>
-											<option value="4" default>明治</option>
+											<option value="4" default>令和</option>
+											<option value="3">平成</option>
+											<option value="2">昭和</option>
+											<option value="1">大正</option>
+											<option value="0">明治</option>
 										</select>
 										<input type="text" name="d01js_wareki_num" id="d01js_wareki_num" size="6" pattern="[0-9]{6}" required>
 									</div><!-- /.bl_subDialog_row -->
 									<div class="bl_subDialog_row">
-										<button type="button" class="el_btn el_btn__tertiary el_btn__w12ch">キャンセル</button>
-										<button type="button" class="el_btn el_btn__primary el_btn__w12ch">決定</button>
+										<button type="button" class="el_btn el_btn__tertiary el_btn__w12ch" onclick="closeDialog(this);">キャンセル</button>
+										<button type="button" class="el_btn el_btn__primary el_btn__w12ch" id="d01js_wareki_submit">決定</button>
 									</div><!-- /.bl_subDialog_row -->
 								</div>
 							</dialog>
