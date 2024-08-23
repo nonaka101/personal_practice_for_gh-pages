@@ -196,6 +196,12 @@ d01CalcBtn.addEventListener('click', ()=> {
 	// 経過日数を算出
 	const days = dateDiff(timeAgingInThisYear, new Date());
 
-	const buf = `年齢： ${age} 歳、経過日数： ${days} 日`;
-	d01Output.value = buf;
+	// 計算結果を配列にまとめて、テーブルとして出力
+	let dataArray = [['項目', '値']];
+	const today = new Date();
+	dataArray.push(['今日', `${today.getFullYear()}年 ${today.getMonth() + 1}月 ${today.getDate()}日`]);
+	dataArray.push(['満年齢', `${age}歳`]);
+	dataArray.push(['日数', `${days}日`]);
+	d01Output.value = '';
+	d01Output.appendChild(createTable(dataArray));
 });

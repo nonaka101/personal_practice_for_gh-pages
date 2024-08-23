@@ -1,8 +1,5 @@
 .ly_subDialog {
-	display: flex;
-	flex-flow: column nowrap;
-	align-items: center;
-	justify-content: center;
+	display: block;
 	background-color: var(--sc_bg_body__primary);
 	border: 1px solid var(--sc_bg_shadow);
 }
@@ -55,7 +52,7 @@
 }
 
 .d01bl_form {
-
+	margin-bottom: 1rem;
 }
 
 .d01bl_form_label {
@@ -65,6 +62,7 @@
 .d01bl_form_inputs {
 	display: flex;
 	flex-flow: row nowrap;
+	margin-bottom: 0.5rem;
 }
 
 .d01bl_form_dateInput {
