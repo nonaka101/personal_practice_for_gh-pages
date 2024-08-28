@@ -1,0 +1,36 @@
+.c03ly_md2excel {
+	padding: 8px;
+	width: 100dvw;
+  height: 100dvh;
+	display: flex;
+	flex-flow: column nowrap;
+}
+
+.c03bl_form {
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+}
+
+.c03bl_form_block {
+	display: block;
+	width: 100%;
+	margin: 1rem 0;
+}
+
+.c03bl_form_label {
+	display: block;
+	align-self: flex-start;
+}
+
+.c03bl_form_textArea {
+	display: block;
+	width: 100%;
+	min-height: 10rem;
+}
+
+.c03bl_form_output {
+	display: block;
+	width: 100%;
+	margin: 1rem 0;
+}
