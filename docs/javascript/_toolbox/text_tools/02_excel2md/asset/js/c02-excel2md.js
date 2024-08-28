@@ -57,15 +57,34 @@ c02_btnCalc.addEventListener('click', ()=>{
 	// 準備（既存のデータを消す）
 	c02_output.innerHTML = '';
 
-	// 入力値を整形
+	// 変換処理したものを要素化
 	const result = excel2Markdown(c02_textArea.value);
 	const textarea = document.createElement('textarea');
 	textarea.classList.add('c02bl_form_textArea');
 	textarea.rows = result.split(/\n/gmsu).length;
 	textarea.value = result;
 
-	// 要素として出力（TODO: コピーボタンを新規に生成？）
+	// 上記内容に対するコピーボタンの生成
+	const copyBtn = document.createElement('button');
+	copyBtn.type = 'button';
+	copyBtn	.className = 'el_btn el_btn__secondary';
+	copyBtn.style = 'margin-top: 0.5em';
+	copyBtn.textContent = 'コピー';
+	copyBtn.addEventListener('click', () => {
+		navigator.clipboard
+		.writeText(result)
+		.then(
+			feedbackOK()
+		)
+		.catch(e => {
+			console.error(e);
+			feedbackNG();
+		});
+	})
+
+	// 要素として出力
 	c02_output.appendChild(textarea);
+	c02_output.appendChild(copyBtn);
 	feedbackOK();
 })
 
