@@ -12,7 +12,7 @@ function excel2Markdown(excelStr) {
 
 	// 配列形式の列はもう不要なので、`|` で分割した文字列に再統合
 	let result = [];
-	for (let i = 1; i < table.length; i++) {
+	for (let i = 0; i < table.length; i++) {
 		result.push(`| ${table[i].join(" | ")} |`);
 	}
 
@@ -27,3 +27,53 @@ Data1-1\tData1-2\tData1-3
 Data2-1\tData2-2\tData2-3`;
 
 console.log(excel2Markdown(excelStr));
+
+
+
+const c02_textArea = document.querySelector('#c02js_inputArea');
+const c02_output = document.querySelector('#c02js_output');
+const c02_btnCalc = document.querySelector('#c02js_calcBtn');
+
+// paste from clipboard
+const c02_btnPasteFromClipboard = document.querySelector('#c02js_pasteFromClipboard');
+c02_btnPasteFromClipboard.addEventListener('click', () =>{
+	navigator.clipboard
+  .readText()
+  .then((clipText) => {
+		// innerText と value の扱いは違う（InnerTextだと、改行コードが <br> に変換された状態に？）
+		c02_textArea.value = '';
+		c02_textArea.value = clipText;
+		c02_textArea.rows = clipText.split(/\n/gmsu).length;
+		c02_btnCalc.focus();
+		feedbackOK();
+	})
+	.catch(e => {
+		console.error(e);
+		feedbackNG();
+	});
+})
+
+c02_btnCalc.addEventListener('click', ()=>{
+	// 準備（既存のデータを消す）
+	c02_output.innerHTML = '';
+
+	// 入力値を整形
+	const result = excel2Markdown(c02_textArea.value);
+	const textarea = document.createElement('textarea');
+	textarea.classList.add('c02bl_form_textArea');
+	textarea.rows = result.split(/\n/gmsu).length;
+	textarea.value = result;
+
+	// 要素として出力（TODO: コピーボタンを新規に生成？）
+	c02_output.appendChild(textarea);
+	feedbackOK();
+})
+
+// クリアボタン（テキストエリアと計算結果を消す）
+const c02_btnClear = document.querySelector('#c02js_clearTextArea');
+c02_btnClear.addEventListener('click', ()=>{
+	c02_output.innerHTML = '';
+	c02_textArea.value = '';
+	c02_textArea.rows = null;
+	feedbackOK();
+})
