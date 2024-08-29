@@ -96,7 +96,7 @@ c03_btnCalc.addEventListener('click', ()=>{
 
 	// テキストエリア要素として出力
 	const textarea = document.createElement('textarea');
-	textarea.classList.add('c03bl_form_textArea');
+	textarea.classList.add('bl_simpleForm_textArea');
 	textarea.rows = result.split(/\n/gmsu).length;
 	textarea.value = result;
 	c03_output.appendChild(textarea);

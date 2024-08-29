@@ -302,7 +302,7 @@
 			</button><!-- /.js_btnShowDialog.el_btn.el_btn__primary.el_btn__wMaxContent -->
 
 			<dialog class="ly_dialog" id="c01js_dialog_textCounter" aria-labelledby="c01_title" autofocus>
-				<div class="c01ly_textCounter">
+				<div class="ly_dialog_body">
 					<div class="bl_menuHeader">
 						<h2 class="bl_menuHeader_title" id="c01_title">テキストカウンター</h2>
 						<button type="button"
@@ -313,28 +313,28 @@
 							<span>閉じる</span>
 						</button>
 					</div><!-- /.bl_menuHeader -->
-					<form class="c01bl_form">
+					<form action="#" class="bl_simpleForm">
 						<button type="button"
 							class="el_btn el_btn__secondary"
 							id="c01js_pasteFromClipboard"
 						>
 							クリップボードからペースト
 						</button>
-						<div class="c01bl_form_block">
-							<label for="c01js_inputArea" class="c01bl_form_label">入力テキスト</label>
-							<textarea name="textcounter" class="c01bl_form_textArea" id="c01js_inputArea"></textarea>
+						<div class="bl_simpleForm_block">
+							<label for="c01js_inputArea" class="bl_simpleForm_label">入力テキスト</label>
+							<textarea name="textcounter" class="bl_simpleForm_textArea" id="c01js_inputArea"></textarea>
 						</div>
-						<!-- /.c01bl_form_block -->
+						<!-- /.bl_simpleForm_block -->
 						<button type="button"
 							class="el_btn el_btn__tertiary"
 							id="c01js_clearTextArea"
 						>
 							クリア
 						</button>
-						<button type="button" class="el_btn el_btn__primary" id="c01js_countBtn">計算</button>
-						<output class="c01bl_form_output" id="c01js_output"></output>
-					</form><!-- /.c01bl_form -->
-				</div><!-- /.c01ly_textCounter -->
+						<button type="submit" class="el_btn el_btn__primary" id="c01js_countBtn">計算</button>
+						<output class="bl_simpleForm_output" id="c01js_output"></output>
+					</form><!-- /.bl_simpleForm -->
+				</div><!-- /.ly_dialog_body -->
 			</dialog><!-- /.ly_dialog -->
 			<link rel="stylesheet" href="./asset/css/c01-text-counter.css">
 			<script defer src="./asset/js/c01-text-counter.js"></script>
@@ -348,7 +348,7 @@
 			</button><!-- /.js_btnShowDialog.el_btn.el_btn__primary.el_btn__wMaxContent -->
 
 			<dialog class="ly_dialog" id="c02js_dialog_excel2md" aria-labelledby="c02_title" autofocus>
-				<div class="c02ly_excel2md">
+				<div class="ly_dialog_body">
 					<div class="bl_menuHeader">
 						<h2 class="bl_menuHeader_title" id="c02_title">表形式データをMarkdownに変換</h2>
 						<button type="button"
@@ -359,28 +359,28 @@
 							<span>閉じる</span>
 						</button>
 					</div><!-- /.bl_menuHeader -->
-					<form class="c02bl_form">
+					<form action="#" class="bl_simpleForm">
 						<button type="button"
 							class="el_btn el_btn__secondary"
 							id="c02js_pasteFromClipboard"
 						>
 							クリップボードからペースト
 						</button>
-						<div class="c02bl_form_block">
-							<label for="c02js_inputArea" class="c02bl_form_label">入力テキスト</label>
-							<textarea name="textcounter" class="c02bl_form_textArea" id="c02js_inputArea"></textarea>
+						<div class="bl_simpleForm_block">
+							<label for="c02js_inputArea" class="bl_simpleForm_label">入力テキスト</label>
+							<textarea name="textcounter" class="bl_simpleForm_textArea" id="c02js_inputArea"></textarea>
 						</div>
-						<!-- /.c02bl_form_block -->
+						<!-- /.bl_simpleForm_block -->
 						<button type="button"
 							class="el_btn el_btn__tertiary"
 							id="c02js_clearTextArea"
 						>
 							クリア
 						</button>
-						<button type="button" class="el_btn el_btn__primary" id="c02js_calcBtn">変換</button>
-						<output class="c02bl_form_output" id="c02js_output"></output>
-					</form><!-- /.c02bl_form -->
-				</div><!-- /.c02ly_textCounter -->
+						<button type="submit" class="el_btn el_btn__primary" id="c02js_calcBtn">変換</button>
+						<output class="bl_simpleForm_output" id="c02js_output"></output>
+					</form><!-- /.bl_simpleForm -->
+				</div><!-- /.ly_dialog_body -->
 			</dialog><!-- /.ly_dialog -->
 			<link rel="stylesheet" href="./asset/css/c02-excel2md.css">
 			<script defer src="./asset/js/c02-excel2md.js"></script>
@@ -394,7 +394,7 @@
 			</button><!-- /.js_btnShowDialog.el_btn.el_btn__primary.el_btn__wMaxContent -->
 
 			<dialog class="ly_dialog" id="c03js_dialog_md2excel" aria-labelledby="c03_title" autofocus>
-				<div class="c03ly_md2excel">
+				<div class="ly_dialog_body">
 					<div class="bl_menuHeader">
 						<h2 class="bl_menuHeader_title" id="c03_title">Markdownを表形式データに変換</h2>
 						<button type="button"
@@ -405,28 +405,28 @@
 							<span>閉じる</span>
 						</button>
 					</div><!-- /.bl_menuHeader -->
-					<form class="c03bl_form">
+					<form class="bl_simpleForm">
 						<button type="button"
 							class="el_btn el_btn__secondary"
 							id="c03js_pasteFromClipboard"
 						>
 							クリップボードからペースト
 						</button>
-						<div class="c03bl_form_block">
-							<label for="c03js_inputArea" class="c03bl_form_label">入力テキスト</label>
-							<textarea name="textcounter" class="c03bl_form_textArea" id="c03js_inputArea"></textarea>
+						<div class="bl_simpleForm_block">
+							<label for="c03js_inputArea" class="bl_simpleForm_label">入力テキスト</label>
+							<textarea name="textcounter" class="bl_simpleForm_textArea" id="c03js_inputArea"></textarea>
 						</div>
-						<!-- /.c03bl_form_block -->
+						<!-- /.bl_simpleForm_block -->
 						<button type="button"
 							class="el_btn el_btn__tertiary"
 							id="c03js_clearTextArea"
 						>
 							クリア
 						</button>
-						<button type="button" class="el_btn el_btn__primary" id="c03js_calcBtn">変換</button>
-						<output class="c03bl_form_output" id="c03js_output"></output>
-					</form><!-- /.c03bl_form -->
-				</div><!-- /.c03ly_textCounter -->
+						<button type="submit" class="el_btn el_btn__primary" id="c03js_calcBtn">変換</button>
+						<output class="bl_simpleForm_output" id="c03js_output"></output>
+					</form><!-- /.bl_simpleForm -->
+				</div><!-- /.ly_dialog_body -->
 			</dialog><!-- /.ly_dialog -->
 			<link rel="stylesheet" href="./asset/css/c03-md2excel.css">
 			<script defer src="./asset/js/c03-md2excel.js"></script>
