@@ -1,6 +1,9 @@
-function markdown2excel(mdTable) {
-	// 改行ごとに分割して、行ごとの配列を作成（セパレータ行は除去）
-	const rows = mdTable.split('\n');
+function markdown2Excel(mdTable) {
+	// 改行コードを \n に統一
+	const normalizedStr = mdTable.replace(/\r\n/g, '\n');
+
+	// 改行ごとに分割して、行ごとの配列を作成（セパレート行は除去）
+	const rows = normalizedStr.split('\n');
 	rows.splice(1,1);
 
 	// 行処理：文字列を '|' で区切り、最端要素を除去し、空白をトリムし、タブ文字で繋げた文字列に変換
@@ -63,7 +66,7 @@ c03_btnCalc.addEventListener('click', ()=>{
 	c03_output.innerHTML = '';
 
 	// 変換処理したものを要素化
-	const result = markdown2excel(c03_textArea.value);
+	const result = markdown2Excel(c03_textArea.value);
 
 	// コピーボタンの生成
 	const copyBtn = document.createElement('button');
@@ -83,7 +86,7 @@ c03_btnCalc.addEventListener('click', ()=>{
 		});
 	})
 	c03_output.appendChild(copyBtn);
-	
+
 	// 二次元配列を準備し、テーブル要素として出力
 	const tableArray = result
 		.split('\n')

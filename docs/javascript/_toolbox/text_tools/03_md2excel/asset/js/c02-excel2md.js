@@ -6,7 +6,7 @@ function excel2Markdown(excelStr) {
 	const rows = normalizedStr.trim().split('\n');
 	const table = rows.map(row => row.split('\t'));
 
-	// 列数から、Markdown のセパレータ文字列を生成
+	// 列数から、Markdown のセパレート文字列を生成
 	const numColumns = table[0].length;
 	const separateStr = `| ${Array(numColumns).fill('---').join(" | ")} |`;
 
@@ -16,7 +16,7 @@ function excel2Markdown(excelStr) {
 		result.push(`| ${table[i].join(" | ")} |`);
 	}
 
-	// セパレータを2行目に挿入後、配列を改行文字列で繋げて返す
+	// セパレート行を2行目に挿入後、配列を改行文字列で繋げて返す
 	result.splice(1, 0, separateStr);
 	return result.join('\n');
 }
