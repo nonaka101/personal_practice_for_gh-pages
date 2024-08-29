@@ -1,20 +1,22 @@
 function markdown2excel(mdTable) {
-	// 改行ごとに分割して行ごとの配列を作成
+	// 改行ごとに分割して、行ごとの配列を作成（セパレータ行は除去）
 	const rows = mdTable.split('\n');
+	rows.splice(1,1);
 
-	// ヘッダーと罫線を削除し、残りの行を処理
-	const filteredRows = rows.filter(row => !row.includes('---'));
-	// TODO: 上記コードは、配列化した際のインデックス1を指定して操作する方法も調査
-
-	// 行ごとの処理：'|' で区切ってトリム（先頭と末尾の空白を削除）して各セルを配列に変換
-	const excelRows = filteredRows.map(row => {
-		return row.split('|').map(cell => cell.trim()).join('\t');
+	// 行処理：文字列を '|' で区切り、最端要素を除去し、空白をトリムし、タブ文字で繋げた文字列に変換
+	const excelRows = rows.map(row => {
+		return row										// '| A | B | | C |'
+			.split('|')									// ["", " A ", " B ", " "," C ",""]
+			.slice(1, -1)								// [" A ", " B ", " "," C "]
+			.map(cell => cell.trim())		// ["A", "B", "","C"]
+			.join('\t');								// 'A\tB\t\tC'
 	});
 
 	// 各行を改行でつなぎ合わせて最終結果を返す
 	return excelRows.join('\n');
 }
 
+/*
 // 使用例：基本パターン
 const mdTable1 = '| ＼ | 列A | 列B |\n| --- | --- | --- |\n| 行1 | セルA1 | セルB1 |\n| 行2 | セルA2 | セルB2 |';
 
@@ -28,7 +30,7 @@ console.log(markdown2excel(mdTable1));
 console.log(markdown2excel(mdTable2));
 console.log(markdown2excel(mdTable3));
 // これら3パターンで、結果が同じ `＼\t列A\t列B\n行1\tセルA1\tセルB1\n行2\tセルA2\tセルB2` となる
-
+*/
 
 
 
@@ -62,12 +64,8 @@ c03_btnCalc.addEventListener('click', ()=>{
 
 	// 変換処理したものを要素化
 	const result = markdown2excel(c03_textArea.value);
-	const textarea = document.createElement('textarea');
-	textarea.classList.add('c03bl_form_textArea');
-	textarea.rows = result.split(/\n/gmsu).length;
-	textarea.value = result;
 
-	// 上記内容に対するコピーボタンの生成
+	// コピーボタンの生成
 	const copyBtn = document.createElement('button');
 	copyBtn.type = 'button';
 	copyBtn	.className = 'el_btn el_btn__secondary';
@@ -84,10 +82,22 @@ c03_btnCalc.addEventListener('click', ()=>{
 			feedbackNG();
 		});
 	})
-
-	// 要素として出力
-	c03_output.appendChild(textarea);
 	c03_output.appendChild(copyBtn);
+	
+	// 二次元配列を準備し、テーブル要素として出力
+	const tableArray = result
+		.split('\n')
+		.map(row => row.split('\t'));
+
+	c03_output.appendChild(createTable(tableArray));
+
+	// テキストエリア要素として出力
+	const textarea = document.createElement('textarea');
+	textarea.classList.add('c03bl_form_textArea');
+	textarea.rows = result.split(/\n/gmsu).length;
+	textarea.value = result;
+	c03_output.appendChild(textarea);
+
 	feedbackOK();
 })
 

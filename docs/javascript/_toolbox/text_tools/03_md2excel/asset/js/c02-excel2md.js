@@ -57,14 +57,10 @@ c02_btnCalc.addEventListener('click', ()=>{
 	// 準備（既存のデータを消す）
 	c02_output.innerHTML = '';
 
-	// 変換処理したものを要素化
+	// 変換処理
 	const result = excel2Markdown(c02_textArea.value);
-	const textarea = document.createElement('textarea');
-	textarea.classList.add('c02bl_form_textArea');
-	textarea.rows = result.split(/\n/gmsu).length;
-	textarea.value = result;
 
-	// 上記内容に対するコピーボタンの生成
+	// コピーボタンの生成
 	const copyBtn = document.createElement('button');
 	copyBtn.type = 'button';
 	copyBtn	.className = 'el_btn el_btn__secondary';
@@ -81,10 +77,15 @@ c02_btnCalc.addEventListener('click', ()=>{
 			feedbackNG();
 		});
 	})
-
-	// 要素として出力
-	c02_output.appendChild(textarea);
 	c02_output.appendChild(copyBtn);
+
+	// テキストエリア要素として出力
+	const textarea = document.createElement('textarea');
+	textarea.classList.add('c02bl_form_textArea');
+	textarea.rows = result.split(/\n/gmsu).length;
+	textarea.value = result;
+	c02_output.appendChild(textarea);
+
 	feedbackOK();
 })
 
