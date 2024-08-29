@@ -21,13 +21,14 @@ function excel2Markdown(excelStr) {
 	return result.join('\n');
 }
 
+/*
 // 例:
 const excelStr = `Header1\tHeader2\tHeader3
 Data1-1\tData1-2\tData1-3
 Data2-1\tData2-2\tData2-3`;
 
 console.log(excel2Markdown(excelStr));
-
+*/
 
 
 const c02_textArea = document.querySelector('#c02js_inputArea');

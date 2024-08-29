@@ -6,7 +6,7 @@ function markdown2Excel(mdTable) {
 	const rows = normalizedStr.split('\n');
 	rows.splice(1,1);
 
-	// 行処理：文字列を '|' で区切り、最端要素を除去し、空白をトリムし、タブ文字で繋げた文字列に変換
+	// 行処理：文字列を '|' で区切り、端の要素を除去し、空白をトリムし、タブ文字で繋げた文字列に変換
 	const excelRows = rows.map(row => {
 		return row										// '| A | B | | C |'
 			.split('|')									// ["", " A ", " B ", " "," C ",""]
