@@ -1,0 +1,19 @@
+.bl_clock {
+	font-family: monospace;
+	font-size: 5dvw;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	align-items: center;
+}
+
+.bl_clock_date {
+	line-height: 1;
+	color: var(--sc_txt_btn__secondary);
+}
+
+.bl_clock_time {
+	font-size: 20dvw;
+	line-height: 1;
+	color: var(--sc_txt_btn__secondary);
+}
