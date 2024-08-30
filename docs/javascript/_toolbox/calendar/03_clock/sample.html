@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<!-- NoRobots -->
+		<meta name="robots" content="noindex, nofollow">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Document</title>
+	</head>
+	<body>
+		<button type="button" id="open-button">Open</button>
+		<dialog id="dialog">
+			<button type="button" id="close-button">Close</button>
+			<time id="time"></time>
+		</dialog>
+		<script>
+			const openBtn = document.querySelector("#open-button");
+			const closeBtn = document.querySelector("#close-button");
+			const dialogEle = document.querySelector("#dialog");
+			const timeEle = document.querySelector("#time");
+
+			let intervalId;
+
+			function updateTime() {
+				const now = new Date();
+				const hours = String(now.getHours()).padStart(2, "0");
+				const minutes = String(now.getMinutes()).padStart(2, "0");
+				const seconds = String(now.getSeconds()).padStart(2, "0");
+				timeEle.textContent = `${hours}:${minutes}:${seconds}`;
+				console.log('Now processing...');
+			}
+
+			function startInterval() {
+				updateTime(); // すぐに現在時刻を表示する
+				intervalId = setInterval(updateTime, 1000); // 1秒毎に更新
+			}
+
+			function stopInterval() {
+				clearInterval(intervalId); // Intervalをクリア
+			}
+
+			// MutationObserverでdialog要素の属性の変化を監視
+			const observer = new MutationObserver(() => {
+				if (dialogEle.open) {
+					startInterval();
+				} else {
+					stopInterval();
+				}
+			});
+
+			// open属性の変化を監視
+			observer.observe(dialogEle, {
+				attributes: true,
+				attributeFilter: ["open"],
+			});
+
+			openBtn.addEventListener("click", () => {
+				dialogEle.showModal();
+			});
+
+			closeBtn.addEventListener("click", () => {
+				dialogEle.close();
+			});
+		</script>
+		<style>
+			time {
+				font-family: monospace;
+			}
+		</style>
+	</body>
+</html>
