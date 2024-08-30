@@ -12,40 +12,58 @@
 		<button type="button" id="open-button">Open</button>
 		<dialog id="dialog">
 			<button type="button" id="close-button">Close</button>
-			<time id="time"></time>
+			<button type="button" id="time">00:00:00</button>
 		</dialog>
 		<script>
-			const openBtn = document.querySelector("#open-button");
-			const closeBtn = document.querySelector("#close-button");
+			function getTimeString(now = new Date()){
+				const hours = String(now.getHours()).padStart(2, "0");
+				const minutes = String(now.getMinutes()).padStart(2, "0");
+				const seconds = String(now.getSeconds()).padStart(2, "0");
+				const txt = `${hours}:${minutes}:${seconds}`;
+				return txt;
+			}
+
 			const dialogEle = document.querySelector("#dialog");
-			const timeEle = document.querySelector("#time");
+
+			const openBtn = document.querySelector("#open-button");
+			openBtn.addEventListener("click", () => {
+				dialogEle.showModal();
+			});
+
+			const closeBtn = document.querySelector("#close-button");
+			closeBtn.addEventListener("click", () => {
+				dialogEle.close();
+			});
+
+			if (!'speechSynthesis' in window) alert("WebSpeechAPI is not supported by this browser.");
+			const timeBtn = document.querySelector("#time");
+			timeBtn.addEventListener('click', () => {// 発言を作成
+				const synth = window.speechSynthesis;
+				if(synth) {
+					const utterThis = new SpeechSynthesisUtterance(getTimeString());
+					synth.speak(utterThis);
+				}
+			});
 
 			let intervalId;
 
 			function updateTime() {
-				const now = new Date();
-				const hours = String(now.getHours()).padStart(2, "0");
-				const minutes = String(now.getMinutes()).padStart(2, "0");
-				const seconds = String(now.getSeconds()).padStart(2, "0");
-				timeEle.textContent = `${hours}:${minutes}:${seconds}`;
+				timeBtn.textContent = getTimeString();
 				console.log('Now processing...');
 			}
 
-			function startInterval() {
-				updateTime(); // すぐに現在時刻を表示する
-				intervalId = setInterval(updateTime, 1000); // 1秒毎に更新
-			}
-
-			function stopInterval() {
-				clearInterval(intervalId); // Intervalをクリア
-			}
-
 			// MutationObserverでdialog要素の属性の変化を監視
-			const observer = new MutationObserver(() => {
-				if (dialogEle.open) {
-					startInterval();
-				} else {
-					stopInterval();
+			const observer = new MutationObserver((mutationsList) => {
+				for (const mutation of mutationsList){
+					if (mutation.type === 'attributes' && mutation.attributeName === 'open') {
+						if (dialogEle.open) {
+							// ダイアログが開いた場合
+							intervalId = setInterval(updateTime, 1000);
+						} else {
+							// ダイアログが閉じた場合
+							clearInterval(intervalId);
+						}
+					}
 				}
 			});
 
@@ -53,14 +71,6 @@
 			observer.observe(dialogEle, {
 				attributes: true,
 				attributeFilter: ["open"],
-			});
-
-			openBtn.addEventListener("click", () => {
-				dialogEle.showModal();
-			});
-
-			closeBtn.addEventListener("click", () => {
-				dialogEle.close();
 			});
 		</script>
 		<style>
