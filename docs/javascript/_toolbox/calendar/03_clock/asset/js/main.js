@@ -475,7 +475,7 @@ chkEnableSound.addEventListener("change", (e) => {
 chkEnableSound.checked = settingState.enableSound;
 changeSoundMode(settingState.enableSound);
 
-// 振動機能
+// 音声機能
 var isEnabledSound = false;
 if((window.AudioContext || window.webkitAudioContext) === undefined) {
 	// AudioContext による ビープ生成 未対応

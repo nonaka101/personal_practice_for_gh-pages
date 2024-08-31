@@ -46,15 +46,27 @@ d02_observer.observe(d02_dialogEle, {
 });
 
 
+const d02_output = document.querySelector('#d02js_output');
 
 if (!'speechSynthesis' in window) alert("WebSpeechAPI is not supported by this browser.");
 const speechBtn = document.querySelector("#d02js_speechBtn");
-speechBtn.addEventListener('click', () => {// 発言を作成
-	const synth = window.speechSynthesis;
-	if(synth) {
-		const txt = `${getDateString()} ${getTimeString()}`
-		const utterThis = new SpeechSynthesisUtterance(txt);
-		synth.speak(utterThis);
+speechBtn.addEventListener('click', () => {
+	const txt = `${getDateString()} ${getTimeString()}`
+
+	// サウンドモードがOFF（未対応または機能にチェックしていない）の場合は鳴らさない
+	if ((chkEnableSound.checked === false)||(isEnabledSound === false)) {
+		// サウンドモードがOFFの場合
+		const noticeSpan = document.createElement('span');
+		noticeSpan.textContent = txt;
+		d02_output.appendChild(noticeSpan);
+		setTimeout(()=>{
+			d02_output.removeChild(noticeSpan);
+		}, 1000);	// 読み上げ全体を待たずに消しても、全て読み上げてくれるっぽい
+	} else {
+		const synth = window.speechSynthesis;
+		if(synth) {
+			const utterThis = new SpeechSynthesisUtterance(txt);
+			synth.speak(utterThis);
+		}
 	}
 });
-
