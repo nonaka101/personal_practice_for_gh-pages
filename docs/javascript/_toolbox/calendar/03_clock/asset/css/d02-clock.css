@@ -1,3 +1,4 @@
+/*
 .bl_clock {
 	font-family: monospace;
 	font-size: 5dvw;
@@ -16,4 +17,99 @@
 	font-size: 20dvw;
 	line-height: 1;
 	color: var(--sc_txt_btn__secondary);
+}
+*/
+
+/*
+.bl_clock {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.bl_clock_date {
+  white-space: nowrap;
+  text-align: center;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bl_clock_time {
+  white-space: nowrap;
+  text-align: center;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-height: 300px) {
+  .bl_clock_date {
+    display: none;
+  }
+}
+*/
+
+.bl_clock {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 70dvh;
+	padding: 4px;
+	margin: 0;
+	color: var(--sc_txt_btn__secondary);
+	background: none;
+	background-color: transparent;
+	border: 2px solid currentcolor;
+	border-radius: max(
+		min(4px, calc(40px - 100%) * 9999),
+		min(8px, calc(100% - 40px) * 9999, calc(120px - 100%) * 9999),
+		min(12px, calc(100% - 120px) * 9999)
+	);
+	transition: .25s;
+	text-decoration: none;
+}
+
+.bl_clock:hover,
+.bl_clock:active {
+	background-color: var(--sc_bg_btn__secondary);
+}
+
+.bl_clock_date {
+	display: block;
+  flex: 1; /* 高さを最大限に使う */
+  font-size: 5dvw; /* 表示サイズをビューポートの幅に合わせる */
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+	color: var(--sc_txt_btn__secondary);
+}
+
+.bl_clock_time {
+	display: block;
+  flex: 2;
+  font-size: 18dvw; /* 表示サイズをビューポートの幅に合わせる */
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+	justify-items: center;
+	color: var(--sc_txt_btn__secondary);
+}
+
+
+@media (max-height: calc(18 * 1dvw)) {
+  .bl_clock_date {
+    display: none;
+  }
+
+	.bl_clock_time {
+		font-size: calc(100dvh / 5.56); /* 画面高さが限られる場合、高さに基づいてフォントサイズを調整 */
+	}
 }
