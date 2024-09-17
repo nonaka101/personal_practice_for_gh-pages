@@ -60,8 +60,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+	gap: 0;
   width: 100%;
-  height: 70dvh;
+  height: calc(100dvh - 16px);
 	padding: 4px;
 	margin: 0;
 	color: var(--sc_txt_btn__secondary);
@@ -86,6 +87,7 @@
 	display: block;
   flex: 1; /* 高さを最大限に使う */
   font-size: 5dvw; /* 表示サイズをビューポートの幅に合わせる */
+	line-height: 1;
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
@@ -96,6 +98,7 @@
 	display: block;
   flex: 2;
   font-size: 18dvw; /* 表示サイズをビューポートの幅に合わせる */
+	line-height: 1;
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
@@ -104,12 +107,22 @@
 }
 
 
-@media (max-height: calc(18 * 1dvw)) {
+@media (max-height: calc(23dvw + 24px)) {
   .bl_clock_date {
     display: none;
   }
 
 	.bl_clock_time {
-		font-size: calc(100dvh / 5.56); /* 画面高さが限られる場合、高さに基づいてフォントサイズを調整 */
+		font-size: min(18dvw, calc(80dvh - 20px)); /* 画面高さが限られる場合、高さに基づいてフォントサイズを調整 */
 	}
+}
+
+#d02js_dialog_clock > .ly_dialog_body > .bl_menuHeader {
+	position: fixed;
+	right: 0;
+}
+
+#d02js_dialog_clock > .ly_dialog_body > .bl_menuHeader > .bl_menuHeader_btnIcon {
+	border: var(--sc_border_divider);
+	background-color: var(--sc_bg_body__primary);
 }
