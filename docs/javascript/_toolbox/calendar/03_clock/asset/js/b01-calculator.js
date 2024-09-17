@@ -8,7 +8,7 @@
 const b01_calcLabel = document.querySelector('#b01js_label');
 const b01_calcOutput = document.querySelector('#b01js_output');
 
-// 計算ボタン郡（0〜9, 小数点, 四則演算子）
+// 計算ボタン郡（0〜9, 小数点, 四則演算子、計算実行）
 const b01_calcBtn1 = document.querySelector('#b01js_1');
 const b01_calcBtn2 = document.querySelector('#b01js_2');
 const b01_calcBtn3 = document.querySelector('#b01js_3');
@@ -26,9 +26,10 @@ const b01_calcBtnMultiply = document.querySelector('#b01js_Multiply');
 const b01_calcBtnDevide = document.querySelector('#b01js_Divide');
 const b01_calcBtnEqual = document.querySelector('#b01js_Equal');
 
-// 機能ボタン郡（クリア, バックスペース, コピー, 計算実行）
+// 機能ボタン郡（クリア, バックスペース, コピー）
 const b01_calcBtnAllClear = document.querySelector('#b01js_AllClear');
 const b01_calcBtnBackSpace = document.querySelector('#b01js_BackSpace');
+const b01_calcBtnCopy = document.querySelector('#b01js_Copy');
 
 // ダイアログ要素
 const b01_dialogEle = document.querySelector("#b01js_dialog_calculator");
@@ -753,16 +754,16 @@ for (const btn of b01_calcBtns){
 	})
 }
 
-// 「全消去」
-b01_calcBtnAllClear.addEventListener('click', () => {
+// オールクリア機能（キーアクションと共用）
+function calcActionAllClear(){
 	calculator.reset();
 	b01_calcOutput.textContent = calculator.expression;
 	b01_calcLabel.textContent = calculator.label;
 	feedbackOK();
-})
+}
 
-// 「1字消去」
-b01_calcBtnBackSpace.addEventListener('click', () => {
+// バックスペース機能（キーアクションと共用）
+function calcActionBackspace(){
 	if(calculator.back() == true){
 		b01_calcOutput.textContent = calculator.expression;
 		b01_calcLabel.textContent = calculator.label;
@@ -770,11 +771,9 @@ b01_calcBtnBackSpace.addEventListener('click', () => {
 	} else {
 		feedbackNG();
 	}
-});
-
-// 「コピー」
-const b01_calcBtnCopy = document.querySelector('#b01js_Copy');
-b01_calcBtnCopy.addEventListener('click', () => {
+}
+// コピー機能（キーアクションと共用）
+function calcActionCopy(){
 	navigator.clipboard
 	.writeText(calculator.expression)
 	.then(
@@ -784,7 +783,10 @@ b01_calcBtnCopy.addEventListener('click', () => {
 		console.error(e);
 		feedbackNG();
 	});
-});
+}
+b01_calcBtnAllClear.addEventListener('click',calcActionAllClear);
+b01_calcBtnBackSpace.addEventListener('click', calcActionBackspace);
+b01_calcBtnCopy.addEventListener('click',calcActionCopy);
 
 
 
@@ -793,12 +795,23 @@ b01_calcBtnCopy.addEventListener('click', () => {
 /* ≡≡≡ ▀▄ ダイアログの監視 ▀▄ ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
   ■ 概要
 		展開時にキー入力と電卓とを関連付け
-		（エンターを '=' にするとボタンクリック発火と干渉するため一時保留）
 ---------------------------------------------------------------------------- */
 
-function adaptKeyboard(e) {
-	if(VALID_INPUTS.includes(e.key)){
-		if(calculator.pushExpression(e.key) === true) {
+function overrideKeyboard(e) {
+	let key = e.key;
+
+	// テンキーのエンターは '=' と同等に（エンター自体はキー操作を阻害するので除外）
+	if(
+		(e.key == 'Enter' && e.location === 3) ||
+		(e.code == 'NumpadEnter')
+	){
+		e.preventDefault();
+		key = '=';
+	}
+
+	// 各種キーと電卓との連携
+	if(VALID_INPUTS.includes(key)){
+		if(calculator.pushExpression(key) === true) {
 			b01_calcOutput.textContent = calculator.expression;
 			b01_calcLabel.textContent = calculator.label;
 			feedbackOK();
@@ -807,6 +820,16 @@ function adaptKeyboard(e) {
 			b01_calcLabel.textContent = '不正な入力です';
 			feedbackNG();
 		}
+	// 各種機能ボタン（キーに付属するイベントはキャンセル）
+	} else if(key == 'Backspace') {
+		e.preventDefault();
+		calcActionBackspace();
+	} else if(key == 'Clear') {
+		e.preventDefault();
+		calcActionAllClear();
+	} else if(key == 'Copy'){
+		e.preventDefault();
+		calcActionCopy();
 	}
 }
 
@@ -815,9 +838,9 @@ const b01_observer = new MutationObserver((mutationsList) => {
 	for (const mutation of mutationsList){
 		if (mutation.type === 'attributes' && mutation.attributeName === 'open') {
 			if (b01_dialogEle.open) {
-				b01_dialogEle.addEventListener('keydown', adaptKeyboard);
+				b01_dialogEle.addEventListener('keydown', overrideKeyboard);
 			} else {
-				b01_dialogEle.removeEventListener('keydown', adaptKeyboard);
+				b01_dialogEle.removeEventListener('keydown', overrideKeyboard);
 			}
 		}
 	}
