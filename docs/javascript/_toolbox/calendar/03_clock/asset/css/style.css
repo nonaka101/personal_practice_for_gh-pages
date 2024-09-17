@@ -876,6 +876,10 @@ html:has(dialog[open]) {
 	transition: .25s;
 }
 
+.el_btn:disabled {
+	pointer-events: none;
+}
+
 .el_btn.el_btn__primary {
 	color: var(--sc_txt_btn__primary);
 	text-decoration: none;
@@ -885,6 +889,10 @@ html:has(dialog[open]) {
 .el_btn.el_btn__primary:hover,
 .el_btn.el_btn__primary:active {
 	filter: brightness(87%);
+}
+
+.el_btn.el_btn__primary:disabled {
+	background-color: var(--sc_bg_disabled);
 }
 
 .el_btn.el_btn__secondary {
@@ -899,6 +907,10 @@ html:has(dialog[open]) {
 	background-color: var(--sc_bg_btn__secondary);
 }
 
+.el_btn.el_btn__secondary:disabled {
+	color: var(--sc_txt_disabled);
+}
+
 .el_btn.el_btn__tertiary {
 	color: var(--sc_txt_btn__tertiary);
 	text-decoration: underline;
@@ -908,6 +920,10 @@ html:has(dialog[open]) {
 .el_btn.el_btn__tertiary:hover,
 .el_btn.el_btn__tertiary:active {
 	color: var(--sc_txt_link__active);
+}
+
+.el_btn.el_btn__tertiary:disabled {
+	color: var(--sc_txt_disabled);
 }
 
 /* 横サイズ調整用のモディファイア */

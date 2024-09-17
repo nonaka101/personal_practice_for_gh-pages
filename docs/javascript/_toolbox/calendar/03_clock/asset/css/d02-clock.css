@@ -1,60 +1,17 @@
-/*
-.bl_clock {
-	font-family: monospace;
-	font-size: 5dvw;
-	display: flex;
-	flex-flow: column nowrap;
-	justify-content: center;
-	align-items: center;
+/* 本機能は画面全体を使うので、bl_menuHeader のレイアウトを変更 */
+#d02js_dialog_clock > .ly_dialog_body > .bl_menuHeader {
+	position: fixed;
+	right: 0;
 }
 
-.bl_clock_date {
-	line-height: 1;
-	color: var(--sc_txt_btn__secondary);
+#d02js_dialog_clock > .ly_dialog_body > .bl_menuHeader > .bl_menuHeader_btnIcon {
+	border: var(--sc_border_divider);
+	background-color: var(--sc_bg_body__primary);
 }
 
-.bl_clock_time {
-	font-size: 20dvw;
-	line-height: 1;
-	color: var(--sc_txt_btn__secondary);
-}
-*/
 
-/*
-.bl_clock {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-  overflow: hidden;
-}
 
-.bl_clock_date {
-  white-space: nowrap;
-  text-align: center;
-  width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.bl_clock_time {
-  white-space: nowrap;
-  text-align: center;
-  width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-@media (max-height: 300px) {
-  .bl_clock_date {
-    display: none;
-  }
-}
-*/
-
+/* 以降はダイアログ固有の要素へのスタイリング */
 .bl_clock {
   display: flex;
   flex-direction: column;
@@ -85,8 +42,7 @@
 
 .bl_clock_date {
 	display: block;
-  flex: 1; /* 高さを最大限に使う */
-  font-size: 5dvw; /* 表示サイズをビューポートの幅に合わせる */
+  font-size: 5dvw;
 	line-height: 1;
   text-align: center;
   white-space: nowrap;
@@ -96,8 +52,7 @@
 
 .bl_clock_time {
 	display: block;
-  flex: 2;
-  font-size: 18dvw; /* 表示サイズをビューポートの幅に合わせる */
+  font-size: 18dvw;
 	line-height: 1;
   text-align: center;
   white-space: nowrap;
@@ -106,23 +61,13 @@
 	color: var(--sc_txt_btn__secondary);
 }
 
-
+/* 高さが小さく 2行で表示が難しい場合は時刻のみを表示 */
 @media (max-height: calc(23dvw + 24px)) {
   .bl_clock_date {
     display: none;
   }
 
 	.bl_clock_time {
-		font-size: min(18dvw, calc(80dvh - 20px)); /* 画面高さが限られる場合、高さに基づいてフォントサイズを調整 */
+		font-size: min(18dvw, calc(80dvh - 20px));
 	}
-}
-
-#d02js_dialog_clock > .ly_dialog_body > .bl_menuHeader {
-	position: fixed;
-	right: 0;
-}
-
-#d02js_dialog_clock > .ly_dialog_body > .bl_menuHeader > .bl_menuHeader_btnIcon {
-	border: var(--sc_border_divider);
-	background-color: var(--sc_bg_body__primary);
 }

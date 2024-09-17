@@ -1,9 +1,60 @@
+/* ≡≡≡ ▀▄ HTML要素郡 ▀▄ ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+  ■ 概要
+		各種入力ボタンや、出力先のラベルなどを管理する
+---------------------------------------------------------------------------- */
+
 const d01DateInput = document.querySelector('#d01js_inputBirthday');	// This value has the required format "yyyy-MM-dd".
 // Example : `d01DateInput.value = '2000-01-23';`
 
+const d01Output = document.querySelector('#d01js_output');
+const d01CalcBtn = document.querySelector('#d01js_calcBtn');
+
+/* 和暦サブダイアログ */
 const d01WarekiName = document.querySelector('#d01js_wareki_name');
 const d01WarekiNum = document.querySelector('#d01js_wareki_num');
 const d01WarekiBtn = document.querySelector('#d01js_wareki_submit');
+
+
+
+
+
+
+
+
+
+
+/* ≡≡≡ ▀▄ 機能関連 ▀▄ ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+  ■ 概要
+		「計算」ボタンの活性/非活性操作（処理に必要な有効な日付が用意されているか）
+---------------------------------------------------------------------------- */
+
+function d01EnableCalcBtn(){
+	if(isDateFormat(d01DateInput.value)){
+		d01CalcBtn.disabled = false;
+	} else {
+		d01CalcBtn.disabled = true;
+	}
+}
+
+// 初回起動した後、input要素に紐づけ
+d01EnableCalcBtn();
+d01DateInput.addEventListener('input', d01EnableCalcBtn);
+
+
+
+
+
+
+
+
+
+
+
+/* ≡≡≡ ▀▄ 和暦入力 ▀▄ ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+  ■ 概要
+		サブダイアログ上に入力された数値をチェックし、和暦情報を西暦にした上でインプットへ入力
+---------------------------------------------------------------------------- */
+
 d01WarekiBtn.addEventListener('click', ()=> {
 	const warekiID = parseInt(d01WarekiName.value);
 	const warekiString = d01WarekiNum.value;
@@ -24,10 +75,23 @@ d01WarekiBtn.addEventListener('click', ()=> {
 
 	// スクリーンリーダー用に、結果を格納したボックスにフォーカスして処理は終了
 	d01DateInput.focus();
+	d01EnableCalcBtn();
 });
 
-const d01Output = document.querySelector('#d01js_output');
-const d01CalcBtn = document.querySelector('#d01js_calcBtn');
+
+
+
+
+
+
+
+
+
+/* ≡≡≡ ▀▄ 年齢等計算 ▀▄ ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+  ■ 概要
+		満年齢と経過日数を計算し、テーブル要素として出力
+---------------------------------------------------------------------------- */
+
 d01CalcBtn.addEventListener('click', ()=> {
 	const dateString = d01DateInput.value;
 	if(isDateFormat(dateString) === false) throw new Error('入力値が適正でありません');
