@@ -30,6 +30,8 @@ const b01_calcBtnEqual = document.querySelector('#b01js_Equal');
 const b01_calcBtnAllClear = document.querySelector('#b01js_AllClear');
 const b01_calcBtnBackSpace = document.querySelector('#b01js_BackSpace');
 
+// ダイアログ要素
+const b01_dialogEle = document.querySelector("#b01js_dialog_calculator");
 
 
 
@@ -783,3 +785,48 @@ b01_calcBtnCopy.addEventListener('click', () => {
 		feedbackNG();
 	});
 });
+
+
+
+
+
+/* ≡≡≡ ▀▄ ダイアログの監視 ▀▄ ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+  ■ 概要
+		展開時にキー入力と電卓とを関連付け
+		（エンターを '=' にするとボタンクリック発火と干渉するため一時保留）
+---------------------------------------------------------------------------- */
+
+function adaptKeyboard(e) {
+	if(VALID_INPUTS.includes(e.key)){
+		if(calculator.pushExpression(e.key) === true) {
+			b01_calcOutput.textContent = calculator.expression;
+			b01_calcLabel.textContent = calculator.label;
+			feedbackOK();
+		} else {
+			b01_calcOutput.textContent = calculator.expression;
+			b01_calcLabel.textContent = '不正な入力です';
+			feedbackNG();
+		}
+	}
+}
+
+// MutationObserverでdialog要素の属性の変化を監視
+const b01_observer = new MutationObserver((mutationsList) => {
+	for (const mutation of mutationsList){
+		if (mutation.type === 'attributes' && mutation.attributeName === 'open') {
+			if (b01_dialogEle.open) {
+				b01_dialogEle.addEventListener('keydown', adaptKeyboard);
+			} else {
+				b01_dialogEle.removeEventListener('keydown', adaptKeyboard);
+			}
+		}
+	}
+});
+
+// open属性の変化を監視
+b01_observer.observe(b01_dialogEle, {
+	attributes: true,
+	attributeFilter: ["open"],
+});
+
+
