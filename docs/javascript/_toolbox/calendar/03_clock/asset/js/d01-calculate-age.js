@@ -56,26 +56,44 @@ d01DateInput.addEventListener('input', d01EnableCalcBtn);
 ---------------------------------------------------------------------------- */
 
 d01WarekiBtn.addEventListener('click', ()=> {
+	// エラーラベルの生成
+	const label = document.querySelector(`label[for="${d01WarekiNum.id}"]`);
+	const paragraph = label.querySelector('p') || label.appendChild(document.createElement('p'));
+	paragraph.tabIndex = -1;
+	paragraph.innerHTML = null;
+
 	const warekiID = parseInt(d01WarekiName.value);
 	const warekiString = d01WarekiNum.value;
 
 	// 年月日文字列のチェック（eeMMdd：和暦2桁 + 月2桁 + 日2桁）
-	if(!warekiString.match(/^([0-9]{2})(0[1-9]|1[0-2])([0-2][0-9]|3[01])$/)) throw new Error('引数は6桁の年月日文字列でなければなりません');
+	if(warekiString.match(/^([0-9]{2})(0[1-9]|1[0-2])([0-2][0-9]|3[01])$/)){
+		const warekiYear = parseInt(warekiString.substring(0, 2));
+		const year = wareki.getYearByEra(warekiID, warekiYear);
+		const dateString = `${year}-${warekiString.substring(2, 4)}-${warekiString.substring(4)}`;
 
-	const warekiYear = parseInt(warekiString.substring(0, 2));
-	const year = wareki.getYearByEra(warekiID, warekiYear);
-	const dateString = `${year}-${warekiString.substring(2, 4)}-${warekiString.substring(4)}`;
+		// 適正な日付形式かをチェック
+		if(isDateFormat(dateString) === false) throw new Error('和暦→西暦日付への変換に失敗しました');
 
-	// 適正な日付形式かをチェック
-	if(isDateFormat(dateString) === false) throw new Error('和暦→西暦日付への変換に失敗しました');
+		// 入力ボックスに結果を入れ、ダイアログを閉じる
+		d01DateInput.value = dateString;
+		closeDialog(d01WarekiBtn);
 
-	// 入力ボックスに結果を入れ、ダイアログを閉じる
-	d01DateInput.value = dateString;
-	closeDialog(d01WarekiBtn);
-
-	// スクリーンリーダー用に、結果を格納したボックスにフォーカスして処理は終了
-	d01DateInput.focus();
-	d01EnableCalcBtn();
+		// 後処理: 結果を格納したボックスにフォーカス（スクリーンリーダー用）し、ボタンの活性状態を更新
+		d01DateInput.focus();
+		d01EnableCalcBtn();
+	} else {
+		// バリデーションエラーをユーザーに通知
+		const spanEmoji = document.createElement('span');
+		spanEmoji.textContent = '⚠';
+		spanEmoji.ariaHidden = true;
+		spanEmoji.className = 'hp_warningColor';
+		paragraph.appendChild(spanEmoji);
+		const spanText = document.createElement('span');
+		spanText.textContent = '入力値は6桁の年月日文字列でなければなりません';
+		spanText.className = 'hp_warningColor';
+		paragraph.appendChild(spanText);
+		paragraph.focus();
+	}
 });
 
 
