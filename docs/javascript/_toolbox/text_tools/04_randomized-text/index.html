@@ -412,8 +412,7 @@
 						<div class="bl_simpleForm_block">
 							<label for="c03js_inputArea" class="bl_simpleForm_label">入力テキスト</label>
 							<textarea name="textcounter" class="bl_simpleForm_textArea" id="c03js_inputArea"></textarea>
-						</div>
-						<!-- /.bl_simpleForm_block -->
+						</div><!-- /.bl_simpleForm_block -->
 						<button type="button"
 							class="el_btn el_btn__tertiary"
 							id="c03js_clearTextArea"
@@ -432,11 +431,11 @@
 
 		<!-- [c04] -->
 		<li class="bl_funcList_item">
-			<button type="button" class="js_btnShowDialog el_btn el_btn__primary el_btn__wMaxContent" aria-controls="c03js_dialog_md2excel">
+			<button type="button" class="js_btnShowDialog el_btn el_btn__primary el_btn__wMaxContent" aria-controls="c04js_dialog_randTxtGen">
 				ランダム文字列の生成
 			</button><!-- /.js_btnShowDialog.el_btn.el_btn__primary.el_btn__wMaxContent -->
 
-			<dialog class="ly_dialog" id="c03js_dialog_randTxtGen" aria-labelledby="c04_title" autofocus>
+			<dialog class="ly_dialog" id="c04js_dialog_randTxtGen" aria-labelledby="c04_title" autofocus>
 				<div class="ly_dialog_body">
 					<div class="bl_menuHeader">
 						<h2 class="bl_menuHeader_title" id="c04_title">ランダム文字列の生成</h2>
@@ -448,6 +447,27 @@
 							<span>閉じる</span>
 						</button>
 					</div><!-- /.bl_menuHeader -->
+					<form class="bl_simpleForm"></form>
+						<div class="bl_simpleForm_block">
+							<fieldset class="bl_fieldSet">
+								<legend class="bl_fieldSet_legend">使用する文字</legend>
+								<div class="bl_fieldSet_chackBox">
+									<input type="checkbox" name="c04js_chk_alphaUpper" id="c04js_chk_alphaUpper">
+									<label for="c04js_chk_alphaUpper">大文字</label>
+								</div><!-- /.bl_fieldSet_chackBox -->
+								<div class="bl_fieldSet_chackBox">
+									<input type="checkbox" name="c04js_chk_digit" id="c04js_chk_digit">
+									<label for="c04js_chk_digit">数字</label>
+								</div><!-- /.bl_fieldSet_chackBox -->
+								<div class="bl_fieldSet_chackBox">
+									<input type="checkbox" name="c04js_chk_symbol1" id="c04js_chk_symbol1">
+									<label for="c04js_chk_symbol1">記号１</label>
+								</div><!-- /.bl_fieldSet_chackBox -->
+							</fieldset>
+						</div><!-- /.bl_simpleForm_block -->
+						<button type="submit" class="el_btn el_btn__primary" id="c04js_calcBtn">生成</button>
+						<output id="c04js_output"></output>
+					</form><!-- /.bl_simpleForm -->
 				</div><!-- /.ly_dialog_body -->
 			</dialog><!-- /.ly_dialog -->
 			<link rel="stylesheet" href="./asset/css/c04-randomized-text.css">
