@@ -12,6 +12,7 @@
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
+	"homepage": "https://nonaka101.github.io/personal_practice_for_gh-pages/javascript/react/01_sample/build/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
