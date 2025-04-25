@@ -31,10 +31,10 @@
 	</header>
 	-->
 	<main>
-		<div class="bl_card">
+		<div class="bl_card cp_heading cp_heading__lv2">
 			<div class="bl_card_body">
-				<label for="p1">Paragraph</label>
-				<textarea name="p1" id="p1"></textarea>
+				<label for="h2_1">Heading Lv2</label>
+				<input type="text" name="h2_1" id="h2_1">
 			</div>
 			<div class="bl_card_footer">
 				<button type="button" class="bl_card_addButton" onclick="copyCard(this)">
@@ -45,10 +45,65 @@
 				</button>
 			</div>
 		</div>
-		<div class="bl_card">
+		<div class="bl_card cp_paragraph">
 			<div class="bl_card_body">
 				<label for="p2">Paragraph</label>
 				<textarea name="p2" id="p2"></textarea>
+			</div>
+			<div class="bl_card_footer">
+				<button type="button" class="bl_card_addButton" onclick="copyCard(this)">
+					<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" role="graphics-symbol img" aria-hidden="true">
+						<rect x="4" y="20" width="40" height="8"></rect>
+						<rect x="20" y="4" width="8" height="40"></rect>
+					</svg>
+				</button>
+			</div>
+		</div>
+		<div class="bl_card cp_blockquote">
+			<div class="bl_card_body">
+				<label for="b1">Blockquote</label>
+				<textarea name="b1" id="b1"></textarea>
+			</div>
+			<div class="bl_card_footer">
+				<button type="button" class="bl_card_addButton" onclick="copyCard(this)">
+					<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" role="graphics-symbol img" aria-hidden="true">
+						<rect x="4" y="20" width="40" height="8"></rect>
+						<rect x="20" y="4" width="8" height="40"></rect>
+					</svg>
+				</button>
+			</div>
+		</div>
+		<div class="bl_card cp_unorderedList">
+			<div class="bl_card_body">
+				<span>List(Unordered)</span>
+				<div class="bl_card cp_listItem">
+					<div class="bl_card_body">
+						<label for="li1">ListItem</label>
+						<input type="text" name="li1" id="li1">
+					</div>
+					<div class="bl_card_footer">
+						<button type="button" class="bl_card_addButton" onclick="copyCard(this)">
+							<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" role="graphics-symbol img" aria-hidden="true">
+								<rect x="4" y="20" width="40" height="8"></rect>
+								<rect x="20" y="4" width="8" height="40"></rect>
+							</svg>
+						</button>
+					</div>
+				</div>
+				<div class="bl_card cp_listItem">
+					<div class="bl_card_body">
+						<label for="li2">ListItem</label>
+						<input type="text" name="li2" id="li2">
+					</div>
+					<div class="bl_card_footer">
+						<button type="button" class="bl_card_addButton" onclick="copyCard(this)">
+							<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" role="graphics-symbol img" aria-hidden="true">
+								<rect x="4" y="20" width="40" height="8"></rect>
+								<rect x="20" y="4" width="8" height="40"></rect>
+							</svg>
+						</button>
+					</div>
+				</div>
 			</div>
 			<div class="bl_card_footer">
 				<button type="button" class="bl_card_addButton" onclick="copyCard(this)">
@@ -87,13 +142,14 @@
 			max-width: 600px;
 			margin: 0 auto;
 			padding-top: 12px;
-			padding-bottom: 24px;
-			border: 2px solid black;
+			padding-bottom: 32px;
+			border: 2px solid navy;
 			box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
 		}
 		.bl_card_body {
 			width: 100%;
 			padding: 4px;
+			background: none;
 		}
 		.bl_card_footer {
 			position: absolute;
@@ -139,6 +195,26 @@
 			font-size: 0.75rem;
 			color: #333;
 			font-weight: 700;
+		}
+		input[type="text"] {
+			width: 100%;
+			height: 2rem;
+			border-radius: 4px;
+			border: 1px solid #ccc;
+			padding: 8px;
+			font-size: 16px;
+		}
+		.cp_heading {
+			background-color: lightyellow;
+		}
+		.cp_blockquote {
+			background-color: papayawhip;
+		}
+		.cp_unorderedList {
+			background-color: lightblue;
+		}
+		.cp_listItem {
+			background-color: lightskyblue;
 		}
 	</style>
 </body>
