@@ -15,7 +15,7 @@ export function generateMarkdown(title, blocks) {
         markdown += block.content.split('\n').map(line => `> ${line}`).join('\n') + '\n\n';
         break;
       case 'orderedList':
-         if (block.items && block.items.length > 0) {
+        if (block.items && block.items.length > 0) {
             block.items.forEach((item, index) => {
               markdown += `${index + 1}. ${item.content}\n`;
             });
@@ -23,11 +23,11 @@ export function generateMarkdown(title, blocks) {
         }
         break;
       case 'unorderedList':
-         if (block.items && block.items.length > 0) {
-            block.items.forEach(item => {
-              markdown += `- ${item.content}\n`;
-            });
-            markdown += '\n';
+        if (block.items && block.items.length > 0) {
+					block.items.forEach(item => {
+						markdown += `- ${item.content}\n`;
+					});
+					markdown += '\n';
         }
         break;
       case 'horizontalRule':

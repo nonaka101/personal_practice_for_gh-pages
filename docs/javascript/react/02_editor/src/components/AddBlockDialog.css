@@ -1,0 +1,77 @@
+.cp_dialog:not([open]) {
+  display: none;
+}
+
+html:has(dialog[open]) {
+  overflow: hidden;
+}
+
+.cp_dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100dvw;
+  max-width: 100dvw;
+  height: 100dvh;
+  max-height: 100dvh;
+  padding: 0;
+  border: none;
+	z-index: 1000;
+	background-color: white;
+}
+
+.cp_dialog::backdrop {
+  backdrop-filter: blur(4px);
+}
+
+.cp_dialog_body {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	padding: 16px;
+  background-color: white;
+  border: 2px solid gray;
+}
+
+.cp_dialog_list {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	gap: 16px;
+}
+
+li.cp_dialog_item {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 48px;
+	height: 48px;
+	background-color: #f0f0f0;
+	cursor: pointer;
+}
+
+.bl_iconButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 2.625rem;
+  height: 2.625rem;
+  padding: 0;
+  margin: 0;
+  font-size: 0.7rem;
+  color: var(--sc_txt_body);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.bl_iconButton > div > svg {
+  width: 1.625rem;
+  height: 1.625rem;
+}

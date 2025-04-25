@@ -42,7 +42,7 @@ function Block({ block, index, onAddBlock, onUpdateBlock, onDeleteBlock, onMoveB
                   onUpdateListItem={onUpdateListItem}
                   onDeleteListItem={onDeleteListItem}
                   onMoveListItem={onMoveListItem}
-               />;
+              />;
       case 'horizontalRule':
         return <HrBlock />;
       case 'code':
