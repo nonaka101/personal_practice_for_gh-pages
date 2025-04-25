@@ -33,10 +33,11 @@
 	<main>
 		<div class="bl_card">
 			<div class="bl_card_body">
-				<textarea name="" id=""></textarea>
+				<label for="p1">Paragraph</label>
+				<textarea name="p1" id="p1"></textarea>
 			</div>
 			<div class="bl_card_footer">
-				<button type="button" class="bl_card_addButton">
+				<button type="button" class="bl_card_addButton" onclick="copyCard(this)">
 					<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" role="graphics-symbol img" aria-hidden="true">
 						<rect x="4" y="20" width="40" height="8"></rect>
 						<rect x="20" y="4" width="8" height="40"></rect>
@@ -46,10 +47,11 @@
 		</div>
 		<div class="bl_card">
 			<div class="bl_card_body">
-				<textarea name="" id=""></textarea>
+				<label for="p2">Paragraph</label>
+				<textarea name="p2" id="p2"></textarea>
 			</div>
 			<div class="bl_card_footer">
-				<button type="button" class="bl_card_addButton">
+				<button type="button" class="bl_card_addButton" onclick="copyCard(this)">
 					<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" role="graphics-symbol img" aria-hidden="true">
 						<rect x="4" y="20" width="40" height="8"></rect>
 						<rect x="20" y="4" width="8" height="40"></rect>
@@ -58,6 +60,17 @@
 			</div>
 		</div>
 	</main>
+	<script>
+		// bl_card_addButton を押すと、自身の属する bl_card の下に、新規に bl_card を追加する
+		function copyCard(button) {
+			const bl_card = button.closest('.bl_card');
+			const newCard = bl_card.cloneNode(true);
+			const newTextArea = newCard.querySelector('textarea');
+			newTextArea.value = '';
+			newTextArea.id = 'p' + (document.querySelectorAll('.bl_card').length + 1);
+			bl_card.parentNode.insertBefore(newCard, bl_card.nextSibling);
+		}
+	</script>
 	<style>
 		* {
 			box-sizing: border-box;
@@ -73,8 +86,8 @@
 			width: 100%;
 			max-width: 600px;
 			margin: 0 auto;
-			padding-top: 24px;
-			padding-bottom: 48px;
+			padding-top: 12px;
+			padding-bottom: 24px;
 			border: 2px solid black;
 			box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
 		}
@@ -114,11 +127,18 @@
 			border: 1px solid #ccc;
 			padding: 8px;
 			font-size: 16px;
-			resize: none;
+			resize: vertical;
 		}
 		textarea:focus {
 			outline: none;
 			border-color: #007bff;
+		}
+		label {
+			display: block;
+			margin-bottom: 0;
+			font-size: 0.75rem;
+			color: #333;
+			font-weight: 700;
 		}
 	</style>
 </body>
