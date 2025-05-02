@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/personal_practice_for_gh-pages/javascript/react/02_editor/build/static/css/main.e6c13ad2.css",
+    "main.js": "/personal_practice_for_gh-pages/javascript/react/02_editor/build/static/js/main.9deb217c.js",
+    "static/js/453.1c03c7d3.chunk.js": "/personal_practice_for_gh-pages/javascript/react/02_editor/build/static/js/453.1c03c7d3.chunk.js",
+    "index.html": "/personal_practice_for_gh-pages/javascript/react/02_editor/build/index.html",
+    "main.e6c13ad2.css.map": "/personal_practice_for_gh-pages/javascript/react/02_editor/build/static/css/main.e6c13ad2.css.map",
+    "main.9deb217c.js.map": "/personal_practice_for_gh-pages/javascript/react/02_editor/build/static/js/main.9deb217c.js.map",
+    "453.1c03c7d3.chunk.js.map": "/personal_practice_for_gh-pages/javascript/react/02_editor/build/static/js/453.1c03c7d3.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.9deb217c.js"
+  ]
+}
