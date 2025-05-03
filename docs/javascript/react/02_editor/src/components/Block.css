@@ -22,3 +22,31 @@
 	justify-content: space-around;
 	padding: 8px 0;
 }
+
+.block-heading {
+	background-color: var(--sc_bg_blockHeading);
+}
+
+.block-paragraph {
+	background-color: var(--sc_bg_blockParagraph);
+}
+
+.block-blockquote {
+	background-color: var(--sc_bg_blockBlockquote);
+}
+
+.block-orderedList {
+	background-color: var(--sc_bg_blockOrderedList);
+}
+
+.block-unorderedList {
+	background-color: var(--sc_bg_blockUnorderedList);
+}
+
+.block-horizontalRule {
+	background-color: var(--sc_bg_blockHorizontalRule);
+}
+
+.block-code {
+	background-color: var(--sc_bg_blockCode);
+}

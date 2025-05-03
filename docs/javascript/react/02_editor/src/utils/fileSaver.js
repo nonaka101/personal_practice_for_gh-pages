@@ -1,3 +1,10 @@
+/**
+ * markdown 形式のファイルを生成し、保存する
+ *
+ * @param {string} markdownContent - 保存するMarkdownコンテンツ
+ * @param {string} title - ファイル名に使用するタイトル
+ * @returns {void}
+ */
 export function saveAsMarkdown(markdownContent, title) {
 	// コンテンツの生成
 	const blob = new Blob([markdownContent], { type: 'text/markdown;charset=utf-8' });

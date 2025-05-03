@@ -1,10 +1,10 @@
 import React from 'react';
 
 function BlockControls({
-	blockId, blockType, level, language, // language を追加
+	blockId, blockType, level, language,
 	onDelete, onMoveUp, onMoveDown,
-	onLevelChange, onLanguageChange, // onLanguageChange を追加
-	showLevelControls, showLanguageInput // showLanguageInput を追加
+	onLevelChange, onLanguageChange,
+	showLevelControls, showLanguageInput
 }) {
 
 	const handleLevelSelect = (e) => {

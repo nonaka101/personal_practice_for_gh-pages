@@ -1,14 +1,14 @@
 /**
- * Markdownを生成する関数
+ * markdown 文を生成する
+ *
  * @param {string} title - タイトル
  * @param {Array} blocks - ブロックの配列
- * @returns {string} - 生成されたMarkdown
+ * @returns {string} - markdown 文として整形されたテキスト
  */
 export function generateMarkdown(title, blocks) {
 
 	// 出力にタイトルを h1 として追加
-	if (!title) title = '無題';
-	let markdown = `# ${title}\n\n`; // h1タイトル
+	let markdown = `# ${title || '無題'}\n\n`;
 
 	// 各ブロックを該当する Markdown 形式に変換し、出力に追記
 	blocks.forEach(block => {

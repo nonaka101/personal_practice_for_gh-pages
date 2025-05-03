@@ -1,0 +1,16 @@
+.hr-block {
+	margin: 10px 0;
+}
+
+.hr-block > span {
+	display: block;
+	text-align: start;
+	font-size: 0.8em;
+	color: var(--sc_txt_body, #1a1a1c);
+}
+
+.hr-block > hr {
+	margin: 0;
+	padding: 0;
+	border: 4px solid var(--sc_txt_body, #1a1a1c);
+}

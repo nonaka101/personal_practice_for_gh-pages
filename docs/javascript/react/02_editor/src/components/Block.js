@@ -22,14 +22,29 @@ function Block({ block, index, focusedItemId, onClearFocusedItem, onAddBlock, on
 	const renderBlockContent = () => {
 		switch (block.type) {
 			case 'heading':
-				return <HeadingBlock content={block.content} level={block.level} onContentChange={handleContentChange} onLevelChange={handleLevelChange} />;
+				return <HeadingBlock
+					controlId={'heading-'+block.id}
+					content={block.content}
+					level={block.level}
+					onContentChange={handleContentChange}
+					onLevelChange={handleLevelChange}
+				/>;
 			case 'paragraph':
-				return <ParagraphBlock content={block.content} onContentChange={handleContentChange} />;
+				return <ParagraphBlock
+					controlId={'paragraph-'+block.id}
+					content={block.content}
+					onContentChange={handleContentChange}
+				/>;
 			case 'blockquote':
-				return <BlockquoteBlock content={block.content} onContentChange={handleContentChange} />;
+				return <BlockquoteBlock
+					controlId={'blockquote-'+block.id}
+					content={block.content}
+					onContentChange={handleContentChange}
+				/>;
 			case 'orderedList':
 			case 'unorderedList':
 				return <ListBlock
+					// リストに関しては controlId はなし
 					block={block}
 					focusedItemId={focusedItemId}
 					onClearFocusedItem={onClearFocusedItem}
@@ -41,7 +56,13 @@ function Block({ block, index, focusedItemId, onClearFocusedItem, onAddBlock, on
 			case 'horizontalRule':
 				return <HrBlock />;
 			case 'code':
-				return <CodeBlock content={block.content} language={block.language} onContentChange={handleContentChange} onLanguageChange={handleLanguageChange} />;
+				return <CodeBlock
+					controlId={'code-'+block.id}
+					content={block.content}
+					language={block.language}
+					onContentChange={handleContentChange}
+					onLanguageChange={handleLanguageChange}
+				/>;
 			default:
 				return null;
 		}
@@ -59,7 +80,7 @@ function Block({ block, index, focusedItemId, onClearFocusedItem, onAddBlock, on
 	};
 
 	return (
-		<div id={`block-${block.id}`} className='block'>
+		<div id={`block-${block.id}`} className={`block block-${block.type}`}>
 			{/* ブロックコンテンツ本体 */}
 			<div className='block-body'>
 				{renderBlockContent()}
