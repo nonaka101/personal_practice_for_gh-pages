@@ -1,18 +1,19 @@
 import React, { useRef } from 'react'; // useState を削除し、useRef を追加
 import BlockControls from './BlockControls';
 import AddBlockButton from './AddBlockButton';
-import AddBlockDialog from './AddBlockDialog'; // ダイアログコンポーネント
+import AddBlockDialog from './AddBlockDialog';
 import HeadingBlock from './blocks/HeadingBlock';
 import ParagraphBlock from './blocks/ParagraphBlock';
 import BlockquoteBlock from './blocks/BlockquoteBlock';
 import ListBlock from './blocks/ListBlock';
 import HrBlock from './blocks/HrBlock';
 import CodeBlock from './blocks/CodeBlock';
+import './Block.css';
 
 function Block({ block, index, focusedItemId, onClearFocusedItem, onAddBlock, onUpdateBlock, onDeleteBlock, onMoveBlock, onAddListItem, onUpdateListItem, onDeleteListItem, onMoveListItem }) {
 	const dialogRef = useRef(null); // dialog 要素への参照
 
-	// --- コンテンツ更新ハンドラ (前回と同様) ---
+	// --- コンテンツ更新ハンドラ ---
 	const handleContentChange = (newContent) => onUpdateBlock(block.id, { content: newContent });
 	const handleLevelChange = (newLevel) => onUpdateBlock(block.id, { level: newLevel });
 	const handleLanguageChange = (newLanguage) => onUpdateBlock(block.id, { language: newLanguage });
@@ -30,8 +31,8 @@ function Block({ block, index, focusedItemId, onClearFocusedItem, onAddBlock, on
 			case 'unorderedList':
 				return <ListBlock
 					block={block}
-					focusedItemId={focusedItemId} // focusedItemId を ListBlock へ渡す
-					onClearFocusedItem={onClearFocusedItem} // onClearFocusedItem を ListBlock へ渡す
+					focusedItemId={focusedItemId}
+					onClearFocusedItem={onClearFocusedItem}
 					onAddListItem={onAddListItem}
 					onUpdateListItem={onUpdateListItem}
 					onDeleteListItem={onDeleteListItem}
@@ -55,30 +56,32 @@ function Block({ block, index, focusedItemId, onClearFocusedItem, onAddBlock, on
 
 	const handleAddBlockSelect = (type) => {
 		onAddBlock(index, type);
-		// ダイアログは AddBlockDialog 内部で閉じる (close() を呼ぶ)
 	};
 
 	return (
-		<div id={`block-${block.id}`} style={{ border: '1px dashed #eee', padding: '10px', marginBottom: '10px', position: 'relative' }}>
-			<BlockControls
-				blockId={block.id}
-				blockType={block.type}
-				level={block.level}
-				language={block.language} // コードブロックの言語表示/編集用
-				onDelete={() => onDeleteBlock(block.id)}
-				onMoveUp={() => onMoveBlock(block.id, 'up')}
-				onMoveDown={() => onMoveBlock(block.id, 'down')}
-				onLevelChange={handleLevelChange}
-				onLanguageChange={handleLanguageChange} // 言語変更ハンドラを追加
-				showLevelControls={block.type === 'heading'}
-				showLanguageInput={block.type === 'code'} // コードブロックの場合に言語入力を表示
-			/>
-			<div style={{ marginTop: '30px' }}>
+		<div id={`block-${block.id}`} className='block'>
+			{/* ブロックコンテンツ本体 */}
+			<div className='block-body'>
 				{renderBlockContent()}
 			</div>
-			{/* ブロック追加ボタン */}
-			<AddBlockButton onClick={openAddDialog} />
-			{/* ダイアログコンポーネント (常にレンダリングしておくが、表示は showModal で制御) */}
+			{/* フッター（要素操作、ブロック追加） */}
+			<div className='block-footer'>
+				<BlockControls
+					blockId={block.id}
+					blockType={block.type}
+					level={block.level}
+					language={block.language} // コードブロックの言語表示/編集用
+					onDelete={() => onDeleteBlock(block.id)}
+					onMoveUp={() => onMoveBlock(block.id, 'up')}
+					onMoveDown={() => onMoveBlock(block.id, 'down')}
+					onLevelChange={handleLevelChange}
+					onLanguageChange={handleLanguageChange} // 言語変更ハンドラを追加
+					showLevelControls={block.type === 'heading'}
+					showLanguageInput={block.type === 'code'} // コードブロックの場合に言語入力を表示
+				/>
+				<AddBlockButton onClick={openAddDialog} />
+			</div>
+			{/* ブロック追加ダイアログ (表示は showModal で制御) */}
 			<AddBlockDialog ref={dialogRef} onSelect={handleAddBlockSelect} />
 		</div>
 	);

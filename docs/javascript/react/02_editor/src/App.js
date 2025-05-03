@@ -4,6 +4,7 @@ import GlobalMenu from './components/GlobalMenu';
 import Editor from './components/Editor';
 import { generateMarkdown } from './utils/markdownGenerator';
 import { saveAsMarkdown } from './utils/fileSaver';
+import './App.css';
 
 const LOCAL_STORAGE_KEY = 'markdownEditorContent';
 

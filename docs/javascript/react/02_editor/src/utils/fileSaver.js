@@ -1,17 +1,19 @@
 export function saveAsMarkdown(markdownContent, title) {
-	// ファイル名を生成（スペースや特殊文字を置換）
-	const filename = `${title.replace(/[^\w\s]/gi, '').replace(/\s+/g, '_') || 'document'}.md`;
-
+	// コンテンツの生成
 	const blob = new Blob([markdownContent], { type: 'text/markdown;charset=utf-8' });
 	const url = URL.createObjectURL(blob);
 
+	// ダウンロード用リンクを作成
+	const filename = `${title.replace(/[^\w\s]/gi, '').replace(/\s+/g, '_') || 'document'}.md`;
 	const link = document.createElement('a');
 	link.href = url;
 	link.download = filename;
 
-	document.body.appendChild(link); // Firefoxで必要
+	// リンクを一時的にDOMに追加（Firefox用）し、イベント発火でダウンロードを開始
+	document.body.appendChild(link);
 	link.click();
 
-	document.body.removeChild(link); // 後片付け
-	URL.revokeObjectURL(url); // メモリ解放
+	// 不要となったリンクを削除（オブジェクトの開放含む）
+	document.body.removeChild(link);
+	URL.revokeObjectURL(url);
 }

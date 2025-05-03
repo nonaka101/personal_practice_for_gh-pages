@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react'; // forwardRef をインポート
+import React, { forwardRef } from 'react';
 
 const blockTypes = [
 	{ type: 'heading', label: '見出し (H2)' },
@@ -7,10 +7,10 @@ const blockTypes = [
 	{ type: 'orderedList', label: '順序付きリスト' },
 	{ type: 'unorderedList', label: '順序なしリスト' },
 	{ type: 'horizontalRule', label: '区切り線' },
-	{ type: 'code', label: 'コードブロック' },
+	{ type: 'code', label: 'コード' },
 ];
 
-// forwardRef を使って親コンポーネントから ref を受け取る
+// 親コンポーネントから ref を受け取る
 const AddBlockDialog = forwardRef(({ onSelect }, ref) => {
 
 	const handleSelect = (type) => {

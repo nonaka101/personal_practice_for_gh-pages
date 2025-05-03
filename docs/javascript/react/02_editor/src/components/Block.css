@@ -1,0 +1,24 @@
+.block {
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+	width: 100%;
+	max-width: 600px;
+	margin: 0 auto;
+	padding: 8px;
+	border: 2px solid navy;
+	box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.block-body {
+	width: 100%;
+	background: none;
+}
+
+.block-footer {
+	width: 100%;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-around;
+	padding: 8px 0;
+}

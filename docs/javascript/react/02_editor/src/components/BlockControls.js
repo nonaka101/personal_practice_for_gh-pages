@@ -19,7 +19,7 @@ function BlockControls({
 	}
 
 	return (
-		<div style={{ position: 'absolute', top: '5px', right: '5px', display: 'flex', alignItems: 'center', gap: '5px', background: 'rgba(255,255,255,0.8)', padding: '3px', borderRadius: '3px' }}>
+		<div>
 			{/* 見出しレベル選択 */}
 			{showLevelControls && (
 				<select value={level} onChange={handleLevelSelect} title="見出しレベル">
