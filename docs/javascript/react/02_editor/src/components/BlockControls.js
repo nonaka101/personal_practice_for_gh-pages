@@ -1,4 +1,5 @@
 import React from 'react';
+import './BlockControls.css';
 
 function BlockControls({
 	blockId, blockType, level, language,
@@ -19,32 +20,38 @@ function BlockControls({
 	}
 
 	return (
-		<div>
+		<div className='block-controls'>
 			{/* 見出しレベル選択 */}
 			{showLevelControls && (
-				<select value={level} onChange={handleLevelSelect} title="見出しレベル">
-					<option value={2}>H2</option>
-					<option value={3}>H3</option>
-					<option value={4}>H4</option>
-					<option value={5}>H5</option>
-				</select>
+				<div className='block-controls-input'>
+					<label htmlFor={`level-${blockId}`}>レベル：</label>
+					<select id={`level-${blockId}`} value={level} onChange={handleLevelSelect} title="見出しレベル">
+						<option value={2}>2</option>
+						<option value={3}>3</option>
+						<option value={4}>4</option>
+						<option value={5}>5</option>
+					</select>
+				</div>
 			)}
 			{/* コード言語入力 */}
 			{showLanguageInput && (
-				<input
-					type="text"
-					value={language || ''}
-					onChange={handleLanguageInputChange}
-					placeholder="language"
-					title="コード言語"
-					size="10" // 少し小さめに
-					style={{ marginLeft: '5px' }}
-				/>
+				<div className='block-controls-input'>
+					<label htmlFor={`language-${blockId}`}>言語：</label>
+					<input
+						id={`language-${blockId}`}
+						type="text"
+						value={language || ''}
+						onChange={handleLanguageInputChange}
+						placeholder="例）java"
+						size="10"
+					/>
+				</div>
+
 			)}
 			{/* 移動・削除ボタン */}
-			<button onClick={onMoveUp} title="Move Up">↑</button>
-			<button onClick={onMoveDown} title="Move Down">↓</button>
-			<button onClick={onDelete} title="Delete Block" style={{ color: 'red' }}>X</button>
+			<button className='block-controls-button' onClick={onMoveUp} title="Move Up">↑</button>
+			<button className='block-controls-button' onClick={onMoveDown} title="Move Down">↓</button>
+			<button className='block-controls-button' onClick={onDelete} title="Delete Block">削除</button>
 		</div>
 	);
 }

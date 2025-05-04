@@ -1,0 +1,48 @@
+.block-controls {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: start;
+	align-items: center;
+	margin: 0;
+	padding: 0;
+	column-gap: 12px;
+}
+
+.block-controls-input {
+
+}
+
+.block-controls-button {
+	appearance: none;
+	display: block;
+	padding: 4px;
+	margin: 0;
+	font-size: 1rem;
+	font-style: normal;
+	font-weight: 700;
+	line-height: 1.2;
+	text-align: center;
+	letter-spacing: 0.04em;
+	cursor: pointer;
+	background: none;
+	border: 2px solid transparent;
+	border-radius: 4px;
+	transition: .25s;
+	color: var(--sc_txt_btn__secondary);
+	text-decoration: none;
+	background-color: transparent;
+	border-color: currentcolor;
+}
+
+.block-controls-button:disabled {
+	pointer-events: none;
+}
+
+.block-controls-button:hover,
+.block-controls-button:active {
+	background-color: var(--sc_bg_btn__secondary);
+}
+
+.block-controls-button:disabled {
+	color: var(--sc_txt_disabled);
+}

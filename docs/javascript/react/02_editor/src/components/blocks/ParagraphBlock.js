@@ -1,4 +1,5 @@
 import React from 'react';
+import './ParagraphBlock.css';
 
 function ParagraphBlock({ controlId, content, onContentChange }) {
 	const handleTextChange = (event) => {
@@ -6,7 +7,7 @@ function ParagraphBlock({ controlId, content, onContentChange }) {
 	};
 
 	return (
-		<React.Fragment>
+		<div className='paragraph-block'>
 			<label htmlFor={controlId}>文章</label>
 			<textarea
 				id={controlId}
@@ -16,7 +17,7 @@ function ParagraphBlock({ controlId, content, onContentChange }) {
 				rows={3}
 				style={{ width: '100%', minHeight: '60px', resize: 'vertical' }}
 			/>
-		</React.Fragment>
+		</div>
 	);
 }
 

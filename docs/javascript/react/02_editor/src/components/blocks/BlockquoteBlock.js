@@ -1,4 +1,5 @@
 import React from 'react';
+import './BlockquoteBlock.css';
 
 function BlockquoteBlock({ controlId, content, onContentChange }) {
 	const handleTextChange = (event) => {
@@ -6,7 +7,7 @@ function BlockquoteBlock({ controlId, content, onContentChange }) {
 	};
 
 	return (
-		<React.Fragment>
+		<div className='blockquote-block'>
 			<label htmlFor={controlId}>引用文</label>
 			<textarea
 				id={controlId}
@@ -14,9 +15,8 @@ function BlockquoteBlock({ controlId, content, onContentChange }) {
 				onChange={handleTextChange}
 				placeholder="引用文を入力..."
 				rows={3}
-				style={{ width: '100%', minHeight: '60px', resize: 'vertical', borderLeft: '3px solid #ccc', paddingLeft: '10px', fontStyle: 'italic' }}
 			/>
-		</React.Fragment>
+		</div>
 	);
 }
 

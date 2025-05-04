@@ -1,6 +1,7 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "MDE",
+  "name": "Markdown Editor for JP",
+	"description": "日本語用の簡易マークダウンエディタです",
   "icons": [
     {
       "src": "favicon.ico",
