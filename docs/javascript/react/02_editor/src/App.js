@@ -132,13 +132,11 @@ function App() {
 
 				const newItems = block.items.filter(item => item.id !== itemId);
 
-				// 削除後にフォーカスを前のアイテムに移す場合（オプション）
-				/*
+				// 削除後にフォーカスを前のアイテムに移す
 				if (itemIndex > 0 && newItems.length > 0) {
 							const prevItemId = newItems[itemIndex - 1]?.id;
 							if(prevItemId) setFocusedItemId(prevItemId);
 				}
-				*/
 
 				return { ...block, items: newItems };
 			}
@@ -168,11 +166,11 @@ function App() {
 	}, []);
 
 
-	// --- 書き出し処理 (前回と同様) ---
+	// --- 書き出し処理 ---
 	const handleExportMarkdown = useCallback(() => {
 		const markdown = generateMarkdown(title, blocks);
 		navigator.clipboard.writeText(markdown)
-			.then(() => alert('Markdownをクリップボードにコピーしました'))
+			.then(() => alert('クリップボードにコピーしました'))
 			.catch(err => console.error('クリップボードへのコピーに失敗しました:', err));
 	}, [title, blocks]);
 

@@ -247,6 +247,10 @@ small {
 	font-size: 0.8em;
 }
 
+/* ダイアログ表示中は、裏側にあるページをスクロールさせない */
+html:has(dialog[open]) {
+	overflow: hidden;
+}
 
 /* フォーカス時のスタイル */
 *:focus-visible{
