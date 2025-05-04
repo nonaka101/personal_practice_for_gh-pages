@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/personal_practice_for_gh-pages/javascript/react/02_editor/doc/static/css/main.a4686298.css",
-    "main.js": "/personal_practice_for_gh-pages/javascript/react/02_editor/doc/static/js/main.cf2bf5fb.js",
+    "main.css": "/personal_practice_for_gh-pages/javascript/react/02_editor/doc/static/css/main.272e2405.css",
+    "main.js": "/personal_practice_for_gh-pages/javascript/react/02_editor/doc/static/js/main.f37a0765.js",
     "static/js/453.1c03c7d3.chunk.js": "/personal_practice_for_gh-pages/javascript/react/02_editor/doc/static/js/453.1c03c7d3.chunk.js",
     "index.html": "/personal_practice_for_gh-pages/javascript/react/02_editor/doc/index.html",
-    "main.a4686298.css.map": "/personal_practice_for_gh-pages/javascript/react/02_editor/doc/static/css/main.a4686298.css.map",
-    "main.cf2bf5fb.js.map": "/personal_practice_for_gh-pages/javascript/react/02_editor/doc/static/js/main.cf2bf5fb.js.map",
+    "main.272e2405.css.map": "/personal_practice_for_gh-pages/javascript/react/02_editor/doc/static/css/main.272e2405.css.map",
+    "main.f37a0765.js.map": "/personal_practice_for_gh-pages/javascript/react/02_editor/doc/static/js/main.f37a0765.js.map",
     "453.1c03c7d3.chunk.js.map": "/personal_practice_for_gh-pages/javascript/react/02_editor/doc/static/js/453.1c03c7d3.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a4686298.css",
-    "static/js/main.cf2bf5fb.js"
+    "static/css/main.272e2405.css",
+    "static/js/main.f37a0765.js"
   ]
 }
