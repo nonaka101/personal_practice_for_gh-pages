@@ -38,32 +38,47 @@ function GlobalMenu({ title, setTitle, blocks, onExport, onSave, onNew }) { // o
 								閉じる
 							</button>
 						</div>
-						<div>
-							<label htmlFor="doc-title">Document Title (H1): </label>
-							<input
-								id="doc-title"
-								type="text"
-								value={title}
-								onChange={handleTitleChange}
-								style={{ fontSize: '1.5em', width: '50%' }}
-							/>
+						<div className='menu-dialog-content'>
+							<h3>ドキュメント設定</h3>
+							<div className='menu-dialog-input'>
+								<label htmlFor="doc-title">文書タイトル</label>
+								<input
+									id="doc-title"
+									type="text"
+									value={title}
+									onChange={handleTitleChange}
+								/>
+							</div>
 						</div>
 
 						{/* 操作ボタン */}
-						<div>
-							<button onClick={onNew}>新規作成</button>
-							<button onClick={onExport}>クリップボードにコピー</button>
-							<button onClick={onSave}>名前をつけて保存</button>
+						<div className='menu-dialog-content'>
+							<h3>操作</h3>
+							<div className='menu-dialog-buttons'>
+								<button onClick={onNew}>新規作成</button>
+								<button onClick={onExport}>クリップボードにコピー</button>
+								<button onClick={onSave}>名前をつけて保存</button>
+							</div>
+							<div className='menu-dialog-input'>
+								<label for="color-mode">
+									カラーモード
+								</label>
+								<select name="color-mode" id="color-mode">
+									<option value="0">デフォルト</option>
+									<option value="1">ライト</option>
+									<option value="2">ダーク</option>
+								</select>
+							</div>
 						</div>
 
 						{/* 見出しジャンプ */}
 						{headings.length > 0 && (
-							<div style={{ marginTop: '10px' }}>
-								<strong>Outline:</strong>
-								<ul>
+							<div className='menu-dialog-content'>
+								<h3>見出しジャンプ</h3>
+								<ul className='menu-dialog-list'>
 									{headings.map(heading => (
 										<li key={heading.id}>
-											<a href={`#block-${heading.id}`}>
+											<a className='menu-dialog-link' href={`#block-${heading.id}`}>
 												{/* レベルに応じてインデント */}
 												<span style={{ paddingLeft: `${(heading.level - 2) * 15}px` }}>
 													{heading.content || '(empty heading)'} (h{heading.level})
@@ -77,7 +92,7 @@ function GlobalMenu({ title, setTitle, blocks, onExport, onSave, onNew }) { // o
 					</div>
 				</dialog>
 			</header>
-			{/* コンテンツがヘッダーに隠れてしまうのを防止 */}
+			{/* 以降のコンテンツがヘッダーに隠れてしまうのを防止 */}
 			<div className='header-spacer'></div>
 		</React.Fragment>
 	);

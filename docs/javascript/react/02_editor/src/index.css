@@ -120,14 +120,17 @@
 	--sc_txt_desc: var(--grey-150);
 	--sc_txt_placeholder: var(--grey-140);
 	--sc_txt_onFill: var(--white);
+
 	--sc_txt_link: var(--blue-150);
-	--sc_txt_link__hover: var(--blue-160);
-	--sc_txt_link__active: var(--blue-160);
-	--sc_txt_link__visited: var(--blue-160);
+	--sc_txt_link__hover: var(--blue-170);
+	--sc_txt_link__active: var(--blue-170);
+	--sc_txt_link__visited: var(--blue-170);
+
 	--sc_txt_alert: var(--red-150);
 	--sc_txt_disabled: var(--grey-100);
 	--sc_txt_btn__primary: var(--white);
 	--sc_txt_btn__secondary: var(--blue-140);
+
 	--sc_border_field: 1px solid var(--grey-150);
 	--sc_border_divider: 1px solid var(--grey-050);
 	--sc_border_focused: 2px solid var(--brown-050);

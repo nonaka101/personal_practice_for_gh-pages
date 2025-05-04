@@ -34,15 +34,12 @@
 	border-color: currentcolor;
 }
 
-.block-controls-button:disabled {
-	pointer-events: none;
-}
-
 .block-controls-button:hover,
 .block-controls-button:active {
 	background-color: var(--sc_bg_btn__secondary);
 }
 
 .block-controls-button:disabled {
+	pointer-events: none;
 	color: var(--sc_txt_disabled);
 }
