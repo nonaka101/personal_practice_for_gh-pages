@@ -140,20 +140,25 @@ function GlobalMenu({ title, setTitle, blocks, onExport, onSave, onNew }) {
 								<button onClick={() => { onSave(); closeMenuDialog(); }}>名前をつけて保存</button>
 							</div>
 							<div className='menu-dialog-input'>
-								<label htmlFor="color-mode-select">
+								<label htmlFor="color-mode">
 									カラーモード
 								</label>
 								{/* value と onChange を設定 */}
-								<select
-									name="color-mode"
-									id="color-mode-select"
-									value={colorMode} /* React の state を value にバインド */
-									onChange={handleColorModeChange} /* React のイベントハンドラを設定 */
-								>
-									<option value={0}>デフォルト</option>
-									<option value={1}>ライト</option>
-									<option value={2}>ダーク</option>
-								</select>
+								<div className='color-mode-select'>
+									<select
+										name="color-mode"
+										id="color-mode"
+										value={colorMode} /* React の state を value にバインド */
+										onChange={handleColorModeChange} /* React のイベントハンドラを設定 */
+									>
+										<option value={0}>デフォルト</option>
+										<option value={1}>ライト</option>
+										<option value={2}>ダーク</option>
+									</select>
+									<svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+										<path d="M12 17.1L3 8L4 7L12 15L20 7L21 8L12 17.1Z"/>
+									</svg>
+								</div>
 							</div>
 						</div>
 

@@ -21,16 +21,25 @@ function BlockControls({
 
 	return (
 		<div className='block-controls'>
+			{/* 移動・削除ボタン */}
+			<button className='block-controls-button' onClick={onMoveUp} title="Move Up">↑</button>
+			<button className='block-controls-button' onClick={onMoveDown} title="Move Down">↓</button>
+			<button className='block-controls-button' onClick={onDelete} title="Delete Block">削除</button>
 			{/* 見出しレベル選択 */}
 			{showLevelControls && (
 				<div className='block-controls-input'>
 					<label htmlFor={`level-${blockId}`}>レベル：</label>
-					<select id={`level-${blockId}`} value={level} onChange={handleLevelSelect} title="見出しレベル">
-						<option value={2}>2</option>
-						<option value={3}>3</option>
-						<option value={4}>4</option>
-						<option value={5}>5</option>
-					</select>
+					<div className='level-select'>
+						<select id={`level-${blockId}`} value={level} onChange={handleLevelSelect}>
+							<option value={2}>2</option>
+							<option value={3}>3</option>
+							<option value={4}>4</option>
+							<option value={5}>5</option>
+						</select>
+						<svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+							<path d="M12 17.1L3 8L4 7L12 15L20 7L21 8L12 17.1Z"/>
+						</svg>
+					</div>
 				</div>
 			)}
 			{/* コード言語入力 */}
@@ -38,20 +47,15 @@ function BlockControls({
 				<div className='block-controls-input'>
 					<label htmlFor={`language-${blockId}`}>言語：</label>
 					<input
+						className='language-input'
 						id={`language-${blockId}`}
 						type="text"
 						value={language || ''}
 						onChange={handleLanguageInputChange}
 						placeholder="例）java"
-						size="10"
 					/>
 				</div>
-
 			)}
-			{/* 移動・削除ボタン */}
-			<button className='block-controls-button' onClick={onMoveUp} title="Move Up">↑</button>
-			<button className='block-controls-button' onClick={onMoveDown} title="Move Down">↓</button>
-			<button className='block-controls-button' onClick={onDelete} title="Delete Block">削除</button>
 		</div>
 	);
 }
