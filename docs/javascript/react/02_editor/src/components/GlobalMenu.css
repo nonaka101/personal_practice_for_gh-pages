@@ -158,7 +158,8 @@
 }
 
 .menu-dialog-buttons > button:hover,
-.menu-dialog-buttons > button:active {
+.menu-dialog-buttons > button:active,
+.menu-dialog-buttons > button:focus-visible {
 	background-color: var(--sc_bg_btn__secondary);
 }
 

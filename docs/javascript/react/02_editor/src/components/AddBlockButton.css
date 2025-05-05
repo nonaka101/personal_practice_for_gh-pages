@@ -24,6 +24,7 @@
 }
 
 .add-block-button:hover,
-.add-block-button:active {
+.add-block-button:active,
+.add-block-button:focus-visible {
 	filter: brightness(87%);
 }

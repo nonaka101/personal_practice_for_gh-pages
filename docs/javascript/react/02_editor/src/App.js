@@ -9,10 +9,13 @@ import './App.css';
 const LOCAL_STORAGE_KEY = 'markdownEditorContent';
 
 const getDefaultState = () => ({
-	title: 'Untitled Document',
+	title: '無題のドキュメント',
 	blocks: [
-		{ id: uuidv4(), type: 'heading', content: 'Welcome!', level: 2 },
-		{ id: uuidv4(), type: 'paragraph', content: 'Start typing your markdown content here.' },
+		{ id: uuidv4(), type: 'heading', content: 'ようこそ！', level: 2 },
+		{ id: uuidv4(), type: 'paragraph',
+			content: '「挿入」ボタンからブロックを選択し、Markdown を作成できます。\n\n' +
+				'操作についての説明は、右上にあるメニューから「ヘルプ」を参照ください。',
+		},
 	],
 });
 
@@ -44,7 +47,7 @@ function App() {
 		}
 	}, []);
 
-	// --- ブロック操作関数 (前回と同様) ---
+	// --- ブロック操作関数 ---
 	const addBlock = useCallback((index, type) => {
 		const newBlock = {
 			id: uuidv4(),
@@ -126,8 +129,8 @@ function App() {
 					// ここでは最低1つのアイテムを保証しない。
 					const newItems = block.items.filter(item => item.id !== itemId);
 					// アイテムが0になった場合、ブロック自体を削除するなら null を返し、上位で filter(Boolean)
-					// return newItems.length > 0 ? { ...block, items: newItems } : null;
-					return { ...block, items: newItems };
+					return newItems.length > 0 ? { ...block, items: newItems } : null;
+					// return { ...block, items: newItems };
 				}
 
 				const newItems = block.items.filter(item => item.id !== itemId);
@@ -141,7 +144,7 @@ function App() {
 				return { ...block, items: newItems };
 			}
 			return block;
-		})/*.filter(Boolean)*/); // ブロック削除する場合
+		}).filter(Boolean)); // `return newItems.length > 0` で null を貰った場合、ブロック削除
 	}, []);
 
 	const moveListItem = useCallback((blockId, itemId, direction) => {

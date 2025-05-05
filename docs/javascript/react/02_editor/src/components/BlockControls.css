@@ -35,7 +35,8 @@
 }
 
 .block-controls-button:hover,
-.block-controls-button:active {
+.block-controls-button:active,
+.block-controls-button:focus-visible {
 	background-color: var(--sc_bg_btn__secondary);
 }
 

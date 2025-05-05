@@ -1,4 +1,5 @@
 import React, { forwardRef } from 'react';
+import './AddBlockDialog.css';
 
 const blockTypes = [
 	{ type: 'heading', label: '見出し (H2)' },
@@ -28,22 +29,20 @@ const AddBlockDialog = forwardRef(({ onSelect }, ref) => {
 
 	// dialog 要素に ref を設定
 	return (
-		<dialog ref={ref} style={{ padding: '20px', border: '1px solid #ccc', borderRadius: '5px', boxShadow: '0 4px 8px rgba(0,0,0,0.2)' }}>
-			<h3>追加するブロックを選択</h3>
-			<ul style={{ listStyle: 'none', padding: 0 }}>
-				{blockTypes.map(block => (
-					<li key={block.type} style={{ marginBottom: '8px' }}>
-						<button onClick={() => handleSelect(block.type)} style={{ width: '100%', textAlign: 'left', padding: '5px' }}>
-							{block.label}
-						</button>
-					</li>
-				))}
-			</ul>
-			{/* 閉じるボタン（dialog要素はform[method="dialog"]でも閉じれる） */}
-			<form method="dialog" style={{ marginTop: '10px', textAlign: 'right' }}>
-				<button type="submit">キャンセル</button> {/* type="submit" でも dialog を閉じる */}
-				{/* <button type="button" onClick={handleClose}>キャンセル</button> */}
-			</form>
+		<dialog ref={ref}  className='block-dialog'>
+			<div className='block-dialog-body'>
+				<h2 className='block-dialog-title'>追加するブロックを選択</h2>
+				<ul className='block-dialog-list'>
+					{blockTypes.map(block => (
+						<li key={block.type} style={{ marginBottom: '8px' }}>
+							<button onClick={() => handleSelect(block.type)} className='block-dialog-item'>
+								{block.label}
+							</button>
+						</li>
+					))}
+				</ul>
+				<button className='block-dialog-cancel' type="button" onClick={handleClose}>キャンセル</button>
+			</div>
 		</dialog>
 	);
 });

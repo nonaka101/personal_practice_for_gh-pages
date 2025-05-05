@@ -1,77 +1,97 @@
-.cp_dialog:not([open]) {
-  display: none;
+.block-dialog {
+	padding: 0;
+	border: none;
+	background-color: var(--sc_bg_body__primary);
+	border: var(--sc_border_field);
 }
 
-html:has(dialog[open]) {
-  overflow: hidden;
+.block-dialog::backdrop {
+	backdrop-filter: blur(4px);
 }
 
-.cp_dialog {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100dvw;
-  max-width: 100dvw;
-  height: 100dvh;
-  max-height: 100dvh;
-  padding: 0;
-  border: none;
-	z-index: 1000;
-	background-color: white;
-}
-
-.cp_dialog::backdrop {
-  backdrop-filter: blur(4px);
-}
-
-.cp_dialog_body {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	width: 100%;
-	height: 100%;
+.block-dialog-body {
 	padding: 16px;
-  background-color: white;
-  border: 2px solid gray;
+	overflow-y: auto;
 }
 
-.cp_dialog_list {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	align-items: center;
-	list-style: none;
+.block-dialog-title {
 	padding: 0;
 	margin: 0;
-	gap: 16px;
+	font-size: 1.75rem;
+	line-height: 1.5;
 }
 
-li.cp_dialog_item {
+.block-dialog-list {
+	list-style: none;
 	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 48px;
-	height: 48px;
-	background-color: #f0f0f0;
+	flex-flow: column nowrap;
+	gap: 1px;
+	margin: 16px 0;
+	padding: 0;
+}
+
+.block-dialog-item {
+	appearance: none;
+	display: block;
+	width: 100%;
+	padding: 4px;
+	margin: 0;
+	font-size: 1rem;
+	font-style: normal;
+	font-weight: 700;
+	line-height: 1.2;
+	text-align: center;
+	letter-spacing: 0.04em;
 	cursor: pointer;
+	background: none;
+	border: 2px solid transparent;
+	border-radius: 4px;
+	transition: .25s;
+	color: var(--sc_txt_btn__secondary);
+	text-decoration: none;
+	background-color: transparent;
+	border-color: currentcolor;
 }
 
-.bl_iconButton {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-  width: 2.625rem;
-  height: 2.625rem;
-  padding: 0;
-  margin: 0;
-  font-size: 0.7rem;
-  color: var(--sc_txt_body);
-  text-decoration: none;
-  cursor: pointer;
+.block-dialog-item:hover,
+.block-dialog-item:active,
+.block-dialog-item:focus-visible {
+	background-color: var(--sc_bg_btn__secondary);
 }
 
-.bl_iconButton > div > svg {
-  width: 1.625rem;
-  height: 1.625rem;
+.block-dialog-item:disabled {
+	pointer-events: none;
+	color: var(--sc_txt_disabled);
+}
+
+.block-dialog-cancel {
+	appearance: none;
+	display: block;
+	width: 100%;
+	padding: 4px;
+	margin: 0;
+	font-size: 1rem;
+	font-style: normal;
+	font-weight: 700;
+	line-height: 1.2;
+	text-align: center;
+	letter-spacing: 0.04em;
+	cursor: pointer;
+	background: none;
+	border: 2px solid transparent;
+	border-radius: 4px;
+	transition: .25s;
+	color: var(--sc_txt_btn__primary);
+	text-decoration: none;
+	background-color: var(--sc_bg_btn__primary);
+}
+
+.block-dialog-cancel:hover,
+.block-dialog-cancel:active,
+.block-dialog-cancel:focus-visible {
+	filter: brightness(87%);
+}
+
+.block-dialog-cancel:disabled {
+	background-color: var(--sc_bg_disabled);
 }

@@ -5,7 +5,7 @@ import './AddBlockButton.css';
 function AddBlockButton({ onClick }) {
 	return (
 		<button onClick={onClick} type='button' className="add-block-button">
-			新規挿入
+			挿入
 		</button>
 	);
 }
