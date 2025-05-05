@@ -94,4 +94,5 @@
 
 .block-dialog-cancel:disabled {
 	background-color: var(--sc_bg_disabled);
+	pointer-events: none;
 }

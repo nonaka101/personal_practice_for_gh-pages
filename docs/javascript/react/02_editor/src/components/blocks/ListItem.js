@@ -1,4 +1,5 @@
-import React, { useRef, useEffect } from 'react'; // useRef, useEffect を追加
+import React, { useRef, useEffect } from 'react';
+import './ListItem.css';
 
 function ListItem({ item, index, blockId, isFocused, onClearFocusedItem, onUpdate, onDelete, onMoveUp, onMoveDown, onAddItemBelow }) {
 	const inputRef = useRef(null); // input 要素への参照
@@ -10,7 +11,6 @@ function ListItem({ item, index, blockId, isFocused, onClearFocusedItem, onUpdat
 			// フォーカスを当てたら、Appコンポーネントに通知してフォーカス状態をクリア
 			onClearFocusedItem();
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isFocused, onClearFocusedItem]); // isFocused が変更されたときのみ実行
 
 
@@ -28,34 +28,27 @@ function ListItem({ item, index, blockId, isFocused, onClearFocusedItem, onUpdat
 		else if (event.key === 'Backspace' && item.content === '') {
 			event.preventDefault();
 			onDelete();
-			// ここで前のアイテムにフォーカスを移す処理も追加できる
 		}
-		// 上下キーでアイテム間を移動する（より高度な機能）
-		/*
-		else if (event.key === 'ArrowUp') {
-				// Move focus to previous item or block control
-		} else if (event.key === 'ArrowDown') {
-				// Move focus to next item or block control
-		}
-		*/
 	};
 
 	return (
-		<li style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
+		<li className='list-item'>
 			<input
+				className='list-item-input'
 				ref={inputRef} // input 要素に ref を設定
 				type="text"
 				value={item.content}
 				onChange={handleInputChange}
 				onKeyDown={handleKeyDown} // キー入力イベントを監視
 				placeholder="リスト項目"
-				style={{ flexGrow: 1, marginRight: '5px' }}
 			/>
 			{/* アイテム操作ボタン */}
-			<button onClick={onMoveUp} title="Move Up" style={{ fontSize: '0.8em' }}>↑</button>
-			<button onClick={onMoveDown} title="Move Down" style={{ fontSize: '0.8em' }}>↓</button>
-			<button onClick={onDelete} title="Delete Item" style={{ color: 'red', fontSize: '0.8em' }}>X</button>
-			{/* <button onClick={onAddItemBelow} title="Add Item Below" style={{ fontSize: '0.8em' }}>+</button> */}
+			<div className='list-item-buttons'>
+				<button className='list-item-button list-item-button-secondary' onClick={onMoveUp}>↑</button>
+				<button className='list-item-button list-item-button-secondary' onClick={onMoveDown}>↓</button>
+				<button className='list-item-button list-item-button-secondary' onClick={onDelete}>削除</button>
+				<button className='list-item-button list-item-button-primary' onClick={onAddItemBelow}>挿入</button>
+			</div>
 		</li>
 	);
 }

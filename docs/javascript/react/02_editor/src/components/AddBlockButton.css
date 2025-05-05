@@ -21,6 +21,7 @@
 
 .add-block-button:disabled {
 	pointer-events: none;
+	background-color: var(--sc_bg_disabled);
 }
 
 .add-block-button:hover,
