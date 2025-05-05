@@ -183,7 +183,7 @@ function App() {
 	}, [title, blocks]);
 
 	return (
-		<div>
+		<React.Fragment>
 			<GlobalMenu
 				title={title}
 				setTitle={setTitle}
@@ -205,7 +205,7 @@ function App() {
 				onDeleteListItem={deleteListItem}
 				onMoveListItem={moveListItem}
 			/>
-		</div>
+		</React.Fragment>
 	);
 }
 

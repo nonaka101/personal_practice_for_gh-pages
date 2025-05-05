@@ -7,7 +7,7 @@ function Editor({ blocks, focusedItemId, onClearFocusedItem, onAddBlock, onUpdat
 	const visibleBlocks = blocks; // この例ではフィルタリングしない
 
 	return (
-		<div>
+		<main>
 			{visibleBlocks.map((block, index) => (
 				<Block
 					key={block.id}
@@ -25,9 +25,7 @@ function Editor({ blocks, focusedItemId, onClearFocusedItem, onAddBlock, onUpdat
 					onMoveListItem={onMoveListItem}
 				/>
 			))}
-			{/* Optional: Add a final 'add block' button at the end */}
-			{/* <AddBlockButton index={blocks.length - 1} onAddBlock={onAddBlock} isFinalButton={true} /> */}
-		</div>
+		</main>
 	);
 }
 

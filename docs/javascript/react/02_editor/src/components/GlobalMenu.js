@@ -88,108 +88,104 @@ function GlobalMenu({ title, setTitle, blocks, onExport, onSave, onNew }) {
 	}, []);
 
 	return (
-		<React.Fragment>
-			<header className='header'>
-				<h1>{title}</h1>
-				<button
-					type="button"
-					className='icon-button'
-					aria-controls="global-menu"
-					onClick={openMenuDialog} // 関数で呼び出し
-				>
-					<svg role="graphics-symbol img" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-						<path fillRule="evenodd" clipRule="evenodd" d="M21 5.5H3V7H21V5.5ZM21 11.2998H3V12.7998H21V11.2998ZM3 17H21V18.5H3V17Z"></path>
-					</svg>
-					メニュー
-				</button>
-				<dialog id='global-menu' className='menu-dialog'>
-					<div className='menu-dialog-body'>
-						<div className='menu-dialog-header'>
-							<h2>メニュー</h2>
-							<button
-								type="button"
-								className='icon-button'
-								onClick={closeMenuDialog}
-							>
-								<svg role="graphics-symbol img" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-									<path strokeWidth="1.4286" d="M 22,4.0142857 19.985715,2 12,9.9857149 4.0142857,2 2,4.0142857 9.9857149,12 2,19.985715 4.0142857,22 12,14.014286 19.985715,22 22,19.985715 14.014286,12 Z"></path>
-								</svg>
-								閉じる
-							</button>
-						</div>
-						<div className='menu-dialog-content'>
-							<h3>ドキュメント設定</h3>
-							<div className='menu-dialog-input'>
-								<label htmlFor="doc-title">文書タイトル</label>
-								<input
-									id="doc-title"
-									type="text"
-									value={title}
-									onChange={handleTitleChange}
-								/>
-							</div>
-						</div>
-
-						{/* 操作ボタン */}
-						<div className='menu-dialog-content'>
-							<h3>操作</h3>
-							<div className='menu-dialog-buttons'>
-                {/* 各ボタンの onClick 時、本処理＋ダイアログを閉じる処理 */}
-								<button onClick={() => { onNew(); closeMenuDialog(); }}>新規作成</button>
-								<button onClick={() => { onExport(); closeMenuDialog(); }}>クリップボードにコピー</button>
-								<button onClick={() => { onSave(); closeMenuDialog(); }}>名前をつけて保存</button>
-							</div>
-							<div className='menu-dialog-input'>
-								<label htmlFor="color-mode">
-									カラーモード
-								</label>
-								{/* value と onChange を設定 */}
-								<div className='color-mode-select'>
-									<select
-										name="color-mode"
-										id="color-mode"
-										value={colorMode} /* React の state を value にバインド */
-										onChange={handleColorModeChange} /* React のイベントハンドラを設定 */
-									>
-										<option value={0}>デフォルト</option>
-										<option value={1}>ライト</option>
-										<option value={2}>ダーク</option>
-									</select>
-									<svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-										<path d="M12 17.1L3 8L4 7L12 15L20 7L21 8L12 17.1Z"/>
-									</svg>
-								</div>
-							</div>
-						</div>
-
-						{/* 見出しジャンプ */}
-						{headings.length > 0 && (
-							<div className='menu-dialog-content'>
-								<h3>見出しジャンプ</h3>
-								<ul className='menu-dialog-list'>
-									{headings.map(heading => (
-										<li key={heading.id}>
-                      {/* クリック時にダイアログを閉じる */}
-											<a
-												className='menu-dialog-link'
-												href={`#block-${heading.id}`}
-												onClick={closeMenuDialog}
-											>
-												<span style={{ paddingLeft: `${(heading.level - 2) * 15}px` }}>
-													{heading.content || '(empty heading)'} (h{heading.level})
-												</span>
-											</a>
-										</li>
-									))}
-								</ul>
-							</div>
-						)}
+		<header className='header'>
+			<h1>{title}</h1>
+			<button
+				type="button"
+				className='icon-button'
+				aria-controls="global-menu"
+				onClick={openMenuDialog} // 関数で呼び出し
+			>
+				<svg role="graphics-symbol img" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+					<path fillRule="evenodd" clipRule="evenodd" d="M21 5.5H3V7H21V5.5ZM21 11.2998H3V12.7998H21V11.2998ZM3 17H21V18.5H3V17Z"></path>
+				</svg>
+				メニュー
+			</button>
+			<dialog id='global-menu' className='menu-dialog'>
+				<div className='menu-dialog-body'>
+					<div className='menu-dialog-header'>
+						<h2>メニュー</h2>
+						<button
+							type="button"
+							className='icon-button'
+							onClick={closeMenuDialog}
+						>
+							<svg role="graphics-symbol img" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+								<path strokeWidth="1.4286" d="M 22,4.0142857 19.985715,2 12,9.9857149 4.0142857,2 2,4.0142857 9.9857149,12 2,19.985715 4.0142857,22 12,14.014286 19.985715,22 22,19.985715 14.014286,12 Z"></path>
+							</svg>
+							閉じる
+						</button>
 					</div>
-				</dialog>
-			</header>
-			{/* 以降のコンテンツがヘッダーに隠れてしまうのを防止 */}
-			<div className='header-spacer'></div>
-		</React.Fragment>
+					<div className='menu-dialog-content'>
+						<h3>ドキュメント設定</h3>
+						<div className='menu-dialog-input'>
+							<label htmlFor="doc-title">文書タイトル</label>
+							<input
+								id="doc-title"
+								type="text"
+								value={title}
+								onChange={handleTitleChange}
+							/>
+						</div>
+						<div className='menu-dialog-input'>
+							<label htmlFor="color-mode">
+								カラーモード
+							</label>
+							{/* value と onChange を設定 */}
+							<div className='color-mode-select'>
+								<select
+									name="color-mode"
+									id="color-mode"
+									value={colorMode} /* React の state を value にバインド */
+									onChange={handleColorModeChange} /* React のイベントハンドラを設定 */
+								>
+									<option value={0}>デフォルト</option>
+									<option value={1}>ライト</option>
+									<option value={2}>ダーク</option>
+								</select>
+								<svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+									<path d="M12 17.1L3 8L4 7L12 15L20 7L21 8L12 17.1Z"/>
+								</svg>
+							</div>
+						</div>
+					</div>
+
+					{/* 操作ボタン */}
+					<div className='menu-dialog-content'>
+						<h3>操作</h3>
+						<div className='menu-dialog-buttons'>
+							{/* 各ボタンの onClick 時、本処理＋ダイアログを閉じる処理 */}
+							<button onClick={() => { onNew(); closeMenuDialog(); }}>新規作成</button>
+							<button onClick={() => { onExport(); closeMenuDialog(); }}>クリップボードにコピー</button>
+							<button onClick={() => { onSave(); closeMenuDialog(); }}>名前をつけて保存</button>
+						</div>
+					</div>
+
+					{/* 見出しジャンプ */}
+					{headings.length > 0 && (
+						<nav className='menu-dialog-content' aria-labelledby='headings'>
+							<h3 id='headings'>見出しジャンプ</h3>
+							<ul className='menu-dialog-list'>
+								{headings.map(heading => (
+									<li key={heading.id}>
+										{/* クリック時にダイアログを閉じる */}
+										<a
+											className='menu-dialog-link'
+											href={`#block-${heading.id}`}
+											onClick={closeMenuDialog}
+										>
+											<span style={{ paddingLeft: `${(heading.level - 2) * 15}px` }}>
+												{heading.content || '(empty heading)'} (h{heading.level})
+											</span>
+										</a>
+									</li>
+								))}
+							</ul>
+						</nav>
+					)}
+				</div>
+			</dialog>
+		</header>
 	);
 }
 
