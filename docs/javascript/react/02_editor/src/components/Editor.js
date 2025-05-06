@@ -1,5 +1,6 @@
 import React from 'react';
 import Block from './Block';
+import './Editor.css';
 
 function Editor({ blocks, focusedItemId, onClearFocusedItem, onAddBlock, onUpdateBlock, onDeleteBlock, onMoveBlock, onAddListItem, onUpdateListItem, onDeleteListItem, onMoveListItem }) {
 	// アイテムが0になったリストブロックをフィルタリングする場合
@@ -7,7 +8,7 @@ function Editor({ blocks, focusedItemId, onClearFocusedItem, onAddBlock, onUpdat
 	const visibleBlocks = blocks; // この例ではフィルタリングしない
 
 	return (
-		<main>
+		<main className='editor'>
 			{visibleBlocks.map((block, index) => (
 				<Block
 					key={block.id}

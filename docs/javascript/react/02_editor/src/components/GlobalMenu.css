@@ -20,6 +20,8 @@
 
 .header > h1 {
 	margin: 0;
+	overflow: scroll;
+	white-space: nowrap;
 	color: var(--sc_txt_body);
 	text-decoration: none;
 	font-size: 24px;
@@ -28,6 +30,8 @@
 
 .icon-button {
 	display: flex;
+	flex-grow: 0;
+	flex-shrink: 0;
 	flex-direction: column;
 	gap: 2px;
 	align-items: center;

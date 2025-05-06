@@ -30,11 +30,12 @@
 .level-select {
 	position: relative;
 	display: block;
-	width: 3ch;
+	width: calc(2ch + 24px);
 	height: 100%;
 	margin: 0;
 	padding: 0;
 }
+
 .level-select > select {
 	appearance: none;
 	display: block;
@@ -67,7 +68,7 @@
 input.language-input {
 	display: block;
 	height: 100%;
-	width: 8ch;
+	width: calc(10ch + 8px);
 	margin: 0;
 	padding: 4px;
 	font-size: 0.8rem;
