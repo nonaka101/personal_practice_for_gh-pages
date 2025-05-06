@@ -7,6 +7,7 @@
 	/* プリミティブカラー */
 	--white: #ffffff;
 	--black: #000000;
+	/* 対白字コントラスト比確保限界：blue120（4.63:1） */
 	--blue-200: #081118;
 	--blue-190: #0C1B26;
 	--blue-180: #112434;
@@ -28,6 +29,7 @@
 	--blue-020: #B0D3EF;
 	--blue-010: #C4DFF4;
 	--blue-000: #D9EBF9;
+	/* 対白字コントラスト比確保限界：red150（5.28:1） */
 	--red-200: #1E0C0C;
 	--red-190: #2E1212;
 	--red-180: #3F1919;
@@ -49,6 +51,7 @@
 	--red-020: #FCB7B7;
 	--red-010: #FEC9C9;
 	--red-000: #FFDCDC;
+	/* 対白字コントラスト比確保限界：grey140（4.99:1） */
 	--grey-200: #121212;
 	--grey-190: #1C1C1C;
 	--grey-180: #262626;
@@ -70,7 +73,7 @@
 	--grey-020: #D3D3D3;
 	--grey-010: #DFDFDF;
 	--grey-000: #EAEAEA;
-	--green-000: #D9EBF9;
+	/* 対白字コントラスト比確保限界：green080（4.76:1） */
 	--green-200: #001600;
 	--green-190: #002200;
 	--green-180: #002E00;
@@ -92,6 +95,7 @@
 	--green-020: #ADEEAD;
 	--green-010: #C3F4C3;
 	--green-000: #D9F9D9;
+	/* 対白字コントラスト比確保限界：bronw120（4.95:1） */
 	--brown-200: #170F03;
 	--brown-190: #241805;
 	--brown-180: #312007;
@@ -114,7 +118,45 @@
 	--brown-010: #F5DEC3;
 	--brown-000: #FAEAD9;
 
-	/* セマンティックカラー */
+	/* セマンティックカラー（ライトモード） */
+	--sc_txt_body: var(--grey-200);
+	--sc_txt_body__small: var(--black);
+	--sc_txt_desc: var(--grey-150);
+	--sc_txt_placeholder: var(--grey-140);
+	--sc_txt_onFill: var(--white);
+	--sc_txt_link: var(--blue-150);
+	--sc_txt_link__hover: var(--blue-170);
+	--sc_txt_link__active: var(--blue-170);
+	--sc_txt_link__visited: var(--blue-170);
+	--sc_txt_alert: var(--red-150);
+	--sc_txt_disabled: var(--grey-100);
+	--sc_txt_btn__primary: var(--white);
+	--sc_txt_btn__secondary: var(--blue-140);
+	--sc_border_field: 1px solid var(--grey-150);
+	--sc_border_divider: 1px solid var(--grey-050);
+	--sc_border_focused: 2px solid var(--brown-050);
+	--sc_border_selected: 2px solid var(--blue-140);
+	--sc_border_disabled: 1px solid var(--grey-060);
+	--sc_border_alert: 2px solid var(--red-140);
+	--sc_bg_body__primary: var(--grey-000);
+	--sc_bg_body__secondary: var(--grey-010);
+	--sc_bg_body__tertiary: var(--grey-100);
+	--sc_bg_btn__primary: var(--blue-150);
+	--sc_bg_btn__secondary: var(--blue-000);
+	--sc_bg_disabled: var(--grey-100);
+	--sc_bg_alert: var(--red-110);
+	--sc_bg_shadow: var(--grey-200);
+	--sc_bg_blockHeading: var(--grey-010);
+	--sc_bg_blockParagraph: var(--grey-000);
+	--sc_bg_blockBlockquote: var(--grey-020);
+	--sc_bg_blockOrderedList: var(--green-000);
+	--sc_bg_blockUnorderedList: var(--brown-000);
+	--sc_bg_blockHorizontalRule: var(--red-000);
+	--sc_bg_blockCode: var(--blue-000);
+}
+
+/* セマンティックカラー（手動：ライトモード時） */
+:root.is_lightMode {
 	--sc_txt_body: var(--grey-200);
 	--sc_txt_body__small: var(--black);
 	--sc_txt_desc: var(--grey-150);
@@ -176,7 +218,7 @@
 		--sc_bg_body__primary: var(--grey-200);
 		--sc_bg_body__secondary: var(--grey-190);
 		--sc_bg_body__tertiary: var(--grey-100);
-		--sc_bg_btn__primary: var(--blue-050);
+		--sc_bg_btn__primary: var(--blue-120);
 		--sc_bg_btn__secondary: var(--blue-200);
 		--sc_bg_disabled: var(--grey-100);
 		--sc_bg_alert: var(--red-090);
@@ -189,45 +231,6 @@
 		--sc_bg_blockHorizontalRule: var(--red-200);
 		--sc_bg_blockCode: var(--blue-200);
 	}
-}
-
-
-/* セマンティックカラー（手動：ライトモード時） */
-:root.is_lightMode {
-	--sc_txt_body: var(--grey-200);
-	--sc_txt_body__small: var(--black);
-	--sc_txt_desc: var(--grey-150);
-	--sc_txt_placeholder: var(--grey-140);
-	--sc_txt_onFill: var(--white);
-	--sc_txt_link: var(--blue-150);
-	--sc_txt_link__hover: var(--blue-170);
-	--sc_txt_link__active: var(--blue-170);
-	--sc_txt_link__visited: var(--blue-170);
-	--sc_txt_alert: var(--red-150);
-	--sc_txt_disabled: var(--grey-100);
-	--sc_txt_btn__primary: var(--white);
-	--sc_txt_btn__secondary: var(--blue-140);
-	--sc_border_field: 1px solid var(--grey-150);
-	--sc_border_divider: 1px solid var(--grey-050);
-	--sc_border_focused: 2px solid var(--brown-050);
-	--sc_border_selected: 2px solid var(--blue-140);
-	--sc_border_disabled: 1px solid var(--grey-060);
-	--sc_border_alert: 2px solid var(--red-140);
-	--sc_bg_body__primary: var(--grey-000);
-	--sc_bg_body__secondary: var(--grey-010);
-	--sc_bg_body__tertiary: var(--grey-100);
-	--sc_bg_btn__primary: var(--blue-150);
-	--sc_bg_btn__secondary: var(--blue-000);
-	--sc_bg_disabled: var(--grey-100);
-	--sc_bg_alert: var(--red-110);
-	--sc_bg_shadow: var(--grey-200);
-	--sc_bg_blockHeading: var(--grey-010);
-	--sc_bg_blockParagraph: var(--grey-000);
-	--sc_bg_blockBlockquote: var(--grey-020);
-	--sc_bg_blockOrderedList: var(--green-000);
-	--sc_bg_blockUnorderedList: var(--brown-000);
-	--sc_bg_blockHorizontalRule: var(--red-000);
-	--sc_bg_blockCode: var(--blue-000);
 }
 
 /* セマンティックカラー（手動：ダークモード時） */
@@ -254,7 +257,7 @@
 	--sc_bg_body__primary: var(--grey-200);
 	--sc_bg_body__secondary: var(--grey-190);
 	--sc_bg_body__tertiary: var(--grey-100);
-	--sc_bg_btn__primary: var(--blue-050);
+	--sc_bg_btn__primary: var(--blue-120);
 	--sc_bg_btn__secondary: var(--blue-170);
 	--sc_bg_disabled: var(--grey-100);
 	--sc_bg_alert: var(--red-090);

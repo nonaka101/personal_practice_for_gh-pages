@@ -1,6 +1,6 @@
 {
-  "short_name": "MDE",
-  "name": "Markdown Editor for JP",
+  "short_name": "MDE-ja",
+  "name": "Markdown エディタ",
 	"description": "日本語用の簡易マークダウンエディタです",
   "start_url": ".",
 	"dir": "ltr",

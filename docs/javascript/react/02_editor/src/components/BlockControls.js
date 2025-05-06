@@ -22,9 +22,9 @@ function BlockControls({
 	return (
 		<div className='block-controls'>
 			{/* 移動・削除ボタン */}
-			<button className='block-controls-button' onClick={onMoveUp} title="Move Up">↑</button>
-			<button className='block-controls-button' onClick={onMoveDown} title="Move Down">↓</button>
-			<button className='block-controls-button' onClick={onDelete} title="Delete Block">削除</button>
+			<button className='block-controls-button' onClick={onMoveUp} aria-label='ブロック移動（上）'>↑</button>
+			<button className='block-controls-button' onClick={onMoveDown} aria-label='ブロック移動（下）'>↓</button>
+			<button className='block-controls-button' onClick={onDelete} aria-label='ブロック削除'>削除</button>
 			{/* 見出しレベル選択 */}
 			{showLevelControls && (
 				<div className='block-controls-input'>

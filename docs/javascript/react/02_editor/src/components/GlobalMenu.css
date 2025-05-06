@@ -20,7 +20,8 @@
 
 .header > h1 {
 	margin: 0;
-	overflow: scroll;
+	overflow-x: auto;
+	overflow-y: hidden;
 	white-space: nowrap;
 	color: var(--sc_txt_body);
 	text-decoration: none;
@@ -240,8 +241,4 @@
 .menu-dialog-link:hover,
 .menu-dialog-link:hover > span {
 	color: var(--sc_txt_link__hover);
-}
-
-.header + * {
-	margin-top: 92px;
 }

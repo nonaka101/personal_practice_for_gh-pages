@@ -44,10 +44,10 @@ function ListItem({ item, index, blockId, isFocused, onClearFocusedItem, onUpdat
 			/>
 			{/* アイテム操作ボタン */}
 			<div className='list-item-buttons'>
-				<button className='list-item-button list-item-button-secondary' onClick={onMoveUp}>↑</button>
-				<button className='list-item-button list-item-button-secondary' onClick={onMoveDown}>↓</button>
-				<button className='list-item-button list-item-button-secondary' onClick={onDelete}>削除</button>
-				<button className='list-item-button list-item-button-primary' onClick={onAddItemBelow}>挿入</button>
+				<button className='list-item-button list-item-button-secondary' onClick={onMoveUp} aria-label='ブロック移動（上）'>↑</button>
+				<button className='list-item-button list-item-button-secondary' onClick={onMoveDown} aria-label='ブロック移動（下）'>↓</button>
+				<button className='list-item-button list-item-button-secondary' onClick={onDelete} aria-label='ブロック削除'>削除</button>
+				<button className='list-item-button list-item-button-primary' onClick={onAddItemBelow} aria-label="ブロック新規追加">挿入</button>
 			</div>
 		</li>
 	);
