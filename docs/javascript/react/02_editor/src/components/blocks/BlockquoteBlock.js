@@ -6,6 +6,13 @@ function BlockquoteBlock({ controlId, content, onContentChange }) {
 		onContentChange(event.target.value);
 	};
 
+	// textarea をダブルクリックした際、コンテンツ内容から適切な `rows` を設定
+	const handleDoubleClick = (event) => {
+		const lines = event.target.value.split('\n').length;
+		const rows = Math.max(3, lines);
+		event.target.setAttribute('rows', rows);
+	}
+
 	return (
 		<div className='blockquote-block'>
 			<label htmlFor={controlId}>引用文</label>
@@ -15,6 +22,7 @@ function BlockquoteBlock({ controlId, content, onContentChange }) {
 				onChange={handleTextChange}
 				placeholder="引用文を入力..."
 				rows={3}
+				onDoubleClick={handleDoubleClick}
 			/>
 		</div>
 	);

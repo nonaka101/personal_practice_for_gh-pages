@@ -6,6 +6,13 @@ function ParagraphBlock({ controlId, content, onContentChange }) {
 		onContentChange(event.target.value);
 	};
 
+	// textarea をダブルクリックした際、コンテンツ内容から適切な `rows` を設定
+	const handleDoubleClick = (event) => {
+		const lines = event.target.value.split('\n').length;
+		const rows = Math.max(3, lines);
+		event.target.setAttribute('rows', rows);
+	}
+
 	return (
 		<div className='paragraph-block'>
 			<label htmlFor={controlId}>文章</label>
@@ -15,7 +22,7 @@ function ParagraphBlock({ controlId, content, onContentChange }) {
 				onChange={handleTextChange}
 				placeholder="文章を入力..."
 				rows={3}
-				style={{ width: '100%', minHeight: '60px', resize: 'vertical' }}
+				onDoubleClick={handleDoubleClick}
 			/>
 		</div>
 	);
