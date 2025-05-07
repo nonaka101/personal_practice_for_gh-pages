@@ -167,22 +167,33 @@ function GlobalMenu({ title, setTitle, blocks, onExport, onSave, onNew }) {
 							<h3 id='headings'>見出しジャンプ</h3>
 							<ul className='menu-dialog-list'>
 								{headings.map(heading => (
-									<li key={heading.id}>
-										{/* クリック時にダイアログを閉じる */}
+									<li
+										key={heading.id}
+										className={`menu-dialog-list-item menu-dialog-list-item--lv${heading.level}`}
+									>
 										<a
 											className='menu-dialog-link'
 											href={`#block-${heading.id}`}
-											onClick={closeMenuDialog}
+											onClick={closeMenuDialog} // スキップリンク処理
 										>
-											<span style={{ paddingLeft: `${(heading.level - 2) * 15}px` }}>
-												{heading.content || '(empty heading)'} (h{heading.level})
-											</span>
+											{heading.content || '（空の見出し）'}　【レベル{heading.level}】
 										</a>
 									</li>
 								))}
 							</ul>
 						</nav>
 					)}
+					{/* 操作ボタン */}
+					<div className='menu-dialog-content'>
+						<h3>本アプリについて</h3>
+						<p>
+							このアプリは、日本語環境下で Markdown 文書を作成するための簡易的なエディタです。
+							各種要素はブロック単位で管理されており、作成した文書は Markdown 形式で書き出すことができます。
+						</p>
+						<p>
+							操作説明などの詳細は、<a href=' '>GitHub リポジトリ</a>をご覧ください。
+						</p>
+					</div>
 				</div>
 			</dialog>
 		</header>

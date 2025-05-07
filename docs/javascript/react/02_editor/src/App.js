@@ -14,7 +14,7 @@ const getDefaultState = () => ({
 		{ id: uuidv4(), type: 'heading', content: 'ようこそ！', level: 2 },
 		{ id: uuidv4(), type: 'paragraph',
 			content: '「挿入」ボタンからブロックを選択し、Markdown を作成できます。\n\n' +
-				'操作についての説明は、右上にあるメニューから「ヘルプ」を参照ください。',
+				'操作についての説明は、右上にあるメニューから「本アプリについて」を参照ください。',
 		},
 	],
 });
