@@ -1,27 +1,109 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Markdown to HTML Converter</title>
   <style>
     /* 変換ツール自体のUIスタイル */
-    :root { font-family: "Noto Sans JP", sans-serif; }
-    body { margin: 0; display: flex; flex-direction: column; height: 100vh; background-color: #f5f5f5; color: #333; }
-    header { background-color: #333; color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; }
-    h1 { margin: 0; font-size: 1.2rem; }
-    .toolbar { display: flex; gap: 10px; }
-    button { padding: 8px 16px; cursor: pointer; border: none; border-radius: 4px; background-color: #0056b3; color: white; font-weight: bold; transition: background-color 0.2s; }
-    button:hover { background-color: #004494; }
-    button.secondary { background-color: #28a745; }
-    button.secondary:hover { background-color: #218838; }
-    main { display: flex; flex: 1; overflow: hidden; }
-    .pane { flex: 1; display: flex; flex-direction: column; border-right: 1px solid #ddd; background: white; }
-    .pane-header { padding: 10px; background-color: #e9ecef; border-bottom: 1px solid #ddd; font-weight: bold; font-size: 0.9rem; color: #555; }
-    textarea { flex: 1; resize: none; border: none; padding: 15px; font-family: "SFMono-Regular", Consolas, monospace; font-size: 14px; line-height: 1.6; outline: none; background: #fff; }
-    #outputArea { background: #fafafa; color: #444; }
+    :root {
+      font-family: "Noto Sans JP", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    header {
+      background-color: #333;
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 10px;
+    }
+
+    button {
+      padding: 8px 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+      background-color: #0056b3;
+      color: white;
+      font-weight: bold;
+      transition: background-color 0.2s;
+    }
+
+    button:hover {
+      background-color: #004494;
+    }
+
+    button.secondary {
+      background-color: #28a745;
+    }
+
+    button.secondary:hover {
+      background-color: #218838;
+    }
+
+    main {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .pane {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid #ddd;
+      background: white;
+    }
+
+    .pane-header {
+      padding: 10px;
+      background-color: #e9ecef;
+      border-bottom: 1px solid #ddd;
+      font-weight: bold;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    textarea {
+      flex: 1;
+      resize: none;
+      border: none;
+      padding: 15px;
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      outline: none;
+      background: #fff;
+    }
+
+    #outputArea {
+      background: #fafafa;
+      color: #444;
+    }
   </style>
 </head>
+
 <body>
 
   <header>
@@ -517,90 +599,157 @@
       }
       changeOpacity();
       window.addEventListener("scroll", () => changeOpacity());
+
+      // 画像の縮小表示とクリック拡大ダイアログ
+      document.addEventListener('DOMContentLoaded', function () {
+        // 1. すべてのimgタグにスタイルを適用
+        document.querySelectorAll('img').forEach(function(img) {
+          img.style.maxHeight = '50dvh';
+          img.style.maxWidth = '50dvw';
+          img.style.cursor = 'pointer';
+          img.style.transition = 'box-shadow 0.2s';
+          img.classList.add('copilot-img-zoomable');
+        });
+
+        // 2. ダイアログ生成用の関数
+        function showImageDialog(src, alt) {
+          // 既存ダイアログがあれば削除
+          let oldDialog = document.getElementById('copilot-img-dialog');
+          if (oldDialog) oldDialog.remove();
+
+            // ダイアログ要素作成
+            const dialog = document.createElement('dialog');
+            dialog.id = 'copilot-img-dialog';
+            dialog.style.padding = '0';
+            dialog.style.border = 'none';
+            dialog.style.background = 'rgba(0,0,0,0.7)';
+            dialog.style.maxWidth = '98vw';
+            dialog.style.maxHeight = '98vh';
+            dialog.style.cursor = 'zoom-out';
+
+            // 画像要素作成
+            const img = document.createElement('img');
+            img.src = src;
+            img.alt = alt || '';
+            img.style.display = 'block';
+            img.style.maxWidth = '90vw';
+            img.style.maxHeight = '90vh';
+            img.style.margin = 'auto';
+            img.style.boxShadow = '0 0 16px #000';
+
+            dialog.appendChild(img);
+            document.body.appendChild(dialog);
+
+            // ダイアログを開く
+            dialog.showModal();
+
+            // ダイアログ外クリック・Escキーで閉じる
+            dialog.addEventListener('click', function(e) {
+              if (e.target === dialog) dialog.close();
+            });
+            dialog.addEventListener('close', function() {
+              dialog.remove();
+            });
+            document.addEventListener('keydown', function escHandler(e) {
+              if (e.key === 'Escape') {
+                dialog.close();
+                document.removeEventListener('keydown', escHandler);
+              }
+            });
+          }
+
+        // 3. 画像クリックでダイアログ表示
+        document.querySelectorAll('img.copilot-img-zoomable').forEach(function(img) {
+          img.addEventListener('click', function(e) {
+            showImageDialog(img.src, img.alt);
+            e.stopPropagation();
+          });
+        });
+      });
     <\/script>
   </footer>
 </body>
 </html>`
 
-  // markdown-it
-  function escapeHtmlForToc(s) {
-    return String(s)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#39;");
-  }
-
-  function buildHtmlWithToc(mdText, { allowHtml }) {
-    if (typeof window.markdownit != "function") {
-      throw new Error("markdown-it が読み込まれていません");
+    // markdown-it
+    function escapeHtmlForToc(s) {
+      return String(s)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
     }
 
-    const md = window.markdownit({
-      html: !!allowHtml,
-      linkify: true,
-      typographer: false
-    });
-
-    const rendered = md.render(mdText);
-
-    const doc = new DOMParser().parseFromString(
-      `<div id="__root__">${rendered}</div>`,
-      "text/html"
-    );
-    const root = doc.getElementById("__root__");
-    const headings = root.querySelectorAll("h1,h2,h3,h4,h5,h6");
-    const toc = [];
-    let headingCount = 0;
-
-    headings.forEach(h => {
-      headingCount++;
-      const level = Number(h.tagName.substring(1)); //1..6
-
-      if (!h.id) {
-        h.id =`heading-${level}-${headingCount}`;
+    function buildHtmlWithToc(mdText, { allowHtml }) {
+      if (typeof window.markdownit != "function") {
+        throw new Error("markdown-it が読み込まれていません");
       }
 
-      toc.push({
-        level,
-        text: (h.textContent || "").trim(),
-        id: h.id
+      const md = window.markdownit({
+        html: !!allowHtml,
+        linkify: true,
+        typographer: false
       });
-    });
 
-    const firstH1 = root.querySelector("h1");
-    const title = (firstH1?.textContent?.trim()) || "無題のドキュメント";
-    let navHtml = "";
-    if (toc.length > 0) {
-      navHtml += '<ul style="list-style-type: none; padding-left: 0;"\n>';
+      const rendered = md.render(mdText);
+
+      const doc = new DOMParser().parseFromString(
+        `<div id="__root__">${rendered}</div>`,
+        "text/html"
+      );
+      const root = doc.getElementById("__root__");
+      const headings = root.querySelectorAll("h1,h2,h3,h4,h5,h6");
+      const toc = [];
+      let headingCount = 0;
+
+      headings.forEach(h => {
+        headingCount++;
+        const level = Number(h.tagName.substring(1)); //1..6
+
+        if (!h.id) {
+          h.id = `heading-${level}-${headingCount}`;
+        }
+
+        toc.push({
+          level,
+          text: (h.textContent || "").trim(),
+          id: h.id
+        });
+      });
+
+      const firstH1 = root.querySelector("h1");
+      const title = (firstH1?.textContent?.trim()) || "無題のドキュメント";
+      let navHtml = "";
+      if (toc.length > 0) {
+        navHtml += '<ul style="list-style-type: none; padding-left: 0;"\n>';
         toc.forEach(item => {
-          const indent = (item.level - 1) *1.5;
-          navHtml += 
-          `<li style="margin-left: ${indent}rem; matgin-top: 0.5rem; margin-bottom: 0.5rem">` +
+          const indent = (item.level - 1) * 1.5;
+          navHtml +=
+            `<li style="margin-left: ${indent}rem; matgin-top: 0.5rem; margin-bottom: 0.5rem">` +
             `<a href="#${item.id}">${escapeHtmlForToc(item.text)}</a>` +
-          `</li>\n`
+            `</li>\n`
         });
         navHtml += "</ul>";
-    } else {
-      navHtml = "<p>見出しがありません</p>";
+      } else {
+        navHtml = "<p>見出しがありません</p>";
+      }
+      return { title, navHtml, html: root.innerHTML };
     }
-    return {title, navHtml, html: root.innerHTML};
-  }
 
-  // 変換処理
-  function convert() {
-    const input = document.getElementById("inputArea").value;
-    const allowHtml = document.getElementById("allowHtml")?.checked ?? false;
-    const parsed = buildHtmlWithToc(input, { allowHtml });
+    // 変換処理
+    function convert() {
+      const input = document.getElementById("inputArea").value;
+      const allowHtml = document.getElementById("allowHtml")?.checked ?? false;
+      const parsed = buildHtmlWithToc(input, { allowHtml });
 
-    const finalHtml = templateHTML
-      .replace('[[PAGE_TITLE]]', parsed.title)
-      .replace('[[NAV_HTML]]', parsed.navHtml)
-      .replace('[[MAIN_CONTENT]]', parsed.html);
-    
-    document.getElementById("outputArea").value = finalHtml;
-  }
+      const finalHtml = templateHTML
+        .replace('[[PAGE_TITLE]]', parsed.title)
+        .replace('[[NAV_HTML]]', parsed.navHtml)
+        .replace('[[MAIN_CONTENT]]', parsed.html);
+
+      document.getElementById("outputArea").value = finalHtml;
+    }
 
     // クリップボードへコピー
     function copyResult() {
@@ -635,4 +784,5 @@
   </script>
 
 </body>
+
 </html>
