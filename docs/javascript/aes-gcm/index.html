@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>テキスト暗号化・復号ツール</title>
+<style>
+  :root {
+    --primary-color: #2c3e50;
+    --button-color: #3498db;
+    --button-hover: #2980b9;
+    --bg-color: #f8f9fa;
+    --border-color: #ced4da;
+    --error-color: #e74c3c;
+  }
+  body {
+    font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--primary-color);
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+  h1 { text-align: center; font-size: 1.5rem; }
+  .container { display: flex; flex-direction: column; gap: 20px; }
+  .box { display: flex; flex-direction: column; gap: 8px; }
+  label { font-weight: bold; }
+  textarea {
+    width: 100%;
+    height: 150px;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    resize: vertical;
+    box-sizing: border-box;
+    font-family: monospace;
+    font-size: 14px;
+  }
+  .controls {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+  input[type="password"] {
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    width: 250px;
+    font-size: 16px;
+  }
+  button {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--button-color);
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    transition: background-color 0.2s;
+  }
+  button:hover { background-color: var(--button-hover); }
+  .error { color: var(--error-color); font-size: 0.9em; text-align: center; min-height: 1.5em; font-weight: bold; }
+</style>
+</head>
+<body>
+
+<h1>テキスト暗号化・復号ツール (AES-GCM)</h1>
+
+<div class="container">
+  <div class="box">
+    <label for="plainText">平文</label>
+    <textarea id="plainText" placeholder="暗号化したいテキストを入力してください"></textarea>
+  </div>
+
+  <div class="controls">
+    <input type="password" id="secretKey" placeholder="共通鍵 (6〜30文字)" minlength="6" maxlength="30">
+    <button onclick="handleEncrypt()">暗号化 ⬇️</button>
+    <button onclick="handleDecrypt()">⬆️ 復号</button>
+  </div>
+  <div id="errorMessage" class="error"></div>
+
+  <div class="box">
+    <label for="cipherText">暗号文 (Base64形式)</label>
+    <textarea id="cipherText" placeholder="暗号化されたテキストがここに表示されます"></textarea>
+  </div>
+</div>
+
+<script>
+  /**
+   * 入力されたパスワード文字列をSHA-256でハッシュ化し、AES-GCM用の256bit鍵を生成します
+   */
+  async function getCryptoKey(password) {
+    const encoder = new TextEncoder();
+    const keyData = encoder.encode(password);
+    const hash = await crypto.subtle.digest('SHA-256', keyData);
+    return await crypto.subtle.importKey('raw', hash, { name: 'AES-GCM' }, false, ['encrypt', 'decrypt']);
+  }
+
+  /**
+   * ArrayBufferをBase64文字列に変換
+   */
+  function bufferToBase64(buffer) {
+    const bytes = new Uint8Array(buffer);
+    let binary = '';
+    for (let i = 0; i < bytes.byteLength; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return window.btoa(binary);
+  }
+
+  /**
+   * Base64文字列をArrayBufferに変換
+   */
+  function base64ToBuffer(base64) {
+    const binary = window.atob(base64);
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) {
+      bytes[i] = binary.charCodeAt(i);
+    }
+    return bytes.buffer;
+  }
+
+  function validateKey(key) {
+    if (key.length < 6 || key.length > 30) {
+      throw new Error('鍵は6文字以上、30文字以内で入力してください。');
+    }
+  }
+
+  function showError(msg) {
+    document.getElementById('errorMessage').textContent = msg;
+  }
+
+  function clearError() {
+    document.getElementById('errorMessage').textContent = '';
+  }
+
+  async function handleEncrypt() {
+    clearError();
+    try {
+      const plainText = document.getElementById('plainText').value;
+      const secretKey = document.getElementById('secretKey').value;
+      
+      if (!plainText) throw new Error('平文が入力されていません。');
+      validateKey(secretKey);
+
+      const key = await getCryptoKey(secretKey);
+      const encoder = new TextEncoder();
+      const encodedText = encoder.encode(plainText);
+      
+      // AES-GCM用の初期化ベクトル(IV)をランダム生成 (12バイト)
+      const iv = crypto.getRandomValues(new Uint8Array(12));
+      
+      // 暗号化
+      const cipherBuffer = await crypto.subtle.encrypt(
+        { name: 'AES-GCM', iv: iv },
+        key,
+        encodedText
+      );
+
+      // 復号時に必要なため、IVと暗号文を結合する
+      const combinedBuffer = new Uint8Array(iv.length + cipherBuffer.byteLength);
+      combinedBuffer.set(iv, 0);
+      combinedBuffer.set(new Uint8Array(cipherBuffer), iv.length);
+
+      // Base64に変換して出力
+      document.getElementById('cipherText').value = bufferToBase64(combinedBuffer);
+    } catch (e) {
+      showError('暗号化エラー: ' + e.message);
+    }
+  }
+
+  async function handleDecrypt() {
+    clearError();
+    try {
+      const cipherTextBase64 = document.getElementById('cipherText').value;
+      const secretKey = document.getElementById('secretKey').value;
+      
+      if (!cipherTextBase64) throw new Error('暗号文が入力されていません。');
+      validateKey(secretKey);
+
+      const combinedBuffer = new Uint8Array(base64ToBuffer(cipherTextBase64));
+      
+      // 結合されたデータからIV(先頭12バイト)と暗号文本体を分離
+      const iv = combinedBuffer.slice(0, 12);
+      const cipherBuffer = combinedBuffer.slice(12);
+
+      const key = await getCryptoKey(secretKey);
+
+      // 復号
+      const decryptedBuffer = await crypto.subtle.decrypt(
+        { name: 'AES-GCM', iv: iv },
+        key,
+        cipherBuffer
+      );
+
+      // テキストに戻して出力
+      const decoder = new TextDecoder();
+      document.getElementById('plainText').value = decoder.decode(decryptedBuffer);
+    } catch (e) {
+      showError('復号エラー: 鍵が間違っているか、暗号文のデータが不正です。');
+    }
+  }
+</script>
+</body>
+</html>
