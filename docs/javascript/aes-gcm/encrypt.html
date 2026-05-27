@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>オフライン暗号化/復号（AES-GCM + PBKDF2）</title>
+  <style>
+    :root{
+      --bg:#0b1220; --panel:#111a2e; --panel2:#0f1730; --text:#e7ecff;
+      --muted:#a9b3d6; --border:#2a3a67; --accent:#7aa2ff; --danger:#ff6b7a;
+      --ok:#4ade80;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+      background: radial-gradient(1200px 600px at 20% 0%, #16224a 0%, var(--bg) 55%);
+      color:var(--text);
+    }
+    .wrap{max-width:1100px; margin:32px auto; padding:0 16px;}
+    h1{font-size:20px; margin:0 0 8px;}
+    .note{color:var(--muted); font-size:13px; line-height:1.5; margin-bottom:14px;}
+    .grid{display:grid; gap:14px; grid-template-columns:1fr; }
+    @media(min-width: 900px){ .grid{grid-template-columns:1fr 1fr;} }
+    .card{
+      background: linear-gradient(180deg, var(--panel) 0%, var(--panel2) 100%);
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:14px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+    }
+    label{display:block; font-size:13px; color:var(--muted); margin:10px 0 6px;}
+    textarea{
+      width:100%; min-height:240px; resize:vertical;
+      background:#0a1024; color:var(--text);
+      border:1px solid var(--border); border-radius:10px;
+      padding:10px; line-height:1.5;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Noto Sans Mono CJK JP", monospace;
+      font-size:13px;
+    }
+    input[type="password"], input[type="text"], input[type="number"]{
+      width:100%;
+      background:#0a1024; color:var(--text);
+      border:1px solid var(--border); border-radius:10px;
+      padding:10px; font-size:14px;
+    }
+    .row{display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+    .row > *{flex:1}
+    .small{flex:0 0 auto}
+    button{
+      appearance:none; border:1px solid var(--border);
+      background: #152553;
+      color:var(--text);
+      padding:10px 12px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:600;
+      transition:transform .02s ease, background .15s ease;
+      user-select:none;
+    }
+    button:hover{background:#1a2d66}
+    button:active{transform:translateY(1px)}
+    button.primary{
+      border-color: rgba(122,162,255,.55);
+      background: linear-gradient(180deg, rgba(122,162,255,.35), rgba(122,162,255,.18));
+    }
+    button.danger{background: rgba(255,107,122,.12); border-color: rgba(255,107,122,.45);}
+    button.ghost{background: transparent;}
+    .status{
+      margin-top:10px;
+      padding:10px 12px;
+      border-radius:10px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      color: var(--muted);
+      font-size:13px;
+      min-height:44px;
+      white-space:pre-wrap;
+    }
+    .status.ok{border-color: rgba(74,222,128,.45); color: rgba(74,222,128,.95);}
+    .status.err{border-color: rgba(255,107,122,.55); color: rgba(255,107,122,.95);}
+    .pill{
+      display:inline-flex; align-items:center; gap:6px;
+      border:1px solid var(--border); border-radius:999px;
+      padding:6px 10px; color:var(--muted); font-size:12px;
+      background: rgba(255,255,255,.03);
+    }
+    .footer{
+      margin-top:14px; color:var(--muted); font-size:12px; line-height:1.6;
+    }
+    code{background: rgba(255,255,255,.06); padding:2px 6px; border-radius:6px;}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>オフライン暗号化/復号（共通鍵）— AES-256-GCM + PBKDF2</h1>
+    <div class="note">
+      外部ライブラリなし。暗号文フォーマットは <code>ENCv1.&lt;salt&gt;.&lt;iv&gt;.&lt;cipher&gt;</code>（Base64URL）。
+      <br>
+      <span class="pill">鍵長: 6〜30文字</span>
+      <span class="pill">Salt: 16 bytes</span>
+      <span class="pill">IV: 12 bytes</span>
+      <span class="pill">PBKDF2(SHA-256)</span>
+      <span class="pill">AES-GCM(256)</span>
+    </div>
+
+    <div class="card">
+      <div class="row">
+        <div>
+          <label for="pass">共通鍵（パスフレーズ / 6〜30文字）</label>
+          <input id="pass" type="password" minlength="6" maxlength="30" placeholder="例: 6〜30文字の秘密鍵" autocomplete="off" />
+        </div>
+        <div class="small" style="min-width: 220px;">
+          <label for="iters">PBKDF2 反復回数</label>
+          <input id="iters" type="number" min="10000" max="2000000" step="10000" value="200000" />
+        </div>
+        <div class="small" style="min-width: 160px;">
+          <label>&nbsp;</label>
+          <button id="togglePass" class="ghost" type="button">表示/非表示</button>
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:10px;">
+        <button id="btnEncrypt" class="primary" type="button">⬇ 平文 → 暗号化 → 暗号文</button>
+        <button id="btnDecrypt" class="primary" type="button">⬆ 暗号文 → 復号 → 平文</button>
+        <button id="btnSwap" type="button">⇄ 入れ替え</button>
+        <button id="btnClear" class="danger" type="button">クリア</button>
+      </div>
+
+      <div id="status" class="status">準備完了。</div>
+
+      <div class="grid" style="margin-top:14px;">
+        <div class="card" style="padding:12px;">
+          <label for="plain">平文（ここを暗号化）</label>
+          <textarea id="plain" placeholder="ここに平文（暗号化したいテキスト）を入力"></textarea>
+          <div class="row" style="margin-top:10px;">
+            <button id="copyPlain" type="button">平文をコピー</button>
+            <button id="downloadPlain" type="button">平文を保存(.txt)</button>
+          </div>
+        </div>
+
+        <div class="card" style="padding:12px;">
+          <label for="cipher">暗号文（ここを復号）</label>
+          <textarea id="cipher" placeholder="ここに暗号文（ENCv1....）を貼り付け"></textarea>
+          <div class="row" style="margin-top:10px;">
+            <button id="copyCipher" type="button">暗号文をコピー</button>
+            <button id="downloadCipher" type="button">暗号文を保存(.enc.txt)</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <strong>注意:</strong> このツールは「ブラウザ内だけで暗号化/復号」しますが、端末がマルウェアや拡張機能で侵害されている場合は保護できません。
+        また、<code>crypto.subtle</code> は「Secure Context」でのみ使えます。動かない場合は <code>localhost</code> で開く（オフラインでも可）などを検討してください。[1](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto)[2](https://developer.mozilla.org/en-US/docs/Web/API/Crypto/subtle)[3](https://qiita.com/ripple_naip/items/e21db85fbd43f3aebf76)
+      </div>
+    </div>
+  </div>
+
+<script>
+(() => {
+  "use strict";
+
+  // ===== UI helpers =====
+  const $ = (id) => document.getElementById(id);
+  const statusEl = $("status");
+
+  function setStatus(msg, kind="") {
+    statusEl.textContent = msg;
+    statusEl.className = "status" + (kind ? " " + kind : "");
+  }
+
+  function isSubtleAvailable() {
+    return !!(window.crypto && window.crypto.subtle);
+  }
+
+  // ===== encoding helpers (Base64URL) =====
+  // Base64URL: +/ -> -_ and remove '=' padding. Good for copy/paste.
+  function base64UrlEncode(u8) {
+    let s = "";
+    const chunk = 0x8000;
+    for (let i = 0; i < u8.length; i += chunk) {
+      s += String.fromCharCode.apply(null, u8.subarray(i, i + chunk));
+    }
+    let b64 = btoa(s);
+    return b64.replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/g, "");
+  }
+
+  function base64UrlDecodeToU8(b64url) {
+    let b64 = b64url.replace(/-/g, "+").replace(/_/g, "/");
+    const pad = b64.length % 4;
+    if (pad) b64 += "=".repeat(4 - pad);
+    const bin = atob(b64);
+    const u8 = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
+    return u8;
+  }
+
+  // ===== crypto core =====
+  const enc = new TextEncoder();
+  const dec = new TextDecoder();
+
+  async function deriveAesKeyFromPassphrase(passphrase, saltU8, iterations) {
+    // Import raw passphrase as key material for PBKDF2
+    const keyMaterial = await crypto.subtle.importKey(
+      "raw",
+      enc.encode(passphrase),
+      "PBKDF2",
+      false,
+      ["deriveKey"]
+    );
+
+    return crypto.subtle.deriveKey(
+      {
+        name: "PBKDF2",
+        salt: saltU8,
+        iterations,
+        hash: "SHA-256",
+      },
+      keyMaterial,
+      { name: "AES-GCM", length: 256 },
+      false,
+      ["encrypt", "decrypt"]
+    );
+  }
+
+  function validatePass(pass) {
+    if (typeof pass !== "string") return "鍵が不正です。";
+    const len = pass.length;
+    if (len < 6 || len > 30) return "鍵の長さは 6〜30 文字にしてください。";
+    return "";
+  }
+
+  function validateIterations(n) {
+    if (!Number.isFinite(n) || n <= 0) return "反復回数が不正です。";
+    if (n < 10000) return "反復回数は 10000 以上を推奨します。";
+    return "";
+  }
+
+  function packCiphertext({salt, iv, cipher}) {
+    return `ENCv1.${base64UrlEncode(salt)}.${base64UrlEncode(iv)}.${base64UrlEncode(cipher)}`;
+  }
+
+  function unpackCiphertext(text) {
+    const t = (text || "").trim();
+    if (!t.startsWith("ENCv1.")) throw new Error("暗号文の形式が違います（ENCv1.* ではありません）。");
+    const parts = t.split(".");
+    if (parts.length !== 4) throw new Error("暗号文の形式が壊れています（区切り数が不正）。");
+    const salt = base64UrlDecodeToU8(parts[1]);
+    const iv   = base64UrlDecodeToU8(parts[2]);
+    const cipher = base64UrlDecodeToU8(parts[3]);
+    if (salt.length !== 16) throw new Error("Salt 長が不正です。");
+    if (iv.length !== 12) throw new Error("IV 長が不正です。");
+    if (cipher.length < 16) throw new Error("暗号文が短すぎます。");
+    return {salt, iv, cipher};
+  }
+
+  async function encryptText(plainText, passphrase, iterations) {
+    const salt = crypto.getRandomValues(new Uint8Array(16));
+    const iv   = crypto.getRandomValues(new Uint8Array(12));
+    const key  = await deriveAesKeyFromPassphrase(passphrase, salt, iterations);
+
+    const cipherBuf = await crypto.subtle.encrypt(
+      { name: "AES-GCM", iv },
+      key,
+      enc.encode(plainText)
+    );
+
+    return packCiphertext({ salt, iv, cipher: new Uint8Array(cipherBuf) });
+  }
+
+  async function decryptText(cipherText, passphrase, iterations) {
+    const {salt, iv, cipher} = unpackCiphertext(cipherText);
+    const key = await deriveAesKeyFromPassphrase(passphrase, salt, iterations);
+
+    const plainBuf = await crypto.subtle.decrypt(
+      { name: "AES-GCM", iv },
+      key,
+      cipher
+    );
+
+    return dec.decode(plainBuf);
+  }
+
+  // ===== actions =====
+  async function doEncrypt() {
+    try {
+      if (!isSubtleAvailable()) {
+        setStatus("この環境では crypto.subtle が利用できません（Secure Context でない可能性）。\n例: localhost で開く / HTTPS で開く などを検討してください。", "err");
+        return;
+      }
+      const pass = $("pass").value;
+      const passErr = validatePass(pass);
+      if (passErr) { setStatus(passErr, "err"); return; }
+
+      const iters = Number($("iters").value);
+      const itErr = validateIterations(iters);
+      if (itErr) { setStatus(itErr, "err"); return; }
+
+      const plain = $("plain").value;
+      if (!plain) { setStatus("平文が空です。", "err"); return; }
+
+      setStatus("暗号化中…");
+      const out = await encryptText(plain, pass, iters);
+      $("cipher").value = out;
+      setStatus("暗号化しました。暗号文を右側に出力しました。", "ok");
+    } catch (e) {
+      setStatus("暗号化に失敗しました:\n" + (e && e.message ? e.message : String(e)), "err");
+    }
+  }
+
+  async function doDecrypt() {
+    try {
+      if (!isSubtleAvailable()) {
+        setStatus("この環境では crypto.subtle が利用できません（Secure Context でない可能性）。\n例: localhost で開く / HTTPS で開く などを検討してください。", "err");
+        return;
+      }
+      const pass = $("pass").value;
+      const passErr = validatePass(pass);
+      if (passErr) { setStatus(passErr, "err"); return; }
+
+      const iters = Number($("iters").value);
+      const itErr = validateIterations(iters);
+      if (itErr) { setStatus(itErr, "err"); return; }
+
+      const cipher = $("cipher").value;
+      if (!cipher.trim()) { setStatus("暗号文が空です。", "err"); return; }
+
+      setStatus("復号中…");
+      const out = await decryptText(cipher, pass, iters);
+      $("plain").value = out;
+      setStatus("復号しました。平文を左側に出力しました。", "ok");
+    } catch (e) {
+      // AES-GCMの認証タグ不一致や鍵違いはここに来る
+      setStatus("復号に失敗しました（鍵が違う / 暗号文が壊れている / 反復回数が違う など）:\n" + (e && e.message ? e.message : String(e)), "err");
+    }
+  }
+
+  function swapText() {
+    const p = $("plain").value;
+    const c = $("cipher").value;
+    $("plain").value = c;
+    $("cipher").value = p;
+    setStatus("入れ替えました。");
+  }
+
+  function clearAll() {
+    $("plain").value = "";
+    $("cipher").value = "";
+    setStatus("クリアしました。");
+  }
+
+  async function copyFrom(el) {
+    const text = el.value || "";
+    if (!text) { setStatus("コピーする内容が空です。", "err"); return; }
+    try {
+      await navigator.clipboard.writeText(text);
+      setStatus("クリップボードにコピーしました。", "ok");
+    } catch {
+      // fallback
+      el.focus();
+      el.select();
+      const ok = document.execCommand("copy");
+      setStatus(ok ? "コピーしました（fallback）。" : "コピーに失敗しました。", ok ? "ok" : "err");
+    }
+  }
+
+  function downloadText(filename, text) {
+    const blob = new Blob([text], {type:"text/plain;charset=utf-8"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+    setStatus(`保存しました: ${filename}`, "ok");
+  }
+
+  function togglePass() {
+    const inp = $("pass");
+    inp.type = (inp.type === "password") ? "text" : "password";
+    setStatus(inp.type === "text" ? "鍵を表示中（周囲に注意）。" : "鍵を非表示にしました。");
+  }
+
+  // ===== bind =====
+  $("btnEncrypt").addEventListener("click", doEncrypt);
+  $("btnDecrypt").addEventListener("click", doDecrypt);
+  $("btnSwap").addEventListener("click", swapText);
+  $("btnClear").addEventListener("click", clearAll);
+  $("togglePass").addEventListener("click", togglePass);
+
+  $("copyPlain").addEventListener("click", () => copyFrom($("plain")));
+  $("copyCipher").addEventListener("click", () => copyFrom($("cipher")));
+  $("downloadPlain").addEventListener("click", () => downloadText("plaintext.txt", $("plain").value || ""));
+  $("downloadCipher").addEventListener("click", () => downloadText("ciphertext.enc.txt", $("cipher").value || ""));
+
+  // initial environment check
+  if (!isSubtleAvailable()) {
+    setStatus("警告: crypto.subtle が利用できません。\nこのページの開き方（Secure Context）により、暗号化/復号ができない場合があります。", "err");
+  }
+})();
+</script>
+</body>
+</html>
